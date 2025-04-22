@@ -1,14 +1,8 @@
 #footer {
-  padding: 50px 0;
-  background-color: #000000;
-  color: #FFFFFF;
-
+  padding: 90px 0 60px;
+  border-top: 1px solid #DADADA;
   .main-text {
-    h2 {
-      font-weight: 500;
-      font-size: 24.99px;
-      line-height: 100%;
-      color: #EE9026;
+    .logo{
       margin-bottom: 24px;
     }
     p{
@@ -32,11 +26,11 @@
       margin-bottom: 16px;
 
       a {
-        color: #FFFFFF;
+        color: #000000;
         transition: color 0.2s ease;
 
         &:hover {
-          color: #EE9026;
+          color: #00a367;
         }
       }
     }
@@ -77,7 +71,7 @@
             transition: color 0.2s ease;
 
             &:hover {
-              color: #EE9026;
+              color: #00a367;
             }
           }
         }
@@ -108,7 +102,7 @@
           font-size: 20px;
           transition: all 0.2s ease;
           &:hover{
-            color: #EE9026;
+            color: #00a367;
           }
         }
 
@@ -121,7 +115,7 @@
     .createdBy{
       text-align: end;
       a{
-        color: white;
+        color: black;
         font-weight: 500;
         cursor: pointer;
       }

@@ -1,234 +1,187 @@
+import { useState, useEffect } from 'react';
 import './index.scss';
-import React, { useState, useRef, useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { MdOutlineLocationOn } from 'react-icons/md';
-import { FiMenu, FiX } from 'react-icons/fi';
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
-// import Cookies from 'js-cookie'; // Cookies-i çıxarırıq
+import AOS from 'aos'; // Import AOS
+import 'aos/dist/aos.css'; // Import AOS styles
 
-// Resim importları
-import logo from '/src/assets/logo.png';
-import flagAZ from '/src/assets/az.png';
-import flagEN from '/src/assets/en.png';
-import flagRU from '/src/assets/ru.png';
-import {FaFacebook, FaInstagram, FaTiktok} from "react-icons/fa";
+import flagAz from '/src/assets/azerbaijan.png';
+import flagEn from '/src/assets/uk.png';
+import flagRu from '/src/assets/circle.png';
+import image1 from '/src/assets/Logo.png';
+import { FaChevronDown } from "react-icons/fa";
 
 function Navbar() {
+    const [menuOpen, setMenuOpen] = useState(false);
+    const [langDropdownOpen, setLangDropdownOpen] = useState(false);
+    const [toursDropdownOpen, setToursDropdownOpen] = useState(false);
+
+    const [langTimeoutId, setLangTimeoutId] = useState(null);
+    const [toursTimeoutId, setToursTimeoutId] = useState(null);
+
     const { t, i18n } = useTranslation();
     const navigate = useNavigate();
-    const { pathname } = useLocation();
+    const location = useLocation();
 
-    // Diller üçün tek bir obje:
-    const languages = {
-        az: { label: 'AZ', flag: flagAZ },
-        en: { label: 'EN', flag: flagEN },
-        ru: { label: 'RU', flag: flagRU },
-    };
-
-    // İlk seçim: localStorage-dan götür, əgər yoxdursa default olaraq 'az' seçilsin
-    const [selectedLanguage, setSelectedLanguage] = useState(localStorage.getItem('sssLanguage') || 'az');
-    const [langDropdown, setLangDropdown] = useState(false);
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-    const dropdownRef = useRef(null);
-    const buttonRef = useRef(null);
-
-    // Component mount olanda seçilmiş dili yoxlayırıq
     useEffect(() => {
-        const storedLang = localStorage.getItem('sssLanguage');
-        if (storedLang && languages[storedLang]) {
-            setSelectedLanguage(storedLang);
+        // Initialize AOS
+        AOS.init({
+            duration: 100, // Animation duration (0.5s)
+            easing: 'ease-out', // Smooth easing
+            once: true, // Animate only once
+        });
+
+        const storedLang = localStorage.getItem('i18nextLng');
+        if (storedLang && storedLang !== i18n.language) {
             i18n.changeLanguage(storedLang);
         }
     }, [i18n]);
 
-    const toggleLangDropdown = () => {
-        setLangDropdown(prev => !prev);
-    };
-
-    const handleLanguageSelect = (lang) => {
-        setSelectedLanguage(lang);
-        setLangDropdown(false);
-        i18n.changeLanguage(lang);
-        localStorage.setItem('sssLanguage', lang); // Cookies istifadə olunmur
-    };
-
     const toggleMenu = () => {
-        setIsMenuOpen(prev => !prev);
+        setMenuOpen(!menuOpen);
     };
 
-    const openSidebar = () => {
-        setIsSidebarOpen(true);
+    const toggleLangDropdown = () => {
+        setLangDropdownOpen(!langDropdownOpen);
     };
 
-    const closeSidebar = () => {
-        setIsSidebarOpen(false);
+    const toggleToursDropdown = () => {
+        setToursDropdownOpen(!toursDropdownOpen);
     };
 
-    // Dropdown dışına tıklanınca kapatmaq üçün
-    useEffect(() => {
-        function handleClickOutside(event) {
-            if (
-                dropdownRef.current &&
-                !dropdownRef.current.contains(event.target) &&
-                buttonRef.current &&
-                !buttonRef.current.contains(event.target)
-            ) {
-                setLangDropdown(false);
-            }
+    const handleLanguageChange = (lng) => {
+        i18n.changeLanguage(lng);
+        localStorage.setItem('i18nextLng', lng);
+        setLangDropdownOpen(false);
+    };
+
+    let currentFlag = flagAz; // default
+    if (i18n.language?.startsWith("en")) {
+        currentFlag = flagEn;
+    } else if (i18n.language?.startsWith("ru")) {
+        currentFlag = flagRu;
+    } else if (i18n.language?.startsWith("az")) {
+        currentFlag = flagAz;
+    }
+
+    // Language dropdown timeout handlers
+    const handleLangMouseEnter = () => {
+        if (langTimeoutId) {
+            clearTimeout(langTimeoutId);
+            setLangTimeoutId(null);
         }
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, []);
+    };
 
-    // Route dəyişince mobil menü kapanacaq
-    useEffect(() => {
-        setIsMenuOpen(false);
-    }, [pathname]);
+    const handleLangMouseLeave = () => {
+        const timeout = setTimeout(() => {
+            setLangDropdownOpen(false);
+        }, 1000);
+        setLangTimeoutId(timeout);
+    };
+
+    // Tours dropdown timeout handlers
+    const handleToursMouseEnter = () => {
+        if (toursTimeoutId) {
+            clearTimeout(toursTimeoutId);
+            setToursTimeoutId(null);
+        }
+    };
+
+
 
     return (
-        <section id="navbar">
-            <div className="container">
-                <nav>
-                    <div className="img">
+        <section
+            id="myNavbar"
+            data-aos="slide-down" // AOS slide-down animation
+            data-aos-delay="100" // Slight delay for smooth transition
+            data-aos-anchor-placement="top-center" // Trigger when top enters viewport
+        >
+            <div className={"linear"}>
+
+            </div>
+            <div className="container" style={{padding:"8px"}}>
+                <div className="wrapper">
+                    <div className="logo">
                         <img
-                            src={logo}
+                            src={image1 }
                             alt="Logo"
-                            onClick={() => navigate('/')}
+                            onClick={() => {
+                                navigate('/');
+                                setMenuOpen(false);
+                            }}
                             style={{ cursor: 'pointer' }}
                         />
                     </div>
-
-                    <div className="links">
-                        <Link to="/" className={`link ${pathname === '/' ? 'selected' : ''}`}>
-                            {t('menu.home')}
+                    <nav className={`nav-links ${menuOpen ? 'active' : ''}`}>
+                        <Link
+                            to="/"
+                            className={`link ${location.pathname === '/' ? 'active' : ''}`}
+                            onClick={() => setMenuOpen(false)}
+                        >
+                            Ana səhifə
                         </Link>
-                        <Link to="/services" className={`link ${pathname === '/services' ? 'selected' : ''}`}>
-                            {t('menu.services')}
+                        <Link
+                            to="/services"
+                            className={`link ${location.pathname === '/services' ? 'active' : ''}`}
+                            onClick={() => setMenuOpen(false)}
+                        >
+                            Xidmətlər
                         </Link>
-                        <Link to="/portfolio" className={`link ${pathname === '/portfolio' ? 'selected' : ''}`}>
-                            {t('menu.portfolio')}
+                        <Link
+                            to="/clinics"
+                            className={`link ${location.pathname === '/clinics' ? 'active' : ''}`}
+                            onClick={() => setMenuOpen(false)}
+                        >
+                            Klinikalar
                         </Link>
-                        <Link to="/about" className={`link ${pathname === '/about' ? 'selected' : ''}`}>
-                            {t('menu.about')}
+                        <Link
+                            to="/about"
+                            className={`link ${location.pathname === '/about' ? 'active' : ''}`}
+                            onClick={() => setMenuOpen(false)}
+                        >
+                            Haqqımızda
                         </Link>
-                        <Link to="/contact" className={`link ${pathname === '/contact' ? 'selected' : ''}`}>
-                            {t('menu.contact')}
+                        <Link
+                            to="/contact"
+                            className={`link ${location.pathname === '/contact' ? 'active' : ''}`}
+                            onClick={() => setMenuOpen(false)}
+                        >
+                            Əlaqə
                         </Link>
-                    </div>
+                    </nav>
 
-                    <div className="location-wrapper">
-                        <div onClick={toggleLangDropdown} ref={buttonRef} className="selectedLanguage">
-                            <img
-                                src={languages[selectedLanguage].flag}
-                                alt={`${languages[selectedLanguage].label} bayrağı`}
-                                className="flag-icon"
-                            />
-                            <span className="span">{languages[selectedLanguage].label}</span>
-                        </div>
-
-                        {/* Lokasyon ikonu: tıklanınca sidebar açılsın */}
-                        <div className="location" onClick={openSidebar}>
-                            <MdOutlineLocationOn className="icon" />
-                        </div>
-
-                        {langDropdown && (
-                            <div className="language-dropdown open" ref={dropdownRef}>
-                                <ul>
-                                    {Object.keys(languages).map((langKey) => (
-                                        <li key={langKey} onClick={() => handleLanguageSelect(langKey)}>
-                                            <img
-                                                src={languages[langKey].flag}
-                                                alt={`${languages[langKey].label} Bayrağı`}
-                                            />
-                                            <span className="span">{languages[langKey].label}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        )}
-
-                        <div className="burger-menu" onClick={toggleMenu}>
-                            {isMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
-                        </div>
-                    </div>
-                </nav>
-            </div>
-
-            {isMenuOpen && (
-                <div className="mobile-menu">
-                    <Link to="/" className={`mobile-link ${pathname === '/' ? 'selected' : ''}`}>
-                        {t('menu.home')}
-                    </Link>
-                    <Link to="/services" className={`mobile-link ${pathname === '/services' ? 'selected' : ''}`}>
-                        {t('menu.services')}
-                    </Link>
-                    <Link to="/portfolio" className={`mobile-link ${pathname === '/portfolio' ? 'selected' : ''}`}>
-                        {t('menu.portfolio')}
-                    </Link>
-                    <Link to="/about" className={`mobile-link ${pathname === '/about' ? 'selected' : ''}`}>
-                        {t('menu.about')}
-                    </Link>
-                    <Link to="/contact" className={`mobile-link ${pathname === '/contact' ? 'selected' : ''}`}>
-                        {t('menu.contact')}
-                    </Link>
-                </div>
-            )}
-
-            {/* Soldan açılan Sidebar */}
-            {isSidebarOpen && (
-                <div className="sidebar-overlay" onClick={closeSidebar}>
-                    <div
-                        className={`sidebar ${isSidebarOpen ? 'active' : ''}`}
-                        onClick={(e) => e.stopPropagation()}
-                    >
-                        {/* Header with title & close button */}
-                        <div className="sidebar-header">
-                            <h2> {t('menu.headerTitle')}</h2>
-                            <button className="close-btn" onClick={closeSidebar}>
-                                <FiX size={24} />
+                    <div className="language">
+                        <div
+                            className="dropdown"
+                            onClick={toggleLangDropdown}
+                            onMouseEnter={handleLangMouseEnter}
+                            onMouseLeave={handleLangMouseLeave}
+                        >
+                            <button className="dropbtn">
+                                <img src={currentFlag} alt="Current Flag" />
+                                <FaChevronDown className={"zakirinChevronu"} />
                             </button>
-                        </div>
-
-                        {/* Main content */}
-                        <div className="sidebar-content">
-                            <address>
-                                <p><a href={"tel:994552999555"}>+994 55 299 95 55</a></p>
-                                <p><a href={"mailto:info.sssinsaat@gmail.com"}>
-                                    info.sssinsaat@gmail.com
-                                </a></p>
-                                </address>
-
-                            <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d2143.2871150885803!2d49.820814339935694!3d40.39212129227946!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNDDCsDIzJzMyLjYiTiA0OcKwNDknMTkuMiJF!5e1!3m2!1saz!2saz!4v1744207493172!5m2!1saz!2saz"
-                                width="100%"
-                                height="300"
-                                style={{ border: 0 }}
-                                allowFullScreen=""
-                                loading="lazy"
-                                referrerPolicy="no-referrer-when-downgrade"
-                                title="Google Map"
-                            />
-                        </div>
-
-                        {/* Footer (social icons, etc.) */}
-                        <div className="sidebar-footer">
-                            <a href="https://www.facebook.com/people/Ssogluconstructions/61570216319110/" aria-label="Facebook" target={"_blank"}>
-                                <FaFacebook />
-                            </a>
-                            <a href="https://www.instagram.com/ssoglu.construction/" aria-label="Instagram" target={"_blank"}>
-                                <FaInstagram />
-                            </a>
-                            <a href="https://www.tiktok.com/@ssoglu.construction" aria-label="Tiktok" target={"_blank"}>
-                                <FaTiktok />
-                            </a>
+                            <div className={`dropdown-content ${langDropdownOpen ? 'show' : ''}`}>
+                                <div onClick={() => handleLanguageChange('az')}>
+                                    <img src={flagAz} alt="AZ Flag" /> AZ
+                                </div>
+                                <div onClick={() => handleLanguageChange('en')}>
+                                    <img src={flagEn} alt="EN Flag" /> EN
+                                </div>
+                                <div onClick={() => handleLanguageChange('ru')}>
+                                    <img src={flagRu} alt="RU Flag" /> RU
+                                </div>
+                            </div>
                         </div>
                     </div>
+
+                    <div className="burger" onClick={toggleMenu}>
+                        <div className="line1"></div>
+                        <div className="line2"></div>
+                        <div className="line3"></div>
+                    </div>
                 </div>
-            )}
+            </div>
         </section>
     );
 }
