@@ -6,7 +6,7 @@ import {Trans, useTranslation} from "react-i18next";
 import {IoLogoWhatsapp} from "react-icons/io";
 import {AiFillInstagram} from "react-icons/ai";
 import {FaFacebook, FaTiktok} from "react-icons/fa";
-import image1 from "../../../assets/Logo.png";
+import image1 from "../../../assets/FootLogo.png";
 
 function Footer() {
     const { t } = useTranslation();

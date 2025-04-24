@@ -2,16 +2,13 @@ import MainPage from "../pages/index.jsx";
 // import HomePage from "../pages/UserPages/HomePage/index.jsx";
 // import AdminPage from "../components/AdminComponents/AdminPage/index.jsx";
 // import NotFound from "../pages/UserPages/Not Found/NotFound.jsx";
-// import Contact from "../pages/UserPages/Contact/index.jsx";
-// import Portfolio from "../pages/UserPages/Portfolio/index.jsx";
+import Contact from "../pages/UserPages/Contact/index.jsx";
 // import Services from "../pages/UserPages/Services/index.jsx";
-// import PortfolioDetail from "../pages/UserPages/PortfolioDetail/index.jsx";
-// import AdminBrand from "../pages/AdminPages/AdminContact/index.jsx";
 import AboutUs from "../pages/UserPages/AboutUs/index.jsx";
 // import AdminLogin from "../pages/AdminPages/AdminLogin/index.jsx";
 import ProtectedRoute from "../ProtectedRoute.jsx";
-// import AdminPortfolio from "../pages/AdminPages/AdminPortfolio/index.jsx";
-// import AdminServices from "../pages/AdminPages/AdminServices/index.jsx";
+import ServiceDetail from "../pages/UserPages/ServiceDetail/index.jsx";
+import ClinicDetail from "../pages/UserPages/ClinicDetail/index.jsx";
 
 
 const router = [
@@ -25,7 +22,7 @@ const router = [
             },
             {
                 path: "/contact",
-                // element: <Contact/>
+                element: <Contact/>
             },
             {
                 path: "/portfolio",
@@ -36,8 +33,12 @@ const router = [
                 // element: <Services/>
             },
             {
-                path: "/portfolio/:id",
-                // element: <PortfolioDetail/>
+                path: "/services/:id",
+                element: <ServiceDetail/>
+            },
+            {
+                path: "/clinics/:id",
+                element: <ClinicDetail/>
             },
             {
                 path: "/about",

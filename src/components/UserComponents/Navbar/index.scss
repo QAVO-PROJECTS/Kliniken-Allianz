@@ -32,8 +32,8 @@
     justify-content: space-between;
 
     .logo img {
-      width: 120px;
-      aspect-ratio: 16/9;
+      width: 180px;
+      aspect-ratio: 16/4;
       object-fit: contain;
       @media (max-width: 991.98px) { // MD ölçü
         height: 50px;
