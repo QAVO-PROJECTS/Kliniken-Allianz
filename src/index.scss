@@ -31,7 +31,9 @@ body>div {
   flex-wrap: wrap;
 }
 
-
+button{
+  cursor: pointer;
+}
 @for $i from 1 through 12 {
   .col-#{$i} {
     width: calc(100% / 12 * #{$i});

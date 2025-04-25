@@ -1,0 +1,75 @@
+#home-clinic{
+  margin-bottom: 80px;
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 60px;
+      padding: 0 16px;
+      .content { 
+        width: 64%;
+
+        h2 {
+          font-weight: 600;
+          font-size: 24px;
+          line-height: 60px;
+          margin-bottom: 8px;
+        }
+
+        p {
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 35px;
+          color: #727272;
+        }
+      }
+
+      .navigationBtn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        button {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border: none;
+          font-size: 16px;
+          cursor: pointer;
+
+          &.prev {
+            background-color: white;
+            border: 1px solid #303030;
+            color: #303030;
+          }
+
+          &.next {
+            background-color: #1f1f1f;
+            color: #fff;
+          }
+        }
+      }
+    }
+
+    .slider-wrapper {
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .slider-card {
+      display: flex;
+      flex-wrap: nowrap;
+      width: calc(100% * 4 / 4);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .slider-card > * {
+      flex: 0 0 25%; /* Each card takes exactly 25% of the slider-wrapper width */
+      box-sizing: border-box;
+      padding: 0 10px; /* Optional: spacing between cards */
+    }
+
+}

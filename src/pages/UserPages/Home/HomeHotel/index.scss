@@ -1,0 +1,52 @@
+#home-hotel{
+  padding:  0 0 70px;
+.head{
+  padding: 0 10px;
+  h2{
+    color: #000;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 60px; /* 250% */
+    margin-bottom: 32px;
+  }
+}
+  .slider-wrapper {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .slider-card {
+    display: flex;
+    flex-wrap: nowrap;
+    width: calc(100% * 4 / 4);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .slider-card > * {
+    flex: 0 0 25%; /* Each card takes exactly 25% of the slider-wrapper width */
+    box-sizing: border-box;
+    padding: 0 10px; /* Optional: spacing between cards */
+  }
+
+  .custom-pagination {
+    text-align: center;
+    margin-top: 60px;
+  }
+
+  .custom-bullet {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin: 0 3px;
+    background: none;
+    border: 0.76px solid #D3D3D3;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .custom-bullet.active {
+    background: #00DA7B;
+  }
+}

@@ -1,0 +1,71 @@
+#bestServCard{
+  padding: 24px 22px;
+  border: 1px solid #E3E3E3;
+  background: #FFF;
+  .image{
+    width: 100%;
+    position: relative;
+    margin-bottom: 48px;
+    div{
+      position: absolute;
+      width: 74px;
+      height: 74px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      bottom:-25px;
+      left: 90px;
+      border-radius: 42px 42px 0px 42px;
+      border: 1px solid #EEE;
+      background: #FFF;
+      box-shadow: 0px 1px 3.1px 0px rgba(151, 151, 151, 0.22);
+      img{
+        width: 36px;
+        aspect-ratio: 1/1;
+        object-fit: cover;
+      }
+    }
+    img{
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+  .content{
+    text-align: center;
+    h4{
+      color: #1F1F1F;
+      text-align: center;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+      margin-bottom: 8px;
+    }
+    p{
+      color: #686868;
+      text-align: center;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 21px; /* 175% */
+      margin-bottom: 8px;
+
+    }
+    div{
+
+      button{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        background: none;
+        color: #00DA7B;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 30px; /* 214.286% */
+        margin: auto;
+      }
+    }
+  }
+}
