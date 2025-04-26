@@ -1,0 +1,149 @@
+#doktorDetail{
+  padding: 140px 0;
+
+  .head {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 90px;
+
+    p {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+
+      .dot {
+        width: 12px;
+        height: 12px;
+        background-color: #c2c2c2c7;
+        border-radius: 50%;
+        margin: 0 8px 0 16px;
+
+        &.active {
+          background-color: #47d1d6c7;
+        }
+      }
+
+      a {
+        color: #686868;
+        transition: all 0.3s ease-in-out;
+
+        &:hover {
+          color: rgba(62, 149, 152, 0.78);
+        }
+      }
+    }
+  }
+  .doktorContainer{
+    max-width: 670px;
+    margin: 0 auto;
+    .doktor{
+      display: flex;
+      width: 497px;
+      padding: 24px 24px 12px 2px;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 50px;
+      .image{
+        width: 147px;
+        aspect-ratio: 1 / 1.2;
+        img{
+          width: 100%;
+          height: 100%;
+            object-fit: cover;
+        }
+      }
+      .content{
+        padding: 18.5px 7px;
+        h2{
+          color: #2C2C2C;
+          font-size: 18px;
+          font-style: normal;
+          font-weight: 600;
+          line-height: 21px; /* 116.667% */
+          margin-bottom: 16px;
+        }
+        p{
+          color: #505050;
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: 21px; /* 131.25% */
+          margin-bottom: 8px;
+        }
+        .stars{
+          margin-bottom: 16px;
+        }
+        .about{
+          display: flex;
+          gap: 24px;
+          align-items: center;
+          div{
+            display: flex;
+            align-items: center;
+            gap: 8px;
+          }
+          span{
+            color: #828282;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 24px; /* 171.429% */
+          }
+        }
+      }
+    }
+    .doktorDetail{
+      padding: 67px 79.919px 35.129px 80px;
+      border-radius: 15px;
+      border: 0.95px solid #E5E5E5;
+      background: #FFF;
+      .first-section{
+        padding: 0 8px;
+        margin-bottom: 27px;
+        h2{
+          color: #2C2C2C;
+          font-family: Poppins;
+          font-size: 18px;
+          font-style: normal;
+          font-weight: 600;
+          line-height: 21px; /* 116.667% */
+          margin-bottom: 32px;
+        }
+        .bio{
+          display: flex;
+          gap: 8px;
+          margin-bottom: 16px;
+        h3{
+          color: #2C2C2C;
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: 21px; /* 131.25% */
+          margin-bottom: 8px;
+        }
+          p{
+            color: #8C8C8C;
+       font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 21px; /* 150% */
+          }
+        }
+      }
+      .second-section{
+
+        h2{
+          padding: 0 8px;
+          color: #2C2C2C;
+          font-size: 18px;
+          font-style: normal;
+          font-weight: 600;
+          line-height: 21px; /* 116.667% */
+        }
+      }
+    }
+  }
+}

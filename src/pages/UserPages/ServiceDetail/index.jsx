@@ -33,9 +33,9 @@ function ServiceDetail() {
                     <p data-aos="fade-up" data-aos-delay="100">
                         <Link to={"/"}>Ana səhifə</Link>
                         <div className={"dot"}></div>
-                        <Link to={"/contact"}>Xidmətlər</Link>
+                        <Link to={"/services"}>Xidmətlər</Link>
                         <div className={"dot active"}></div>
-                        <Link to={"/contact"}>Xidmətlər</Link>
+                        <Link to={"/services/:id"}>Xidmətlər</Link>
                     </p>
                 </div>
                 <div className={"row first-section"}>

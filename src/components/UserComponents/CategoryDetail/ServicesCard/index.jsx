@@ -1,0 +1,17 @@
+import "./index.scss"
+import icon from "/src/assets/icon1.png"
+function ServicesCardCategory() {
+    return (
+        <div className={"col-3"}>
+            <div id={"servCardCategory"} >
+                <div>
+                    <img src={icon} />
+                </div>
+                <h4>Xərçəng müalicəsi</h4>
+                <p>Həyat keyfiyyətinizi yüksəltmək üçün ən yeni xərçəng müalicə üsulları.</p>
+            </div>
+        </div>
+    );
+}
+
+export default ServicesCardCategory;
