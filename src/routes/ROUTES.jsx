@@ -75,7 +75,7 @@ const router = [
     },
     {
         path: "*",
-        element: <NotResult/>
+        element: <NotFound/>
     }
 ];
 
