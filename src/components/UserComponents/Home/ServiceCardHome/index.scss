@@ -2,6 +2,12 @@
  padding: 44px 30px;
   border-radius: 22px;
   border: 1px solid #E8E8E8;
+ transition: all 0.3s ease-in-out;
+ &:hover{
+  border-radius: 22px;
+  border: 1px solid #00DA7B;
+  background: rgba(230, 255, 245, 0.44);
+ }
  .icons{
   width: 74px;
   height: 74px;
