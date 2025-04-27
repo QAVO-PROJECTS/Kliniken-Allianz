@@ -2,37 +2,36 @@ import  { useState } from 'react';
 import Cookies from 'js-cookie';
 import './index.scss';
 import banner from '/src/assets/Group 47.png';
-// import back from '/src/assets/loginBack.png';
 import {useNavigate} from "react-router-dom";
-// import {usePostAdminLoginMutation} from "../../../services/userApi.jsx";
-// import showToast from "../../../components/ToastMessage.js";
+import {usePostAdminLoginMutation} from "../../../services/userApi.jsx";
+import showToast from "../../../components/ToastMessage.js";
 
 function AdminLogin() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    // const [postAdminLogin] = usePostAdminLoginMutation();
+    const [postAdminLogin] = usePostAdminLoginMutation();
     const navigate = useNavigate();
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-    //     try {
-    //         const response = await postAdminLogin({ email, password }).unwrap();
-    //         // showToast("Giriş uğurlu oldu !","success")
-    //         setTimeout(navigate("/admin/portfolio"), 2000);
-    //         if (response.data && response.data.token) {
-    //             const token = response.data.token;
-    //             const expireDate = new Date(response.data.expireDate);
-    //             Cookies.set('sssToken', token, {
-    //                 expires: expireDate,
-    //                 secure: true,
-    //                 sameSite: 'strict'
-    //             });
-    //         } else {
-    //             Cookies.set('sssToken', 'null');
-    //         }
-    //     } catch  {
-    //         alert('Giriş zamanı xəta baş verdi:');
-    //     }
-    // };
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await postAdminLogin({ email, password }).unwrap();
+            showToast("Giriş uğurlu oldu !","success")
+            setTimeout(navigate("/admin/category"), 2000);
+            if (response.data && response.data.token) {
+                const token = response.data.token;
+                const expireDate = new Date(response.data.expireDate);
+                Cookies.set('klinikenToken', token, {
+                    expires: expireDate,
+                    secure: true,
+                    sameSite: 'strict'
+                });
+            } else {
+                Cookies.set('klinikenToken', 'null');
+            }
+        } catch  {
+            alert('Giriş zamanı xəta baş verdi:');
+        }
+    };
 
     return (
         <div className="login-panel">
@@ -43,7 +42,7 @@ function AdminLogin() {
                     <p>Admin panelə giriş</p>
                 </div>
 
-                <form className="form" onSubmit={"handleSubmit"}>
+                <form className="form" onSubmit={handleSubmit}>
                     <div className="form-group">
                         <label>Email</label>
                         <input

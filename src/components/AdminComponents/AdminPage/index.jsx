@@ -8,7 +8,7 @@ function AdminPage() {
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        Cookies.remove('sssToken');
+        Cookies.remove('klinikenToken');
         navigate('/');
     };
 
