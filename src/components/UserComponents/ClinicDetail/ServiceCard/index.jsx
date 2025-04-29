@@ -2,7 +2,7 @@ import "./index.scss"
 import icon from "/src/assets/icon1.png"
 function ClinicDetailServiceCard() {
     return (
-        <div className={"col-3"}>
+        <div className={"col-3 col-md-6 col-sm-6 col-xs-6"}>
             <div id={"clinicDetailServCard"}>
                 <div>
                     <img src={icon} />

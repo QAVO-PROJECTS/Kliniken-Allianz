@@ -21,6 +21,7 @@
     width: 100%;
     text-align: center;
     margin-bottom: 220px;
+
     h1 {
       font-weight: 500;
       font-size: 48px;
@@ -53,10 +54,41 @@
         }
       }
     }
+    @media screen and (max-width: 576px) {
+      margin-bottom: 52px;
+      h1{
+        font-size: 18px;
+        line-height: 27px; /* 150% */
+      }
+      p{
+        font-size: 14px;
+        line-height: 24px; /* 171.429% */
+      }
+    }
   }
   .firstRow{
     align-items: center;
     margin-bottom: 100px;
+    @media screen and (max-width: 576px) {
+      margin-bottom: 70px;
+    }
+    .col-7 {
+      order: 1;
+    }
+
+    .col-5 {
+      order: 2;
+    }
+
+    // Mobile: col-5 (image) first, col-7 (content) second
+    @media (max-width: 576px) {
+      .col-7 {
+        order: 2;
+      }
+      .col-5 {
+        order: 1;
+      }
+    }
     .content{
       h2{
         font-weight: 600;
@@ -100,6 +132,18 @@
 
         }
       }
+      @media screen and (max-width: 576px) {
+        h2{
+          font-size: 20px;
+          line-height: 30px; /* 150% */
+          margin-bottom: 15px;
+        }
+        p{
+          font-size: 16px;
+          line-height: 28px;
+          margin-bottom: 24px;
+        }
+      }
     }
     .image{
       width: 100%;
@@ -112,7 +156,7 @@
   }
   .main{
     .aboutCard{
-      padding: 30.5px 15px;
+      padding: 30.5px 16px;
       border: 1px solid #E3E3E3;
       border-radius: 10px;
       div{
@@ -141,6 +185,37 @@
         text-align: center;
         color: #828282;
       }
+    }
+  }
+  .icons{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    top: 25%;
+    width: 100%;
+    @media screen and (max-width: 576px) {
+      display: none;
+    }
+    .icon1{
+      position: absolute;
+      top: -25px;
+      left:44px;
+    }
+    .icon2{
+      position: absolute;
+      top: -25px;
+      left:440px;
+    }
+    .icon3{
+      position: absolute;
+      top: -55px;
+      right:440px;
+    }
+    .icon4{
+      position: absolute;
+      top: -25px;
+      right:44px;
     }
   }
 }

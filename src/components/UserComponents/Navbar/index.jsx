@@ -86,7 +86,28 @@ function Navbar() {
             setToursTimeoutId(null);
         }
     };
-
+    const handleScrollClinic = () => {
+        const element = document.getElementById('home-clinic');
+        if (element) {
+            const offset = -100; // Adjust this value (negative for above, positive for below)
+            const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+            window.scrollTo({
+                top: elementPosition + offset,
+                behavior: 'smooth'
+            });
+        }
+    };
+    const handleScrollServices = () => {
+        const element = document.getElementById('home-best-service');
+        if (element) {
+            const offset = -100; // Adjust this value (negative for above, positive for below)
+            const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+            window.scrollTo({
+                top: elementPosition + offset,
+                behavior: 'smooth'
+            });
+        }
+    };
 
 
     return (
@@ -121,16 +142,22 @@ function Navbar() {
                             Ana səhifə
                         </Link>
                         <Link
-                            to="/services"
+                            to="/"
                             className={`link ${location.pathname === '/services' ? 'active' : ''}`}
-                            onClick={() => setMenuOpen(false)}
+                            onClick={() => {
+                                setMenuOpen(false);
+                                handleScrollServices()
+                            }}
                         >
                             Xidmətlər
                         </Link>
                         <Link
-                            to="/clinics"
+                            to="/"
                             className={`link ${location.pathname === '/clinics' ? 'active' : ''}`}
-                            onClick={() => setMenuOpen(false)}
+                            onClick={() => {
+                                setMenuOpen(false);
+                                handleScrollClinic()
+                            }}
                         >
                             Klinikalar
                         </Link>

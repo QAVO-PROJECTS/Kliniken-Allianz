@@ -4,10 +4,12 @@
   background-size: cover;
   background-position: center;
   overflow: hidden;
-  height: 350px;
+  height: 300px !important;
   cursor: pointer;
   background-color: #1F674D82;
-
+  @media screen and (max-width: 576px){
+    height: 250px !important;
+  }
   .overlay {
     position: absolute;
     inset: 0;

@@ -1,9 +1,10 @@
 import './index.scss';
 import HotelCard from '../../../../components/UserComponents/Home/HotelCard/index.jsx';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 
 function HomeHotel() {
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [visibleCards, setVisibleCards] = useState(4); // Default to 4 cards
     const sliderRef = useRef(null);
     const isDragging = useRef(false);
     const startPos = useRef(0);
@@ -11,14 +12,39 @@ function HomeHotel() {
     const prevTranslate = useRef(0);
 
     const cards = [1, 2, 3, 4, 5, 6];
-    const visibleCards = 4;
-    const maxIndex = cards.length - visibleCards;
+    const maxIndex = cards.length - visibleCards; // Dynamic maxIndex based on visibleCards
+
+    // Detect screen size and set visibleCards
+    useEffect(() => {
+        const updateVisibleCards = () => {
+            if (window.innerWidth <= 576) {
+                setVisibleCards(2); // 2 cards on mobile
+            } else {
+                setVisibleCards(4); // 4 cards on desktop
+            }
+        };
+
+        updateVisibleCards();
+        window.addEventListener('resize', updateVisibleCards);
+        return () => window.removeEventListener('resize', updateVisibleCards);
+    }, []);
+
+    // Update maxIndex whenever visibleCards changes
+    useEffect(() => {
+        const newMaxIndex = cards.length - visibleCards;
+        if (currentIndex > newMaxIndex) {
+            setCurrentIndex(newMaxIndex);
+            sliderRef.current.style.transform = `translateX(-${newMaxIndex * (100 / visibleCards)}%)`;
+            currentTranslate.current = -newMaxIndex * (100 / visibleCards);
+            prevTranslate.current = currentTranslate.current;
+        }
+    }, [visibleCards, currentIndex]);
 
     const handleBulletClick = (index) => {
         if (index <= maxIndex) {
             setCurrentIndex(index);
-            sliderRef.current.style.transform = `translateX(-${index * 25}%)`;
-            prevTranslate.current = -index * 25;
+            sliderRef.current.style.transform = `translateX(-${index * (100 / visibleCards)}%)`;
+            prevTranslate.current = -index * (100 / visibleCards);
         }
     };
 
@@ -31,7 +57,7 @@ function HomeHotel() {
     const startDragging = (event) => {
         isDragging.current = true;
         startPos.current = getPositionX(event);
-        sliderRef.current.style.transition = 'none'; // Disable transition during drag
+        sliderRef.current.style.transition = 'none';
     };
 
     const stopDragging = () => {
@@ -39,18 +65,17 @@ function HomeHotel() {
         isDragging.current = false;
         sliderRef.current.style.transition = 'transform 0.3s ease-in-out';
 
-        // Snap to the nearest slide
         const movedBy = currentTranslate.current - prevTranslate.current;
         let newIndex = currentIndex;
 
         if (movedBy < -10 && currentIndex < maxIndex) {
-            newIndex += 1; // Move to next slide
+            newIndex += 1;
         } else if (movedBy > 10 && currentIndex > 0) {
-            newIndex -= 1; // Move to previous slide
+            newIndex -= 1;
         }
 
         setCurrentIndex(newIndex);
-        currentTranslate.current = -newIndex * 25;
+        currentTranslate.current = -newIndex * (100 / visibleCards);
         prevTranslate.current = currentTranslate.current;
         sliderRef.current.style.transform = `translateX(${currentTranslate.current}%)`;
     };
@@ -60,9 +85,8 @@ function HomeHotel() {
         const currentPosition = getPositionX(event);
         const movedBy = currentPosition - startPos.current;
 
-        // Convert pixel movement to percentage (based on slider width)
         const sliderWidth = sliderRef.current.offsetWidth / visibleCards;
-        const movePercentage = (movedBy / sliderWidth) * 25;
+        const movePercentage = (movedBy / sliderWidth) * (100 / visibleCards);
 
         currentTranslate.current = prevTranslate.current + movePercentage;
         sliderRef.current.style.transform = `translateX(${currentTranslate.current}%)`;

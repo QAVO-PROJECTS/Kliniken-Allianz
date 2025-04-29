@@ -1,6 +1,5 @@
 import './index.scss';
 import icon from '/src/assets/icons/ph_flow-arrow-fill.svg';
-import ServiceCard from '../../../../components/UserComponents/ClinicDetail/ServiceCard/index.jsx';
 import HomeServiceCard from '../../../../components/UserComponents/Home/ServiceCardHome/index.jsx';
 
 function HomeServices() {
@@ -12,9 +11,11 @@ function HomeServices() {
                         <h2>Sizə Təklif Etdiyimiz Tibbi Xidmət Kateqoriyaları</h2>
                         <p>Sizin ehtiyaclarınıza uyğun tibbi xidmət sahələrini kəşf edin.</p>
                     </div>
-                    <button>
-                        Daha çox <img src={icon} alt='' />
-                    </button>
+                    {/*<div className={'only-desktop'}>*/}
+                    {/*    <button >*/}
+                    {/*        Daha çox <img src={icon} alt='' />*/}
+                    {/*    </button>*/}
+                    {/*</div>*/}
                 </div>
                 <div className={'row'}>
                     <div className={'col-6 videos'}>
@@ -30,6 +31,11 @@ function HomeServices() {
                     <HomeServiceCard />
                     <HomeServiceCard />
                 </div>
+                {/*<div className={'only-mobile'}>*/}
+                {/*    <button >*/}
+                {/*        Daha çox <img src={icon} alt='' />*/}
+                {/*    </button>*/}
+                {/*</div>*/}
             </div>
         </div>
     );

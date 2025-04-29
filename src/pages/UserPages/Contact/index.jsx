@@ -97,7 +97,7 @@ function Contact() {
                     <Title title={"Kömək etməyə hazırıq"}
                            desc={"Tibbi turizmlə bağlı bütün suallarınız üçün bizimlə rahatlıqla əlaqə saxlaya bilərsiniz. Mütəxəssis komandamız sizə uyğun həll yollarını təqdim edəcək."}/>
                     <div className={"row"}>
-                        <div className={"col-4"}>
+                        <div className={"col-4 col-md-12 col-sm-12 col-xs-12"}>
                             <div className={"contactCard"}>
                                 <div className={"icon"}>
                                     <MdCall/>
@@ -108,7 +108,7 @@ function Contact() {
                                 </div>
                             </div>
                         </div>
-                        <div className={"col-4"}>
+                        <div className={"col-4 col-md-12 col-sm-12 col-xs-12"}>
                             <div className={"contactCard"}>
                                 <div className={"icon"}>
                                     <MdEmail/>
@@ -119,7 +119,7 @@ function Contact() {
                                 </div>
                             </div>
                         </div>
-                        <div className={"col-4"}>
+                        <div className={"col-4 col-md-12 col-sm-12 col-xs-12"}>
                             <div className={"contactCard"}>
                                 <div className={"icon"}>
                                     <FaLocationDot/>

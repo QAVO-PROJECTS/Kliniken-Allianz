@@ -2,6 +2,7 @@
  padding: 44px 30px;
   border-radius: 22px;
   border: 1px solid #E8E8E8;
+
  div{
   width: 74px;
   height: 74px;
@@ -17,6 +18,13 @@
    aspect-ratio: 1/1;
    object-fit: cover;
   }
+  @media screen and (max-width: 576px){
+   width: 55px;
+   height: 55px;
+   img{
+    width: 23px;
+   }
+  }
  }
  h4{
   font-weight: 600;
@@ -29,5 +37,16 @@
   font-size: 14px;
   line-height: 23px;
  color: #686868;
+ }
+ @media screen and (max-width: 576px){
+  padding: 13px;
+  h4{
+   font-size: 14px;
+   line-height: normal;
+  }
+  p{
+   font-size: 12px;
+   line-height: 18px; /* 150% */
+  }
  }
 }

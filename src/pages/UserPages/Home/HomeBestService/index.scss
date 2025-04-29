@@ -17,18 +17,26 @@
         margin-bottom: 8px;
       }
 
-      p {
-        font-weight: 400;
-        font-size: 16px;
-        line-height: 35px;
-        color: #727272;
+
+    }
+    @media screen and (max-width: 576px){
+      display: block;
+      margin-bottom: 32px;
+      .content{
+        width: 100%;
+        h2{
+          font-size: 20px;
+          line-height: 30px; /* 150% */
+        }
       }
     }
-
     .navigationBtn {
       display: flex;
       align-items: center;
       gap: 8px;
+      @media (max-width: 576px) {
+        display: none;
+      }
 
       button {
         width: 40px;
@@ -62,13 +70,23 @@
   .slider-card {
     display: flex;
     flex-wrap: nowrap;
-    width: calc(100% * 4 / 4);
+    width: calc(100% * 4 / 4); // Default: 4 cards
     transition: transform 0.3s ease-in-out;
   }
 
   .slider-card > * {
-    flex: 0 0 25%; /* Each card takes exactly 25% of the slider-wrapper width */
+    flex: 0 0 25%; /* Each card takes 25% for desktop (4 cards) */
     box-sizing: border-box;
     padding: 0 10px; /* Optional: spacing between cards */
+  }
+
+  /* Mobile: Show 2 cards at a time */
+  @media (max-width: 768px) {
+    .slider-card {
+      width: calc(100% * 6 / 3); // Adjust for 2 cards visible (6 cards total)
+    }
+
+    .slider-card > * {
+    }
   }
 }

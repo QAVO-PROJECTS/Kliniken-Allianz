@@ -1,10 +1,13 @@
 import './index.scss'
 import image from "/src/assets/BEstServCard.jpg"
 import icon from "../../../../assets/icon1.png";
+import {useNavigate} from "react-router-dom";
 
 function BestServCard() {
+    const navigate = useNavigate();
+
     return (
-        <div className={"col-3"}>
+        <div className={"col-3 col-md-6 col-sm-6 col-xs-6"}  onClick={()=> navigate("/services/1")}>
             <div id={"bestServCard"}>
                 <div className={"image"}>
                     <img src={image}/>
@@ -14,7 +17,6 @@ function BestServCard() {
                 </div>
                 <div className={'content'}>
                     <h4>Xərçəng müalicəsi</h4>
-                    <p>Həyat keyfiyyətinizi yüksəltmək üçün ən yeni xərçəng müalicə üsulları.</p>
                     <div>
                         <button>Ətraflı oxu <svg xmlns="http://www.w3.org/2000/svg" width="25" height="26"
                                                  viewBox="0 0 25 26" fill="none">

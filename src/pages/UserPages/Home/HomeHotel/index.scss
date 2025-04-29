@@ -1,37 +1,57 @@
-#home-hotel{
-  padding:  0 0 70px;
-.head{
-  padding: 0 10px;
-  h2{
-    color: #000;
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 60px; /* 250% */
-    margin-bottom: 32px;
+#home-hotel {
+  padding: 0 0 70px;
+
+
+
+  .head {
+    padding: 0 10px;
+    h2 {
+      color: #000;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 60px;
+      margin-bottom: 32px;
+    }
+    @media screen and (max-width: 576px) {
+      h2{
+        font-size: 20px;
+        line-height: 30px; /* 150% */
+      }
+    }
   }
-}
+
   .slider-wrapper {
     overflow: hidden;
     width: 100%;
+    box-sizing: border-box;
   }
 
   .slider-card {
     display: flex;
     flex-wrap: nowrap;
-    width: calc(100% * 4 / 4);
+    width: calc(100% * 6 / 6); /* 6 cards, 4 visible on desktop */
     transition: transform 0.3s ease-in-out;
+
+    @media screen and (max-width: 576px) {
+      width: calc(100% * 6 / 3); /* 6 cards, 2 visible on mobile */
+    }
   }
 
   .slider-card > * {
-    flex: 0 0 25%; /* Each card takes exactly 25% of the slider-wrapper width */
+    flex: 0 0 25%; /* 4 cards visible on desktop (100% / 4) */
     box-sizing: border-box;
-    padding: 0 10px; /* Optional: spacing between cards */
+    padding: 0 10px;
+
   }
 
   .custom-pagination {
     text-align: center;
     margin-top: 60px;
+
+    @media screen and (max-width: 576px) {
+      margin-top: 30px; /* Adjust spacing for mobile */
+    }
   }
 
   .custom-bullet {

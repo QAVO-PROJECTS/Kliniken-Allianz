@@ -1,5 +1,5 @@
 #serviceDetail {
-  padding: 140px 0;
+  padding: 140px 8px;
 
   .head {
     width: 100%;
@@ -41,6 +41,24 @@
     align-items: center;
     margin-bottom: 40px;
 
+    .second {
+      order: 1;
+    }
+
+    .first {
+      order: 2;
+    }
+
+    // Mobile: col-5 (image) first, col-7 (content) second
+    @media (max-width: 576px) {
+      .second {
+        order: 2;
+      }
+      .first {
+        order: 1;
+      }
+    }
+
     .content {
       position: relative;
 
@@ -58,7 +76,16 @@
         color: #454545;
         margin-bottom: 32px;
       }
-
+      @media (max-width: 576px) {
+        h2{
+          font-size: 20px;
+          line-height: 30px; /* 150% */
+        }
+        p{
+          font-size: 14px;
+          line-height: 28px; /* 200% */
+        }
+      }
       button {
         padding: 10px 40px;
         border: none;
@@ -79,11 +106,18 @@
         position: absolute;
         top: 6px;
         right: -150px;
+        @media screen and (max-width: 576px) {
+          display: none;
+        }
       }
     }
 
     .image {
       text-align: end;
+      width: 100%;
+      img{
+        width: 100%;
+      }
     }
   }
 
@@ -106,6 +140,13 @@
       align-items: center;
       gap: 30px;
       margin-bottom: 24px;
+    }
+    @media screen and (max-width: 576px) {
+      margin-bottom: 50px;
+      h2{
+        font-size: 20px;
+        line-height: 48px; /* 240% */
+      }
     }
   }
 
@@ -162,6 +203,24 @@
           }
         }
       }
+      @media screen and (max-width: 576px) {
+        display: block;
+        margin-bottom: 32px;
+        .navigationBtn{
+          display: none;
+        }
+        .content{
+          width: 100%;
+          h2{
+            font-size: 20px;
+            line-height: 30px; /* 150% */
+          }
+          p{
+            font-size: 14px;
+            line-height: 24px; /* 171.429% */
+          }
+        }
+      }
     }
 
     .slider-wrapper {
@@ -180,6 +239,30 @@
       flex: 0 0 25%; /* Each card takes exactly 25% of the slider-wrapper width */
       box-sizing: border-box;
       padding: 0 10px; /* Optional: spacing between cards */
+    }
+    .custom-pagination {
+      text-align: center;
+      margin-top: 60px;
+
+      @media screen and (max-width: 576px) {
+        margin-top: 30px; /* Adjust spacing for mobile */
+      }
+    }
+
+    .custom-bullet {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      margin: 0 3px;
+      background: none;
+      border: 0.76px solid #D3D3D3;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .custom-bullet.active {
+      background: #00DA7B;
     }
   }
 

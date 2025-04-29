@@ -1,5 +1,5 @@
 #home-comment {
-  padding:  0 0 50px;
+  padding:  0 16px 50px;
   margin-bottom: 75px;
   .homeComment {
     padding: 50px 0;
@@ -14,7 +14,9 @@
     padding: 42px;
     max-width: 700px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
+    @media screen and (max-width: 576px){
+      padding: 20px;
+    }
     .quote-icon {
       font-size: 40px;
       color: #00c4b4;
@@ -29,6 +31,10 @@
       color: #373737;
       font-style: normal;
       margin-bottom: 33px;
+      @media screen and (max-width: 576px){
+        font-size: 14px;
+        line-height: 21px; /* 150% */
+      }
     }
 
     .comment-author {

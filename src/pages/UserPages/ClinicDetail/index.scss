@@ -1,11 +1,13 @@
 #clinic-detail {
-  padding: 140px 0;
+  padding: 140px 8px;
 
   .head {
     width: 100%;
     text-align: center;
     margin-bottom: 120px;
-
+    @media screen and (max-width: 576px){
+      display: none;
+    }
     p {
       display: flex;
       justify-content: center;
@@ -20,8 +22,6 @@
         background-color: #47d1d6c7;
         border-radius: 50%;
         margin: 0 8px 0 16px;
-
-
       }
 
       a {
@@ -38,7 +38,23 @@
   .first-section {
     align-items: center;
     margin-bottom: 35px;
+    .col-7 {
+      order: 1;
+    }
 
+    .col-5 {
+      order: 2;
+    }
+
+    // Mobile: col-5 (image) first, col-7 (content) second
+    @media (max-width: 576px) {
+      .col-7 {
+        order: 2;
+      }
+      .col-5 {
+        order: 1;
+      }
+    }
     .content {
       h3 {
         font-weight: 600;
@@ -53,6 +69,17 @@
         line-height: 35px;
         color: #454545;
         width: 80%;
+      }
+      @media screen and (max-width: 576px) {
+        h3{
+          font-size: 20px;
+          line-height: 30px; /* 150% */
+        }
+        p{
+          width: 100%;
+          font-size: 14px;
+          line-height: 24px; /* 171.429% */
+        }
       }
     }
 
@@ -77,6 +104,11 @@
       line-height: 60px;
       margin-bottom: 42px;
       padding: 0 8px;
+      @media screen and (max-width: 576px) {
+        font-size: 20px;
+        line-height: 30px;
+        margin-bottom: 24px;
+      }
     }
   }
 
@@ -99,6 +131,16 @@
         font-size: 16px;
         line-height: 35px;
         color: #727272;
+      }
+      @media screen and (max-width: 576px) {
+        margin-bottom: 24px;
+        h2{
+          font-size: 20px;
+          line-height: 30px; /* 150% */
+        }
+        p{
+          display: none;
+        }
       }
     }
 
@@ -136,14 +178,27 @@
         font-weight: 500;
         font-size: 16px;
         line-height: 35px;
-        color: #727272;
+        color: #939393;
       }
-
+      @media screen and (max-width: 576px) {
+        display: block;
+        padding: 0;
+        h2{
+          font-size: 20px;
+          line-height: 30px; /* 150% */
+        }
+        p{
+          font-size: 13px;
+          line-height: 28px;
+        }
+      }
       .navigationBtn {
         display: flex;
         align-items: center;
         gap: 8px;
-
+        @media screen and (max-width: 576px) {
+          display: none;
+        }
         button {
           width: 40px;
           height: 40px;
@@ -167,7 +222,6 @@
           }
         }
       }
-
     }
 
     .slider-wrapper {
@@ -178,7 +232,6 @@
     .slider-card {
       display: flex;
       flex-wrap: nowrap;
-      width: calc(100% * 4 / 4);
       transition: transform 0.3s ease-in-out;
     }
 
@@ -186,6 +239,9 @@
       flex: 0 0 25%; /* Each card takes exactly 25% of the slider-wrapper width */
       box-sizing: border-box;
       padding: 0 10px; /* Optional: spacing between cards */
+      @media screen and (max-width: 576px) {
+        flex: 0 0 50%; /* Each card takes 50% on mobile */
+      }
     }
 
     .custom-pagination {
@@ -345,7 +401,12 @@
       align-items: end;
       margin-top: 90px;
       border-radius: 4px;
-
+      @media screen and (max-width: 576px) {
+        padding: 20px;
+        iframe{
+          height: 350px;
+        }
+      }
       .form {
         .form-head {
           color: #00DA7B;
@@ -364,6 +425,9 @@
             font-size: 20px;
             line-height: 30px;
             width: 60%;
+            @media (max-width: 576px) {
+              width: 100%;
+            }
           }
         }
 

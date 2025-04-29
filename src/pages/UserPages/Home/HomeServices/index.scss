@@ -1,5 +1,50 @@
 #home-services {
   padding: 70px 0;
+  @media screen and (max-width: 576px) {
+    padding: 70px 8px;
+  }
+
+  .only-desktop {
+    display: block;
+
+    button {
+      padding: 11px 21px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 1px solid #47D1D6C7;
+      background: none;
+      color: #47D1D6C7;
+      border-radius: 25px;
+    }
+
+    @media screen and (max-width: 576px) {
+      display: none;
+    }
+  }
+
+  .only-mobile {
+    display: none;
+    margin-top: 32px;
+
+    button {
+      margin: 0 auto;
+      padding: 11px 21px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 1px solid #47D1D6C7;
+      background: none;
+      color: #47D1D6C7;
+      border-radius: 25px;
+    }
+
+    @media screen and (max-width: 576px) {
+      display: block;
+    }
+  }
 
   .head {
     display: flex;
@@ -14,31 +59,35 @@
         line-height: 36px;
         margin-bottom: 8px;
       }
+
       p {
         font-weight: 400;
         font-size: 16px;
         line-height: 21px;
         color: #727272;
       }
+
+      @media screen and (max-width: 576px) {
+        h2 {
+          font-size: 20px;
+          font-style: normal;
+          line-height: 30px; /* 150% */
+        }
+        p{
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 24px; /* 171.429% */
+        }
+      }
     }
 
-    button {
-      padding: 11px 21px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      border: 1px solid #47D1D6C7;
-      background: none;
-      color: #47D1D6C7;
-      border-radius: 25px;
-    }
+
   }
 
   .row {
     display: flex;
     flex-wrap: wrap;
-    margin: 0 -15px; /* Assuming a standard gutter for the grid */
 
     .col-6 {
       width: 50%;
@@ -47,7 +96,10 @@
       &.videos {
         border-radius: 22px;
         overflow: hidden;
-        height: 350px; /* Match the height from your original SCSS */
+        height: 320px; /* Match the height from your original SCSS */
+        @media screen and (max-width: 576px) {
+          display: none;
+        }
 
         video {
           width: 100%;

@@ -53,6 +53,8 @@ const DoktorTable = () => {
             role: record.role,
             bornDate: record.bornDate,
             clinicId: record.clinicId,
+            doctorSertificates: record.doctorSertificates,
+            deleteDoctorSertificates: record.deleteDoctorSertificates,
         });
         setCardFileList(
             record.doctorImage
@@ -207,11 +209,11 @@ const DoktorTable = () => {
     };
 
     return (
-        <div>
+        <div className="p-4">
             <Button
                 type="primary"
                 onClick={showAddModal}
-                style={{ marginBottom: 16 }}
+                className="mb-4 bg-blue-500 hover:bg-blue-600"
             >
                 +
             </Button>
@@ -244,6 +246,7 @@ const DoktorTable = () => {
                 onCancel={handleAddCancel}
                 footer={null}
                 width={800}
+                className="rounded-lg"
             >
                 <Form form={form} layout="vertical" onFinish={handleAddDoctor}>
                     <Row gutter={16}>
@@ -253,42 +256,155 @@ const DoktorTable = () => {
                                 label="Həkim Adı (AZ)"
                                 rules={[{ required: true, message: "Ad daxil edin!" }]}
                             >
-                                <Input placeholder="Ad daxil edin" />
+                                <Input
+                                    placeholder="Ad daxil edin"
+                                    className="rounded-md"
+                                />
                             </Form.Item>
                             <Form.Item
                                 name="nameEng"
                                 label="Həkim Adı (EN)"
                                 rules={[{ required: true, message: "Ad daxil edin!" }]}
                             >
-                                <Input placeholder="Ad daxil edin (EN)" />
+                                <Input
+                                    placeholder="Ad daxil edin (EN)"
+                                    className="rounded-md"
+                                />
                             </Form.Item>
                             <Form.Item
                                 name="nameRu"
                                 label="Həkim Adı (RU)"
                                 rules={[{ required: true, message: "Ad daxil edin!" }]}
                             >
-                                <Input placeholder="Ad daxil edin (RU)" />
+                                <Input
+                                    placeholder="Ad daxil edin (RU)"
+                                    className="rounded-md"
+                                />
                             </Form.Item>
                             <Form.Item
                                 name="surName"
                                 label="Soyad (AZ)"
                                 rules={[{ required: true, message: "Soyad daxil edin!" }]}
                             >
-                                <Input placeholder="Soyad daxil edin" />
+                                <Input
+                                    placeholder="Soyad daxil edin"
+                                    className="rounded-md"
+                                />
                             </Form.Item>
                             <Form.Item
                                 name="surNameEng"
                                 label="Soyad (EN)"
                                 rules={[{ required: true, message: "Soyad daxil edin!" }]}
                             >
-                                <Input placeholder="Soyad daxil edin (EN)" />
+                                <Input
+                                    placeholder="Soyad daxil edin (EN)"
+                                    className="rounded-md"
+                                />
                             </Form.Item>
                             <Form.Item
                                 name="surNameRu"
                                 label="Soyad (RU)"
                                 rules={[{ required: true, message: "Soyad daxil edin!" }]}
                             >
-                                <Input placeholder="Soyad daxil edin (RU)" />
+                                <Input
+                                    placeholder="Soyad daxil edin (RU)"
+                                    className="rounded-md"
+                                />
+                            </Form.Item>
+                        </Col>
+                        <Col span={12}>
+                            <Form.Item
+                                name="description"
+                                label="Açıqlama (AZ)"
+                                rules={[{ required: true, message: "Açıqlama daxil edin!" }]}
+                            >
+                                <Input.TextArea
+                                    placeholder="Açıqlama daxil edin"
+                                    className="rounded-md"
+                                    rows={4}
+                                />
+                            </Form.Item>
+                            <Form.Item
+                                name="descriptionEng"
+                                label="Açıqlama (EN)"
+                                rules={[{ required: true, message: "Açıqlama daxil edin!" }]}
+                            >
+                                <Input.TextArea
+                                    placeholder="Açıqlama daxil edin (EN)"
+                                    className="rounded-md"
+                                    rows={4}
+                                />
+                            </Form.Item>
+                            <Form.Item
+                                name="descriptionRu"
+                                label="Açıqlama (RU)"
+                                rules={[{ required: true, message: "Açıqlama daxil edin!" }]}
+                            >
+                                <Input.TextArea
+                                    placeholder="Açıqlama daxil edin (RU)"
+                                    className="rounded-md"
+                                    rows={4}
+                                />
+                            </Form.Item>
+                            <Form.Item
+                                name="rate"
+                                label="Reytinq"
+                                rules={[{ required: true, message: "Reytinq daxil edin!" }]}
+                            >
+                                <Input
+                                    type="number"
+                                    step="0.1"
+                                    placeholder="Reytinq daxil edin"
+                                    className="rounded-md"
+                                />
+                            </Form.Item>
+                            <Form.Item
+                                name="role"
+                                label="Rol"
+                                rules={[{ required: true, message: "Rol daxil edin!" }]}
+                            >
+                                <Input
+                                    placeholder="Rol daxil edin"
+                                    className="rounded-md"
+                                />
+                            </Form.Item>
+                            <Form.Item
+                                name="bornDate"
+                                label="Doğum Tarixi"
+                                rules={[{ required: true, message: "Doğum tarixi daxil edin!" }]}
+                            >
+                                <Input
+                                    placeholder="Doğum tarixi daxil edin (məs. 6/24/2004)"
+                                    className="rounded-md"
+                                />
+                            </Form.Item>
+                            <Form.Item
+                                name="clinicId"
+                                label="Klinika"
+                                rules={[{ required: true, message: "Klinika seçin!" }]}
+                            >
+                                <Select
+                                    placeholder="Klinika seçin"
+                                    className="rounded-md"
+                                >
+                                    {clinics.map((clinic) => (
+                                        <Select.Option key={clinic.id} value={clinic.id}>
+                                            {clinic.name}
+                                        </Select.Option>
+                                    ))}
+                                </Select>
+                            </Form.Item>
+                            <Form.Item
+                                name="doctorSertificates"
+                                label="Sertifikatlar"
+                                rules={[{ required: false }]}
+                            >
+                                <Select
+                                    mode="tags"
+                                    placeholder="Sertifikat adlarını daxil edin (məsələn, ISO 9001, GMP)"
+                                    className="rounded-md"
+                                    tokenSeparators={[","]}
+                                />
                             </Form.Item>
                             <Form.Item label="Şəkil">
                                 <Upload
@@ -300,79 +416,32 @@ const DoktorTable = () => {
                                     onRemove={(file) =>
                                         setCardFileList(cardFileList.filter((f) => f.uid !== file.uid))
                                     }
+                                    className="rounded-md"
                                 >
                                     {cardFileList.length < 1 && (
                                         <div>
                                             <PlusOutlined />
-                                            <div style={{ marginTop: 8 }}>Şəkil əlavə et</div>
+                                            <div className="mt-2">Şəkil əlavə et</div>
                                         </div>
                                     )}
                                 </Upload>
                             </Form.Item>
                         </Col>
-                        <Col span={12}>
-                            <Form.Item
-                                name="description"
-                                label="Açıqlama (AZ)"
-                                rules={[{ required: true, message: "Açıqlama daxil edin!" }]}
-                            >
-                                <Input.TextArea placeholder="Açıqlama daxil edin" />
-                            </Form.Item>
-                            <Form.Item
-                                name="descriptionEng"
-                                label="Açıqlama (EN)"
-                                rules={[{ required: true, message: "Açıqlama daxil edin!" }]}
-                            >
-                                <Input.TextArea placeholder="Açıqlama daxil edin (EN)" />
-                            </Form.Item>
-                            <Form.Item
-                                name="descriptionRu"
-                                label="Açıqlama (RU)"
-                                rules={[{ required: true, message: "Açıqlama daxil edin!" }]}
-                            >
-                                <Input.TextArea placeholder="Açıqlama daxil edin (RU)" />
-                            </Form.Item>
-                            <Form.Item
-                                name="rate"
-                                label="Reytinq"
-                                rules={[{ required: true, message: "Reytinq daxil edin!" }]}
-                            >
-                                <Input type="number" step="0.1" placeholder="Reytinq daxil edin" />
-                            </Form.Item>
-                            <Form.Item
-                                name="role"
-                                label="Rol"
-                                rules={[{ required: true, message: "Rol daxil edin!" }]}
-                            >
-                                <Input placeholder="Rol daxil edin" />
-                            </Form.Item>
-                            <Form.Item
-                                name="bornDate"
-                                label="Doğum Tarixi"
-                                rules={[{ required: true, message: "Doğum tarixi daxil edin!" }]}
-                            >
-                                <Input placeholder="Doğum tarixi daxil edin (məs. 6/24/2004)" />
-                            </Form.Item>
-                            <Form.Item
-                                name="clinicId"
-                                label="Klinika"
-                                rules={[{ required: true, message: "Klinika seçin!" }]}
-                            >
-                                <Select placeholder="Klinika seçin">
-                                    {clinics.map((clinic) => (
-                                        <Select.Option key={clinic.id} value={clinic.id}>
-                                            {clinic.name}
-                                        </Select.Option>
-                                    ))}
-                                </Select>
-                            </Form.Item>
-                        </Col>
                     </Row>
-                    <Form.Item style={{ textAlign: "right" }}>
-                        <Button type="primary" htmlType="submit" style={{ marginRight: 8 }}>
+                    <Form.Item className="text-right">
+                        <Button
+                            type="primary"
+                            htmlType="submit"
+                            className="mr-2 bg-blue-500 hover:bg-blue-600 rounded-md"
+                        >
                             Əlavə Et
                         </Button>
-                        <Button onClick={handleAddCancel}>İmtina Et</Button>
+                        <Button
+                            onClick={handleAddCancel}
+                            className="rounded-md"
+                        >
+                            İmtina Et
+                        </Button>
                     </Form.Item>
                 </Form>
             </Modal>
@@ -384,6 +453,7 @@ const DoktorTable = () => {
                 onCancel={handleEditCancel}
                 footer={null}
                 width={800}
+                className="rounded-lg"
             >
                 <Form form={editForm} layout="vertical" onFinish={handleEditDoctor}>
                     <Row gutter={16}>
@@ -393,42 +463,167 @@ const DoktorTable = () => {
                                 label="Həkim Adı (AZ)"
                                 rules={[{ required: true, message: "Ad daxil edin!" }]}
                             >
-                                <Input placeholder="Ad daxil edin" />
+                                <Input
+                                    placeholder="Ad daxil edin"
+                                    className="rounded-md"
+                                />
                             </Form.Item>
                             <Form.Item
                                 name="nameEng"
                                 label="Həkim Adı (EN)"
                                 rules={[{ required: true, message: "Ad daxil edin!" }]}
                             >
-                                <Input placeholder="Ad daxil edin (EN)" />
+                                <Input
+                                    placeholder="Ad daxil edin (EN)"
+                                    className="rounded-md"
+                                />
                             </Form.Item>
                             <Form.Item
                                 name="nameRu"
                                 label="Həkim Adı (RU)"
                                 rules={[{ required: true, message: "Ad daxil edin!" }]}
                             >
-                                <Input placeholder="Ad daxil edin (RU)" />
+                                <Input
+                                    placeholder="Ad daxil edin (RU)"
+                                    className="rounded-md"
+                                />
                             </Form.Item>
                             <Form.Item
                                 name="surName"
                                 label="Soyad (AZ)"
                                 rules={[{ required: true, message: "Soyad daxil edin!" }]}
                             >
-                                <Input placeholder="Soyad daxil edin" />
+                                <Input
+                                    placeholder="Soyad daxil edin"
+                                    className="rounded-md"
+                                />
                             </Form.Item>
                             <Form.Item
                                 name="surNameEng"
                                 label="Soyad (EN)"
                                 rules={[{ required: true, message: "Soyad daxil edin!" }]}
                             >
-                                <Input placeholder="Soyad daxil edin (EN)" />
+                                <Input
+                                    placeholder="Soyad daxil edin (EN)"
+                                    className="rounded-md"
+                                />
                             </Form.Item>
                             <Form.Item
                                 name="surNameRu"
                                 label="Soyad (RU)"
                                 rules={[{ required: true, message: "Soyad daxil edin!" }]}
                             >
-                                <Input placeholder="Soyad daxil edin (RU)" />
+                                <Input
+                                    placeholder="Soyad daxil edin (RU)"
+                                    className="rounded-md"
+                                />
+                            </Form.Item>
+                        </Col>
+                        <Col span={12}>
+                            <Form.Item
+                                name="description"
+                                label="Açıqlama (AZ)"
+                                rules={[{ required: true, message: "Açıqlama daxil edin!" }]}
+                            >
+                                <Input.TextArea
+                                    placeholder="Açıqlama daxil edin"
+                                    className="rounded-md"
+                                    rows={4}
+                                />
+                            </Form.Item>
+                            <Form.Item
+                                name="descriptionEng"
+                                label="Açıqlama (EN)"
+                                rules={[{ required: true, message: "Açıqlama daxil edin!" }]}
+                            >
+                                <Input.TextArea
+                                    placeholder="Açıqlama daxil edin (EN)"
+                                    className="rounded-md"
+                                    rows={4}
+                                />
+                            </Form.Item>
+                            <Form.Item
+                                name="descriptionRu"
+                                label="Açıqlama (RU)"
+                                rules={[{ required: true, message: "Açıqlama daxil edin!" }]}
+                            >
+                                <Input.TextArea
+                                    placeholder="Açıqlama daxil edin (RU)"
+                                    className="rounded-md"
+                                    rows={4}
+                                />
+                            </Form.Item>
+                            <Form.Item
+                                name="rate"
+                                label="Reytinq"
+                                rules={[{ required: true, message: "Reytinq daxil edin!" }]}
+                            >
+                                <Input
+                                    type="number"
+                                    step="0.1"
+                                    placeholder="Reytinq daxil edin"
+                                    className="rounded-md"
+                                />
+                            </Form.Item>
+                            <Form.Item
+                                name="role"
+                                label="Rol"
+                                rules={[{ required: true, message: "Rol daxil edin!" }]}
+                            >
+                                <Input
+                                    placeholder="Rol daxil edin"
+                                    className="rounded-md"
+                                />
+                            </Form.Item>
+                            <Form.Item
+                                name="bornDate"
+                                label="Doğum Tarixi"
+                                rules={[{ required: true, message: "Doğum tarixi daxil edin!" }]}
+                            >
+                                <Input
+                                    placeholder="Doğum tarixi daxil edin (məs. 6/24/2004)"
+                                    className="rounded-md"
+                                />
+                            </Form.Item>
+                            <Form.Item
+                                name="clinicId"
+                                label="Klinika"
+                                rules={[{ required: true, message: "Klinika seçin!" }]}
+                            >
+                                <Select
+                                    placeholder="Klinika seçin"
+                                    className="rounded-md"
+                                >
+                                    {clinics.map((clinic) => (
+                                        <Select.Option key={clinic.id} value={clinic.id}>
+                                            {clinic.name}
+                                        </Select.Option>
+                                    ))}
+                                </Select>
+                            </Form.Item>
+                            <Form.Item
+                                name="doctorSertificates"
+                                label="Sertifikatlar"
+                                rules={[{ required: false }]}
+                            >
+                                <Select
+                                    mode="tags"
+                                    placeholder="Sertifikat adlarını daxil edin (məsələn, ISO 9001, GMP)"
+                                    className="rounded-md"
+                                    tokenSeparators={[","]}
+                                />
+                            </Form.Item>
+                            <Form.Item
+                                name="deleteDoctorSertificates"
+                                label="Silinəcək Sertifikatlar"
+                                rules={[{ required: false }]}
+                            >
+                                <Select
+                                    mode="tags"
+                                    placeholder="Silinəcək sertifikat adlarını daxil edin"
+                                    className="rounded-md"
+                                    tokenSeparators={[","]}
+                                />
                             </Form.Item>
                             <Form.Item label="Şəkil">
                                 <Upload
@@ -440,79 +635,32 @@ const DoktorTable = () => {
                                     onRemove={(file) =>
                                         setCardFileList(cardFileList.filter((f) => f.uid !== file.uid))
                                     }
+                                    className="rounded-md"
                                 >
                                     {cardFileList.length < 1 && (
                                         <div>
                                             <PlusOutlined />
-                                            <div style={{ marginTop: 8 }}>Şəkil əlavə et</div>
+                                            <div className="mt-2">Şəkil əlavə et</div>
                                         </div>
                                     )}
                                 </Upload>
                             </Form.Item>
                         </Col>
-                        <Col span={12}>
-                            <Form.Item
-                                name="description"
-                                label="Açıqlama (AZ)"
-                                rules={[{ required: true, message: "Açıqlama daxil edin!" }]}
-                            >
-                                <Input.TextArea placeholder="Açıqlama daxil edin" />
-                            </Form.Item>
-                            <Form.Item
-                                name="descriptionEng"
-                                label="Açıqlama (EN)"
-                                rules={[{ required: true, message: "Açıqlama daxil edin!" }]}
-                            >
-                                <Input.TextArea placeholder="Açıqlama daxil edin (EN)" />
-                            </Form.Item>
-                            <Form.Item
-                                name="descriptionRu"
-                                label="Açıqlama (RU)"
-                                rules={[{ required: true, message: "Açıqlama daxil edin!" }]}
-                            >
-                                <Input.TextArea placeholder="Açıqlama daxil edin (RU)" />
-                            </Form.Item>
-                            <Form.Item
-                                name="rate"
-                                label="Reytinq"
-                                rules={[{ required: true, message: "Reytinq daxil edin!" }]}
-                            >
-                                <Input type="number" step="0.1" placeholder="Reytinq daxil edin" />
-                            </Form.Item>
-                            <Form.Item
-                                name="role"
-                                label="Rol"
-                                rules={[{ required: true, message: "Rol daxil edin!" }]}
-                            >
-                                <Input placeholder="Rol daxil edin" />
-                            </Form.Item>
-                            <Form.Item
-                                name="bornDate"
-                                label="Doğum Tarixi"
-                                rules={[{ required: true, message: "Doğum tarixi daxil edin!" }]}
-                            >
-                                <Input placeholder="Doğum tarixi daxil edin (məs. 6/24/2004)" />
-                            </Form.Item>
-                            <Form.Item
-                                name="clinicId"
-                                label="Klinika"
-                                rules={[{ required: true, message: "Klinika seçin!" }]}
-                            >
-                                <Select placeholder="Klinika seçin">
-                                    {clinics.map((clinic) => (
-                                        <Select.Option key={clinic.id} value={clinic.id}>
-                                            {clinic.name}
-                                        </Select.Option>
-                                    ))}
-                                </Select>
-                            </Form.Item>
-                        </Col>
                     </Row>
-                    <Form.Item style={{ textAlign: "right" }}>
-                        <Button type="primary" htmlType="submit" style={{ marginRight: 8 }}>
+                    <Form.Item className="text-right">
+                        <Button
+                            type="primary"
+                            htmlType="submit"
+                            className="mr-2 bg-blue-500 hover:bg-blue-600 rounded-md"
+                        >
                             Düzəliş Et
                         </Button>
-                        <Button onClick={handleEditCancel}>İmtina Et</Button>
+                        <Button
+                            onClick={handleEditCancel}
+                            className="rounded-md"
+                        >
+                            İmtina Et
+                        </Button>
                     </Form.Item>
                 </Form>
             </Modal>

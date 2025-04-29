@@ -2,6 +2,10 @@
   padding: 24px 22px;
   border: 1px solid #E3E3E3;
   background: #FFF;
+  cursor: pointer;
+  @media screen and (max-width: 576px){
+    padding: 14px;
+  }
   &:hover{
     .image{
       div{
@@ -12,31 +16,48 @@
       }
     }
   }
-  .image{
-    width: 100%;
+  .image {
     position: relative;
     margin-bottom: 48px;
-    div{
+    @media screen and (max-width: 576px){
+      margin-bottom: 32px;
+    }
+
+    div {
       position: absolute;
+      bottom: -25px;
+
+      /* Sabit left:90px əvəzinə: */
+      left: 50%;
+      transform: translateX(-50%);
+
       width: 74px;
       height: 74px;
       display: flex;
       justify-content: center;
       align-items: center;
-      bottom:-25px;
-      left: 90px;
+
       border-radius: 42px 42px 0px 42px;
       border: 1px solid #EEE;
       background: #FFF;
       box-shadow: 0px 1px 3.1px 0px rgba(151, 151, 151, 0.22);
       transition: all 0.3s ease-in-out;
-      img{
+
+      img {
         width: 36px;
         aspect-ratio: 1/1;
         object-fit: cover;
       }
+      @media screen and (max-width: 576px){
+        width: 60px;
+        height: 60px;
+        img{
+          width: 33px;
+        }
+      }
     }
-    img{
+
+    img {
       width: 100%;
       object-fit: cover;
     }
@@ -51,17 +72,11 @@
       font-weight: 600;
       line-height: normal;
       margin-bottom: 8px;
+      @media screen and (max-width: 576px){
+        font-size: 14px;
+      }
     }
-    p{
-      color: #686868;
-      text-align: center;
-      font-size: 12px;
-      font-style: normal;
-      font-weight: 500;
-      line-height: 21px; /* 175% */
-      margin-bottom: 8px;
 
-    }
     div{
 
       button{
@@ -76,6 +91,10 @@
         font-weight: 500;
         line-height: 30px; /* 214.286% */
         margin: auto;
+        @media screen and (max-width: 576px){
+          font-size: 12px;
+          line-height: 18.207px; /* 151.724% */
+        }
       }
     }
   }

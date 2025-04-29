@@ -8,6 +8,7 @@ import ServicesCardCategory from "../../../components/UserComponents/CategoryDet
 import { useState } from "react";
 import { t } from "i18next";
 import CustomSlider from "../../../components/UserComponents/CategoryDetail/CustomSlider/index.jsx";
+import HomeServiceCard from "../../../components/UserComponents/Home/ServiceCardHome/index.jsx";
 
 function CategoryDetail() {
     const [showAllServices, setShowAllServices] = useState(false);
@@ -46,14 +47,13 @@ function CategoryDetail() {
                 <div className={"head"}>
                     <p data-aos="fade-up" data-aos-delay="100">
                         <Link to={"/"}>Ana səhifə</Link>
-                        <div className={"dot"}></div>
-                        <Link to={"/category"}>Kateqoriyalar</Link>
+
                         <div className={"dot active"}></div>
-                        <Link to={"/category/:id"}>Xidmətlər</Link>
+                        <Link to={"/category/:id"}>Kateqoriyalar</Link>
                     </p>
                 </div>
                 <div className={"first-section row"}>
-                    <div className={"col-6"}>
+                    <div className={"col-6 col-md-12 col-sm-12 col-xs-12 second"}>
                         <div className={"content"}>
                             <h2>Ürək-Damar Cərrahiyyəsi</h2>
                             <p>
@@ -65,7 +65,7 @@ function CategoryDetail() {
                             <button>Müraciət et</button>
                         </div>
                     </div>
-                    <div className={"col-6"}>
+                    <div className={"col-6 col-md-12 col-sm-12 col-xs-12 first"}>
                         <div className={"image"}>
                             <img src={banner} alt="" />
                         </div>
@@ -84,10 +84,10 @@ function CategoryDetail() {
                         </p>
                     </div>
                     <div className={"row"} style={{ marginBottom: "48px" }}>
-                        <ServicesCardCategory />
-                        <ServicesCardCategory />
-                        <ServicesCardCategory />
-                        <ServicesCardCategory />
+                        <HomeServiceCard />
+                        <HomeServiceCard />
+                        <HomeServiceCard />
+                        <HomeServiceCard />
                     </div>
                     <div style={{ textAlign: "center" }}>
                         <button onClick={() => setShowAllServices(!showAllServices)}>
@@ -136,10 +136,10 @@ function CategoryDetail() {
                         </p>
                     </div>
                     <div className={"row"} style={{ marginBottom: "48px" }}>
-                        <ServicesCardCategory />
-                        <ServicesCardCategory />
-                        <ServicesCardCategory />
-                        <ServicesCardCategory />
+                        <HomeServiceCard />
+                        <HomeServiceCard />
+                        <HomeServiceCard />
+                        <HomeServiceCard />
                     </div>
                     <div style={{ textAlign: "center" }}>
                         <button onClick={() => setShowAllServices(!showAllServices)}>
@@ -177,13 +177,13 @@ function CategoryDetail() {
                 </div>
                 <div className={"contact"}>
                     <div className={"row"}>
-                        <div className={"col-4"}>
+                        <div className={"col-4 col-md-12 col-sm-12 col-xs-12"}>
                             <div className={"image"}>
                                 <img src={image2} />
                             </div>
                         </div>
-                        <div className={"col-8"}>
-                            <div className={"form"} data-aos="fade-right">
+                        <div className={"col-8 col-md-12 col-sm-12 col-xs-12"}>
+                            <div className={"form"} >
                                 <div className={"form-head"}>
                                     <hr />
                                     <h2>

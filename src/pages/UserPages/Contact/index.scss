@@ -1,5 +1,5 @@
 #contact{
-  padding: 140px 0 ;
+  padding: 140px 16px;
   position: relative;
   .bannerAbout{
     position: absolute;
@@ -13,7 +13,7 @@
 
     }
     @media screen and (max-width: 576px) {
-      height: 400px;
+      height: 350px;
       top: 0;
     }
   }
@@ -54,6 +54,9 @@
           }
         }
       }
+      @media screen and (max-width: 576px) {
+        margin-bottom: 63px;
+      }
     }
     .contactCard{
       display: flex;
@@ -92,6 +95,12 @@
       align-items: end;
       margin-top: 90px;
       border-radius: 4px;
+      @media screen and (max-width: 576px) {
+        padding: 20px;
+        iframe{
+          height: 350px;
+        }
+      }
       .form {
         .form-head {
           color: #00DA7B;
@@ -110,6 +119,9 @@
             font-size: 20px;
             line-height: 30px;
             width: 60%;
+            @media (max-width: 576px) {
+              width: 100%;
+            }
           }
         }
 
