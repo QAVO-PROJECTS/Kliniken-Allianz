@@ -213,7 +213,7 @@ function Contact() {
                     <div className={"col-6 col-md-12 col-sm-12 col-xs-12"}>
                         <div className="map" data-aos="fade-left">
                             <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d2143.2871150885803!2d49.820814339935694!3d40.39212129227946!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNDDCsDIzJzMyLjYiTiA0OcKwNDknMTkuMiJF!5e1!3m2!1saz!2saz!4v1744207493172!5m2!1saz!2saz"
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3603.5460616273745!2d49.85555347640196!3d40.41115175597831!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40307d003436b447%3A0xb8c6c13c52985f63!2sQAVO%20MMC!5e1!3m2!1sen!2saz!4v1745930590256!5m2!1sen!2saz"
                                 width="100%"
                                 height="580"
                                 style={{border: 0}}

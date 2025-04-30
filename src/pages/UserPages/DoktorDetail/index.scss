@@ -99,13 +99,13 @@
         .about {
           display: flex;
 
+
+          gap: 24px;
+          align-items: center;
           @media screen and (max-width: 576px) {
             flex-wrap: wrap;
             gap: 5px;
           }
-          gap: 24px;
-          align-items: center;
-
           div {
             display: flex;
             align-items: center;

@@ -1,18 +1,24 @@
 #hotelCard {
   padding: 170px 50px 43px 26px;
   border-radius: 13px;
-  &:hover{
-    .image{
+  @media screen and (max-width: 576px) {
+    padding: 100px 20px 20px 10px;
+  }
 
-        img.default-image {
-          display: none; // Hover sırasında varsayılan resmi gizle
-        }
-        img.hover-image {
-          display: block; // Hover sırasında hover resmini göster
-        }
+  &:hover {
+    .image {
+
+      img.default-image {
+        display: none; // Hover sırasında varsayılan resmi gizle
+      }
+
+      img.hover-image {
+        display: block; // Hover sırasında hover resmini göster
+      }
 
     }
   }
+
   .image {
     width: 100%;
     position: relative;
@@ -33,12 +39,15 @@
     }
 
 
-
     .card-title {
       position: absolute;
       color: white;
       top: 0;
       padding: 14px;
+      @media screen and (max-width: 576px) {
+        padding: 5px;
+      }
+
       h5 {
         color: #000;
         font-size: 18px;
@@ -50,7 +59,13 @@
         -webkit-line-clamp: 1;
         overflow: hidden;
         text-overflow: ellipsis;
+
+        @media screen and (max-width: 576px) {
+          font-size: 12px;
+          line-height: 16.349px; /* 136.246% */
+        }
       }
+
       p {
         display: flex;
         align-items: center;
@@ -61,10 +76,18 @@
         font-weight: 400;
         line-height: 27px;
         margin-bottom: 24px;
+
         .icon {
           color: #000000;
           font-size: 15px;
         }
+
+        @media screen and (max-width: 576px) {
+          margin-bottom: 15px;
+          font-size: 10px;
+          line-height: 16.349px; /* 163.495% */
+        }
+
       }
     }
   }
