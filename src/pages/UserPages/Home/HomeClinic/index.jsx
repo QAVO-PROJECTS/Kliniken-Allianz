@@ -1,9 +1,15 @@
 import './index.scss';
-import HotelCard from '../../../../components/UserComponents/Home/HotelCard/index.jsx';
 import {useRef, useState, useEffect} from 'react';
 import ServiceDetailCard from "../../../../components/UserComponents/ServicesDetailCard/index.jsx";
 import {HiOutlineArrowLeft, HiOutlineArrowRight} from "react-icons/hi";
-import {useNavigate} from "react-router-dom";
+
+
+import image from "/src/assets/ServiceDetailCard.png";
+import image2 from "/src/assets/ServisDetailCard2.png";
+import image3 from "/src/assets/ServisDetailCard3.png";
+import image4 from "/src/assets/ServisDetailCard4.png";
+import image5 from "/src/assets/ServisDetailCard5.png";
+import image6 from "/src/assets/ServisDetailCard6.png";
 
 function HomeClinic() {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -14,7 +20,35 @@ function HomeClinic() {
     const currentTranslate = useRef(0);
     const prevTranslate = useRef(0);
 
-    const cards = [1, 2, 3, 4, 5, 6];
+    const cards = [{
+        name: "Universitätsklinikum",
+        description: "Frankfurt, Almaniya",
+        imageUrl: image,
+    },
+        {
+            name: "Cleveland Clinic",
+            description: "ABŞ",
+            imageUrl: image2,
+        },
+        {
+            name: "Anadolu Sağlık",
+            description: "Türkiye",
+            imageUrl: image3,
+        },
+        {
+            name: "Bumrungrad",
+            description: "Tailand",
+            imageUrl: image4,
+        },
+        {
+            name: "Hospital Universitario",
+            description: "Madrid, İspaniya",
+            imageUrl:image5,
+        }, {
+            name: "Singapore Hospital",
+            description: "Sinqapur",
+            imageUrl: image6,
+        }];
     const maxIndex = cards.length - visibleCards; // Dynamic maxIndex based on visibleCards
 
     // Detect screen size and set visibleCards
@@ -116,7 +150,8 @@ function HomeClinic() {
                     <div className="content">
                         <h2>Etibar Edilən Sağlamlıq Mərkəzləri</h2>
                         <p>
-                            Kliniken Allianz yalnız beynəlxalq standartlara cavab verən, müasir və etibarlı klinikalarla əməkdaşlıq edir.
+                            Kliniken Allianz yalnız beynəlxalq standartlara cavab verən, müasir və etibarlı klinikalarla
+                            əməkdaşlıq edir.
                         </p>
                     </div>
                     <div className="navigationBtn">
@@ -139,8 +174,8 @@ function HomeClinic() {
                     onTouchMove={drag}
                 >
                     <div className="slider-card row" ref={sliderRef}>
-                        {cards.map((_, index) => (
-                            <ServiceDetailCard key={index}/>
+                        {cards.map((item, index) => (
+                            <ServiceDetailCard key={index} name={item?.name} desc={item.description} img={item.imageUrl}/>
                         ))}
                     </div>
                 </div>

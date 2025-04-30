@@ -18,7 +18,23 @@ import gallery2 from '/src/assets/1212.jpg';
 import gallery3 from '/src/assets/1212.jpg';
 import gallery4 from '/src/assets/1212.jpg';
 import HomeServiceCard from "../../../components/UserComponents/Home/ServiceCardHome/index.jsx";
-
+import image2 from "../../../assets/ServisDetailCard2.png";
+import image3 from "../../../assets/ServisDetailCard3.png";
+import image4 from "../../../assets/ServisDetailCard4.png";
+import image5 from "../../../assets/ServisDetailCard5.png";
+import image6 from "../../../assets/ServisDetailCard6.png";
+import icon1 from "../../../assets/Servis/cancer.png";
+import icon4 from "../../../assets/Servis/oftomoloq.png";
+import icon3 from "../../../assets/Servis/genekoloq.png";
+import icon5 from "../../../assets/Servis/hepatoloq.png";
+import icon6 from "../../../assets/Servis/travmatoloq.png";
+import icon2 from "../../../assets/Servis/ortaped.png";
+import dimage from "/src/assets/doktor.jpg";
+import dimage2 from "/src/assets/doktor2.jpg";
+import dimage3 from "/src/assets/doktor3.jpg";
+import dimage4 from "/src/assets/doktor4.jpg";
+import dimage5 from "/src/assets/doktor5.jpg";
+import dimage6 from "/src/assets/doktor6.jpg";
 const galleryImages = [gallery1, gallery2, gallery3, gallery4];
 
 function ClinicDetail() {
@@ -65,8 +81,40 @@ function ClinicDetail() {
         setCurrentPage(page);
     };
 
-    const serviceCards = Array.from({length: 7}).map((_, i) => (
-        <HomeServiceCard key={i + 1}/>
+    const array = [{
+        name: "Xərçəng müalicəsi",
+        description: "Abş",
+        icon:icon1,
+    },
+        {
+            name: "Oftamologiya",
+            description: "Bangkok",
+            icon:icon4,
+        },
+
+        {
+            name: "Ginekologiya",
+            description: "İstanbul",
+            icon:icon3,
+        },
+
+        {
+            name: "Hepatologiya",
+            description: "Sinqapur",
+            icon:icon5,
+        }, {
+            name: "Travmatologiya",
+            description: "Bangkok",
+            icon:icon6,
+        },
+        {
+            name: "Onurğanın müalicəsi",
+            description: "Berlin",
+            icon:icon2,
+        },];
+
+    const serviceCards = array.map((item, i) => (
+        <HomeServiceCard key={i + 1} name={item.name} desc={item.description} icon={item.icon} />
     ));
     const displayedServiceCards = showAllServices
         ? serviceCards
@@ -77,7 +125,35 @@ function ClinicDetail() {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [galleryIndex, setGalleryIndex] = useState(0);
 
-    const cards = [1, 2, 3, 4, 5, 6];
+    const cards = [{
+        name: "Dr. Harry Donal",
+        description: "Frankfurt, Almaniya",
+        imageUrl: dimage,
+    },
+        {
+            name: "Dr. Maria Smith",
+            description: "ABŞ",
+            imageUrl: dimage2,
+        },
+        {
+            name: "Dr. Marc Gillinov",
+            description: "Türkiye",
+            imageUrl: dimage3,
+        },
+        {
+            name: "Dr. Samer Jaber",
+            description: "Tailand",
+            imageUrl: dimage4,
+        },
+        {
+            name: "Dr. Panya Sriratanajai",
+            description: "Madrid, İspaniya",
+            imageUrl:dimage5,
+        }, {
+            name: "Dr. Maria Keller",
+            description: "Sinqapur",
+            imageUrl: dimage6,
+        }];
     const getVisibleCards = () => window.innerWidth <= 576 ? 2 : 4;
     const maxIndex = cards.length - getVisibleCards();
     const maxGalleryIndex = galleryImages.length - 1;
@@ -294,8 +370,8 @@ function ClinicDetail() {
                     </div>
                     <div className="slider-wrapper">
                         <div className="slider-card row" ref={sliderRef}>
-                            {cards.map((_, i) => (
-                                <DoktorCard key={i}/>
+                            {cards.map((item, i) => (
+                                <DoktorCard key={i} name={item.name} img={item.imageUrl} />
                             ))}
                         </div>
                     </div>

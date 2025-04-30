@@ -1,6 +1,12 @@
 import './index.scss';
 import HotelCard from '../../../../components/UserComponents/Home/HotelCard/index.jsx';
 import { useRef, useState, useEffect } from 'react';
+import image from "../../../../assets/HotelCard1.jpg";
+import image2 from "../../../../assets/HotelCard2.jpg";
+import image3 from "../../../../assets/HotelCard3.jpg";
+import image4 from "../../../../assets/HotelCard4.jpg";
+import image5 from "../../../../assets/HotelCard5.jpg";
+import image6 from "../../../../assets/HotelCard6.jpg";
 
 function HomeHotel() {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -11,7 +17,35 @@ function HomeHotel() {
     const currentTranslate = useRef(0);
     const prevTranslate = useRef(0);
 
-    const cards = [1, 2, 3, 4, 5, 6];
+    const cards = [{
+        name: "The Ritz-Carlton ",
+        description: "Abş",
+        imageUrl: image,
+    },
+        {
+            name: "The Westin Grand",
+            description: "Berlin",
+            imageUrl: image2,
+        },
+        {
+            name: "Crowne Plaza",
+            description: "İstanbul",
+            imageUrl: image3,
+        },
+        {
+            name: "Siam Kempinski ",
+            description: "Bangkok",
+            imageUrl: image4,
+        },
+        {
+            name: "Raffles Hotel",
+            description: "Sinqapur",
+            imageUrl: image5,
+        }, {
+            name: "Mandarin Oriental",
+            description: "Bangkok",
+            imageUrl: image6,
+        }];
     const maxIndex = cards.length - visibleCards; // Dynamic maxIndex based on visibleCards
 
     // Detect screen size and set visibleCards
@@ -109,8 +143,8 @@ function HomeHotel() {
                     onTouchMove={drag}
                 >
                     <div className="slider-card row" ref={sliderRef}>
-                        {cards.map((_, index) => (
-                            <HotelCard key={index} />
+                        {cards.map((item, index) => (
+                            <HotelCard key={index} name={item.name} desc={item.description} img={item.imageUrl} />
                         ))}
                     </div>
                 </div>

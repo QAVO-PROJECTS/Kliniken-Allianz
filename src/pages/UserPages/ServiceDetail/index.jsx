@@ -6,11 +6,45 @@ import image1 from "/src/assets/Group.png";
 import { HiOutlineArrowLeft, HiOutlineArrowRight } from "react-icons/hi";
 import ServiceDetailCard from "../../../components/UserComponents/ServicesDetailCard/index.jsx";
 import {useEffect, useRef, useState} from "react";
+import image2 from "../../../assets/ServisDetailCard2.png";
+import image11 from "../../../assets/ServiceDetailCard.png";
+import image3 from "../../../assets/ServisDetailCard3.png";
+import image4 from "../../../assets/ServisDetailCard4.png";
+import image5 from "../../../assets/ServisDetailCard5.png";
+import image6 from "../../../assets/ServisDetailCard6.png";
 
 function ServiceDetail() {
     const sliderRef = useRef(null);
     const [currentIndex, setCurrentIndex] = useState(0);
-    const cards = [1, 2, 3, 4,5,6]; // Example: 5 cards, adjust based on your data
+    const cards = [{
+        name: "Universitätsklinikum",
+        description: "Frankfurt, Almaniya",
+        imageUrl: image11,
+    },
+        {
+            name: "Cleveland Clinic",
+            description: "ABŞ",
+            imageUrl: image2,
+        },
+        {
+            name: "Anadolu Sağlık",
+            description: "Türkiye",
+            imageUrl: image3,
+        },
+        {
+            name: "Bumrungrad",
+            description: "Tailand",
+            imageUrl: image4,
+        },
+        {
+            name: "Hospital Universitario",
+            description: "Madrid, İspaniya",
+            imageUrl:image5,
+        }, {
+            name: "Singapore Hospital",
+            description: "Sinqapur",
+            imageUrl: image6,
+        }]; // Example: 5 cards, adjust based on your data
     const isDragging = useRef(false);
     const startPos = useRef(0);
     const currentTranslate = useRef(0);
@@ -194,8 +228,8 @@ function ServiceDetail() {
                          onTouchEnd={stopDragging}
                          onTouchMove={drag}>
                         <div className="slider-card row" ref={sliderRef}>
-                            {cards.map((_, index) => (
-                                    <ServiceDetailCard  key={index}/>
+                            {cards.map((item, index) => (
+                                    <ServiceDetailCard  key={index} name={item.name} desc={item.description} img={item.imageUrl} />
                             ))}
                         </div>
                     </div>

@@ -1,15 +1,59 @@
 import './index.scss';
 import { HiOutlineArrowLeft, HiOutlineArrowRight } from 'react-icons/hi';
 import { useRef, useState, useEffect } from 'react';
-import ServiceDetailCard from '../../../../components/UserComponents/ServicesDetailCard/index.jsx';
 import BestServCard from '../../../../components/UserComponents/Home/BestServiceCard/index.jsx';
-import {useNavigate} from "react-router-dom";
+import image from "../../../../assets/BestService1.jpg";
+import image2 from "../../../../assets/BestService2.jpg";
+import image3 from "../../../../assets/BestService3.jpg";
+import image4 from "../../../../assets/BestService4.jpg";
+import image5 from "../../../../assets/BestService5.jpg";
+import image6 from "../../../../assets/BestService6.jpg";
 
+import icon1 from "../../../../assets/Servis/cancer.png";
+import icon2 from "../../../../assets/Servis/heart.png";
+import icon3 from "../../../../assets/Servis/sssssssss.png";
+import icon4 from "../../../../assets/Servis/oftomoloq.png";
+import icon5 from "../../../../assets/Servis/hepatoloq.png";
+import icon6 from "../../../../assets/Servis/travmatoloq.png";
 function HomeBestServ() {
     const sliderRef = useRef(null);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [cardsPerView, setCardsPerView] = useState(4); // Default: 4 cards for desktop
-    const cards = [1, 2, 3, 4, 5, 6]; // Example: 6 cards
+    const cards = [{
+        name: "Xərçəng müalicəsi",
+        description: "Abş",
+        imageUrl: image,
+        icon:icon1,
+    },
+        {
+            name: "Kardiologiya",
+            description: "Berlin",
+            imageUrl: image2,
+            icon:icon2,
+        },
+        {
+            name: "Almaniyada realibitasiya",
+            description: "İstanbul",
+            imageUrl: image3,
+            icon:icon3,
+        },
+        {
+            name: "Oftamologiya",
+            description: "Bangkok",
+            imageUrl: image4,
+            icon:icon4,
+        },
+        {
+            name: "Hepatologiya",
+            description: "Sinqapur",
+            imageUrl: image5,
+            icon:icon5,
+        }, {
+            name: "Travmatologiya",
+            description: "Bangkok",
+            imageUrl: image6,
+            icon:icon6,
+        }];
 
     // Detect screen size to set number of cards per view
     useEffect(() => {
@@ -152,8 +196,8 @@ function HomeBestServ() {
                       onTouchMove={drag}
                 >
                     <div className='slider-card row' ref={sliderRef}>
-                        {cards.map((_, index) => (
-                            <BestServCard key={index} />
+                        {cards.map((item, index) => (
+                            <BestServCard key={index} name={item.name} desc={item.description} img={item.imageUrl} icon={item.icon}/>
                         ))}
                     </div>
                 </div>

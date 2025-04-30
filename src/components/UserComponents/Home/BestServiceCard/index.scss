@@ -17,6 +17,7 @@
     }
   }
   .image {
+
     position: relative;
     margin-bottom: 48px;
     @media screen and (max-width: 576px){
@@ -60,6 +61,7 @@
     img {
       width: 100%;
       object-fit: cover;
+      aspect-ratio: 1/.6;
     }
   }
   .content{
@@ -75,8 +77,19 @@
       @media screen and (max-width: 576px){
         font-size: 14px;
       }
-    }
 
+    }
+    p{
+      color: #686868;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 21px; /* 175% */
+      margin-bottom: 8px;
+      @media screen and (max-width: 576px){
+        display: none;
+      }
+    }
     div{
 
       button{

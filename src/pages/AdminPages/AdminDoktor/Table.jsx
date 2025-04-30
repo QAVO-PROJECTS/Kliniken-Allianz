@@ -385,7 +385,7 @@ const DoktorTable = () => {
                             </Form.Item>
                             <Form.Item
                                 name="nameEng"
-                                label="Həkim聯合Adı (EN)"
+                                label="Həkim Adı (EN)"
                                 rules={[{ required: true, message: "Ad daxil edin!" }]}
                             >
                                 <Input placeholder="Ad daxil edin (EN)" className="rounded-md" />
