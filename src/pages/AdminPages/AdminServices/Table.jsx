@@ -1,4 +1,4 @@
-import {useState} from "react";
+import { useState } from "react";
 import {
     Table,
     Button,
@@ -12,9 +12,9 @@ import {
     Select,
     message,
 } from "antd";
-import {PlusOutlined} from "@ant-design/icons";
-import {FaRegEdit} from "react-icons/fa";
-import {MdDeleteForever} from "react-icons/md";
+import { PlusOutlined } from "@ant-design/icons";
+import { FaRegEdit } from "react-icons/fa";
+import { MdDeleteForever } from "react-icons/md";
 import {
     useGetAllServiceQuery,
     useGetAllCategoryQuery,
@@ -23,12 +23,12 @@ import {
     usePutServiceMutation,
     useDeleteServiceMutation,
 } from "../../../services/userApi.jsx";
-import {SERVICE_CARD_IMAGES, SERVICE_IMAGES} from "../../../contants.js";
+import { SERVICE_CARD_IMAGES, SERVICE_IMAGES } from "../../../contants.js";
 
 const ServicesTable = () => {
-    const {data: getAllService, refetch: refetchServices} = useGetAllServiceQuery();
-    const {data: getAllCategory} = useGetAllCategoryQuery();
-    const {data: getAllClinic} = useGetAllClinicQuery();
+    const { data: getAllService, refetch: refetchServices } = useGetAllServiceQuery();
+    const { data: getAllCategory } = useGetAllCategoryQuery();
+    const { data: getAllClinic } = useGetAllClinicQuery();
     const services = getAllService?.data || [];
     const categories = getAllCategory?.data || [];
     const clinics = getAllClinic?.data || [];
@@ -62,22 +62,21 @@ const ServicesTable = () => {
             descriptionEng: record.descriptionEng,
             descriptionRu: record.descriptionRu,
             categoryId: record.categoryId,
-            optionNames: record.options?.map(opt => opt.name) || [],
-            clinicServices: record.clinicIds || [],
-            deleteOptionNames: [],
-            deleteServiceImages: [],
-            deleteClinicServices: [],
+            optionNames: record.options?.map((opt) => opt.name) || [],
+            clinicServices: record.clinicIds || [], // Ensure clinicIds is set correctly
         });
 
         // Populate service card image
         setCardFileList(
             record.serviceCardImage
-                ? [{
-                    uid: "-1",
-                    name: record.serviceCardImage,
-                    status: "done",
-                    url: SERVICE_CARD_IMAGES + record.serviceCardImage,
-                }]
+                ? [
+                    {
+                        uid: "-1",
+                        name: record.serviceCardImage,
+                        status: "done",
+                        url: SERVICE_CARD_IMAGES + record.serviceCardImage,
+                    },
+                ]
                 : []
         );
 
@@ -95,7 +94,7 @@ const ServicesTable = () => {
 
         setIsEditModalVisible(true);
     };
-
+    console.log(editingService)
     const handleAddCancel = () => {
         setIsAddModalVisible(false);
     };
@@ -117,29 +116,43 @@ const ServicesTable = () => {
         formData.append("descriptionEng", rest.descriptionEng);
         formData.append("descriptionRu", rest.descriptionRu);
         formData.append("categoryId", categoryId);
-        if (optionNames) {
-            optionNames.forEach((option, index) => {
-                formData.append(`optionNames[${index}]`, option);
+
+        // Append optionNames (only new ones, as this is an add operation)
+        if (optionNames && optionNames.length > 0) {
+            optionNames.forEach((option) => {
+                formData.append(`optionNames`, option);
             });
         }
+
+        // Append clinicServices (send clinicIds to the backend in the main payload)
+        if (clinicServices && clinicServices.length > 0) {
+            clinicServices.forEach((clinicId) => {
+                formData.append(`clinicServiceIds`, clinicId); // Adjust key as per backend expectation
+            });
+        }
+
+        // Append serviceCardImage (single binary file)
         if (cardFileList[0]?.originFileObj) {
             formData.append("serviceCardImage", cardFileList[0].originFileObj);
         }
-        serviceImagesFileList.forEach((file) => {
-            if (file.originFileObj) {
-                formData.append("serviceImages", file.originFileObj);
-            }
-        });
+
+        // Append serviceImages (multiple binary files)
+        if (serviceImagesFileList.length > 0) {
+            serviceImagesFileList.forEach((file) => {
+                if (file.originFileObj) {
+                    formData.append(`serviceImages`, file.originFileObj);
+                }
+            });
+        }
 
         try {
             const serviceResponse = await postService(formData).unwrap();
             const serviceId = serviceResponse.data.id;
 
-            // Send clinic associations to a separate endpoint
+            // Optional: Send clinic associations to a separate endpoint (if still required)
             if (clinicServices && clinicServices.length > 0) {
                 for (const clinicId of clinicServices) {
                     const clinicPayload = { serviceId, clinicId };
-                    // Replace with actual API call, e.g., postServiceClinic(clinicPayload)
                     await fetch("/api/service-clinics", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
@@ -160,26 +173,32 @@ const ServicesTable = () => {
         }
     };
 
-    const handleEditService = async (values) => {
-        const {
-            clinicServices,
-            deleteClinicServices,
-            categoryId,
-            optionNames,
-            deleteOptionNames,
-            deleteServiceImages,
-            ...rest
-        } = values;
 
-        // Compute deleted items based on current state vs. original data
-        const computedDeleteServiceImages = editingService.serviceImages?.filter(
-            img => !serviceImagesFileList.some(file => file.name === img)
-        ) || [];
-        const computedDeleteOptionNames = editingService.options
-            ?.filter(opt => !optionNames.includes(opt.name))
-            .map(opt => opt.name) || [];
-        const computedDeleteClinicServices = editingService.clinicIds
-            ?.filter(clinicId => !clinicServices.includes(clinicId)) || [];
+    const handleEditService = async (values) => {
+        const { clinicServices, categoryId, optionNames, ...rest } = values;
+
+        // Compute changes for optionNames
+        const newOptionNames =
+            optionNames?.filter(
+                (opt) => !editingService.options?.some((existing) => existing.name === opt)
+            ) || [];
+        const deletedOptionNames =
+            editingService.options
+                ?.filter((opt) => !optionNames?.includes(opt.name))
+                .map((opt) => opt.name) || [];
+
+        // Compute changes for clinicServices
+        const newClinicServices =
+            clinicServices?.filter((clinicId) => !editingService.clinicIds?.includes(clinicId)) || [];
+        const deletedClinicServices =
+            editingService.clinicIds?.filter((clinicId) => !clinicServices?.includes(clinicId)) || [];
+
+        // Compute changes for serviceImages
+        const newServiceImages = serviceImagesFileList.filter((file) => file.originFileObj) || [];
+        const deletedServiceImages =
+            editingService.serviceImages?.filter(
+                (img) => !serviceImagesFileList.some((file) => file.name === img)
+            ) || [];
 
         const formData = new FormData();
         formData.append("id", editingService.id);
@@ -191,47 +210,60 @@ const ServicesTable = () => {
         formData.append("descriptionRu", rest.descriptionRu);
         formData.append("categoryId", categoryId);
 
-        if (optionNames && optionNames.length > 0) {
-            optionNames.forEach((option, index) => {
-                formData.append(`optionNames[${index}]`, option);
+        // Append new optionNames
+        if (newOptionNames.length > 0) {
+            newOptionNames.forEach((option) => {
+                formData.append(`optionNames`, option);
             });
         }
-        if (computedDeleteOptionNames.length > 0) {
-            computedDeleteOptionNames.forEach((option, index) => {
-                formData.append(`deleteOptionNames[${index}]`, option);
+
+        // Append deleted optionNames
+        if (deletedOptionNames.length > 0) {
+            deletedOptionNames.forEach((option) => {
+                formData.append(`deleteOptionNames`, option);
             });
         }
+
+        // Append serviceCardImage (single binary file, only if changed)
         if (cardFileList[0]?.originFileObj) {
             formData.append("serviceCardImage", cardFileList[0].originFileObj);
         }
-        serviceImagesFileList.forEach((file) => {
-            if (file.originFileObj) {
-                formData.append("serviceImages", file.originFileObj);
-            }
-        });
-        if (computedDeleteServiceImages.length > 0) {
-            computedDeleteServiceImages.forEach((image, index) => {
-                formData.append(`deleteServiceImages[${index}]`, image);
+
+        // Append new serviceImages (multiple binary files)
+        if (newServiceImages.length > 0) {
+            newServiceImages.forEach((file) => {
+                if (file.originFileObj) {
+                    formData.append(`serviceImages`, file.originFileObj);
+                }
             });
         }
-        if (clinicServices && clinicServices.length > 0) {
-            clinicServices.forEach((clinicId, index) => {
-                formData.append(`clinicServices[${index}]`, clinicId);
+
+        // Append deleted serviceImages
+        if (deletedServiceImages.length > 0) {
+            deletedServiceImages.forEach((image) => {
+                formData.append(`deleteServiceImages`, image);
             });
         }
-        if (computedDeleteClinicServices.length > 0) {
-            computedDeleteClinicServices.forEach((clinicId, index) => {
-                formData.append(`deleteClinicServices[${index}]`, clinicId);
+
+        // Append new clinicServices
+        if (newClinicServices.length > 0) {
+            newClinicServices.forEach((clinicId) => {
+                formData.append(`clinicServices`, clinicId);
+            });
+        }
+
+        // Append deleted clinicServices
+        if (deletedClinicServices.length > 0) {
+            deletedClinicServices.forEach((clinicId) => {
+                formData.append(`deleteClinicServices`, clinicId);
             });
         }
 
         // Log FormData for debugging
-        for (const [key, value] of formData.entries()) {
-            console.log(`${key}:`, value instanceof File ? value.name : value);
-        }
+
 
         try {
-            await putService({id: editingService.id, data: formData}).unwrap();
+            await putService(formData).unwrap();
             message.success("Xidmət uğurla yeniləndi!");
             setIsEditModalVisible(false);
             editForm.resetFields();
@@ -248,7 +280,7 @@ const ServicesTable = () => {
     const handleDelete = async (id) => {
         try {
             await deleteService(id).unwrap();
-            message.success("Xidmət uğurla silindi!");
+            message.success("Xidmət uğurla sailindi!");
             refetchServices();
         } catch (error) {
             console.error("Error deleting service:", error);
@@ -273,7 +305,7 @@ const ServicesTable = () => {
                     <img
                         src={SERVICE_CARD_IMAGES + serviceCardImage}
                         alt="Şəkil"
-                        style={{width: 50, height: 50, borderRadius: "5px", objectFit: "cover"}}
+                        style={{ width: 50, height: 50, borderRadius: "5px", objectFit: "cover" }}
                     />
                 );
             },
@@ -292,9 +324,9 @@ const ServicesTable = () => {
             title: "Əməliyyatlar",
             key: "actions",
             render: (text, record) => (
-                <div style={{display: "flex", gap: "8px", justifyContent: "center"}}>
+                <div style={{ display: "flex", gap: "8px", justifyContent: "center" }}>
                     <Button type="primary" onClick={() => showEditModal(record)}>
-                        <FaRegEdit/>
+                        <FaRegEdit />
                     </Button>
                     <Popconfirm
                         title="Silmək istədiyinizə əminsiniz?"
@@ -303,7 +335,7 @@ const ServicesTable = () => {
                         cancelText="Xeyr"
                     >
                         <Button type="default" danger>
-                            <MdDeleteForever/>
+                            <MdDeleteForever />
                         </Button>
                     </Popconfirm>
                 </div>
@@ -312,7 +344,9 @@ const ServicesTable = () => {
     ];
 
     const expandedRowRender = (record) => {
-        const categoryName = categories.find((category) => category.id === record.categoryId)?.name || "Bilinməyən Kateqoriya";
+        const categoryName =
+            categories.find((category) => category.id === record.categoryId)?.name ||
+            "Bilinməyən Kateqoriya";
 
         const optionColumns = [
             {
@@ -327,13 +361,23 @@ const ServicesTable = () => {
                 <h4>Əlavə Məlumat</h4>
                 <Row gutter={16}>
                     <Col span={12}>
-                        <p><strong>Ad (EN):</strong> {record.nameEng}</p>
-                        <p><strong>Ad (RU):</strong> {record.nameRu}</p>
-                        <p><strong>Açıqlama (EN):</strong> {record.descriptionEng}</p>
-                        <p><strong>Açıqlama (RU):</strong> {record.descriptionRu}</p>
+                        <p>
+                            <strong>Ad (EN):</strong> {record.nameEng}
+                        </p>
+                        <p>
+                            <strong>Ad (RU):</strong> {record.nameRu}
+                        </p>
+                        <p>
+                            <strong>Açıqlama (EN):</strong> {record.descriptionEng}
+                        </p>
+                        <p>
+                            <strong>Açıqlama (RU):</strong> {record.descriptionRu}
+                        </p>
                     </Col>
                     <Col span={12}>
-                        <p><strong>Kateqoriya:</strong> {categoryName}</p>
+                        <p>
+                            <strong>Kateqoriya:</strong> {categoryName}
+                        </p>
                         <p>
                             <strong>Xidmət Şəkilləri:</strong>{" "}
                             {record.serviceImages.length > 0
@@ -347,7 +391,7 @@ const ServicesTable = () => {
                                             height: 50,
                                             marginRight: 8,
                                             borderRadius: "5px",
-                                            objectFit: "cover"
+                                            objectFit: "cover",
                                         }}
                                     />
                                 ))
@@ -356,10 +400,12 @@ const ServicesTable = () => {
                         <p>
                             <strong>Klinikalar:</strong>{" "}
                             {record.clinicIds?.length > 0
-                                ? record.clinicIds.map((clinicId) => {
-                                    const clinic = clinics.find(c => c.id === clinicId);
-                                    return clinic ? clinic.name : clinicId;
-                                }).join(", ")
+                                ? record.clinicIds
+                                    .map((clinicId) => {
+                                        const clinic = clinics.find((c) => c.id === clinicId);
+                                        return clinic ? clinic.name : clinicId;
+                                    })
+                                    .join(", ")
                                 : "Klinika yoxdur"}
                         </p>
                     </Col>
@@ -388,7 +434,7 @@ const ServicesTable = () => {
                 rowKey="id"
                 columns={columns}
                 dataSource={services}
-                pagination={{pageSize: 6}}
+                pagination={{ pageSize: 6 }}
                 expandable={{
                     expandedRowRender,
                     rowExpandable: (record) =>
@@ -418,28 +464,28 @@ const ServicesTable = () => {
                             <Form.Item
                                 name="name"
                                 label="Xidmət Adı (AZ)"
-                                rules={[{required: true, message: "Ad daxil edin!"}]}
+                                rules={[{ required: true, message: "Ad daxil edin!" }]}
                             >
-                                <Input placeholder="Ad daxil edin" className="rounded-md"/>
+                                <Input placeholder="Ad daxil edin" className="rounded-md" />
                             </Form.Item>
                             <Form.Item
                                 name="nameEng"
                                 label="Xidmət Adı (EN)"
-                                rules={[{required: true, message: "Ad daxil edin!"}]}
+                                rules={[{ required: true, message: "Ad daxil edin!" }]}
                             >
-                                <Input placeholder="Ad daxil edin (EN)" className="rounded-md"/>
+                                <Input placeholder="Ad daxil edin (EN)" className="rounded-md" />
                             </Form.Item>
                             <Form.Item
                                 name="nameRu"
                                 label="Xidmət Adı (RU)"
-                                rules={[{required: true, message: "Ad daxil edin!"}]}
+                                rules={[{ required: true, message: "Ad daxil edin!" }]}
                             >
-                                <Input placeholder="Ad daxil edin (RU)" className="rounded-md"/>
+                                <Input placeholder="Ad daxil edin (RU)" className="rounded-md" />
                             </Form.Item>
                             <Form.Item
                                 name="categoryId"
                                 label="Kateqoriya"
-                                rules={[{required: true, message: "Kateqoriya seçin!"}]}
+                                rules={[{ required: true, message: "Kateqoriya seçin!" }]}
                             >
                                 <Select placeholder="Kateqoriya seçin" className="rounded-md">
                                     {categories.map((category) => (
@@ -452,7 +498,7 @@ const ServicesTable = () => {
                             <Form.Item
                                 name="clinicServices"
                                 label="Klinikalar"
-                                rules={[{required: true, message: "Ən azı bir klinika seçin!"}]}
+                                rules={[{ required: true, message: "Ən azı bir klinika seçin!" }]}
                             >
                                 <Select
                                     mode="multiple"
@@ -473,7 +519,7 @@ const ServicesTable = () => {
                             <Form.Item
                                 name="description"
                                 label="Açıqlama (AZ)"
-                                rules={[{required: true, message: "Açıqlama daxil edin!"}]}
+                                rules={[{ required: true, message: "Açıqlama daxil edin!" }]}
                             >
                                 <Input.TextArea
                                     placeholder="Açıqlama daxil edin"
@@ -484,7 +530,7 @@ const ServicesTable = () => {
                             <Form.Item
                                 name="descriptionEng"
                                 label="Açıqlama (EN)"
-                                rules={[{required: true, message: "Açıqlama daxil edin!"}]}
+                                rules={[{ required: true, message: "Açıqlama daxil edin!" }]}
                             >
                                 <Input.TextArea
                                     placeholder="Açıqlama daxil edin (EN)"
@@ -495,7 +541,7 @@ const ServicesTable = () => {
                             <Form.Item
                                 name="descriptionRu"
                                 label="Açıqlama (RU)"
-                                rules={[{required: true, message: "Açıqlama daxil edin!"}]}
+                                rules={[{ required: true, message: "Açıqlama daxil edin!" }]}
                             >
                                 <Input.TextArea
                                     placeholder="Açıqlama daxil edin (RU)"
@@ -506,7 +552,7 @@ const ServicesTable = () => {
                             <Form.Item
                                 name="optionNames"
                                 label="Seçim Adları"
-                                rules={[{required: false}]}
+                                rules={[{ required: false }]}
                             >
                                 <Select
                                     mode="tags"
@@ -521,7 +567,7 @@ const ServicesTable = () => {
                                     listType="picture-card"
                                     fileList={cardFileList}
                                     beforeUpload={() => false}
-                                    onChange={({fileList}) => setCardFileList(fileList)}
+                                    onChange={({ fileList }) => setCardFileList(fileList)}
                                     onRemove={(file) =>
                                         setCardFileList(cardFileList.filter((f) => f.uid !== file.uid))
                                     }
@@ -529,7 +575,7 @@ const ServicesTable = () => {
                                 >
                                     {cardFileList.length < 1 && (
                                         <div>
-                                            <PlusOutlined/>
+                                            <PlusOutlined />
                                             <div className="mt-2">Şəkil əlavə et</div>
                                         </div>
                                     )}
@@ -541,7 +587,7 @@ const ServicesTable = () => {
                                     listType="picture-card"
                                     fileList={serviceImagesFileList}
                                     beforeUpload={() => false}
-                                    onChange={({fileList}) => setServiceImagesFileList(fileList)}
+                                    onChange={({ fileList }) => setServiceImagesFileList(fileList)}
                                     onRemove={(file) =>
                                         setServiceImagesFileList(
                                             serviceImagesFileList.filter((f) => f.uid !== file.uid)
@@ -551,7 +597,7 @@ const ServicesTable = () => {
                                     multiple
                                 >
                                     <div>
-                                        <PlusOutlined/>
+                                        <PlusOutlined />
                                         <div className="mt-2">Şəkillər əlavə et</div>
                                     </div>
                                 </Upload>
@@ -588,28 +634,28 @@ const ServicesTable = () => {
                             <Form.Item
                                 name="name"
                                 label="Xidmət Adı (AZ)"
-                                rules={[{required: true, message: "Ad daxil edin!"}]}
+                                rules={[{ required: true, message: "Ad daxil edin!" }]}
                             >
-                                <Input placeholder="Ad daxil edin" className="rounded-md"/>
+                                <Input placeholder="Ad daxil edin" className="rounded-md" />
                             </Form.Item>
                             <Form.Item
                                 name="nameEng"
                                 label="Xidmət Adı (EN)"
-                                rules={[{required: true, message: "Ad daxil edin!"}]}
+                                rules={[{ required: true, message: "Ad daxil edin!" }]}
                             >
-                                <Input placeholder="Ad daxil edin (EN)" className="rounded-md"/>
+                                <Input placeholder="Ad daxil edin (EN)" className="rounded-md" />
                             </Form.Item>
                             <Form.Item
                                 name="nameRu"
                                 label="Xidmət Adı (RU)"
-                                rules={[{required: true, message: "Ad daxil edin!"}]}
+                                rules={[{ required: true, message: "Ad daxil edin!" }]}
                             >
-                                <Input placeholder="Ad daxil edin (RU)" className="rounded-md"/>
+                                <Input placeholder="Ad daxil edin (RU)" className="rounded-md" />
                             </Form.Item>
                             <Form.Item
                                 name="categoryId"
                                 label="Kateqoriya"
-                                rules={[{required: true, message: "Kateqoriya seçin!"}]}
+                                rules={[{ required: true, message: "Kateqoriya seçin!" }]}
                             >
                                 <Select
                                     placeholder="Kateqoriya seçin"
@@ -627,7 +673,7 @@ const ServicesTable = () => {
                             <Form.Item
                                 name="clinicServices"
                                 label="Klinikalar"
-                                rules={[{required: true, message: "Ən azı bir klinika seçin!"}]}
+                                rules={[{ required: true, message: "Ən azı bir klinika seçin!" }]}
                             >
                                 <Select
                                     mode="multiple"
@@ -635,15 +681,7 @@ const ServicesTable = () => {
                                     className="rounded-md"
                                     optionFilterProp="children"
                                     showSearch
-                                    onChange={(value) => {
-                                        // Calculate deleted clinics
-                                        const deletedClinics = editingService?.clinicIds?.filter(
-                                            id => !value.includes(id)
-                                        ) || [];
-                                        editForm.setFieldsValue({
-                                            deleteClinicServices: deletedClinics
-                                        });
-                                    }}
+                                    value={editForm.getFieldValue("clinicServices")} // Ensure value is bound
                                 >
                                     {clinics.map((clinic) => (
                                         <Select.Option key={clinic.id} value={clinic.id}>
@@ -652,19 +690,12 @@ const ServicesTable = () => {
                                     ))}
                                 </Select>
                             </Form.Item>
-                            <Form.Item
-                                name="deleteClinicServices"
-                                rules={[{required: false}]}
-                                noStyle
-                            >
-                                <Input type="hidden"/>
-                            </Form.Item>
                         </Col>
                         <Col span={12}>
                             <Form.Item
                                 name="description"
                                 label="Açıqlama (AZ)"
-                                rules={[{required: true, message: "Açıqlama daxil edin!"}]}
+                                rules={[{ required: true, message: "Açıqlama daxil edin!" }]}
                             >
                                 <Input.TextArea
                                     placeholder="Açıqlama daxil edin"
@@ -675,7 +706,7 @@ const ServicesTable = () => {
                             <Form.Item
                                 name="descriptionEng"
                                 label="Açıqlama (EN)"
-                                rules={[{required: true, message: "Açıqlama daxil edin!"}]}
+                                rules={[{ required: true, message: "Açıqlama daxil edin!" }]}
                             >
                                 <Input.TextArea
                                     placeholder="Açıqlama daxil edin (EN)"
@@ -686,7 +717,7 @@ const ServicesTable = () => {
                             <Form.Item
                                 name="descriptionRu"
                                 label="Açıqlama (RU)"
-                                rules={[{required: true, message: "Açıqlama daxil edin!"}]}
+                                rules={[{ required: true, message: "Açıqlama daxil edin!" }]}
                             >
                                 <Input.TextArea
                                     placeholder="Açıqlama daxil edin (RU)"
@@ -697,30 +728,14 @@ const ServicesTable = () => {
                             <Form.Item
                                 name="optionNames"
                                 label="Seçim Adları"
-                                rules={[{required: false}]}
+                                rules={[{ required: false }]}
                             >
                                 <Select
                                     mode="tags"
                                     placeholder="Seçim adlarını daxil edin (məsələn, Standart, Premium)"
                                     className="rounded-md"
                                     tokenSeparators={[","]}
-                                    onChange={(value) => {
-                                        // Calculate deleted options
-                                        const deletedOptions = editingService?.options
-                                            ?.filter(opt => !value.includes(opt.name))
-                                            .map(opt => opt.name) || [];
-                                        editForm.setFieldsValue({
-                                            deleteOptionNames: deletedOptions
-                                        });
-                                    }}
                                 />
-                            </Form.Item>
-                            <Form.Item
-                                name="deleteOptionNames"
-                                rules={[{required: false}]}
-                                noStyle
-                            >
-                                <Input type="hidden"/>
                             </Form.Item>
                             <Form.Item label="Xidmət Kart Şəkli">
                                 <Upload
@@ -728,7 +743,7 @@ const ServicesTable = () => {
                                     listType="picture-card"
                                     fileList={cardFileList}
                                     beforeUpload={() => false}
-                                    onChange={({fileList}) => setCardFileList(fileList)}
+                                    onChange={({ fileList }) => setCardFileList(fileList)}
                                     onRemove={(file) =>
                                         setCardFileList(cardFileList.filter((f) => f.uid !== file.uid))
                                     }
@@ -736,7 +751,7 @@ const ServicesTable = () => {
                                 >
                                     {cardFileList.length < 1 && (
                                         <div>
-                                            <PlusOutlined/>
+                                            <PlusOutlined />
                                             <div className="mt-2">Şəkil əlavə et</div>
                                         </div>
                                     )}
@@ -748,31 +763,15 @@ const ServicesTable = () => {
                                     listType="picture-card"
                                     fileList={serviceImagesFileList}
                                     beforeUpload={() => false}
-                                    onChange={({fileList}) => {
-                                        setServiceImagesFileList(fileList);
-                                        // Calculate deleted images
-                                        const deletedImages = editingService?.serviceImages?.filter(
-                                            img => !fileList.some(file => file.name === img)
-                                        ) || [];
-                                        editForm.setFieldsValue({
-                                            deleteServiceImages: deletedImages
-                                        });
-                                    }}
+                                    onChange={({ fileList }) => setServiceImagesFileList(fileList)}
                                     className="rounded-md"
                                     multiple
                                 >
                                     <div>
-                                        <PlusOutlined/>
+                                        <PlusOutlined />
                                         <div className="mt-2">Şəkillər əlavə et</div>
                                     </div>
                                 </Upload>
-                            </Form.Item>
-                            <Form.Item
-                                name="deleteServiceImages"
-                                rules={[{required: false}]}
-                                noStyle
-                            >
-                                <Input type="hidden"/>
                             </Form.Item>
                         </Col>
                     </Row>

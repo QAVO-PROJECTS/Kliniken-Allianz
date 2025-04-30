@@ -10,30 +10,44 @@ import {
     Row,
     Col,
     Select,
+    message,
+    DatePicker,
 } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { FaRegEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
-import { useGetAllDoctorsQuery, useGetAllClinicQuery } from "../../../services/userApi.jsx";
-import { DOCTOR_IMG_URL } from "../../../contants.js";
+import {
+    useGetAllDoctorsQuery,
+    useGetAllClinicQuery,
+    usePostDoctorsMutation,
+    usePutDoctorsMutation,
+    useDeleteDoctorsMutation,
+} from "../../../services/userApi.jsx";
+import {CERT_DOKTOR_URL, DOCTOR_IMG_URL} from "../../../contants.js";
+import dayjs from "dayjs"; // Import dayjs for date handling
 
 const DoktorTable = () => {
-    const { data: getAllDoctors } = useGetAllDoctorsQuery();
+    const { data: getAllDoctors, refetch: refetchDoctors } = useGetAllDoctorsQuery();
     const { data: getAllClinic } = useGetAllClinicQuery();
     const doctors = getAllDoctors?.data || [];
     const clinics = getAllClinic?.data || [];
 
+    const [postDoctor] = usePostDoctorsMutation();
+    const [putDoctor] = usePutDoctorsMutation();
+    const [deleteDoctor] = useDeleteDoctorsMutation();
     const [isAddModalVisible, setIsAddModalVisible] = useState(false);
     const [isEditModalVisible, setIsEditModalVisible] = useState(false);
     const [form] = Form.useForm();
     const [editForm] = Form.useForm();
     const [editingDoctor, setEditingDoctor] = useState(null);
     const [cardFileList, setCardFileList] = useState([]);
+    const [certificateFileList, setCertificateFileList] = useState([]);
 
     // Modal handlers
     const showAddModal = () => {
         form.resetFields();
         setCardFileList([]);
+        setCertificateFileList([]);
         setIsAddModalVisible(true);
     };
 
@@ -51,11 +65,11 @@ const DoktorTable = () => {
             descriptionRu: record.descriptionRu,
             rate: record.rate,
             role: record.role,
-            bornDate: record.bornDate,
+            bornDate: record.bornDate ? dayjs(record.bornDate, "M/D/YYYY") : null, // Parse backend date
             clinicId: record.clinicId,
-            doctorSertificates: record.doctorSertificates,
-            deleteDoctorSertificates: record.deleteDoctorSertificates,
         });
+
+        // Populate doctor image
         setCardFileList(
             record.doctorImage
                 ? [
@@ -68,35 +82,154 @@ const DoktorTable = () => {
                 ]
                 : []
         );
+
+        // Populate certificate images
+        setCertificateFileList(
+            record.doctorSertificates?.length > 0
+                ? record.doctorSertificates.map((img, index) => ({
+                    uid: `-${index + 1}`,
+                    name: img,
+                    status: "done",
+                    url: CERT_DOKTOR_URL + img,
+                }))
+                : []
+        );
+
         setIsEditModalVisible(true);
     };
 
     const handleAddCancel = () => {
         setIsAddModalVisible(false);
+        form.resetFields();
+        setCardFileList([]);
+        setCertificateFileList([]);
     };
 
     const handleEditCancel = () => {
         setIsEditModalVisible(false);
+        editForm.resetFields();
         setEditingDoctor(null);
+        setCardFileList([]);
+        setCertificateFileList([]);
     };
 
-    // Form submission handlers (stubbed)
-    const handleAddDoctor = (values) => {
-        console.log("Add doctor:", values, cardFileList);
-        // Implement API call to add doctor
-        setIsAddModalVisible(false);
+    // Form submission handlers
+    const handleAddDoctor = async (values) => {
+        const { clinicId, bornDate, ...rest } = values;
+
+        const formData = new FormData();
+        formData.append("name", rest.name);
+        formData.append("nameEng", rest.nameEng);
+        formData.append("nameRu", rest.nameRu);
+        formData.append("surName", rest.surName);
+        formData.append("surNameEng", rest.surNameEng);
+        formData.append("surNameRu", rest.surNameRu);
+        formData.append("description", rest.description);
+        formData.append("descriptionEng", rest.descriptionEng);
+        formData.append("descriptionRu", rest.descriptionRu);
+        formData.append("rate", rest.rate);
+        formData.append("role", rest.role);
+        formData.append("bornDate", bornDate ? bornDate.format("DD.MM.YYYY") : ""); // Format as DD.MM.YYYY
+        formData.append("clinicId", clinicId);
+
+        // Append doctorImage (single binary file)
+        if (cardFileList[0]?.originFileObj) {
+            formData.append("doctorImage", cardFileList[0].originFileObj);
+        }
+
+        // Append doctorSertificates (multiple binary files)
+        if (certificateFileList.length > 0) {
+            certificateFileList.forEach((file) => {
+                if (file.originFileObj) {
+                    formData.append(`doctorSertificates`, file.originFileObj);
+                }
+            });
+        }
+
+        try {
+            await postDoctor(formData).unwrap();
+            message.success("Həkim uğurla əlavə edildi!");
+            setIsAddModalVisible(false);
+            form.resetFields();
+            setCardFileList([]);
+            setCertificateFileList([]);
+            refetchDoctors();
+        } catch (error) {
+            console.error("Error adding doctor:", error);
+            message.error("Həkim əlavə edilərkən xəta baş verdi!");
+        }
     };
 
-    const handleEditDoctor = (values) => {
-        console.log("Edit doctor:", values, cardFileList);
-        // Implement API call to update doctor
-        setIsEditModalVisible(false);
+    const handleEditDoctor = async (values) => {
+        const { clinicId, bornDate, ...rest } = values;
+
+        // Compute changes kritika
+        const newCertificates = certificateFileList.filter((file) => file.originFileObj) || [];
+        const deletedCertificates = editingDoctor.doctorSertificates?.filter(
+            (img) => !certificateFileList.some((file) => file.name === img)
+        ) || [];
+
+        const formData = new FormData();
+        formData.append("id", editingDoctor.id);
+        formData.append("name", rest.name);
+        formData.append("nameEng", rest.nameEng);
+        formData.append("nameRu", rest.nameRu);
+        formData.append("surName", rest.surName);
+        formData.append("surNameEng", rest.surNameEng);
+        formData.append("surNameRu", rest.surNameRu);
+        formData.append("description", rest.description);
+        formData.append("descriptionEng", rest.descriptionEng);
+        formData.append("descriptionRu", rest.descriptionRu);
+        formData.append("rate", rest.rate);
+        formData.append("role", rest.role);
+        formData.append("bornDate", bornDate ? bornDate.format("DD.MM.YYYY") : ""); // Format as DD.MM.YYYY
+        formData.append("clinicId", clinicId);
+
+        // Append doctorImage (single binary file, only if changed)
+        if (cardFileList[0]?.originFileObj) {
+            formData.append("doctorImage", cardFileList[0].originFileObj);
+        }
+
+        // Append new doctorSertificates (multiple binary files)
+        if (newCertificates.length > 0) {
+            newCertificates.forEach((file) => {
+                if (file.originFileObj) {
+                    formData.append(`doctorSertificates`, file.originFileObj);
+                }
+            });
+        }
+
+        // Append deleted doctorSertificates
+        if (deletedCertificates.length > 0) {
+            deletedCertificates.forEach((image) => {
+                formData.append(`deleteDoctorSertificates`, image);
+            });
+        }
+
+        try {
+            await putDoctor(formData).unwrap();
+            message.success("Həkim uğurla yeniləndi!");
+            setIsEditModalVisible(false);
+            editForm.resetFields();
+            setCardFileList([]);
+            setCertificateFileList([]);
+            setEditingDoctor(null);
+            refetchDoctors();
+        } catch (error) {
+            console.error("Error updating doctor:", error);
+            message.error("Həkim yenilənərkən xəta baş verdi!");
+        }
     };
 
-    // Delete handler (stubbed)
-    const handleDelete = (id) => {
-        console.log("Delete doctor:", id);
-        // Implement API call to delete doctor
+    const handleDelete = async (id) => {
+        try {
+            await deleteDoctor(id).unwrap();
+            message.success("Həkim uğurla silindi!");
+            refetchDoctors();
+        } catch (error) {
+            console.error("Error deleting doctor:", error);
+            message.error("Həkim silinərkən xəta baş verdi!");
+        }
     };
 
     const columns = [
@@ -155,7 +288,6 @@ const DoktorTable = () => {
         },
     ];
 
-    // Expanded row rendering
     const expandedRowRender = (record) => {
         const clinicName = clinics.find((clinic) => clinic.id === record.clinicId)?.name || "Bilinməyən Klinika";
 
@@ -164,42 +296,35 @@ const DoktorTable = () => {
                 <h4>Əlavə Məlumat</h4>
                 <Row gutter={16}>
                     <Col span={12}>
-                        <p>
-                            <strong>Ad (EN):</strong> {record.nameEng}
-                        </p>
-                        <p>
-                            <strong>Ad (RU):</strong> {record.nameRu}
-                        </p>
-                        <p>
-                            <strong>Soyad (EN):</strong> {record.surNameEng}
-                        </p>
-                        <p>
-                            <strong>Soyad (RU):</strong> {record.surNameRu}
-                        </p>
-                        <p>
-                            <strong>Açıqlama (EN):</strong> {record.descriptionEng}
-                        </p>
-                        <p>
-                            <strong>Açıqlama (RU):</strong> {record.descriptionRu}
-                        </p>
+                        <p><strong>Ad (EN):</strong> {record.nameEng}</p>
+                        <p><strong>Ad (RU):</strong> {record.nameRu}</p>
+                        <p><strong>Soyad (EN):</strong> {record.surNameEng}</p>
+                        <p><strong>Soyad (RU):</strong> {record.surNameRu}</p>
+                        <p><strong>Açıqlama (EN):</strong> {record.descriptionEng}</p>
+                        <p><strong>Açıqlama (RU):</strong> {record.descriptionRu}</p>
                     </Col>
                     <Col span={12}>
-                        <p>
-                            <strong>Reytinq:</strong> {record.rate.toFixed(2)}
-                        </p>
-                        <p>
-                            <strong>Rol:</strong> {record.role}
-                        </p>
-                        <p>
-                            <strong>Doğum Tarixi:</strong> {record.bornDate}
-                        </p>
-                        <p>
-                            <strong>Klinika:</strong> {clinicName}
-                        </p>
+                        <p><strong>Reytinq:</strong> {record.rate.toFixed(2)}</p>
+                        <p><strong>Rol:</strong> {record.role}</p>
+                        <p><strong>Doğum Tarixi:</strong> {record.bornDate}</p>
+                        <p><strong>Klinika:</strong> {clinicName}</p>
                         <p>
                             <strong>Sertifikatlar:</strong>{" "}
                             {record.doctorSertificates.length > 0
-                                ? record.doctorSertificates.join(", ")
+                                ? record.doctorSertificates.map((img, index) => (
+                                    <img
+                                        key={index}
+                                        src={CERT_DOKTOR_URL + img}
+                                        alt={`Sertifikat ${index + 1}`}
+                                        style={{
+                                            width: 50,
+                                            height: 50,
+                                            marginRight: 8,
+                                            borderRadius: "5px",
+                                            objectFit: "cover",
+                                        }}
+                                    />
+                                ))
                                 : "Sertifikat yoxdur"}
                         </p>
                     </Col>
@@ -242,7 +367,7 @@ const DoktorTable = () => {
             {/* Add Doctor Modal */}
             <Modal
                 title="Yeni Həkim Əlavə Et"
-                visible={isAddModalVisible}
+                open={isAddModalVisible}
                 onCancel={handleAddCancel}
                 footer={null}
                 width={800}
@@ -256,60 +381,85 @@ const DoktorTable = () => {
                                 label="Həkim Adı (AZ)"
                                 rules={[{ required: true, message: "Ad daxil edin!" }]}
                             >
-                                <Input
-                                    placeholder="Ad daxil edin"
-                                    className="rounded-md"
-                                />
+                                <Input placeholder="Ad daxil edin" className="rounded-md" />
                             </Form.Item>
                             <Form.Item
                                 name="nameEng"
-                                label="Həkim Adı (EN)"
+                                label="Həkim聯合Adı (EN)"
                                 rules={[{ required: true, message: "Ad daxil edin!" }]}
                             >
-                                <Input
-                                    placeholder="Ad daxil edin (EN)"
-                                    className="rounded-md"
-                                />
+                                <Input placeholder="Ad daxil edin (EN)" className="rounded-md" />
                             </Form.Item>
                             <Form.Item
                                 name="nameRu"
                                 label="Həkim Adı (RU)"
                                 rules={[{ required: true, message: "Ad daxil edin!" }]}
                             >
-                                <Input
-                                    placeholder="Ad daxil edin (RU)"
-                                    className="rounded-md"
-                                />
+                                <Input placeholder="Ad daxil edin (RU)" className="rounded-md" />
                             </Form.Item>
                             <Form.Item
                                 name="surName"
                                 label="Soyad (AZ)"
                                 rules={[{ required: true, message: "Soyad daxil edin!" }]}
                             >
-                                <Input
-                                    placeholder="Soyad daxil edin"
-                                    className="rounded-md"
-                                />
+                                <Input placeholder="Soyad daxil edin" className="rounded-md" />
                             </Form.Item>
                             <Form.Item
                                 name="surNameEng"
                                 label="Soyad (EN)"
                                 rules={[{ required: true, message: "Soyad daxil edin!" }]}
                             >
-                                <Input
-                                    placeholder="Soyad daxil edin (EN)"
-                                    className="rounded-md"
-                                />
+                                <Input placeholder="Soyad daxil edin (EN)" className="rounded-md" />
                             </Form.Item>
                             <Form.Item
                                 name="surNameRu"
                                 label="Soyad (RU)"
                                 rules={[{ required: true, message: "Soyad daxil edin!" }]}
                             >
-                                <Input
-                                    placeholder="Soyad daxil edin (RU)"
+                                <Input placeholder="Soyad daxil edin (RU)" className="rounded-md" />
+                            </Form.Item>
+                            <Form.Item label="Sertifikat Şəkilləri">
+                                <Upload
+                                    name="doctorSertificates"
+                                    listType="picture-card"
+                                    fileList={certificateFileList}
+                                    beforeUpload={() => false}
+                                    onChange={({ fileList }) => setCertificateFileList(fileList)}
+                                    onRemove={(file) =>
+                                        setCertificateFileList(
+                                            certificateFileList.filter((f) => f.uid !== file.uid)
+                                        )
+                                    }
                                     className="rounded-md"
-                                />
+                                    multiple
+                                    accept="image/*"
+                                >
+                                    <div>
+                                        <PlusOutlined />
+                                        <div className="mt-2">Sertifikat şəkilləri əlavə et</div>
+                                    </div>
+                                </Upload>
+                            </Form.Item>
+                            <Form.Item label="Şəkil">
+                                <Upload
+                                    name="doctorImage"
+                                    listType="picture-card"
+                                    fileList={cardFileList}
+                                    beforeUpload={() => false}
+                                    onChange={({ fileList }) => setCardFileList(fileList)}
+                                    onRemove={(file) =>
+                                        setCardFileList(cardFileList.filter((f) => f.uid !== file.uid))
+                                    }
+                                    className="rounded-md"
+                                    accept="image/*"
+                                >
+                                    {cardFileList.length < 1 && (
+                                        <div>
+                                            <PlusOutlined />
+                                            <div className="mt-2">Şəkil əlavə et</div>
+                                        </div>
+                                    )}
+                                </Upload>
                             </Form.Item>
                         </Col>
                         <Col span={12}>
@@ -363,19 +513,17 @@ const DoktorTable = () => {
                                 label="Rol"
                                 rules={[{ required: true, message: "Rol daxil edin!" }]}
                             >
-                                <Input
-                                    placeholder="Rol daxil edin"
-                                    className="rounded-md"
-                                />
+                                <Input placeholder="Rol daxil edin" className="rounded-md" />
                             </Form.Item>
                             <Form.Item
                                 name="bornDate"
                                 label="Doğum Tarixi"
-                                rules={[{ required: true, message: "Doğum tarixi daxil edin!" }]}
+                                rules={[{ required: true, message: "Doğum tarixi seçin!" }]}
                             >
-                                <Input
-                                    placeholder="Doğum tarixi daxil edin (məs. 6/24/2004)"
-                                    className="rounded-md"
+                                <DatePicker
+                                    format="DD.MM.YYYY"
+                                    placeholder="Doğum tarixi seçin"
+                                    className="w-full rounded-md"
                                 />
                             </Form.Item>
                             <Form.Item
@@ -383,10 +531,7 @@ const DoktorTable = () => {
                                 label="Klinika"
                                 rules={[{ required: true, message: "Klinika seçin!" }]}
                             >
-                                <Select
-                                    placeholder="Klinika seçin"
-                                    className="rounded-md"
-                                >
+                                <Select placeholder="Klinika seçin" className="rounded-md">
                                     {clinics.map((clinic) => (
                                         <Select.Option key={clinic.id} value={clinic.id}>
                                             {clinic.name}
@@ -394,38 +539,7 @@ const DoktorTable = () => {
                                     ))}
                                 </Select>
                             </Form.Item>
-                            <Form.Item
-                                name="doctorSertificates"
-                                label="Sertifikatlar"
-                                rules={[{ required: false }]}
-                            >
-                                <Select
-                                    mode="tags"
-                                    placeholder="Sertifikat adlarını daxil edin (məsələn, ISO 9001, GMP)"
-                                    className="rounded-md"
-                                    tokenSeparators={[","]}
-                                />
-                            </Form.Item>
-                            <Form.Item label="Şəkil">
-                                <Upload
-                                    name="doctorImage"
-                                    listType="picture-card"
-                                    fileList={cardFileList}
-                                    beforeUpload={() => false}
-                                    onChange={({ fileList }) => setCardFileList(fileList)}
-                                    onRemove={(file) =>
-                                        setCardFileList(cardFileList.filter((f) => f.uid !== file.uid))
-                                    }
-                                    className="rounded-md"
-                                >
-                                    {cardFileList.length < 1 && (
-                                        <div>
-                                            <PlusOutlined />
-                                            <div className="mt-2">Şəkil əlavə et</div>
-                                        </div>
-                                    )}
-                                </Upload>
-                            </Form.Item>
+
                         </Col>
                     </Row>
                     <Form.Item className="text-right">
@@ -436,10 +550,7 @@ const DoktorTable = () => {
                         >
                             Əlavə Et
                         </Button>
-                        <Button
-                            onClick={handleAddCancel}
-                            className="rounded-md"
-                        >
+                        <Button onClick={handleAddCancel} className="rounded-md">
                             İmtina Et
                         </Button>
                     </Form.Item>
@@ -449,7 +560,7 @@ const DoktorTable = () => {
             {/* Edit Doctor Modal */}
             <Modal
                 title="Həkim Redaktə Et"
-                visible={isEditModalVisible}
+                open={isEditModalVisible}
                 onCancel={handleEditCancel}
                 footer={null}
                 width={800}
@@ -463,60 +574,85 @@ const DoktorTable = () => {
                                 label="Həkim Adı (AZ)"
                                 rules={[{ required: true, message: "Ad daxil edin!" }]}
                             >
-                                <Input
-                                    placeholder="Ad daxil edin"
-                                    className="rounded-md"
-                                />
+                                <Input placeholder="Ad daxil edin" className="rounded-md" />
                             </Form.Item>
                             <Form.Item
                                 name="nameEng"
                                 label="Həkim Adı (EN)"
                                 rules={[{ required: true, message: "Ad daxil edin!" }]}
                             >
-                                <Input
-                                    placeholder="Ad daxil edin (EN)"
-                                    className="rounded-md"
-                                />
+                                <Input placeholder="Ad daxil edin (EN)" className="rounded-md" />
                             </Form.Item>
                             <Form.Item
                                 name="nameRu"
                                 label="Həkim Adı (RU)"
                                 rules={[{ required: true, message: "Ad daxil edin!" }]}
                             >
-                                <Input
-                                    placeholder="Ad daxil edin (RU)"
-                                    className="rounded-md"
-                                />
+                                <Input placeholder="Ad daxil edin (RU)" className="rounded-md" />
                             </Form.Item>
                             <Form.Item
                                 name="surName"
                                 label="Soyad (AZ)"
                                 rules={[{ required: true, message: "Soyad daxil edin!" }]}
                             >
-                                <Input
-                                    placeholder="Soyad daxil edin"
-                                    className="rounded-md"
-                                />
+                                <Input placeholder="Soyad daxil edin" className="rounded-md" />
                             </Form.Item>
                             <Form.Item
                                 name="surNameEng"
                                 label="Soyad (EN)"
                                 rules={[{ required: true, message: "Soyad daxil edin!" }]}
                             >
-                                <Input
-                                    placeholder="Soyad daxil edin (EN)"
-                                    className="rounded-md"
-                                />
+                                <Input placeholder="Soyad daxil edin (EN)" className="rounded-md" />
                             </Form.Item>
                             <Form.Item
                                 name="surNameRu"
                                 label="Soyad (RU)"
                                 rules={[{ required: true, message: "Soyad daxil edin!" }]}
                             >
-                                <Input
-                                    placeholder="Soyad daxil edin (RU)"
+                                <Input placeholder="Soyad daxil edin (RU)" className="rounded-md" />
+                            </Form.Item>
+                            <Form.Item label="Sertifikat Şəkilləri">
+                                <Upload
+                                    name="doctorSertificates"
+                                    listType="picture-card"
+                                    fileList={certificateFileList}
+                                    beforeUpload={() => false}
+                                    onChange={({ fileList }) => setCertificateFileList(fileList)}
+                                    onRemove={(file) =>
+                                        setCertificateFileList(
+                                            certificateFileList.filter((f) => f.uid !== file.uid)
+                                        )
+                                    }
                                     className="rounded-md"
-                                />
+                                    multiple
+                                    accept="image/*"
+                                >
+                                    <div>
+                                        <PlusOutlined />
+                                        <div className="mt-2">Sertifikat şəkilləri əlavə et</div>
+                                    </div>
+                                </Upload>
+                            </Form.Item>
+                            <Form.Item label="Şəkil">
+                                <Upload
+                                    name="doctorImage"
+                                    listType="picture-card"
+                                    fileList={cardFileList}
+                                    beforeUpload={() => false}
+                                    onChange={({ fileList }) => setCardFileList(fileList)}
+                                    onRemove={(file) =>
+                                        setCardFileList(cardFileList.filter((f) => f.uid !== file.uid))
+                                    }
+                                    className="rounded-md"
+                                    accept="image/*"
+                                >
+                                    {cardFileList.length < 1 && (
+                                        <div>
+                                            <PlusOutlined />
+                                            <div className="mt-2">Şəkil əlavə et</div>
+                                        </div>
+                                    )}
+                                </Upload>
                             </Form.Item>
                         </Col>
                         <Col span={12}>
@@ -570,19 +706,17 @@ const DoktorTable = () => {
                                 label="Rol"
                                 rules={[{ required: true, message: "Rol daxil edin!" }]}
                             >
-                                <Input
-                                    placeholder="Rol daxil edin"
-                                    className="rounded-md"
-                                />
+                                <Input placeholder="Rol daxil edin" className="rounded-md" />
                             </Form.Item>
                             <Form.Item
                                 name="bornDate"
                                 label="Doğum Tarixi"
-                                rules={[{ required: true, message: "Doğum tarixi daxil edin!" }]}
+                                rules={[{ required: true, message: "Doğum tarixi seçin!" }]}
                             >
-                                <Input
-                                    placeholder="Doğum tarixi daxil edin (məs. 6/24/2004)"
-                                    className="rounded-md"
+                                <DatePicker
+                                    format="DD.MM.YYYY"
+                                    placeholder="Doğum tarixi seçin"
+                                    className="w-full rounded-md"
                                 />
                             </Form.Item>
                             <Form.Item
@@ -590,10 +724,7 @@ const DoktorTable = () => {
                                 label="Klinika"
                                 rules={[{ required: true, message: "Klinika seçin!" }]}
                             >
-                                <Select
-                                    placeholder="Klinika seçin"
-                                    className="rounded-md"
-                                >
+                                <Select placeholder="Klinika seçin" className="rounded-md">
                                     {clinics.map((clinic) => (
                                         <Select.Option key={clinic.id} value={clinic.id}>
                                             {clinic.name}
@@ -601,50 +732,7 @@ const DoktorTable = () => {
                                     ))}
                                 </Select>
                             </Form.Item>
-                            <Form.Item
-                                name="doctorSertificates"
-                                label="Sertifikatlar"
-                                rules={[{ required: false }]}
-                            >
-                                <Select
-                                    mode="tags"
-                                    placeholder="Sertifikat adlarını daxil edin (məsələn, ISO 9001, GMP)"
-                                    className="rounded-md"
-                                    tokenSeparators={[","]}
-                                />
-                            </Form.Item>
-                            <Form.Item
-                                name="deleteDoctorSertificates"
-                                label="Silinəcək Sertifikatlar"
-                                rules={[{ required: false }]}
-                            >
-                                <Select
-                                    mode="tags"
-                                    placeholder="Silinəcək sertifikat adlarını daxil edin"
-                                    className="rounded-md"
-                                    tokenSeparators={[","]}
-                                />
-                            </Form.Item>
-                            <Form.Item label="Şəkil">
-                                <Upload
-                                    name="doctorImage"
-                                    listType="picture-card"
-                                    fileList={cardFileList}
-                                    beforeUpload={() => false}
-                                    onChange={({ fileList }) => setCardFileList(fileList)}
-                                    onRemove={(file) =>
-                                        setCardFileList(cardFileList.filter((f) => f.uid !== file.uid))
-                                    }
-                                    className="rounded-md"
-                                >
-                                    {cardFileList.length < 1 && (
-                                        <div>
-                                            <PlusOutlined />
-                                            <div className="mt-2">Şəkil əlavə et</div>
-                                        </div>
-                                    )}
-                                </Upload>
-                            </Form.Item>
+
                         </Col>
                     </Row>
                     <Form.Item className="text-right">
@@ -655,10 +743,7 @@ const DoktorTable = () => {
                         >
                             Düzəliş Et
                         </Button>
-                        <Button
-                            onClick={handleEditCancel}
-                            className="rounded-md"
-                        >
+                        <Button onClick={handleEditCancel} className="rounded-md">
                             İmtina Et
                         </Button>
                     </Form.Item>

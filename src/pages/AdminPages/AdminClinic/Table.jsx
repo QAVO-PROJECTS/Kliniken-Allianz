@@ -18,19 +18,22 @@ import { MdDeleteForever } from "react-icons/md";
 import {
     useDeleteClinicMutation,
     useGetAllClinicQuery,
-    useGetAllDoctorsQuery,
     useGetAllServiceQuery,
     usePostClinicMutation,
     usePutClinicMutation,
 } from "../../../services/userApi.jsx";
-import { CLINIC_CARD_IMAGES } from "../../../contants.js";
+import {
+    CERT_CLINIC_URL,
+    CLINIC_CARD_IMAGES,
+    CLINIC_IMAGES,
+    DOCTOR_IMG_URL,
+    SERVICE_CARD_IMAGES
+} from "../../../contants.js";
 
 const ClinicTable = () => {
     const { data: getAllClinic, refetch: refetchClinics } = useGetAllClinicQuery();
-    const { data: getAllDoctors } = useGetAllDoctorsQuery();
     const { data: getAllService } = useGetAllServiceQuery();
     const clinics = getAllClinic?.data || [];
-    const doktors = getAllDoctors?.data || [];
     const services = getAllService?.data || [];
 
     const [postClinic] = usePostClinicMutation();
@@ -43,17 +46,34 @@ const ClinicTable = () => {
     const [editingClinic, setEditingClinic] = useState(null);
     const [cardFileList, setCardFileList] = useState([]);
     const [clinicImagesFileList, setClinicImagesFileList] = useState([]);
+    const [certificateImagesFileList, setCertificateImagesFileList] = useState([]);
+    // State to track deleted IDs
+    const [deletedServiceIds, setDeletedServiceIds] = useState([]);
+    const [deletedClinicImages, setDeletedClinicImages] = useState([]);
+    const [deletedCertificates, setDeletedCertificates] = useState([]);
 
     // Modal handlers
     const showAddModal = () => {
         form.resetFields();
         setCardFileList([]);
         setClinicImagesFileList([]);
+        setCertificateImagesFileList([]);
         setIsAddModalVisible(true);
     };
 
     const showEditModal = (record) => {
         setEditingClinic(record);
+        // Map doctorIds from record.doctors
+
+        // Map clinicServiceIds from record.services
+        const clinicServiceIds = [...new Set(record.services.map((service) => service.id))];
+
+        // Reset deleted IDs
+        setDeletedServiceIds([]);
+        setDeletedClinicImages([]);
+        setDeletedCertificates([]);
+
+        // Set form fields
         editForm.setFieldsValue({
             name: record.name,
             nameEng: record.nameEng,
@@ -62,13 +82,22 @@ const ClinicTable = () => {
             descriptionEng: record.descriptionEng,
             descriptionRu: record.descriptionRu,
             location: record.location,
-            doctorIds: record.doctorIds,
-            clinicServiceIds: record.clinicServiceIds,
-            clinicSertificates: record.clinicSertificates,
-            deleteClinicImages: record.deleteClinicImages,
-            deleteClinicSertificates: record.deleteClinicSertificates,
-            deleteClinicServiceIds: record.deleteClinicServiceIds,
+            clinicServiceIds: clinicServiceIds,
         });
+
+        // Set certificate images
+        setCertificateImagesFileList(
+            record.clinicSertificates
+                ? record.clinicSertificates.map((image, index) => ({
+                    uid: `-${index + 1}`,
+                    name: image,
+                    status: "done",
+                    url: CERT_CLINIC_URL + image,
+                }))
+                : []
+        );
+
+        // Set clinic card image
         setCardFileList(
             record.clinicCardImage
                 ? [
@@ -81,16 +110,19 @@ const ClinicTable = () => {
                 ]
                 : []
         );
+
+        // Set clinic images
         setClinicImagesFileList(
             record.clinicImages
                 ? record.clinicImages.map((image, index) => ({
                     uid: `-${index + 1}`,
                     name: image,
                     status: "done",
-                    url: CLINIC_CARD_IMAGES + image,
+                    url: CLINIC_IMAGES + image,
                 }))
                 : []
         );
+
         setIsEditModalVisible(true);
     };
 
@@ -101,15 +133,16 @@ const ClinicTable = () => {
     const handleEditCancel = () => {
         setIsEditModalVisible(false);
         setEditingClinic(null);
+        setDeletedServiceIds([]);
+        setDeletedClinicImages([]);
+        setDeletedCertificates([]);
     };
 
     // Form submission handlers
     const handleAddClinic = async (values) => {
         try {
-            // Create a FormData object to handle binary files and other form data
             const formData = new FormData();
 
-            // Append text-based fields to FormData
             formData.append("name", values.name);
             formData.append("nameEng", values.nameEng);
             formData.append("nameRu", values.nameRu);
@@ -118,46 +151,43 @@ const ClinicTable = () => {
             formData.append("descriptionRu", values.descriptionRu);
             formData.append("location", values.location || "");
 
-            // Handle doctorIds (array to comma-separated string)
-            if (values.doctorIds && values.doctorIds.length > 0) {
-                formData.append("doctorIds", values.doctorIds.join(","));
-            }
 
-            // Handle clinicServiceIds (array to comma-separated string)
+
             if (values.clinicServiceIds && values.clinicServiceIds.length > 0) {
-                formData.append("clinicServiceIds", values.clinicServiceIds.join(","));
+                values.clinicServiceIds.forEach((id) => {
+                    formData.append(`clinicServiceIds`, id);
+                });
             }
 
-            // Handle clinicSertificates (array to comma-separated string)
-            if (values.clinicSertificates && values.clinicSertificates.length > 0) {
-                formData.append("clinicSertificates", values.clinicSertificates.join(","));
-            }
-
-            // Handle clinicCardImage (single file)
-            if (cardFileList.length > 0 && cardFileList[0].originFileObj) {
-                formData.append("clinicCardImage", cardFileList[0].originFileObj);
-            }
-
-            // Handle clinicImages (multiple files)
-            if (clinicImagesFileList.length > 0) {
-                clinicImagesFileList.forEach((file, index) => {
+            if (certificateImagesFileList.length > 0) {
+                certificateImagesFileList.forEach((file) => {
                     if (file.originFileObj) {
-                        formData.append(`clinicImages[${index}]`, file.originFileObj);
+                        formData.append(`clinicSertificates`, file.originFileObj);
                     }
                 });
             }
 
-            // Call the postClinic mutation with FormData
+            if (cardFileList.length > 0 && cardFileList[0].originFileObj) {
+                formData.append("clinicCardImage", cardFileList[0].originFileObj);
+            }
+
+            if (clinicImagesFileList.length > 0) {
+                clinicImagesFileList.forEach((file) => {
+                    if (file.originFileObj) {
+                        formData.append(`clinicImages`, file.originFileObj);
+                    }
+                });
+            }
+
             await postClinic(formData).unwrap();
             message.success("Clinic added successfully!");
 
-            // Reset form and close modal
             form.resetFields();
             setCardFileList([]);
             setClinicImagesFileList([]);
+            setCertificateImagesFileList([]);
             setIsAddModalVisible(false);
 
-            // Refetch clinics to update the table
             refetchClinics();
         } catch (error) {
             console.error("Error adding clinic:", error);
@@ -167,8 +197,10 @@ const ClinicTable = () => {
 
     const handleEditClinic = async (values) => {
         try {
-            // Create a FormData object for the edit operation
             const formData = new FormData();
+
+            // Append the clinic ID
+            formData.append("id", editingClinic.id);
 
             // Append text-based fields
             formData.append("name", values.name);
@@ -179,34 +211,35 @@ const ClinicTable = () => {
             formData.append("descriptionRu", values.descriptionRu);
             formData.append("location", values.location || "");
 
-            // Handle doctorIds
-            if (values.doctorIds && values.doctorIds.length > 0) {
-                formData.append("doctorIds", values.doctorIds.join(","));
+            // Handle doctorIds (send only added or removed)
+
+
+
+            // Handle clinicServiceIds (send only added or removed)
+            const originalServiceIds = new Set(editingClinic?.services.map((s) => s.id) || []);
+            const newServiceIds = new Set(values.clinicServiceIds || []);
+            // Added service IDs (in new but not in original)
+            const addedServiceIds = [...newServiceIds].filter((id) => !originalServiceIds.has(id));
+            // Removed service IDs (in original but not in new, already tracked in deletedServiceIds)
+            if (addedServiceIds.length > 0) {
+                addedServiceIds.forEach((id) => {
+                    formData.append(`clinicServiceIds`, id);
+                });
+            }
+            if (deletedServiceIds.length > 0) {
+                deletedServiceIds.forEach((id) => {
+                    formData.append(`deleteClinicServiceIds`, id);
+                });
             }
 
-            // Handle clinicServiceIds
-            if (values.clinicServiceIds && values.clinicServiceIds.length > 0) {
-                formData.append("clinicServiceIds", values.clinicServiceIds.join(","));
+            // Handle deleted clinic images
+            if (deletedClinicImages.length > 0) {
+                formData.append("deleteClinicImages", deletedClinicImages.join(","));
             }
 
-            // Handle clinicSertificates
-            if (values.clinicSertificates && values.clinicSertificates.length > 0) {
-                formData.append("clinicSertificates", values.clinicSertificates.join(","));
-            }
-
-            // Handle deleteClinicImages
-            if (values.deleteClinicImages && values.deleteClinicImages.length > 0) {
-                formData.append("deleteClinicImages", values.deleteClinicImages.join(","));
-            }
-
-            // Handle deleteClinicSertificates
-            if (values.deleteClinicSertificates && values.deleteClinicSertificates.length > 0) {
-                formData.append("deleteClinicSertificates", values.deleteClinicSertificates.join(","));
-            }
-
-            // Handle deleteClinicServiceIds
-            if (values.deleteClinicServiceIds && values.deleteClinicServiceIds.length > 0) {
-                formData.append("deleteClinicServiceIds", values.deleteClinicServiceIds.join(","));
+            // Handle deleted certificates
+            if (deletedCertificates.length > 0) {
+                formData.append("deleteClinicSertificates", deletedCertificates.join(","));
             }
 
             // Handle clinicCardImage
@@ -216,25 +249,35 @@ const ClinicTable = () => {
 
             // Handle clinicImages
             if (clinicImagesFileList.length > 0) {
-                clinicImagesFileList.forEach((file, index) => {
+                clinicImagesFileList.forEach((file) => {
                     if (file.originFileObj) {
-                        formData.append(`clinicImages[${index}]`, file.originFileObj);
+                        formData.append(`clinicImages`, file.originFileObj);
                     }
                 });
             }
 
-            // Call the putClinic mutation
-            await putClinic({ id: editingClinic.id, formData }).unwrap();
+            // Handle clinicSertificates
+            if (certificateImagesFileList.length > 0) {
+                certificateImagesFileList.forEach((file) => {
+                    if (file.originFileObj) {
+                        formData.append(`clinicSertificates`, file.originFileObj);
+                    }
+                });
+            }
+
+            await putClinic(formData).unwrap();
             message.success("Clinic updated successfully!");
 
-            // Reset form and close modal
             editForm.resetFields();
             setCardFileList([]);
             setClinicImagesFileList([]);
+            setCertificateImagesFileList([]);
+            setDeletedServiceIds([]);
+            setDeletedClinicImages([]);
+            setDeletedCertificates([]);
             setIsEditModalVisible(false);
             setEditingClinic(null);
 
-            // Refetch clinics to update the table
             refetchClinics();
         } catch (error) {
             console.error("Error updating clinic:", error);
@@ -247,7 +290,7 @@ const ClinicTable = () => {
         try {
             await deleteClinic(id).unwrap();
             message.success("Clinic deleted successfully!");
-            refetchClinics(); // Refetch clinics to update the table
+            refetchClinics();
         } catch (error) {
             console.error("Error deleting clinic:", error);
             message.error("Failed to delete clinic. Please try again.");
@@ -334,7 +377,7 @@ const ClinicTable = () => {
                 render: (doctorImage) =>
                     doctorImage ? (
                         <img
-                            src={CLINIC_CARD_IMAGES + doctorImage}
+                            src={DOCTOR_IMG_URL + doctorImage}
                             alt="Həkim Şəkli"
                             style={{ width: 50, height: 50, borderRadius: "5px", objectFit: "cover" }}
                         />
@@ -377,7 +420,7 @@ const ClinicTable = () => {
                 render: (serviceCardImage) =>
                     serviceCardImage ? (
                         <img
-                            src={CLINIC_CARD_IMAGES + serviceCardImage}
+                            src={SERVICE_CARD_IMAGES + serviceCardImage}
                             alt="Xidmət Şəkli"
                             style={{ width: 50, height: 50, borderRadius: "5px", objectFit: "cover" }}
                         />
@@ -411,15 +454,37 @@ const ClinicTable = () => {
                         </p>
                         <p>
                             <strong>Klinika Şəkilləri:</strong>{" "}
-                            {record.clinicImages.length > 0
-                                ? record.clinicImages.join(", ")
-                                : "Şəkil yoxdur"}
+                            {record.clinicImages.length > 0 ? (
+                                <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+                                    {record.clinicImages.map((image, index) => (
+                                        <img
+                                            key={index}
+                                            src={CLINIC_IMAGES + image}
+                                            alt={`Klinika Şəkili ${index + 1}`}
+                                            style={{ width: 50, height: 50, borderRadius: "5px", objectFit: "cover" }}
+                                        />
+                                    ))}
+                                </div>
+                            ) : (
+                                "Şəkil yoxdur"
+                            )}
                         </p>
                         <p>
                             <strong>Sertifikatlar:</strong>{" "}
-                            {record.clinicSertificates.length > 0
-                                ? record.clinicSertificates.join(", ")
-                                : "Sertifikat yoxdur"}
+                            {record.clinicSertificates.length > 0 ? (
+                                <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+                                    {record.clinicSertificates.map((image, index) => (
+                                        <img
+                                            key={index}
+                                            src={CERT_CLINIC_URL + image}
+                                            alt={`Sertifikat ${index + 1}`}
+                                            style={{ width: 50, height: 50, borderRadius: "5px", objectFit: "cover" }}
+                                        />
+                                    ))}
+                                </div>
+                            ) : (
+                                "Sertifikat yoxdur"
+                            )}
                         </p>
                     </Col>
                 </Row>
@@ -485,56 +550,30 @@ const ClinicTable = () => {
                                 label="Klinika Adı (AZ)"
                                 rules={[{ required: true, message: "Ad daxil edin!" }]}
                             >
-                                <Input
-                                    placeholder="Ad daxil edin"
-                                    className="rounded-md"
-                                />
+                                <Input placeholder="Ad daxil edin" className="rounded-md" />
                             </Form.Item>
                             <Form.Item
                                 name="nameEng"
                                 label="Klinika Adı (EN)"
                                 rules={[{ required: true, message: "Ad daxil edin!" }]}
                             >
-                                <Input
-                                    placeholder="Ad daxil edin (EN)"
-                                    className="rounded-md"
-                                />
+                                <Input placeholder="Ad daxil edin (EN)" className="rounded-md" />
                             </Form.Item>
                             <Form.Item
                                 name="nameRu"
                                 label="Klinika Adı (RU)"
                                 rules={[{ required: true, message: "Ad daxil edin!" }]}
                             >
-                                <Input
-                                    placeholder="Ad daxil edin (RU)"
-                                    className="rounded-md"
-                                />
+                                <Input placeholder="Ad daxil edin (RU)" className="rounded-md" />
                             </Form.Item>
                             <Form.Item
                                 name="location"
                                 label="Lokasiya"
                                 rules={[{ required: false }]}
                             >
-                                <Input
-                                    placeholder="Lokasiya daxil edin"
-                                    className="rounded-md"
-                                />
+                                <Input placeholder="Lokasiya daxil edin" className="rounded-md" />
                             </Form.Item>
-                            <Form.Item
-                                name="doctorIds"
-                                label="Həkimlər"
-                                rules={[{ required: false }]}
-                            >
-                                <Select
-                                    mode="multiple"
-                                    placeholder="Həkimləri seçin"
-                                    options={doktors.map((doctor) => ({
-                                        label: `${doctor.name} ${doctor.surName}`,
-                                        value: doctor.id,
-                                    }))}
-                                    className="rounded-md"
-                                />
-                            </Form.Item>
+
                             <Form.Item
                                 name="clinicServiceIds"
                                 label="Xidmətlər"
@@ -549,6 +588,39 @@ const ClinicTable = () => {
                                     }))}
                                     className="rounded-md"
                                 />
+                            </Form.Item>
+                            <Form.Item label="Sertifikat Şəkilləri">
+                                <Upload
+                                    name="clinicSertificates"
+                                    listType="picture-card"
+                                    fileList={certificateImagesFileList}
+                                    beforeUpload={(file) => {
+                                        const isImage = file.type.startsWith("image/");
+                                        const isLt2M = file.size / 1024 / 1024 < 2;
+                                        if (!isImage) {
+                                            message.error("You can only upload image files!");
+                                            return false;
+                                        }
+                                        if (!isLt2M) {
+                                            message.error("Image must be smaller than 2MB!");
+                                            return false;
+                                        }
+                                        return true;
+                                    }}
+                                    onChange={({ fileList }) => setCertificateImagesFileList(fileList)}
+                                    onRemove={(file) =>
+                                        setCertificateImagesFileList(
+                                            certificateImagesFileList.filter((f) => f.uid !== file.uid)
+                                        )
+                                    }
+                                    className="rounded-md"
+                                    multiple
+                                >
+                                    <div>
+                                        <PlusOutlined />
+                                        <div className="mt-2">Sertifikat şəkilləri əlavə et</div>
+                                    </div>
+                                </Upload>
                             </Form.Item>
                         </Col>
                         <Col span={12}>
@@ -637,7 +709,9 @@ const ClinicTable = () => {
                                     }}
                                     onChange={({ fileList }) => setClinicImagesFileList(fileList)}
                                     onRemove={(file) =>
-                                        setClinicImagesFileList(clinicImagesFileList.filter((f) => f.uid !== file.uid))
+                                        setClinicImagesFileList(
+                                            clinicImagesFileList.filter((f) => f.uid !== file.uid)
+                                        )
                                     }
                                     className="rounded-md"
                                     multiple
@@ -647,18 +721,6 @@ const ClinicTable = () => {
                                         <div className="mt-2">Şəkillər əlavə et</div>
                                     </div>
                                 </Upload>
-                            </Form.Item>
-                            <Form.Item
-                                name="clinicSertificates"
-                                label="Sertifikatlar"
-                                rules={[{ required: false }]}
-                            >
-                                <Select
-                                    mode="tags"
-                                    placeholder="Sertifikat adlarını daxil edin (məsələn, ISO 9001, GMP)"
-                                    className="rounded-md"
-                                    tokenSeparators={[","]}
-                                />
                             </Form.Item>
                         </Col>
                     </Row>
@@ -670,10 +732,7 @@ const ClinicTable = () => {
                         >
                             Əlavə Et
                         </Button>
-                        <Button
-                            onClick={handleAddCancel}
-                            className="rounded-md"
-                        >
+                        <Button onClick={handleAddCancel} className="rounded-md">
                             İmtina Et
                         </Button>
                     </Form.Item>
@@ -697,56 +756,30 @@ const ClinicTable = () => {
                                 label="Klinika Adı (AZ)"
                                 rules={[{ required: true, message: "Ad daxil edin!" }]}
                             >
-                                <Input
-                                    placeholder="Ad daxil edin"
-                                    className="rounded-md"
-                                />
+                                <Input placeholder="Ad daxil edin" className="rounded-md" />
                             </Form.Item>
                             <Form.Item
                                 name="nameEng"
                                 label="Klinika Adı (EN)"
                                 rules={[{ required: true, message: "Ad daxil edin!" }]}
                             >
-                                <Input
-                                    placeholder="Ad daxil edin (EN)"
-                                    className="rounded-md"
-                                />
+                                <Input placeholder="Ad daxil edin (EN)" className="rounded-md" />
                             </Form.Item>
                             <Form.Item
                                 name="nameRu"
                                 label="Klinika Adı (RU)"
                                 rules={[{ required: true, message: "Ad daxil edin!" }]}
                             >
-                                <Input
-                                    placeholder="Ad daxil edin (RU)"
-                                    className="rounded-md"
-                                />
+                                <Input placeholder="Ad daxil edin (RU)" className="rounded-md" />
                             </Form.Item>
                             <Form.Item
                                 name="location"
                                 label="Lokasiya"
                                 rules={[{ required: false }]}
                             >
-                                <Input
-                                    placeholder="Lokasiya daxil edin"
-                                    className="rounded-md"
-                                />
+                                <Input placeholder="Lokasiya daxil edin" className="rounded-md" />
                             </Form.Item>
-                            <Form.Item
-                                name="doctorIds"
-                                label="Həkimlər"
-                                rules={[{ required: false }]}
-                            >
-                                <Select
-                                    mode="multiple"
-                                    placeholder="Həkimləri seçin"
-                                    options={doktors.map((doctor) => ({
-                                        label: `${doctor.name} ${doctor.surName}`,
-                                        value: doctor.id,
-                                    }))}
-                                    className="rounded-md"
-                                />
-                            </Form.Item>
+
                             <Form.Item
                                 name="clinicServiceIds"
                                 label="Xidmətlər"
@@ -759,9 +792,55 @@ const ClinicTable = () => {
                                         label: service.name,
                                         value: service.id,
                                     }))}
+                                    onChange={(selectedIds) => {
+                                        // Find removed service IDs
+                                        const originalServiceIds = editingClinic?.services.map((s) => s.id) || [];
+                                        const removedIds = originalServiceIds.filter(
+                                            (id) => !selectedIds.includes(id)
+                                        );
+                                        setDeletedServiceIds([...new Set([...deletedServiceIds, ...removedIds])]);
+                                    }}
                                     className="rounded-md"
                                 />
                             </Form.Item>
+                            <Form.Item label="Sertifikatlar">
+                                <Upload
+                                    name="clinicSertificates"
+                                    listType="picture-card"
+                                    fileList={certificateImagesFileList}
+                                    beforeUpload={(file) => {
+                                        const isImage = file.type.startsWith("image/");
+                                        const isLt2M = file.size / 1024 / 1024 < 2;
+                                        if (!isImage) {
+                                            message.error("You can only upload image files!");
+                                            return false;
+                                        }
+                                        if (!isLt2M) {
+                                            message.error("Image must be smaller than 2MB!");
+                                            return false;
+                                        }
+                                        return true;
+                                    }}
+                                    onChange={({ fileList }) => setCertificateImagesFileList(fileList)}
+                                    onRemove={(file) => {
+                                        setCertificateImagesFileList(
+                                            certificateImagesFileList.filter((f) => f.uid !== file.uid)
+                                        );
+                                        if (file.status === "done" && file.name) {
+                                            setDeletedCertificates([...deletedCertificates, file.name]);
+                                        }
+                                    }}
+                                    className="rounded-md"
+                                    multiple
+                                >
+                                    <div>
+                                        <PlusOutlined />
+                                        <div className="mt-2">Sertifikatlar əlavə et</div>
+                                    </div>
+                                </Upload>
+                            </Form.Item>
+                        </Col>
+                        <Col span={12}>
                             <Form.Item
                                 name="description"
                                 label="Açıqlama (AZ)"
@@ -795,8 +874,6 @@ const ClinicTable = () => {
                                     rows={4}
                                 />
                             </Form.Item>
-                        </Col>
-                        <Col span={12}>
                             <Form.Item label="Klinika Kart Şəkli">
                                 <Upload
                                     name="clinicCardImage"
@@ -848,9 +925,14 @@ const ClinicTable = () => {
                                         return true;
                                     }}
                                     onChange={({ fileList }) => setClinicImagesFileList(fileList)}
-                                    onRemove={(file) =>
-                                        setClinicImagesFileList(clinicImagesFileList.filter((f) => f.uid !== file.uid))
-                                    }
+                                    onRemove={(file) => {
+                                        setClinicImagesFileList(
+                                            clinicImagesFileList.filter((f) => f.uid !== file.uid)
+                                        );
+                                        if (file.status === "done" && file.name) {
+                                            setDeletedClinicImages([...deletedClinicImages, file.name]);
+                                        }
+                                    }}
                                     className="rounded-md"
                                     multiple
                                 >
@@ -859,54 +941,6 @@ const ClinicTable = () => {
                                         <div className="mt-2">Şəkillər əlavə et</div>
                                     </div>
                                 </Upload>
-                            </Form.Item>
-                            <Form.Item
-                                name="deleteClinicImages"
-                                label="Silinəcək Klinika Şəkilləri"
-                                rules={[{ required: false }]}
-                            >
-                                <Select
-                                    mode="tags"
-                                    placeholder="Silinəcək şəkil adlarını daxil edin"
-                                    className="rounded-md"
-                                    tokenSeparators={[","]}
-                                />
-                            </Form.Item>
-                            <Form.Item
-                                name="clinicSertificates"
-                                label="Sertifikatlar"
-                                rules={[{ required: false }]}
-                            >
-                                <Select
-                                    mode="tags"
-                                    placeholder="Sertifikat adlarını daxil edin (məsələn, ISO 9001, GMP)"
-                                    className="rounded-md"
-                                    tokenSeparators={[","]}
-                                />
-                            </Form.Item>
-                            <Form.Item
-                                name="deleteClinicSertificates"
-                                label="Silinəcək Sertifikatlar"
-                                rules={[{ required: false }]}
-                            >
-                                <Select
-                                    mode="tags"
-                                    placeholder="Silinəcək sertifikat adlarını daxil edin"
-                                    className="rounded-md"
-                                    tokenSeparators={[","]}
-                                />
-                            </Form.Item>
-                            <Form.Item
-                                name="deleteClinicServiceIds"
-                                label="Silinəcək Xidmət ID-ləri"
-                                rules={[{ required: false }]}
-                            >
-                                <Select
-                                    mode="tags"
-                                    placeholder="Silinəcək xidmət ID-ləri daxil edin (məsələn, 4, 5, 6)"
-                                    className="rounded-md"
-                                    tokenSeparators={[","]}
-                                />
                             </Form.Item>
                         </Col>
                     </Row>
@@ -918,10 +952,7 @@ const ClinicTable = () => {
                         >
                             Düzəliş Et
                         </Button>
-                        <Button
-                            onClick={handleEditCancel}
-                            className="rounded-md"
-                        >
+                        <Button onClick={handleEditCancel} className="rounded-md">
                             İmtina Et
                         </Button>
                     </Form.Item>

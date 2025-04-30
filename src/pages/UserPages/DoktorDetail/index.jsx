@@ -37,7 +37,6 @@ function DoktorDetail() {
     }, []);
     const totalPages = Math.ceil(cardsData.length / itemsPerPage);
     const handlePageChange = (page) => {
-        console.log('Səhifə dəyişdi:', page);
         setCurrentPage(page);
     };
 

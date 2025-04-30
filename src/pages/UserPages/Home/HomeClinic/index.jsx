@@ -27,7 +27,6 @@ function HomeClinic() {
             }
         };
 
-        console.log(window.innerWidth);
 
         updateVisibleCards();
         window.addEventListener('resize', updateVisibleCards);

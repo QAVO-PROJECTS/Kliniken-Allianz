@@ -9,7 +9,6 @@ import {
     Popconfirm,
     Row,
     Col,
-    Select,
     message,
 } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
@@ -20,15 +19,13 @@ import {
     usePostCategoryMutation,
     usePutCategoryMutation,
 } from "../../../services/userApi.jsx";
-import { CATEGORY_IMAGES } from "../../../contants.js";
+import {CATEGORY_IMAGES, SERVICE_CARD_IMAGES} from "../../../contants.js";
 import { FaRegEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 
 const CategoryTable = () => {
     const { data: getAllCategory, refetch: refetchCategories } = useGetAllCategoryQuery();
     const categories = getAllCategory?.data || [];
-    const { data: getAllService } = useGetAllServiceQuery();
-    const services = getAllService?.data || [];
     const [postCategory] = usePostCategoryMutation();
     const [putCategory] = usePutCategoryMutation();
     const [deleteCategory] = useDeleteCategoryMutation();
@@ -93,11 +90,6 @@ const CategoryTable = () => {
             formData.append("description", values.description);
             formData.append("descriptionEng", values.descriptionEng);
             formData.append("descriptionRu", values.descriptionRu);
-            if (values.serviceIds && Array.isArray(values.serviceIds)) {
-                values.serviceIds.forEach((id) => {
-                    formData.append("serviceIds", id);
-                });
-            }
             if (cardFileList[0]?.originFileObj) {
                 formData.append("categoryImage", cardFileList[0].originFileObj);
             }
@@ -125,38 +117,9 @@ const CategoryTable = () => {
             formData.append("descriptionEng", values.descriptionEng);
             formData.append("descriptionRu", values.descriptionRu);
 
-            // Get the original service IDs
-            const originalServiceIds = editingCategory.services
-                ? editingCategory.services.map((service) => service.id)
-                : [];
 
-            // Get the updated service IDs from the form
-            const updatedServiceIds = values.serviceIds || [];
 
-            // Calculate deleted service IDs (services that were in original but not in updated)
-            const deleteServiceIds = originalServiceIds.filter(
-                (id) => !updatedServiceIds.includes(id)
-            );
 
-            // Only send serviceIds if they have changed
-            if (
-                values.serviceIds &&
-                Array.isArray(values.serviceIds) &&
-                JSON.stringify(values.serviceIds.sort()) !== JSON.stringify(originalServiceIds.sort())
-            ) {
-                values.serviceIds.forEach((id) => {
-                    formData.append("serviceIds", id);
-                });
-            }
-
-            // Send deleteServiceIds if there are any
-            if (deleteServiceIds.length > 0) {
-                deleteServiceIds.forEach((id) => {
-                    formData.append("deleteServiceIds", id);
-                });
-            }
-
-            // Add categoryImage if a new image is uploaded
             if (cardFileList[0]?.originFileObj) {
                 formData.append("categoryImage", cardFileList[0].originFileObj);
             }
@@ -259,7 +222,7 @@ const CategoryTable = () => {
                 render: (serviceCardImage) =>
                     serviceCardImage ? (
                         <img
-                            src={CATEGORY_IMAGES + serviceCardImage}
+                            src={SERVICE_CARD_IMAGES + serviceCardImage}
                             alt="Xidmət Şəkli"
                             style={{ width: 50, height: 50, borderRadius: "5px", objectFit: "cover" }}
                         />
@@ -326,7 +289,6 @@ const CategoryTable = () => {
                 }}
             />
 
-            {/* Add Category Modal */}
             <Modal
                 title="Yeni Kateqoriya Əlavə Et"
                 visible={isAddModalVisible}
@@ -359,29 +321,25 @@ const CategoryTable = () => {
                             >
                                 <Input placeholder="Ad daxil edin (RU)" className="rounded-md" />
                             </Form.Item>
-                            <Form.Item
-                                name="serviceIds"
-                                label="Xidmətlər"
-                                rules={[{ required: true, message: "Xidmət seçin!" }]}
-                            >
-                                <Select
-                                    mode="multiple"
-                                    placeholder="Xidmətləri seçin"
+                            <Form.Item label="Şəkil">
+                                <Upload
+                                    name="categoryImage"
+                                    listType="picture-card"
+                                    fileList={cardFileList}
+                                    beforeUpload={() => false}
+                                    onChange={({ fileList }) => setCardFileList(fileList)}
+                                    onRemove={(file) =>
+                                        setCardFileList(cardFileList.filter((f) => f.uid !== file.uid))
+                                    }
                                     className="rounded-md"
-                                    allowClear
-                                    showSearch
-                                    optionFilterProp="label"
                                 >
-                                    {services.map((service) => (
-                                        <Select.Option
-                                            key={service.id}
-                                            value={service.id}
-                                            label={service.name}
-                                        >
-                                            {service.name}
-                                        </Select.Option>
-                                    ))}
-                                </Select>
+                                    {cardFileList.length < 1 && (
+                                        <div>
+                                            <PlusOutlined />
+                                            <div className="mt-2">Şəkil əlavə et</div>
+                                        </div>
+                                    )}
+                                </Upload>
                             </Form.Item>
                         </Col>
                         <Col span={12}>
@@ -418,26 +376,7 @@ const CategoryTable = () => {
                                     rows={4}
                                 />
                             </Form.Item>
-                            <Form.Item label="Şəkil">
-                                <Upload
-                                    name="categoryImage"
-                                    listType="picture-card"
-                                    fileList={cardFileList}
-                                    beforeUpload={() => false}
-                                    onChange={({ fileList }) => setCardFileList(fileList)}
-                                    onRemove={(file) =>
-                                        setCardFileList(cardFileList.filter((f) => f.uid !== file.uid))
-                                    }
-                                    className="rounded-md"
-                                >
-                                    {cardFileList.length < 1 && (
-                                        <div>
-                                            <PlusOutlined />
-                                            <div className="mt-2">Şəkil əlavə et</div>
-                                        </div>
-                                    )}
-                                </Upload>
-                            </Form.Item>
+
                         </Col>
                     </Row>
                     <Form.Item className="text-right">
@@ -488,29 +427,25 @@ const CategoryTable = () => {
                             >
                                 <Input placeholder="Ad daxil edin (RU)" className="rounded-md" />
                             </Form.Item>
-                            <Form.Item
-                                name="serviceIds"
-                                label="Xidmətlər"
-                                rules={[{ required: true, message: "Xidmət seçin!" }]}
-                            >
-                                <Select
-                                    mode="multiple"
-                                    placeholder="Xidmətləri seçin"
+                            <Form.Item label="Şəkil">
+                                <Upload
+                                    name="categoryImage"
+                                    listType="picture-card"
+                                    fileList={cardFileList}
+                                    beforeUpload={() => false}
+                                    onChange={({ fileList }) => setCardFileList(fileList)}
+                                    onRemove={(file) =>
+                                        setCardFileList(cardFileList.filter((f) => f.uid !== file.uid))
+                                    }
                                     className="rounded-md"
-                                    allowClear
-                                    showSearch
-                                    optionFilterProp="label"
                                 >
-                                    {services.map((service) => (
-                                        <Select.Option
-                                            key={service.id}
-                                            value={service.id}
-                                            label={service.name}
-                                        >
-                                            {service.name}
-                                        </Select.Option>
-                                    ))}
-                                </Select>
+                                    {cardFileList.length < 1 && (
+                                        <div>
+                                            <PlusOutlined />
+                                            <div className="mt-2">Şəkil əlavə et</div>
+                                        </div>
+                                    )}
+                                </Upload>
                             </Form.Item>
                         </Col>
                         <Col span={12}>
@@ -547,26 +482,7 @@ const CategoryTable = () => {
                                     rows={4}
                                 />
                             </Form.Item>
-                            <Form.Item label="Şəkil">
-                                <Upload
-                                    name="categoryImage"
-                                    listType="picture-card"
-                                    fileList={cardFileList}
-                                    beforeUpload={() => false}
-                                    onChange={({ fileList }) => setCardFileList(fileList)}
-                                    onRemove={(file) =>
-                                        setCardFileList(cardFileList.filter((f) => f.uid !== file.uid))
-                                    }
-                                    className="rounded-md"
-                                >
-                                    {cardFileList.length < 1 && (
-                                        <div>
-                                            <PlusOutlined />
-                                            <div className="mt-2">Şəkil əlavə et</div>
-                                        </div>
-                                    )}
-                                </Upload>
-                            </Form.Item>
+
                         </Col>
                     </Row>
                     <Form.Item className="text-right">
