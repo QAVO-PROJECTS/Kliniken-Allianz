@@ -1,20 +1,24 @@
+// src/components/CommentCard.js
 import image from "/src/assets/icons/1.svg";
 import image1 from "/src/assets/commentCardImage.jpg";
 import { HiOutlineArrowLeft, HiOutlineArrowRight } from "react-icons/hi";
 import { useRef, useState } from "react";
+import { useTranslation } from "react-i18next"; // Import useTranslation hook
 import "./index.scss";
 
-function CommentCard({ name, country, text }) {
+function CommentCard() {
+    const { t } = useTranslation(); // Initialize translation hook
     const sliderRef = useRef(null);
     const [currentIndex, setCurrentIndex] = useState(0);
 
-    // Fake data for multiple comment cards
+    // Fake data for multiple comment cards (excluding text, which will come from i18n)
     const fakeComments = [
-        { name: "John Doe", country: "USA", text: "This is an amazing platform!" },
-        { name: "Jane Smith", country: "Canada", text: "Really helpful and easy to use." },
-        { name: "Ali Yılmaz", country: "Turkey", text: "Fantastic experience!" },
-        { name: "Emma Brown", country: "UK", text: "Highly recommend to everyone." },
-        { name: "Carlos Rivera", country: "Spain", text: "Great service and support." },
+        { name: "John Doe", country: "USA" },
+        { name: "Jane Smith", country: "Canada" },
+        { name: "Ali Yılmaz", country: "Turkey" },
+        { name: "Emma Brown", country: "UK" },
+        { name: "Carlos Rivera", country: "Spain" },
+        { name: "Maria Petrova", country: "Russia" },
     ];
 
     const handlePrev = () => {
@@ -39,17 +43,19 @@ function CommentCard({ name, country, text }) {
                         <div className="quote-icon">
                             <img src={image} alt="quote icon" />
                         </div>
-                        <p>{comment.text}</p>
+                        <p>{t(`translation.comments.${index}.text`)}</p> {/* Access translated text */}
                         <div className="comment-author">
                             <div className="text">
                                 <div className="image">
                                     <img src={image1} alt="author" />
                                 </div>
-                                <div style={{
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    alignItems: "start",
-                                }}>
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        alignItems: "start",
+                                    }}
+                                >
                                     <h6 className="name">{comment.name}</h6>
                                     <span className="country">{comment.country}</span>
                                 </div>
