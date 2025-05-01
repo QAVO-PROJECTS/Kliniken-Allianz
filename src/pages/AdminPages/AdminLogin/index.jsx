@@ -17,13 +17,12 @@ function AdminLogin() {
             const response = await postAdminLogin({ email, password }).unwrap();
             showToast("Giriş uğurlu oldu !","success")
             setTimeout(navigate("/admin/category"), 2000);
-            if (response.data && response.data.token) {
-                const token = response.data.token;
+            if (response?.statusCode === 200) {
+                const token = response?.data?.token;
+                console.log(response?.data?.token)
                 const expireDate = new Date(response.data.expireDate);
                 Cookies.set('klinikenToken', token, {
-                    expires: expireDate,
-                    secure: true,
-                    sameSite: 'strict'
+                    expires: 1,
                 });
             } else {
                 Cookies.set('klinikenToken', 'null');
