@@ -1,60 +1,64 @@
 import './index.scss';
 import HotelCard from '../../../../components/UserComponents/Home/HotelCard/index.jsx';
 import { useRef, useState, useEffect } from 'react';
-import image from "../../../../assets/HotelCard1.jpg";
-import image2 from "../../../../assets/HotelCard2.jpg";
-import image3 from "../../../../assets/HotelCard3.jpg";
-import image4 from "../../../../assets/HotelCard4.jpg";
-import image5 from "../../../../assets/HotelCard5.jpg";
-import image6 from "../../../../assets/HotelCard6.jpg";
+import { useTranslation } from 'react-i18next';
+import image from '../../../../assets/HotelCard1.jpg';
+import image2 from '../../../../assets/HotelCard2.jpg';
+import image3 from '../../../../assets/HotelCard3.jpg';
+import image4 from '../../../../assets/HotelCard4.jpg';
+import image5 from '../../../../assets/HotelCard5.jpg';
+import image6 from '../../../../assets/HotelCard6.jpg';
 
 function HomeHotel() {
+    const { t } = useTranslation();
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [visibleCards, setVisibleCards] = useState(4); // Default to 4 cards
+    const [visibleCards, setVisibleCards] = useState(4);
     const sliderRef = useRef(null);
     const isDragging = useRef(false);
     const startPos = useRef(0);
     const currentTranslate = useRef(0);
     const prevTranslate = useRef(0);
 
-    const cards = [{
-        name: "The Ritz-Carlton ",
-        description: "Abş",
-        imageUrl: image,
-    },
+    const cards = [
         {
-            name: "The Westin Grand",
-            description: "Berlin",
+            name: t('homeHotel.cards.ritzCarlton.name'),
+            description: t('homeHotel.cards.ritzCarlton.description'),
+            imageUrl: image,
+        },
+        {
+            name: t('homeHotel.cards.westinGrand.name'),
+            description: t('homeHotel.cards.westinGrand.description'),
             imageUrl: image2,
         },
         {
-            name: "Crowne Plaza",
-            description: "İstanbul",
+            name: t('homeHotel.cards.crownePlaza.name'),
+            description: t('homeHotel.cards.crownePlaza.description'),
             imageUrl: image3,
         },
         {
-            name: "Siam Kempinski ",
-            description: "Bangkok",
+            name: t('homeHotel.cards.siamKempinski.name'),
+            description: t('homeHotel.cards.siamKempinski.description'),
             imageUrl: image4,
         },
         {
-            name: "Raffles Hotel",
-            description: "Sinqapur",
+            name: t('homeHotel.cards.raffles.name'),
+            description: t('homeHotel.cards.raffles.description'),
             imageUrl: image5,
-        }, {
-            name: "Mandarin Oriental",
-            description: "Bangkok",
+        },
+        {
+            name: t('homeHotel.cards.mandarinOriental.name'),
+            description: t('homeHotel.cards.mandarinOriental.description'),
             imageUrl: image6,
-        }];
-    const maxIndex = cards.length - visibleCards; // Dynamic maxIndex based on visibleCards
+        },
+    ];
+    const maxIndex = cards.length - visibleCards;
 
-    // Detect screen size and set visibleCards
     useEffect(() => {
         const updateVisibleCards = () => {
             if (window.innerWidth <= 576) {
-                setVisibleCards(2); // 2 cards on mobile
+                setVisibleCards(2);
             } else {
-                setVisibleCards(4); // 4 cards on desktop
+                setVisibleCards(4);
             }
         };
 
@@ -63,7 +67,6 @@ function HomeHotel() {
         return () => window.removeEventListener('resize', updateVisibleCards);
     }, []);
 
-    // Update maxIndex whenever visibleCards changes
     useEffect(() => {
         const newMaxIndex = cards.length - visibleCards;
         if (currentIndex > newMaxIndex) {
@@ -129,8 +132,8 @@ function HomeHotel() {
     return (
         <div id="home-hotel">
             <div className="container">
-                <div className={"head"}>
-                    <h2>Klinikalara Yaxın Otel Seçimləri</h2>
+                <div className="head">
+                    <h2>{t('homeHotel.title')}</h2>
                 </div>
                 <div
                     className="slider-wrapper"
@@ -144,7 +147,13 @@ function HomeHotel() {
                 >
                     <div className="slider-card row" ref={sliderRef}>
                         {cards.map((item, index) => (
-                            <HotelCard key={index} name={item.name} desc={item.description} img={item.imageUrl} />
+                            <HotelCard
+                                key={index}
+                                name={item.name}
+                                desc={item.description}
+                                img={item.imageUrl}
+                                imgAlt={t('homeHotel.cardImgAlt', { name: item.name })}
+                            />
                         ))}
                     </div>
                 </div>
@@ -154,7 +163,7 @@ function HomeHotel() {
                             key={index}
                             className={`custom-bullet ${currentIndex === index ? 'active' : ''}`}
                             onClick={() => handleBulletClick(index)}
-                            aria-label={`Go to slide ${index + 1}`}
+                            aria-label={t('homeHotel.slideAriaLabel', { slideNumber: index + 1 })}
                             role="button"
                         />
                     ))}

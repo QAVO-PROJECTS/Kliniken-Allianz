@@ -1,104 +1,77 @@
 import './index.scss';
 import { HiOutlineArrowLeft, HiOutlineArrowRight } from 'react-icons/hi';
 import { useRef, useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import BestServCard from '../../../../components/UserComponents/Home/BestServiceCard/index.jsx';
-import image from "../../../../assets/BestService1.jpg";
-import image2 from "../../../../assets/BestService2.jpg";
-import image3 from "../../../../assets/BestService3.jpg";
-import image4 from "../../../../assets/BestService4.jpg";
-import image5 from "../../../../assets/BestService5.jpg";
-import image6 from "../../../../assets/BestService6.jpg";
+import image from '../../../../assets/BestService1.jpg';
+import image2 from '../../../../assets/BestService2.jpg';
+import image3 from '../../../../assets/BestService3.jpg';
+import image4 from '../../../../assets/BestService4.jpg';
+import image5 from '../../../../assets/BestService5.jpg';
+import image6 from '../../../../assets/BestService6.jpg';
+import icon1 from '../../../../assets/Servis/cancer.png';
+import icon2 from '../../../../assets/Servis/heart.png';
+import icon3 from '../../../../assets/Servis/sssssssss.png';
+import icon4 from '../../../../assets/Servis/oftomoloq.png';
+import icon5 from '../../../../assets/Servis/hepatoloq.png';
+import icon6 from '../../../../assets/Servis/travmatoloq.png';
 
-import icon1 from "../../../../assets/Servis/cancer.png";
-import icon2 from "../../../../assets/Servis/heart.png";
-import icon3 from "../../../../assets/Servis/sssssssss.png";
-import icon4 from "../../../../assets/Servis/oftomoloq.png";
-import icon5 from "../../../../assets/Servis/hepatoloq.png";
-import icon6 from "../../../../assets/Servis/travmatoloq.png";
 function HomeBestServ() {
+    const { t } = useTranslation();
     const sliderRef = useRef(null);
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [cardsPerView, setCardsPerView] = useState(4); // Default: 4 cards for desktop
-    const cards = [{
-        name: "Xərçəng müalicəsi",
-        description: "Abş",
-        imageUrl: image,
-        icon:icon1,
-    },
-        {
-            name: "Kardiologiya",
-            description: "Berlin",
-            imageUrl: image2,
-            icon:icon2,
-        },
-        {
-            name: "Almaniyada realibitasiya",
-            description: "İstanbul",
-            imageUrl: image3,
-            icon:icon3,
-        },
-        {
-            name: "Oftamologiya",
-            description: "Bangkok",
-            imageUrl: image4,
-            icon:icon4,
-        },
-        {
-            name: "Hepatologiya",
-            description: "Sinqapur",
-            imageUrl: image5,
-            icon:icon5,
-        }, {
-            name: "Travmatologiya",
-            description: "Bangkok",
-            imageUrl: image6,
-            icon:icon6,
-        }];
-
-    // Detect screen size to set number of cards per view
-    useEffect(() => {
-        const updateCardsPerView = () => {
-            if (window.innerWidth <= 768) {
-                setCardsPerView(2); // Mobile: 2 cards
-            } else {
-                setCardsPerView(4); // Desktop: 4 cards
-            }
-        };
-
-        updateCardsPerView(); // Initial check
-        window.addEventListener('resize', updateCardsPerView);
-
-        return () => window.removeEventListener('resize', updateCardsPerView);
-    }, []);
-
-    const handlePrev = () => {
-        if (currentIndex > 0) {
-            setCurrentIndex(currentIndex - 1);
-            sliderRef.current.style.transform = `translateX(-${(currentIndex - 1) * (100 / cardsPerView)}%)`;
-        }
-    };
-
-    const handleNext = () => {
-        if (currentIndex < cards.length - cardsPerView) {
-            setCurrentIndex(currentIndex + 1);
-            sliderRef.current.style.transform = `translateX(-${(currentIndex + 1) * (100 / cardsPerView)}%)`;
-        }
-    };
-    const [visibleCards, setVisibleCards] = useState(4); // Default to 4 cards
+    const [visibleCards, setVisibleCards] = useState(4);
     const isDragging = useRef(false);
     const startPos = useRef(0);
     const currentTranslate = useRef(0);
     const prevTranslate = useRef(0);
 
-    const maxIndex = cards.length - visibleCards; // Dynamic maxIndex based on visibleCards
+    const cards = [
+        {
+            name: t('homeBestServ.cards.cancer.name'),
+            description: t('homeBestServ.cards.cancer.description'),
+            imageUrl: image,
+            icon: icon1,
+        },
+        {
+            name: t('homeBestServ.cards.kardiologiya.name'),
+            description: t('homeBestServ.cards.kardiologiya.description'),
+            imageUrl: image2,
+            icon: icon2,
+        },
+        {
+            name: t('homeBestServ.cards.realibitasiya.name'),
+            description: t('homeBestServ.cards.realibitasiya.description'),
+            imageUrl: image3,
+            icon: icon3,
+        },
+        {
+            name: t('homeBestServ.cards.oftamologiya.name'),
+            description: t('homeBestServ.cards.oftamologiya.description'),
+            imageUrl: image4,
+            icon: icon4,
+        },
+        {
+            name: t('homeBestServ.cards.hepatologiya.name'),
+            description: t('homeBestServ.cards.hepatologiya.description'),
+            imageUrl: image5,
+            icon: icon5,
+        },
+        {
+            name: t('homeBestServ.cards.travmatologiya.name'),
+            description: t('homeBestServ.cards.travmatologiya.description'),
+            imageUrl: image6,
+            icon: icon6,
+        },
+    ];
+    const maxIndex = cards.length - visibleCards;
 
-    // Detect screen size and set visibleCards
     useEffect(() => {
         const updateVisibleCards = () => {
             if (window.innerWidth <= 576) {
-                setVisibleCards(2); // 2 cards on mobile
+                setVisibleCards(2);
             } else {
-                setVisibleCards(4); // 4 cards on desktop
+                setVisibleCards(4);
             }
         };
 
@@ -107,7 +80,6 @@ function HomeBestServ() {
         return () => window.removeEventListener('resize', updateVisibleCards);
     }, []);
 
-    // Update maxIndex whenever visibleCards changes
     useEffect(() => {
         const newMaxIndex = cards.length - visibleCards;
         if (currentIndex > newMaxIndex) {
@@ -122,14 +94,13 @@ function HomeBestServ() {
         if (index <= maxIndex) {
             setCurrentIndex(index);
             sliderRef.current.style.transform = `translateX(-${index * (100 / visibleCards)}%)`;
-            prevTranslate.current = -index * (100 / visibleCards);
+            currentTranslate.current = -index * (100 / visibleCards);
+            prevTranslate.current = currentTranslate.current;
         }
     };
 
     const getPositionX = (event) => {
-        return event.type.includes('mouse')
-            ? event.pageX
-            : event.touches[0].clientX;
+        return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
     };
 
     const startDragging = (event) => {
@@ -170,34 +141,63 @@ function HomeBestServ() {
         sliderRef.current.style.transform = `translateX(${currentTranslate.current}%)`;
     };
 
+    const handlePrev = () => {
+        if (currentIndex > 0) {
+            const newIndex = currentIndex - 1;
+            setCurrentIndex(newIndex);
+            sliderRef.current.style.transform = `translateX(-${newIndex * (100 / visibleCards)}%)`;
+            currentTranslate.current = -newIndex * (100 / visibleCards);
+            prevTranslate.current = currentTranslate.current;
+        }
+    };
+
+    const handleNext = () => {
+        if (currentIndex < maxIndex) {
+            const newIndex = currentIndex + 1;
+            setCurrentIndex(newIndex);
+            sliderRef.current.style.transform = `translateX(-${newIndex * (100 / visibleCards)}%)`;
+            currentTranslate.current = -newIndex * (100 / visibleCards);
+            prevTranslate.current = currentTranslate.current;
+        }
+    };
+
     return (
-        <div id={'home-best-service'}>
-            <div className={'container'}>
-                <div className='header'>
-                    <div className='content'>
-                        <h2>Ən çox seçilən xidmətlər</h2>
+        <div id="home-best-service">
+            <div className="container">
+                <div className="header">
+                    <div className="content">
+                        <h2>{t('homeBestServ.title')}</h2>
                     </div>
-                    <div className='navigationBtn'>
-                        <button className='prev' onClick={handlePrev}>
+                    <div className="navigationBtn">
+                        <button className="prev" onClick={handlePrev} aria-label={t('homeBestServ.prevButton')}>
                             <HiOutlineArrowLeft />
                         </button>
-                        <button className='next' onClick={handleNext}>
+                        <button className="next" onClick={handleNext} aria-label={t('homeBestServ.nextButton')}>
                             <HiOutlineArrowRight />
                         </button>
                     </div>
                 </div>
-                <div  className="slider-wrapper"
-                      onMouseDown={startDragging}
-                      onMouseUp={stopDragging}
-                      onMouseLeave={stopDragging}
-                      onMouseMove={drag}
-                      onTouchStart={startDragging}
-                      onTouchEnd={stopDragging}
-                      onTouchMove={drag}
+                <div
+                    className="slider-wrapper"
+                    onMouseDown={startDragging}
+                    onMouseUp={stopDragging}
+                    onMouseLeave={stopDragging}
+                    onMouseMove={drag}
+                    onTouchStart={startDragging}
+                    onTouchEnd={stopDragging}
+                    onTouchMove={drag}
                 >
-                    <div className='slider-card row' ref={sliderRef}>
+                    <div className="slider-card row" ref={sliderRef}>
                         {cards.map((item, index) => (
-                            <BestServCard key={index} name={item.name} desc={item.description} img={item.imageUrl} icon={item.icon}/>
+                            <BestServCard
+                                key={index}
+                                name={item.name}
+                                desc={item.description}
+                                img={item.imageUrl}
+                                imgAlt={t('homeBestServ.cardImgAlt', { name: item.name })}
+                                icon={item.icon}
+                                iconAlt={t('homeBestServ.cardIconAlt', { name: item.name })}
+                            />
                         ))}
                     </div>
                 </div>
@@ -207,7 +207,7 @@ function HomeBestServ() {
                             key={index}
                             className={`custom-bullet ${currentIndex === index ? 'active' : ''}`}
                             onClick={() => handleBulletClick(index)}
-                            aria-label={`Go to slide ${index + 1}`}
+                            aria-label={t('homeBestServ.slideAriaLabel', { slideNumber: index + 1 })}
                             role="button"
                         />
                     ))}

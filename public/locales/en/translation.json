@@ -1,0 +1,179 @@
+{
+  "navbar": {
+    "home": "Home",
+    "services": "Services",
+    "clinics": "Clinics",
+    "about": "About Us",
+    "contact": "Contact",
+    "languages": {
+      "az": "Azerbaijani",
+      "en": "English",
+      "ru": "Russian"
+    }
+  },
+  "footer": {
+    "description": "We think and plan all the details for you, such as the treatment process, flights, visa support, and accommodation.",
+    "links": "Links",
+    "call": "Call Us",
+    "mail": "Email Us",
+    "copyright": "© 2025 Kliniken Allianz. All rights reserved.",
+    "createdBy": "Created by"
+  },
+  "homeBanner": {
+    "title": "Open the Way to the World's Best Clinics",
+    "description": "Regain your health with cutting-edge medical services and convenient travel opportunities.",
+    "button": "Explore Now",
+    "imageAlt": "Home Banner Image",
+    "bannerAlt": "Home Banner"
+  },
+  "homeServices": {
+    "title": "Medical Service Categories We Offer",
+    "description": "Discover medical service areas tailored to your needs.",
+    "videoAlt": "Services Video",
+    "cards": {
+      "cancer": {
+        "name": "Cancer Treatment",
+        "description": "USA"
+      },
+      "oftamologiya": {
+        "name": "Ophthalmology",
+        "description": "Bangkok"
+      },
+      "ginekologiya": {
+        "name": "Gynecology",
+        "description": "Istanbul"
+      },
+      "hepatologiya": {
+        "name": "Hepatology",
+        "description": "Singapore"
+      },
+      "travmatologiya": {
+        "name": "Traumatology",
+        "description": "Bangkok"
+      },
+      "onurga": {
+        "name": "Spinal Treatment",
+        "description": "Berlin"
+      }
+    }
+  },
+  "homeServiceCard": {
+    "description": "The latest treatment methods to enhance your quality of life.",
+    "button": "Learn More",
+    "iconAlt": "{name} Icon"
+  },
+  "homeClinic": {
+    "title": "Trusted Healthcare Centers",
+    "description": "Kliniken Allianz collaborates only with modern and reliable clinics that meet international standards.",
+    "prevButton": "Previous Slide",
+    "nextButton": "Next Slide",
+    "slideAriaLabel": "Go to slide {slideNumber}",
+    "cardImgAlt": "{name} Image",
+    "cards": {
+      "universitatsklinikum": {
+        "name": "Universitätsklinikum",
+        "description": "Frankfurt, Germany"
+      },
+      "cleveland": {
+        "name": "Cleveland Clinic",
+        "description": "USA"
+      },
+      "anadolu": {
+        "name": "Anadolu Sağlık",
+        "description": "Turkey"
+      },
+      "bumrungrad": {
+        "name": "Bumrungrad",
+        "description": "Thailand"
+      },
+      "hospitalUniversitario": {
+        "name": "Hospital Universitario",
+        "description": "Madrid, Spain"
+      },
+      "singapore": {
+        "name": "Singapore Hospital",
+        "description": "Singapore"
+      }
+    }
+  },
+  "homeHotel": {
+    "title": "Hotel Options Near Clinics",
+    "slideAriaLabel": "Go to slide {slideNumber}",
+    "cardImgAlt": "{name} Image",
+    "cards": {
+      "ritzCarlton": {
+        "name": "The Ritz-Carlton",
+        "description": "USA"
+      },
+      "westinGrand": {
+        "name": "The Westin Grand",
+        "description": "Berlin"
+      },
+      "crownePlaza": {
+        "name": "Crowne Plaza",
+        "description": "Istanbul"
+      },
+      "siamKempinski": {
+        "name": "Siam Kempinski",
+        "description": "Bangkok"
+      },
+      "raffles": {
+        "name": "Raffles Hotel",
+        "description": "Singapore"
+      },
+      "mandarinOriental": {
+        "name": "Mandarin Oriental",
+        "description": "Bangkok"
+      }
+    }
+  },
+  "homeBestServ": {
+    "title": "Most Popular Services",
+    "prevButton": "Previous Slide",
+    "nextButton": "Next Slide",
+    "slideAriaLabel": "Go to slide {slideNumber}",
+    "cardImgAlt": "{name} Image",
+    "cardIconAlt": "{name} Icon",
+    "cards": {
+      "cancer": {
+        "name": "Cancer Treatment",
+        "description": "USA"
+      },
+      "kardiologiya": {
+        "name": "Cardiology",
+        "description": "Berlin"
+      },
+      "realibitasiya": {
+        "name": "Rehabilitation",
+        "description": "Istanbul"
+      },
+      "oftamologiya": {
+        "name": "Ophthalmology",
+        "description": "Bangkok"
+      },
+      "hepatologiya": {
+        "name": "Hepatology",
+        "description": "Singapore"
+      },
+      "travmatologiya": {
+        "name": "Traumatology",
+        "description": "Bangkok"
+      }
+    }
+  },
+  "bestServCard": {
+    "button": "Read More"
+  },
+  "homeComment": {
+    "title": "Those Who Trust Us",
+    "desc": "Experiences and opinions of people who chose us for their treatment and health journey.",
+    "backgroundAriaLabel": "Background image of customer testimonials section",
+    "comments": {
+      "aytacM": {
+        "name": "Aytaç M",
+        "country": "Azerbaijan",
+        "text": "The treatment process was very comfortable and stress-free. Everything was pre-organized – transfer, hotel, hospital. The doctors and staff were very attentive! Most importantly, I felt safe."
+      }
+    }
+  }
+}

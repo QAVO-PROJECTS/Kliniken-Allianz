@@ -1,0 +1,179 @@
+{
+  "navbar": {
+    "home": "Ana səhifə",
+    "services": "Xidmətlər",
+    "clinics": "Klinikalar",
+    "about": "Haqqımızda",
+    "contact": "Əlaqə",
+    "languages": {
+      "az": "Azərbaycan",
+      "en": "İngilis",
+      "ru": "Rus"
+    }
+  },
+  "footer": {
+    "description": "Müalicə prosesi, uçuş, viza dəstəyi və qalacaq yer kimi bütün detalları sizin üçün düşünür və planlayırıq.",
+    "links": "Keçidlər",
+    "call": "Bizə zəng edin",
+    "mail": "Bizə yazın",
+    "copyright": "© 2025 Kliniken Allianz. Bütün hüquqlar qorunur.",
+    "createdBy": "Yaradılıb:"
+  },
+  "homeBanner": {
+    "title": "Dünyanın Ən Yaxşı Klinikalarına Yol Açın",
+    "description": "Ən müasir tibbi xidmətlər və rahat səyahət imkanları ilə sağlığınızı yenidən qazanın.",
+    "button": "Keşf edin",
+    "imageAlt": "Ana Səhifə Şəkli",
+    "bannerAlt": "Ana Səhifə Banneri"
+  },
+  "homeServices": {
+    "title": "Sizə Təklif Etdiyimiz Tibbi Xidmət Kateqoriyaları",
+    "description": "Sizin ehtiyaclarınıza uyğun tibbi xidmət sahələrini kəşf edin.",
+    "videoAlt": "Xidmətlər Videosu",
+    "cards": {
+      "cancer": {
+        "name": "Xərçəng müalicəsi",
+        "description": "ABŞ"
+      },
+      "oftamologiya": {
+        "name": "Oftamologiya",
+        "description": "Banqkok"
+      },
+      "ginekologiya": {
+        "name": "Ginekologiya",
+        "description": "İstanbul"
+      },
+      "hepatologiya": {
+        "name": "Hepatologiya",
+        "description": "Sinqapur"
+      },
+      "travmatologiya": {
+        "name": "Travmatologiya",
+        "description": "Banqkok"
+      },
+      "onurga": {
+        "name": "Onurğanın müalicəsi",
+        "description": "Berlin"
+      }
+    }
+  },
+  "homeServiceCard": {
+    "description": "Həyat keyfiyyətinizi yüksəltmək üçün ən yeni xərçəng müalicə üsulları.",
+    "button": "Ətraflı bax",
+    "iconAlt": "{name} İkonu"
+  },
+  "homeClinic": {
+    "title": "Etibar Edilən Sağlamlıq Mərkəzləri",
+    "description": "Kliniken Allianz yalnız beynəlxalq standartlara cavab verən, müasir və etibarlı klinikalarla əməkdaşlıq edir.",
+    "prevButton": "Əvvəlki Slayd",
+    "nextButton": "Növbəti Slayd",
+    "slideAriaLabel": "{slideNumber}-ci slayda keç",
+    "cardImgAlt": "{name} Şəkli",
+    "cards": {
+      "universitatsklinikum": {
+        "name": "Universitätsklinikum",
+        "description": "Frankfurt, Almaniya"
+      },
+      "cleveland": {
+        "name": "Cleveland Clinic",
+        "description": "ABŞ"
+      },
+      "anadolu": {
+        "name": "Anadolu Sağlık",
+        "description": "Türkiyə"
+      },
+      "bumrungrad": {
+        "name": "Bumrungrad",
+        "description": "Tailand"
+      },
+      "hospitalUniversitario": {
+        "name": "Hospital Universitario",
+        "description": "Madrid, İspaniya"
+      },
+      "singapore": {
+        "name": "Singapore Hospital",
+        "description": "Sinqapur"
+      }
+    }
+  },
+  "homeHotel": {
+    "title": "Klinikalara Yaxın Otel Seçimləri",
+    "slideAriaLabel": "{slideNumber}-ci slayda keç",
+    "cardImgAlt": "{name} Şəkli",
+    "cards": {
+      "ritzCarlton": {
+        "name": "The Ritz-Carlton",
+        "description": "ABŞ"
+      },
+      "westinGrand": {
+        "name": "The Westin Grand",
+        "description": "Berlin"
+      },
+      "crownePlaza": {
+        "name": "Crowne Plaza",
+        "description": "İstanbul"
+      },
+      "siamKempinski": {
+        "name": "Siam Kempinski",
+        "description": "Banqkok"
+      },
+      "raffles": {
+        "name": "Raffles Hotel",
+        "description": "Sinqapur"
+      },
+      "mandarinOriental": {
+        "name": "Mandarin Oriental",
+        "description": "Banqkok"
+      }
+    }
+  },
+  "homeBestServ": {
+    "title": "Ən çox seçilən xidmətlər",
+    "prevButton": "Əvvəlki Slayd",
+    "nextButton": "Növbəti Slayd",
+    "slideAriaLabel": "{slideNumber}-ci slayda keç",
+    "cardImgAlt": "{name} Şəkli",
+    "cardIconAlt": "{name} İkonu",
+    "cards": {
+      "cancer": {
+        "name": "Xərçəng müalicəsi",
+        "description": "ABŞ"
+      },
+      "kardiologiya": {
+        "name": "Kardiologiya",
+        "description": "Berlin"
+      },
+      "realibitasiya": {
+        "name": "Realibitasiya",
+        "description": "İstanbul"
+      },
+      "oftamologiya": {
+        "name": "Oftamologiya",
+        "description": "Banqkok"
+      },
+      "hepatologiya": {
+        "name": "Hepatologiya",
+        "description": "Sinqapur"
+      },
+      "travmatologiya": {
+        "name": "Travmatologiya",
+        "description": "Banqkok"
+      }
+    }
+  },
+  "bestServCard": {
+    "button": "Ətraflı oxu"
+  },
+  "homeComment": {
+    "title": "Bizə Güvənənlər",
+    "desc": "Müalicə və sağlamlıq səyahətində bizi seçən insanların təcrübələri və fikirləri.",
+    "backgroundAriaLabel": "Müştəri rəyləri bölməsinin fon şəkli",
+    "comments": {
+      "aytacM": {
+        "name": "Aytaç M",
+        "country": "Azərbaycan",
+        "text": "Müalicə prosesi çox rahat və stressiz keçdi. Hər şey əvvəlcədən təşkil olunmuşdu – transfer, otel, xəstəxana. Həkimlər və personal çox diqqətli idi! Ən əsası özümü təhlükəsiz hiss etdim."
+      }
+    }
+  }
+}

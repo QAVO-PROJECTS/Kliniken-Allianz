@@ -12,7 +12,7 @@ function NotFound() {
                 <h2>Page Not Found – 404</h2>
                 <p>But don’t worry, we’ll help you find your way back!</p>
                 <div style={{ textAlign: "center" }}>
-                    <button>
+                    <button className={"notResultBtn"}>
                         <Link to={"/"} style={{ color: "white" }}>
                             Go Back
                         </Link>

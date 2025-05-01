@@ -1,5 +1,5 @@
 /* Mövcud kod hissəsi: */
-.card-certificate {
+.card-certificate-doktor {
   position: relative;
   background-size: cover;
   background-position: center;
@@ -22,6 +22,7 @@
 
     .text {
       font-size: 18px;
+      font-weight: 500;
       color: #fff;
     }
   }
@@ -98,14 +99,15 @@
     bottom: -5px;
     right: -5px;
   }
+
 }
 
 /* Modal, tablet və digər cihazlar üçün mövcud kod hissələri ... */
 
 /* Mobil cihazlar üçün */
 @media (max-width: 480px) {
-  .card-certificate {
-    height: 250px;
+  .card-certificate-doktor {
+    height: 270px;
   }
 
   .overlay {
@@ -120,14 +122,14 @@
   .layout1 {
     .text {
       position: absolute;
-      top: 20px;
+      top: 220px;
       left: 10px;
       right: auto;
     }
     .number {
       position: absolute;
-      top: 60px;
-      right: -22px;
+      bottom: 15px;
+      right: 0px;
       left: auto;
     }
   }
@@ -142,7 +144,7 @@
     .number {
       position: absolute;
       bottom: -10px;
-      left: -10px;
+      left: 0px;
       right: auto;
     }
   }

@@ -14,9 +14,9 @@ import {GoArrowDown} from 'react-icons/go';
 import DoktorCard from '../../../components/UserComponents/ClinicDetail/DoktorCard/index.jsx';
 import {HiOutlineArrowLeft, HiOutlineArrowRight} from 'react-icons/hi';
 import gallery1 from '/src/assets/1212.jpg';
-import gallery2 from '/src/assets/1212.jpg';
-import gallery3 from '/src/assets/1212.jpg';
-import gallery4 from '/src/assets/1212.jpg';
+import gallery2 from '/src/assets/2121.jpg';
+import gallery3 from '/src/assets/3313.jpg';
+import gallery4 from '/src/assets/454.jpg';
 import HomeServiceCard from "../../../components/UserComponents/Home/ServiceCardHome/index.jsx";
 import image2 from "../../../assets/ServisDetailCard2.png";
 import image3 from "../../../assets/ServisDetailCard3.png";
@@ -31,8 +31,8 @@ import icon6 from "../../../assets/Servis/travmatoloq.png";
 import icon2 from "../../../assets/Servis/ortaped.png";
 import dimage from "/src/assets/doktor.jpg";
 import dimage2 from "/src/assets/doktor2.jpg";
-import dimage3 from "/src/assets/doktor3.jpg";
-import dimage4 from "/src/assets/doktor4.jpg";
+import dimage3 from "/src/assets/dmarcDoktor.png";
+import dimage4 from "/src/assets/dSamer.png";
 import dimage5 from "/src/assets/doktor5.jpg";
 import dimage6 from "/src/assets/doktor6.jpg";
 const galleryImages = [gallery1, gallery2, gallery3, gallery4];
@@ -343,7 +343,7 @@ function ClinicDetail() {
                         {displayedServiceCards}
                     </div>
                     <div style={{textAlign: 'center'}}>
-                        <button onClick={() => setShowAllServices(!showAllServices)}>
+                        <button className={"clinicDetailThird"} onClick={() => setShowAllServices(!showAllServices)}>
                             {showAllServices ? 'Daha az' : 'Daha çox'} <GoArrowDown/>
                         </button>
                     </div>

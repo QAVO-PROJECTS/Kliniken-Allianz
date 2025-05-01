@@ -27,7 +27,9 @@ button, a, .link {
   display: flex;
   flex-wrap: wrap;
 }
-
+body>div {
+  overflow-x:hidden;
+}
 button{
   cursor: pointer;
 }

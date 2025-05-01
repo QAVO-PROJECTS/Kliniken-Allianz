@@ -6,7 +6,7 @@
   overflow: hidden;
   cursor: pointer;
   @media screen and (max-width: 576px){
-    padding: 20px 27px;
+    padding: 20px 27px 0;
   }
   &:hover{
     .image{
@@ -21,6 +21,9 @@
     overflow: hidden;
     margin-bottom: 26px;
     transition: all 1.5s ease-in-out;
+    @media screen and (max-width: 576px) {
+      margin-bottom: 10px;
+    }
     img{
       width: 100%;
       aspect-ratio: 1/1;
@@ -45,9 +48,11 @@
       color: #686868;
     }
   @media screen and (max-width: 576px){
+    margin-bottom: 10px;
     h5{
       font-size: 14px;
       line-height: normal;
+      margin-bottom: 10px;
     }
     p{
       font-size: 12px;

@@ -1,34 +1,36 @@
 import './index.scss';
-import Title from "../../../../components/UserComponents/Title/index.jsx";
-import back from "/src/assets/CommentBack.png";
-import CommentCard from "../../../../components/UserComponents/Home/CommentCard/index.jsx";
-
-// Örnek yorum verileri (gerçek uygulamada bu veri bir API'den gelebilir)
-const comments = [
-    {
-        name: "Aytaç M",
-        country: "Azərbaycan",
-        text: "Müalicə prosesi çox rahat və stressiz keçdi. Hər şey əvvəlcədən təşkil olunmuşdu – transfer, otel, xəstəxana. Həkimlər və personal çox diqqətli idi! Ən əsası özümü təhlükəsiz hiss etdim.",
-    },
-    // Daha fazla yorum eklenebilir
-];
+import { useTranslation } from 'react-i18next';
+import Title from '../../../../components/UserComponents/Title/index.jsx';
+import CommentCard from '../../../../components/UserComponents/Home/CommentCard/index.jsx';
+import back from '/src/assets/CommentBack.png';
 
 function HomeComment() {
+    const { t } = useTranslation();
+
+    const comments = [
+        {
+            name: t('homeComment.comments.aytacM.name'),
+            country: t('homeComment.comments.aytacM.country'),
+            text: t('homeComment.comments.aytacM.text'),
+        },
+    ];
+
     return (
         <div
-            id={"home-comment"}
+            id="home-comment"
             style={{
                 backgroundImage: `url(${back})`,
-                backgroundSize: "cover",
-                backgroundRepeat: "no-repeat",
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat',
             }}
+            aria-label={t('homeComment.backgroundAriaLabel')}
         >
-            <div className={"container"}>
+            <div className="container">
                 <Title
-                    title={"Bizə Güvənənlər"}
-                    desc={"Müalicə və sağlamlıq səyahətində bizi seçən insanların təcrübələri və fikirləri."}
+                    title={t('homeComment.title')}
+                    desc={t('homeComment.desc')}
                 />
-                <div className={"homeComment"}>
+                <div className="homeComment">
                     {comments.map((comment, index) => (
                         <CommentCard
                             key={index}

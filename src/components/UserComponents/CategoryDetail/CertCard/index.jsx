@@ -14,7 +14,7 @@ const CardCertificateCategory = ({ image, number, text, index }) => {
 
     return (
         <div className="col-3 col-md-6 col-sm-6 col-xs-6" style={{ padding: "8px" }}>
-            <div className="card-certificate" style={{ backgroundImage: `url(${image})` }} onClick={openModal}>
+            <div className="card-certificate-doktor" style={{ backgroundImage: `url(${image})` }} onClick={openModal}>
                 <div className={`overlay ${layoutClass}`}>
                     <div className="number">{number}</div>
                     <div className="text">{text}</div>

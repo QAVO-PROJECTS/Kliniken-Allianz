@@ -1,73 +1,74 @@
 import './index.scss';
-import {useRef, useState, useEffect} from 'react';
-import ServiceDetailCard from "../../../../components/UserComponents/ServicesDetailCard/index.jsx";
-import {HiOutlineArrowLeft, HiOutlineArrowRight} from "react-icons/hi";
+import { useRef, useState, useEffect } from 'react';
+import ServiceDetailCard from '../../../../components/UserComponents/ServicesDetailCard/index.jsx';
+import { HiOutlineArrowLeft, HiOutlineArrowRight } from 'react-icons/hi';
+import { useTranslation } from 'react-i18next';
 
-
-import image from "/src/assets/ServiceDetailCard.png";
-import image2 from "/src/assets/ServisDetailCard2.png";
-import image3 from "/src/assets/ServisDetailCard3.png";
-import image4 from "/src/assets/ServisDetailCard4.png";
-import image5 from "/src/assets/ServisDetailCard5.png";
-import image6 from "/src/assets/ServisDetailCard6.png";
+import image from '/src/assets/ServiceDetailCard.png';
+import image2 from '/src/assets/ServisDetailCard2.png';
+import image3 from '/src/assets/ServisDetailCard3.png';
+import image4 from '/src/assets/ServisDetailCard4.png';
+import image5 from '/src/assets/ServisDetailCard5.png';
+import image6 from '/src/assets/ServisDetailCard6.png';
 
 function HomeClinic() {
+    const { t } = useTranslation();
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [visibleCards, setVisibleCards] = useState(4); // Default to 4 cards
+    const [visibleCards, setVisibleCards] = useState(4);
     const sliderRef = useRef(null);
     const isDragging = useRef(false);
     const startPos = useRef(0);
     const currentTranslate = useRef(0);
     const prevTranslate = useRef(0);
 
-    const cards = [{
-        name: "Universitätsklinikum",
-        description: "Frankfurt, Almaniya",
-        imageUrl: image,
-    },
+    const cards = [
         {
-            name: "Cleveland Clinic",
-            description: "ABŞ",
+            name: t('homeClinic.cards.universitatsklinikum.name'),
+            description: t('homeClinic.cards.universitatsklinikum.description'),
+            imageUrl: image,
+        },
+        {
+            name: t('homeClinic.cards.cleveland.name'),
+            description: t('homeClinic.cards.cleveland.description'),
             imageUrl: image2,
         },
         {
-            name: "Anadolu Sağlık",
-            description: "Türkiye",
+            name: t('homeClinic.cards.anadolu.name'),
+            description: t('homeClinic.cards.anadolu.description'),
             imageUrl: image3,
         },
         {
-            name: "Bumrungrad",
-            description: "Tailand",
+            name: t('homeClinic.cards.bumrungrad.name'),
+            description: t('homeClinic.cards.bumrungrad.description'),
             imageUrl: image4,
         },
         {
-            name: "Hospital Universitario",
-            description: "Madrid, İspaniya",
-            imageUrl:image5,
-        }, {
-            name: "Singapore Hospital",
-            description: "Sinqapur",
+            name: t('homeClinic.cards.hospitalUniversitario.name'),
+            description: t('homeClinic.cards.hospitalUniversitario.description'),
+            imageUrl: image5,
+        },
+        {
+            name: t('homeClinic.cards.singapore.name'),
+            description: t('homeClinic.cards.singapore.description'),
             imageUrl: image6,
-        }];
-    const maxIndex = cards.length - visibleCards; // Dynamic maxIndex based on visibleCards
+        },
+    ];
+    const maxIndex = cards.length - visibleCards;
 
-    // Detect screen size and set visibleCards
     useEffect(() => {
         const updateVisibleCards = () => {
             if (window.innerWidth <= 576) {
-                setVisibleCards(2); // 2 cards on mobile
+                setVisibleCards(2);
             } else {
-                setVisibleCards(4); // 4 cards on desktop
+                setVisibleCards(4);
             }
         };
-
 
         updateVisibleCards();
         window.addEventListener('resize', updateVisibleCards);
         return () => window.removeEventListener('resize', updateVisibleCards);
     }, []);
 
-    // Update maxIndex whenever visibleCards changes
     useEffect(() => {
         const newMaxIndex = cards.length - visibleCards;
         if (currentIndex > newMaxIndex) {
@@ -133,33 +134,35 @@ function HomeClinic() {
     const handlePrev = () => {
         if (currentIndex > 0) {
             setCurrentIndex(currentIndex - 1);
-            sliderRef.current.style.transform = `translateX(-${(currentIndex - 1) * 25}%)`;
+            sliderRef.current.style.transform = `translateX(-${(currentIndex - 1) * (100 / visibleCards)}%)`;
+            currentTranslate.current = -(currentIndex - 1) * (100 / visibleCards);
+            prevTranslate.current = currentTranslate.current;
         }
     };
 
     const handleNext = () => {
-        if (currentIndex < cards.length - 4) { // Show 4 cards at a time
+        if (currentIndex < maxIndex) {
             setCurrentIndex(currentIndex + 1);
-            sliderRef.current.style.transform = `translateX(-${(currentIndex + 1) * 25}%)`;
+            sliderRef.current.style.transform = `translateX(-${(currentIndex + 1) * (100 / visibleCards)}%)`;
+            currentTranslate.current = -(currentIndex + 1) * (100 / visibleCards);
+            prevTranslate.current = currentTranslate.current;
         }
     };
+
     return (
         <div id="home-clinic">
             <div className="container">
                 <div className="header">
                     <div className="content">
-                        <h2>Etibar Edilən Sağlamlıq Mərkəzləri</h2>
-                        <p>
-                            Kliniken Allianz yalnız beynəlxalq standartlara cavab verən, müasir və etibarlı klinikalarla
-                            əməkdaşlıq edir.
-                        </p>
+                        <h2>{t('homeClinic.title')}</h2>
+                        <p>{t('homeClinic.description')}</p>
                     </div>
                     <div className="navigationBtn">
-                        <button className="prev" onClick={handlePrev}>
-                            <HiOutlineArrowLeft/>
+                        <button className="prev" onClick={handlePrev} aria-label={t('homeClinic.prevButton')}>
+                            <HiOutlineArrowLeft />
                         </button>
-                        <button className="next" onClick={handleNext}>
-                            <HiOutlineArrowRight/>
+                        <button className="next" onClick={handleNext} aria-label={t('homeClinic.nextButton')}>
+                            <HiOutlineArrowRight />
                         </button>
                     </div>
                 </div>
@@ -175,17 +178,23 @@ function HomeClinic() {
                 >
                     <div className="slider-card row" ref={sliderRef}>
                         {cards.map((item, index) => (
-                            <ServiceDetailCard key={index} name={item?.name} desc={item.description} img={item.imageUrl}/>
+                            <ServiceDetailCard
+                                key={index}
+                                name={item.name}
+                                desc={item.description}
+                                img={item.imageUrl}
+                                imgAlt={t('homeClinic.cardImgAlt', { name: item.name })}
+                            />
                         ))}
                     </div>
                 </div>
                 <div className="custom-pagination">
-                    {Array.from({length: maxIndex + 1}).map((_, index) => (
+                    {Array.from({ length: maxIndex + 1 }).map((_, index) => (
                         <span
                             key={index}
                             className={`custom-bullet ${currentIndex === index ? 'active' : ''}`}
                             onClick={() => handleBulletClick(index)}
-                            aria-label={`Go to slide ${index + 1}`}
+                            aria-label={t('homeClinic.slideAriaLabel', { slideNumber: index + 1 })}
                             role="button"
                         />
                     ))}

@@ -104,6 +104,10 @@
       border-radius: 50%;
       cursor: pointer;
       transition: background 0.3s;
+      @media screen and (max-width: 576px) {
+        width: 8px;
+        height: 8px;
+      }
     }
 
     .custom-bullet.active {

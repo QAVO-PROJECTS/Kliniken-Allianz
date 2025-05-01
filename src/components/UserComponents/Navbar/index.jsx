@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
 import './index.scss';
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import AOS from 'aos'; // Import AOS
-import 'aos/dist/aos.css'; // Import AOS styles
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 import flagAz from '/src/assets/azerbaijan.png';
 import flagEn from '/src/assets/uk.png';
 import flagRu from '/src/assets/circle.png';
 import image1 from '/src/assets/Logo.png';
-import { FaChevronDown } from "react-icons/fa";
+import { FaChevronDown } from 'react-icons/fa';
 
 function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -24,11 +24,10 @@ function Navbar() {
     const location = useLocation();
 
     useEffect(() => {
-        // Initialize AOS
         AOS.init({
-            duration: 100, // Animation duration (0.5s)
-            easing: 'ease-out', // Smooth easing
-            once: true, // Animate only once
+            duration: 100,
+            easing: 'ease-out',
+            once: true,
         });
 
         const storedLang = localStorage.getItem('i18nextLng');
@@ -55,16 +54,15 @@ function Navbar() {
         setLangDropdownOpen(false);
     };
 
-    let currentFlag = flagAz; // default
-    if (i18n.language?.startsWith("en")) {
+    let currentFlag = flagAz;
+    if (i18n.language?.startsWith('en')) {
         currentFlag = flagEn;
-    } else if (i18n.language?.startsWith("ru")) {
+    } else if (i18n.language?.startsWith('ru')) {
         currentFlag = flagRu;
-    } else if (i18n.language?.startsWith("az")) {
+    } else if (i18n.language?.startsWith('az')) {
         currentFlag = flagAz;
     }
 
-    // Language dropdown timeout handlers
     const handleLangMouseEnter = () => {
         if (langTimeoutId) {
             clearTimeout(langTimeoutId);
@@ -79,52 +77,50 @@ function Navbar() {
         setLangTimeoutId(timeout);
     };
 
-    // Tours dropdown timeout handlers
     const handleToursMouseEnter = () => {
         if (toursTimeoutId) {
             clearTimeout(toursTimeoutId);
             setToursTimeoutId(null);
         }
     };
+
     const handleScrollClinic = () => {
         const element = document.getElementById('home-clinic');
         if (element) {
-            const offset = -100; // Adjust this value (negative for above, positive for below)
+            const offset = -100;
             const elementPosition = element.getBoundingClientRect().top + window.scrollY;
             window.scrollTo({
                 top: elementPosition + offset,
-                behavior: 'smooth'
-            });
-        }
-    };
-    const handleScrollServices = () => {
-        const element = document.getElementById('home-best-service');
-        if (element) {
-            const offset = -100; // Adjust this value (negative for above, positive for below)
-            const elementPosition = element.getBoundingClientRect().top + window.scrollY;
-            window.scrollTo({
-                top: elementPosition + offset,
-                behavior: 'smooth'
+                behavior: 'smooth',
             });
         }
     };
 
+    const handleScrollServices = () => {
+        const element = document.getElementById('home-best-service');
+        if (element) {
+            const offset = -100;
+            const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+            window.scrollTo({
+                top: elementPosition + offset,
+                behavior: 'smooth',
+            });
+        }
+    };
 
     return (
         <section
             id="myNavbar"
-            data-aos="slide-down" // AOS slide-down animation
-            data-aos-delay="100" // Slight delay for smooth transition
-            data-aos-anchor-placement="top-center" // Trigger when top enters viewport
+            data-aos="slide-down"
+            data-aos-delay="100"
+            data-aos-anchor-placement="top-center"
         >
-            <div className={"linear"}>
-
-            </div>
-            <div className="container" style={{padding:"8px"}}>
+            <div className="linear"></div>
+            <div className="container" style={{ padding: '8px' }}>
                 <div className="wrapper">
                     <div className="logo">
                         <img
-                            src={image1 }
+                            src={image1}
                             alt="Logo"
                             onClick={() => {
                                 navigate('/');
@@ -139,41 +135,41 @@ function Navbar() {
                             className={`link ${location.pathname === '/' ? 'active' : ''}`}
                             onClick={() => setMenuOpen(false)}
                         >
-                            Ana səhifə
+                            {t('navbar.home')}
                         </Link>
                         <Link
                             to="/"
                             className={`link ${location.pathname === '/services' ? 'active' : ''}`}
                             onClick={() => {
                                 setMenuOpen(false);
-                                handleScrollServices()
+                                handleScrollServices();
                             }}
                         >
-                            Xidmətlər
+                            {t('navbar.services')}
                         </Link>
                         <Link
                             to="/"
                             className={`link ${location.pathname === '/clinics' ? 'active' : ''}`}
                             onClick={() => {
                                 setMenuOpen(false);
-                                handleScrollClinic()
+                                handleScrollClinic();
                             }}
                         >
-                            Klinikalar
+                            {t('navbar.clinics')}
                         </Link>
                         <Link
                             to="/about"
                             className={`link ${location.pathname === '/about' ? 'active' : ''}`}
                             onClick={() => setMenuOpen(false)}
                         >
-                            Haqqımızda
+                            {t('navbar.about')}
                         </Link>
                         <Link
                             to="/contact"
                             className={`link ${location.pathname === '/contact' ? 'active' : ''}`}
                             onClick={() => setMenuOpen(false)}
                         >
-                            Əlaqə
+                            {t('navbar.contact')}
                         </Link>
                     </nav>
 
@@ -186,17 +182,17 @@ function Navbar() {
                         >
                             <button className="dropbtn">
                                 <img src={currentFlag} alt="Current Flag" />
-                                <FaChevronDown className={"zakirinChevronu"} />
+                                <FaChevronDown className="zakirinChevronu" />
                             </button>
                             <div className={`dropdown-content ${langDropdownOpen ? 'show' : ''}`}>
                                 <div onClick={() => handleLanguageChange('az')}>
-                                    <img src={flagAz} alt="AZ Flag" /> AZ
+                                    <img src={flagAz} alt="AZ Flag" /> {t('navbar.languages.az')}
                                 </div>
                                 <div onClick={() => handleLanguageChange('en')}>
-                                    <img src={flagEn} alt="EN Flag" /> EN
+                                    <img src={flagEn} alt="EN Flag" /> {t('navbar.languages.en')}
                                 </div>
                                 <div onClick={() => handleLanguageChange('ru')}>
-                                    <img src={flagRu} alt="RU Flag" /> RU
+                                    <img src={flagRu} alt="RU Flag" /> {t('navbar.languages.ru')}
                                 </div>
                             </div>
                         </div>

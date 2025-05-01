@@ -1,0 +1,179 @@
+{
+  "navbar": {
+    "home": "Главная",
+    "services": "Услуги",
+    "clinics": "Клиники",
+    "about": "О нас",
+    "contact": "Контакты",
+    "languages": {
+      "az": "Азербайджанский",
+      "en": "Английский",
+      "ru": "Русский"
+    }
+  },
+  "footer": {
+    "description": "Мы продумываем и планируем все детали за вас, такие как процесс лечения, перелеты, визовая поддержка и проживание.",
+    "links": "Ссылки",
+    "call": "Позвоните нам",
+    "mail": "Напишите нам",
+    "copyright": "© 2025 Kliniken Allianz. Все права защищены.",
+    "createdBy": "Создано:"
+  },
+  "homeBanner": {
+    "title": "Откройте путь к лучшим клиникам мира",
+    "description": "Восстановите свое здоровье с помощью современных медицинских услуг и удобных возможностей для путешествий.",
+    "button": "Исследуйте",
+    "imageAlt": "Изображение баннера главной страницы",
+    "bannerAlt": "Баннер главной страницы"
+  },
+  "homeServices": {
+    "title": "Категории медицинских услуг, которые мы предлагаем",
+    "description": "Откройте для себя области медицинских услуг, соответствующие вашим потребностям.",
+    "videoAlt": "Видео услуг",
+    "cards": {
+      "cancer": {
+        "name": "Лечение рака",
+        "description": "США"
+      },
+      "oftamologiya": {
+        "name": "Офтальмология",
+        "description": "Бангкок"
+      },
+      "ginekologiya": {
+        "name": "Гинекология",
+        "description": "Стамбул"
+      },
+      "hepatologiya": {
+        "name": "Гепатология",
+        "description": "Сингапур"
+      },
+      "travmatologiya": {
+        "name": "Травматология",
+        "description": "Бангкок"
+      },
+      "onurga": {
+        "name": "Лечение позвоночника",
+        "description": "Берлин"
+      }
+    }
+  },
+  "homeServiceCard": {
+    "description": "Новейшие методы лечения для повышения качества вашей жизни.",
+    "button": "Подробнее",
+    "iconAlt": "Иконка {name}"
+  },
+  "homeClinic": {
+    "title": "Надежные медицинские центры",
+    "description": "Kliniken Allianz сотрудничает только с современными и надежными клиниками, соответствующими международным стандартам.",
+    "prevButton": "Предыдущий слайд",
+    "nextButton": "Следующий слайд",
+    "slideAriaLabel": "Перейти к слайду {slideNumber}",
+    "cardImgAlt": "Изображение {name}",
+    "cards": {
+      "universitatsklinikum": {
+        "name": "Universitätsklinikum",
+        "description": "Франкфурт, Германия"
+      },
+      "cleveland": {
+        "name": "Cleveland Clinic",
+        "description": "США"
+      },
+      "anadolu": {
+        "name": "Anadolu Sağlık",
+        "description": "Турция"
+      },
+      "bumrungrad": {
+        "name": "Bumrungrad",
+        "description": "Таиланд"
+      },
+      "hospitalUniversitario": {
+        "name": "Hospital Universitario",
+        "description": "Мадрид, Испания"
+      },
+      "singapore": {
+        "name": "Singapore Hospital",
+        "description": "Сингапур"
+      }
+    }
+  },
+  "homeHotel": {
+    "title": "Варианты отелей рядом с клиниками",
+    "slideAriaLabel": "Перейти к слайду {slideNumber}",
+    "cardImgAlt": "Изображение {name}",
+    "cards": {
+      "ritzCarlton": {
+        "name": "The Ritz-Carlton",
+        "description": "США"
+      },
+      "westinGrand": {
+        "name": "The Westin Grand",
+        "description": "Берлин"
+      },
+      "crownePlaza": {
+        "name": "Crowne Plaza",
+        "description": "Стамбул"
+      },
+      "siamKempinski": {
+        "name": "Siam Kempinski",
+        "description": "Бангкок"
+      },
+      "raffles": {
+        "name": "Raffles Hotel",
+        "description": "Сингапур"
+      },
+      "mandarinOriental": {
+        "name": "Mandarin Oriental",
+        "description": "Бангкок"
+      }
+    }
+  },
+  "homeBestServ": {
+    "title": "Самые популярные услуги",
+    "prevButton": "Предыдущий слайд",
+    "nextButton": "Следующий слайд",
+    "slideAriaLabel": "Перейти к слайду {slideNumber}",
+    "cardImgAlt": "Изображение {name}",
+    "cardIconAlt": "Иконка {name}",
+    "cards": {
+      "cancer": {
+        "name": "Лечение рака",
+        "description": "США"
+      },
+      "kardiologiya": {
+        "name": "Кардиология",
+        "description": "Берлин"
+      },
+      "realibitasiya": {
+        "name": "Реабилитация",
+        "description": "Стамбул"
+      },
+      "oftamologiya": {
+        "name": "Офтальмология",
+        "description": "Бангкок"
+      },
+      "hepatologiya": {
+        "name": "Гепатология",
+        "description": "Сингапур"
+      },
+      "travmatologiya": {
+        "name": "Травматология",
+        "description": "Бангкок"
+      }
+    }
+  },
+  "bestServCard": {
+    "button": "Подробнее"
+  },
+  "homeComment": {
+    "title": "Те, кто нам доверяет",
+    "desc": "Опыт и мнения людей, выбравших нас для своего лечения и оздоровительного путешествия.",
+    "backgroundAriaLabel": "Фоновое изображение раздела отзывов клиентов",
+    "comments": {
+      "aytacM": {
+        "name": "Aytaç M",
+        "country": "Азербайджан",
+        "text": "Процесс лечения прошел очень комфортно и без стресса. Все было организовано заранее – трансфер, отель, больница. Врачи и персонал были очень внимательны! Самое главное, я чувствовал себя в безопасности."
+      }
+    }
+  }
+}

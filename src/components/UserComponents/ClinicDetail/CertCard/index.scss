@@ -1,5 +1,5 @@
 /* Mövcud kod hissəsi: */
-.card-certificate {
+#card-certificate-clinic {
   position: relative;
   background-size: cover;
   background-position: center;
@@ -17,19 +17,101 @@
     transition: opacity 0.4s ease;
 
     .number {
-      font-size: 130px;
+      font-size: 80px;
       font-weight: bold;
       color: #fff;
     }
 
     .text {
-      font-size: 36px;
+      font-size: 28px;
+      height: max-content;
       color: #fff;
     }
   }
 
   &:hover .overlay {
     opacity: 0;
+  }
+  .layout1 {
+    // Çift index üçün (desktop görünüşdə ilkin yerlər)
+    .number {
+      position: absolute;
+      top: 0;
+      right: 0px;
+    }
+    .text {
+      position: absolute;
+
+      left: 5px;
+    }
+  }
+
+  .layout2 {
+    // Tek index üçün (desktop görünüşdə ilkin yerlər)
+    .text {
+      position: absolute;
+      top: 25px;
+      left: 20px;
+    }
+    .number {
+      position: absolute;
+      bottom: -5px;
+      right: -0px;
+    }
+  }
+
+  /* Modal, tablet və digər cihazlar üçün mövcud kod hissələri ... */
+
+  /* Mobil cihazlar üçün */
+  @media (max-width: 480px) {
+    #card-certificate-clini {
+      height: 250px;
+    }
+
+    .overlay {
+      .number {
+        font-size: 70px;
+      }
+      .text {
+        font-size: 22px;
+      }
+    }
+
+    .layout1 {
+      .text {
+        position: absolute;
+        top: 200px !important;
+        left: 10px;
+        right: auto;
+      }
+      .number {
+        position: absolute;
+        top: 20px;
+        right: -5px;
+        left: auto;
+      }
+    }
+
+    .layout2 {
+      .text {
+        position: absolute;
+        top: 20px;
+        right: 10px;
+        left: auto;
+      }
+      .number {
+        position: absolute;
+        bottom: -10px;
+        left: -10px;
+        right: auto;
+      }
+    }
+
+    .modal-content {
+      img {
+        width: 300px;
+      }
+    }
   }
 }
 .modal-overlay {
@@ -73,85 +155,4 @@
   cursor: pointer;
   font-size: 16px;
   border-radius: 4px;
-}
-.layout1 {
-  // Çift index üçün (desktop görünüşdə ilkin yerlər)
-  .number {
-    position: absolute;
-    top: 0;
-    right: -22px;
-  }
-  .text {
-    position: absolute;
-    bottom:25px;
-    left: 20px;
-  }
-}
-
-.layout2 {
-  // Tek index üçün (desktop görünüşdə ilkin yerlər)
-  .text {
-    position: absolute;
-    top: 25px;
-    left: 20px;
-  }
-  .number {
-    position: absolute;
-    bottom: -5px;
-    right: -19px;
-  }
-}
-
-/* Modal, tablet və digər cihazlar üçün mövcud kod hissələri ... */
-
-/* Mobil cihazlar üçün */
-@media (max-width: 480px) {
-  .card-certificate {
-    height: 250px;
-  }
-
-  .overlay {
-    .number {
-      font-size: 70px;
-    }
-    .text {
-      font-size: 22px;
-    }
-  }
-
-  .layout1 {
-    .text {
-      position: absolute;
-      top: 20px;
-      left: 10px;
-      right: auto;
-    }
-    .number {
-      position: absolute;
-      top: 60px;
-      right: -22px;
-      left: auto;
-    }
-  }
-
-  .layout2 {
-    .text {
-      position: absolute;
-      top: 20px;
-      right: 10px;
-      left: auto;
-    }
-    .number {
-      position: absolute;
-      bottom: -10px;
-      left: -10px;
-      right: auto;
-    }
-  }
-
-  .modal-content {
-    img {
-      width: 300px;
-    }
-  }
 }

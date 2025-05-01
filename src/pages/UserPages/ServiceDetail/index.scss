@@ -1,5 +1,5 @@
 #serviceDetail {
-  padding: 140px 8px;
+  padding: 140px 0;
 
   .head {
     width: 100%;
@@ -123,7 +123,7 @@
 
   .second-section {
     margin-bottom: 130px;
-
+    padding: 0 16px;
     h2 {
       font-weight: 600;
       font-size: 24px;
@@ -156,6 +156,7 @@
       align-items: center;
       justify-content: space-between;
       margin-bottom: 60px;
+      padding: 0 16px;
 
       .content {
         width: 64%;
@@ -226,6 +227,7 @@
     .slider-wrapper {
       overflow: hidden;
       width: 100%;
+      padding: 0 4px;
     }
 
     .slider-card {
@@ -233,6 +235,9 @@
       flex-wrap: nowrap;
       width: calc(100% * 4 / 4);
       transition: transform 0.3s ease-in-out;
+      @media screen and (max-width: 576px) {
+        width: calc(100% * 4 / 2); /* 6 cards, 2 visible on mobile */
+      }
     }
 
     .slider-card > * {
@@ -259,6 +264,10 @@
       border-radius: 50%;
       cursor: pointer;
       transition: background 0.3s;
+      @media screen and (max-width: 576px) {
+        width: 8px;
+        height: 8px;
+      }
     }
 
     .custom-bullet.active {

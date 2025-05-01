@@ -1,6 +1,7 @@
 import "./index.scss";
 import {Link, useNavigate} from "react-router-dom";
 import banner from "/src/assets/CategoryBanner.png";
+import mobileBanner from "/src/assets/MobileBannerCategoryDetail.png";
 import image from "/src/assets/clevelandClinic.png";
 import image1 from "/src/assets/Johns.png";
 import image2 from "/src/assets/CategoryDetailImage.png";
@@ -15,7 +16,7 @@ import icon3 from "../../../assets/Servis/genekoloq.png";
 import icon5 from "../../../assets/Servis/hepatoloq.png";
 import icon6 from "../../../assets/Servis/travmatoloq.png";
 import icon2 from "../../../assets/Servis/ortaped.png";
-
+import { useMediaQuery } from 'react-responsive';
 function CategoryDetail() {
     const [showAllServices, setShowAllServices] = useState(false);
     const [email, setEmail] = useState("");
@@ -69,6 +70,7 @@ function CategoryDetail() {
             description: "Sinqapur",
             icon: icon5,
         }];
+    const isMobile = useMediaQuery({ maxWidth: 768 });
     return (
         <div id={"category-detail"}>
             <div className={"container"}>
@@ -95,7 +97,7 @@ function CategoryDetail() {
                     </div>
                     <div className={"col-6 col-md-12 col-sm-12 col-xs-12 first"}>
                         <div className={"image"}>
-                            <img src={banner} alt=""/>
+                            <img src={isMobile ? mobileBanner : banner} alt="Banner" />
                         </div>
                     </div>
                 </div>
@@ -113,7 +115,7 @@ function CategoryDetail() {
                     </div>
                     <div className={"row"} style={{marginBottom: "48px"}}>
                         {cards.map((item, index)=>(
-                            <HomeServiceCard key={index}  name={item.name} icon={item.icon} />
+                            <ServicesCardCategory key={index}  name={item.name} icon={item.icon} />
                     ))}
                 </div>
                 <div style={{textAlign: "center"}}>
@@ -164,7 +166,7 @@ function CategoryDetail() {
                 </div>
                 <div className={"row"} style={{marginBottom: "48px"}}>
                     {cards.map((item, index)=>(
-                        <HomeServiceCard key={index}  name={item.name} icon={item.icon} />
+                        <ServicesCardCategory key={index}  name={item.name} icon={item.icon} />
                     ))}
                 </div>
                 <div style={{textAlign: "center"}}>

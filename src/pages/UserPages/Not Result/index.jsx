@@ -13,7 +13,7 @@ function NotResult() {
                 <h2>Oops, nothing matched your search.</h2>
                 <p>No worries, sometimes a new search brings better results!</p>
                 <div style={{ textAlign: "center" }}>
-                    <button>
+                    <button className={"notResultBtn"}>
                         <Link to={"/"} style={{ color: "white" }}>
                             Go Back
                         </Link>

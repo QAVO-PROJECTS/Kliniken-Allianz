@@ -93,7 +93,7 @@
       }
       h3 {
         font-weight: 600;
-        font-size: 32px;
+        font-size: 28px;
         line-height: 48px;
         margin-bottom: 16px;
       }
@@ -135,7 +135,7 @@
   .second-section {
     h2 {
       font-weight: 600;
-      font-size: 32px;
+      font-size: 28px;
       line-height: 60px;
       margin-bottom: 42px;
       padding: 0 8px;
@@ -156,7 +156,7 @@
 
       h2 {
         font-weight: 600;
-        font-size: 32px;
+        font-size: 28px;
         line-height: 60px;
         margin-bottom: 8px;
       }
@@ -179,7 +179,7 @@
       }
     }
 
-    button {
+    .clinicDetailThird {
       background: none;
       border: none;
       display: flex;
@@ -204,7 +204,7 @@
 
       h2 {
         font-weight: 600;
-        font-size: 32px;
+        font-size: 28px;
         line-height: 60px;
         margin-bottom: 8px;
       }
@@ -294,6 +294,10 @@
       border-radius: 50%;
       cursor: pointer;
       transition: background 0.3s;
+      @media screen and (max-width: 576px) {
+        width: 8px;
+        height: 8px;
+      }
     }
 
     .custom-bullet.active {
@@ -306,7 +310,7 @@
 
     h2 {
       font-weight: 600;
-      font-size: 32px;
+      font-size: 28px;
       line-height: 60px;
       margin-bottom: 60px;
     }
