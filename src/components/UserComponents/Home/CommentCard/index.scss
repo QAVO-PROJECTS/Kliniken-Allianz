@@ -1,0 +1,112 @@
+.comment-card-container {
+  overflow: hidden; /* Hide cards outside the container */
+  width: 100%; /* Ensure it takes the full width of the parent */
+  max-width: 800px; /* Increased width to make the card wider */
+  margin: 0 auto; /* Center the container */
+  position: relative; /* For positioning navigation buttons */
+
+  .comment-card-slider {
+    display: flex;
+    transition: transform 0.5s ease; /* Smooth sliding animation */
+    width: 100%; /* Ensure the slider takes the full width */
+  }
+
+  .comment-card {
+    flex: 0 0 100%; /* Each card takes the full width of the container */
+    box-sizing: border-box;
+    padding: 30px; /* Keep padding for internal spacing */
+    text-align: center; /* Center the text as in the screenshot */
+    min-height: 350px; /* Adjusted height to maintain proportion */
+    background: #fff; /* White background as in the screenshot */
+    border-radius: 10px; /* Rounded corners */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Distribute content vertically */
+    border: 1px solid #eee;
+  }
+
+  .comment-author {
+    display: flex;
+    align-items: center;
+    margin-top: 30px; /* Spacing to push it down */
+  }
+
+  .text {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Space between image and name/country */
+  }
+
+  .navigationBtn {
+    position: absolute; /* Fix buttons in place */
+    bottom: 20px; /* Position at the bottom-right as in the screenshot */
+    right: 20px;
+    display: flex;
+    gap: 15px; /* Space between buttons */
+    z-index: 10; /* Ensure buttons are above the slider */
+  }
+
+  .prev,
+  .next {
+    background: none;
+    cursor: pointer;
+    font-size: 24px; /* Match the screenshot's button size */
+    color: #333; /* Match the screenshot's button color */
+    display: flex;
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+    align-items: center;
+    gap: 10px;
+    border-radius: 20px;
+    border: 1px solid #EBEBEB;
+
+    &:hover {
+      border-radius: 20px;
+      border: 1px solid #00DA7B;
+      background: rgba(234, 255, 247, 0.51);
+    }
+  }
+
+  .prev:disabled,
+  .next:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* Styles for quote icon, text, image, name, country */
+  .quote-icon img {
+    width: 60px; /* Match the large quote icon in the screenshot */
+    height: 60px;
+    display: block;
+  }
+
+  .comment-card p {
+    font-size: 18px; /* Match the screenshot's text size */
+    color: #333;
+    margin: 30px 0; /* Spacing around the text */
+    line-height: 1.6; /* Slightly more line spacing for readability */
+    flex-grow: 1; /* Allow the text to take up available space */
+    max-width: 90%; /* Ensure text doesn't stretch too wide */
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .text .image img {
+    width: 50px; /* Match the screenshot's author image size */
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+  }
+
+  .country {
+    font-size: 14px;
+    color: #666;
+  }
+}
