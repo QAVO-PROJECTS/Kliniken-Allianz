@@ -12,10 +12,14 @@
     }
   },
   "footer": {
+    "logoAlt": "Kliniken Allianz Logo",
     "description": "We think and plan all the details for you, such as the treatment process, flights, visa support, and accommodation.",
     "links": "Links",
+    "contactTitle": "Contact Information",
     "call": "Call Us",
+    "phone": "+994 70 765 43 89",
     "mail": "Email Us",
+    "email": "klinikenallianz@gmail.com",
     "copyright": "© 2025 Kliniken Allianz. All rights reserved.",
     "createdBy": "Created by"
   },
@@ -52,7 +56,7 @@
         "description": "Bangkok"
       },
       "onurga": {
-        "name": "Spinal Treatment",
+        "name": "Cardiology",
         "description": "Berlin"
       }
     }
@@ -79,7 +83,7 @@
         "description": "USA"
       },
       "anadolu": {
-        "name": "Anadolu Sağlık",
+        "name": "GlobalMed",
         "description": "Turkey"
       },
       "bumrungrad": {

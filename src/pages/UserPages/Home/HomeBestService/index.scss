@@ -53,11 +53,20 @@
           background-color: white;
           border: 1px solid #303030;
           color: #303030;
+          &:hover{
+            background-color: #1F1F1F;
+            color: #fff;
+          }
         }
 
         &.next {
           background-color: #1f1f1f;
           color: #fff;
+          &:hover {
+            background-color: white;
+            border: 1px solid #303030;
+            color: #303030;
+          }
         }
       }
     }

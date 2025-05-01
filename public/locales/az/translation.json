@@ -12,10 +12,14 @@
     }
   },
   "footer": {
+    "logoAlt": "Kliniken Allianz Loqosu",
     "description": "Müalicə prosesi, uçuş, viza dəstəyi və qalacaq yer kimi bütün detalları sizin üçün düşünür və planlayırıq.",
     "links": "Keçidlər",
+    "contactTitle": "Əlaqə məlumatları",
     "call": "Bizə zəng edin",
+    "phone": "+994 70 765 43 89",
     "mail": "Bizə yazın",
+    "email": "klinikenallianz@gmail.com",
     "copyright": "© 2025 Kliniken Allianz. Bütün hüquqlar qorunur.",
     "createdBy": "Yaradılıb:"
   },
@@ -52,7 +56,7 @@
         "description": "Banqkok"
       },
       "onurga": {
-        "name": "Onurğanın müalicəsi",
+        "name": "Kardiologiya",
         "description": "Berlin"
       }
     }
@@ -79,7 +83,7 @@
         "description": "ABŞ"
       },
       "anadolu": {
-        "name": "Anadolu Sağlık",
+        "name": "GlobalMed",
         "description": "Türkiyə"
       },
       "bumrungrad": {

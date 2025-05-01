@@ -12,10 +12,14 @@
     }
   },
   "footer": {
+    "logoAlt": "Логотип Kliniken Allianz",
     "description": "Мы продумываем и планируем все детали за вас, такие как процесс лечения, перелеты, визовая поддержка и проживание.",
     "links": "Ссылки",
+    "contactTitle": "Контактная информация",
     "call": "Позвоните нам",
+    "phone": "+994 70 765 43 89",
     "mail": "Напишите нам",
+    "email": "klinikenallianz@gmail.com",
     "copyright": "© 2025 Kliniken Allianz. Все права защищены.",
     "createdBy": "Создано:"
   },
@@ -52,7 +56,7 @@
         "description": "Бангкок"
       },
       "onurga": {
-        "name": "Лечение позвоночника",
+        "name": "Кардиология",
         "description": "Берлин"
       }
     }
@@ -79,7 +83,7 @@
         "description": "США"
       },
       "anadolu": {
-        "name": "Anadolu Sağlık",
+        "name": "GlobalMed",
         "description": "Турция"
       },
       "bumrungrad": {

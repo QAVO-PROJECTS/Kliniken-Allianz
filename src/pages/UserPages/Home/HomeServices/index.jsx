@@ -1,7 +1,7 @@
 import './index.scss';
 import HomeServiceCard from '../../../../components/UserComponents/Home/ServiceCardHome/index.jsx';
 import icon1 from '../../../../assets/Servis/cancer.png';
-import icon2 from '../../../../assets/Servis/ortaped.png';
+import icon2 from '../../../../assets/Servis/heart.png';
 import icon3 from '../../../../assets/Servis/genekoloq.png';
 import icon4 from '../../../../assets/Servis/oftomoloq.png';
 import icon5 from '../../../../assets/Servis/hepatoloq.png';

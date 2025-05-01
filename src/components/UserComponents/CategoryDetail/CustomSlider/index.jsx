@@ -19,6 +19,14 @@ const categories = [
     { name: "Xərçəng müalicəsi", icon: serv6 },
     { name: "Travmatologiya", icon:serv7 },
     { name: "Fizioterapiya", icon: serv8 },
+    { name: "Ginekologiya", icon: serv1 },
+    { name: "Onurğa müalicəsi", icon: serv2 },
+    { name: "Hepatologiya", icon: serv3 },
+    { name: "Kardiologiya", icon: serv4 },
+    { name: "Oftalmologiya", icon: serv5 },
+    { name: "Xərçəng müalicəsi", icon: serv6 },
+    { name: "Travmatologiya", icon:serv7 },
+    { name: "Fizioterapiya", icon: serv8 },
     // Daha fazla kategori ekleyebilirsiniz
 ];
 
