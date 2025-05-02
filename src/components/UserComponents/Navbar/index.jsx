@@ -8,6 +8,7 @@ import 'aos/dist/aos.css';
 import flagAz from '/src/assets/azerbaijan.png';
 import flagEn from '/src/assets/uk.png';
 import flagRu from '/src/assets/circle.png';
+import flagArb from '/src/assets/arabia.png';
 import image1 from '/src/assets/Logo.png';
 import { FaChevronDown } from 'react-icons/fa';
 
@@ -61,6 +62,8 @@ function Navbar() {
         currentFlag = flagRu;
     } else if (i18n.language?.startsWith('az')) {
         currentFlag = flagAz;
+    } else if (i18n.language?.startsWith('arb')){
+        currentFlag = flagArb;
     }
 
     const handleLangMouseEnter = () => {
@@ -193,6 +196,9 @@ function Navbar() {
                                 </div>
                                 <div onClick={() => handleLanguageChange('ru')}>
                                     <img src={flagRu} alt="RU Flag" /> {t('navbar.languages.ru')}
+                                </div>
+                                <div onClick={() => handleLanguageChange('arb')}>
+                                    <img src={flagArb} alt="Arb Flag" /> {t('navbar.languages.ru')}
                                 </div>
                             </div>
                         </div>

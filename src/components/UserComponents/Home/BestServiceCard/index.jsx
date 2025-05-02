@@ -17,7 +17,7 @@ function BestServCard({ name, desc, img, imgAlt, icon, iconAlt }) {
                 </div>
                 <div className="content">
                     <h4>{name}</h4>
-                    <p>{desc}</p>
+                    <p>Həyat keyfiyyətinizi yüksəltmək üçün ən yeni xərçəng müalicə üsulları.</p>
                     <div>
                         <button>
                             {t('bestServCard.button')}

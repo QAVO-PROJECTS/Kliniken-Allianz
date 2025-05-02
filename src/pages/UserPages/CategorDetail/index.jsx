@@ -276,17 +276,7 @@ function CategoryDetail() {
                         visibleItems={visibleItems}
                     />
                 </div>
-                {/*<div className="custom-pagination">*/}
-                {/*    {Array.from({length: maxIndex + 1}).map((_, index) => (*/}
-                {/*        <span*/}
-                {/*            key={index}*/}
-                {/*            className={`custom-bullet ${currentIndex === index ? "active" : ""}`}*/}
-                {/*            onClick={() => handleBulletClick(index)}*/}
-                {/*            aria-label={`Go to category slide ${index + 1}`}*/}
-                {/*            role="button"*/}
-                {/*        />*/}
-                {/*    ))}*/}
-                {/*</div>*/}
+
             </div>
         </div>
 </div>

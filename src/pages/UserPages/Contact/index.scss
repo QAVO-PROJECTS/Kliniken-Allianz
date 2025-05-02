@@ -57,6 +57,14 @@
       }
       @media screen and (max-width: 576px) {
         margin-bottom: 63px;
+        h1{
+          font-size: 18px;
+          line-height: 27px; /* 150% */
+        }
+        p{
+          font-size: 14px;
+          line-height: 24px; /* 171.429% */
+        }
       }
     }
     .contactCard{
@@ -75,6 +83,9 @@
         font-size: 22px;
       }
       .text{
+        @media screen and (max-width: 576px){
+          width: 80%;
+        }
         h4{
           font-weight: 500;
           font-size: 18px;

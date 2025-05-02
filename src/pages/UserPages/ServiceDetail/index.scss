@@ -113,10 +113,45 @@
     }
 
     .image {
+      position: relative;
       text-align: end;
       width: 100%;
       img{
         width: 100%;
+      }
+      .icons{
+        width: 100%;
+        position: absolute;
+        .icon1{
+          position: absolute;
+          right:-15px;
+        }
+        .icon2{
+          position: absolute;
+          top:0px;
+          right:55px;
+        }
+        .icon3{
+          position: absolute;
+          top:-60px;
+          right: 655px;
+        }
+        .icon4{
+          position: absolute;
+          top: -500px;
+          right: 495px;
+        }
+        @media (max-width: 576px) {
+          .icon2,.icon3,.icon4{
+            display: none;
+          }
+          .icon1{
+            width: 10px;
+            top: -190px;
+            right:90px;
+            transform: rotate(305deg);
+          }
+        }
       }
     }
   }
@@ -190,17 +225,26 @@
           align-items: center;
           border: none;
           font-size: 16px;
-          cursor: pointer;
+          cursor: pointer !important;
 
           &.prev {
             background-color: white;
             border: 1px solid #303030;
             color: #303030;
+            &:hover{
+              background-color: #1F1F1F;
+              color: #fff;
+            }
           }
 
           &.next {
             background-color: #1f1f1f;
             color: #fff;
+            &:hover {
+              background-color: white;
+              border: 1px solid #303030;
+              color: #303030;
+            }
           }
         }
       }

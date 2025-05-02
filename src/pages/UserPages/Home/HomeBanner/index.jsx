@@ -30,9 +30,27 @@ function HomeBanner() {
                         <div className={'content'}>
                             <h1>{t('homeBanner.title')}</h1>
                             <p>{t('homeBanner.description')}</p>
-                            <div onClick={handleScroll}>
+                            <div className={"muraciet"} onClick={handleScroll}>
                                 {t('homeBanner.button')} <button><FaArrowDownLong /></button>
                             </div>
+                            <div className={"icons"}>
+                                <div className={"icon3"}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="31" height="31" viewBox="0 0 31 31" fill="none">
+                                        <circle cx="15.5" cy="15.5" r="15.5" fill="#DEFAFE"/>
+                                    </svg>
+                                </div>
+                                <div className={"icon2"}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
+                                        <circle cx="9.5" cy="9.5" r="9.5" fill="#CCF8E6"/>
+                                    </svg>
+                                </div>
+                                <div className={"icon4"}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
+                                        <circle cx="9.5" cy="9.5" r="9.5" fill="#CCF8E6"/>
+                                    </svg>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                     <div className={'col-5 col-md-12 col-sm-12 col-xs-12'}>

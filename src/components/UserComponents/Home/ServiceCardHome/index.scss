@@ -79,8 +79,9 @@
    align-items: center;
    gap: 3px;
    border: none;
-   background: none;
-   color: #47D1D6C7;
+   font-weight: 500;
+   background: linear-gradient(90deg, rgba(0, 0, 0, 0.82), #37DEA182  100%, #418588 100%);   -webkit-background-clip: text;
+   color: transparent;
   }
  }
 }
