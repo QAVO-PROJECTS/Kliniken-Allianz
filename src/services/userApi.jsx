@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 export const userApi = createApi({
     reducerPath: 'userApi',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'https://klinikenalianz-001-site1.ltempurl.com/api',
+        baseUrl: 'https://klinikenallianz-production.up.railway.app/api',
         prepareHeaders: (headers) => {
             const token = Cookies.get('klinikenToken');
             if (token) {
