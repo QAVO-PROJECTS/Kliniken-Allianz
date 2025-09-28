@@ -1,8 +1,8 @@
-import React, { useRef, useState, useEffect } from "react";
+import  { useRef, useState, useEffect } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import "./index.scss";
 import serv1 from "/src/assets/Servis/genekoloq.png";
-import serv2 from "/src/Assets/Servis/ortaped.png";
+import serv2 from "/src/assets/Servis/ortaped.png";
 import serv3 from "/src/assets/Servis/hepatoloq.png";
 import serv4 from "/src/assets/Servis/heart.png";
 import serv5 from "/src/assets/Servis/oftomoloq.png";
