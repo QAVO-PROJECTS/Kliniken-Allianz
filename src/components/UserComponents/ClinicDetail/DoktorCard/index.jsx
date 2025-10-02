@@ -1,18 +1,19 @@
 import "./index.scss"
 import {FaArrowRightLong} from "react-icons/fa6";
 import {useNavigate} from "react-router-dom";
-function DoktorCard({name,img}) {
+import {DOCTOR_IMG_URL} from "../../../../contants.js";
+function DoktorCard({id,name,img,desc}) {
     console.log(img)
     const navigate = useNavigate();
     return (
-        <div className={"col-3 col-md-6 col-sm-6 col-xs-6"} onClick={()=>navigate("/doktor/1")}>
+        <div className={"col-3 col-md-6 col-sm-6 col-xs-6"} onClick={()=>navigate(`/doktor/${id}`)}>
             <div id={"doktorCard"}>
                 <div className={"image"}>
-                    <img src={img}/>
+                    <img src={DOCTOR_IMG_URL+img}/>
                 </div>
                 <div className={"content"}>
                     <h5>{name}</h5>
-                    <p>Xərçəng müalicəsi</p>
+                    <p>{desc}</p>
                 </div>
                 <div style={{textAlign:"center"}}>
                     <button>

@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 export const userApi = createApi({
     reducerPath: 'userApi',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'https://klinikenallianz-production.up.railway.app/api',
+        baseUrl: 'https://api.kliniken-allianz.com/api',
         prepareHeaders: (headers) => {
             const token = Cookies.get('klinikenToken');
             if (token) {
@@ -57,6 +57,12 @@ export const userApi = createApi({
                 url: `/Clinic/get-all-clinics`,
             }),
         }),
+        getClinicByCategory: builder.query({
+            query: (categoryId) => ({
+                url: `/Clinic/get-clinics-by-category/${categoryId}`,
+            }),
+        }),
+
         getClinicById: builder.query({
             query: (id) => ({
                 url: `/Clinic/get-clinic-by-id/${id}`,
@@ -155,6 +161,36 @@ export const userApi = createApi({
                 url: `/Contact/get-all-contacts`,
             }),
         }),
+        getAllOtels: builder.query({
+            query: () => ({
+                url: `/Otels/get-all-otels`,
+            }),
+        }),
+        getOtelsById: builder.query({
+            query: (id) => ({
+                url: `/Otels/get-otel-by-id/${id}`,
+            }),
+        }),
+        putOtels: builder.mutation({
+            query: (otel) => ({
+                url: `/Otels/update-otel`,
+                method: 'PUT',
+                body: otel,
+            }),
+        }),
+        postOtels: builder.mutation({
+            query: (data) => ({
+                url: `/Otels/create-otel`,
+                method: 'POST',
+                body: data,
+            }),
+        }),
+        deleteOtels: builder.mutation({
+            query: (id) => ({
+                url: `/Otels/delete-otel/${id}`,
+                method: 'DELETE',
+            }),
+        }),
     }),
 })
 export const {
@@ -165,6 +201,7 @@ export const {
     usePutCategoryMutation,
     useDeleteCategoryMutation,
     usePostCategoryMutation,
+    useGetClinicByCategoryQuery,
 
     useGetAllClinicQuery,
     useGetClinicByIdQuery,
@@ -186,4 +223,10 @@ export const {
 
     usePostContactMutation,
     useGetAllContactQuery,
+
+    useGetAllOtelsQuery,
+    useGetOtelsByIdQuery,
+    usePutOtelsMutation,
+    useDeleteOtelsMutation,
+    usePostOtelsMutation,
 } = userApi

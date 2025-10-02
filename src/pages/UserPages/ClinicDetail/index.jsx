@@ -1,5 +1,5 @@
 import './index.scss';
-import {Link} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import image from '/src/assets/ClinicDetialFirst.png';
 import CardCertificate from '../../../components/UserComponents/ClinicDetail/CertCard/index.jsx';
 import sert1 from '/src/assets/Sertifikat/1.png';
@@ -18,11 +18,6 @@ import gallery2 from '/src/assets/2121.jpg';
 import gallery3 from '/src/assets/3313.jpg';
 import gallery4 from '/src/assets/454.jpg';
 import HomeServiceCard from "../../../components/UserComponents/Home/ServiceCardHome/index.jsx";
-import image2 from "../../../assets/ServisDetailCard2.png";
-import image3 from "../../../assets/ServisDetailCard3.png";
-import image4 from "../../../assets/ServisDetailCard4.png";
-import image5 from "../../../assets/ServisDetailCard5.png";
-import image6 from "../../../assets/ServisDetailCard6.png";
 import icon1 from "../../../assets/Servis/cancer.png";
 import icon4 from "../../../assets/Servis/oftomoloq.png";
 import icon3 from "../../../assets/Servis/genekoloq.png";
@@ -35,26 +30,44 @@ import dimage3 from "/src/assets/dmarcDoktor.png";
 import dimage4 from "/src/assets/dSamer.png";
 import dimage5 from "/src/assets/doktor5.jpg";
 import dimage6 from "/src/assets/doktor6.jpg";
+import {useGetClinicByIdQuery} from "../../../services/userApi.jsx";
+import {CLINIC_CARD_IMAGES, CLINIC_IMAGES} from "../../../contants.js";
+import {useTranslation} from "react-i18next";
 const galleryImages = [gallery1, gallery2, gallery3, gallery4];
 
 function ClinicDetail() {
-    const cardsData = [
-        {id: 1, image: sert1, number: '01'},
-        {id: 2, image: sert2, number: '02'},
-        {id: 3, image: sert3, number: '03'},
-        {id: 4, image: sert4, number: '04'},
-        {id: 5, image: sert5, number: '05'},
-        {id: 6, image: sert6, number: '06'},
-        {id: 7, image: sert6, number: '07'},
-        {id: 8, image: sert6, number: '08'},
-    ];
+    const {id} = useParams()
 
-    const [currentPage, setCurrentPage] = useState(1);
+const {data:getClinicById} = useGetClinicByIdQuery(id)
+    const clinic = getClinicById?.data
     const [showAllServices, setShowAllServices] = useState(false);
-    const [itemsPerPage, setItemsPerPage] = useState(
-        window.innerWidth <= 576 ? 2 : 6
-    );
+    const { t, i18n } = useTranslation();
+    const getLocalizedText = (item, field) => {
+        switch (i18n.language) {
+            case 'en':
+                return field === 'name' ? item?.nameEng : item?.descriptionEng;
+            case 'ru':
+                return field === 'name' ? item?.nameRu : item?.descriptionRu;
+            default: // 'tr' veya varsayılan
+                return field === 'name' ? item?.name : item?.description;
+        }
+    };const certificates = clinic?.clinicSertificates || [];
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(window.innerWidth <= 576 ? 2 : 6);
 
+    useEffect(() => {
+        const handleResize = () => {
+            setItemsPerPage(window.innerWidth <= 576 ? 2 : 6);
+            setCurrentPage(1); // ekran ölçüsü dəyişəndə birinci səhifəyə qaytar
+        };
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+    const totalPages = Math.ceil(certificates.length / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const displayedCertificates = certificates.slice(startIndex, endIndex);
     // update itemsPerPage on resize
     useEffect(() => {
         const handleResize = () => {
@@ -65,60 +78,31 @@ function ClinicDetail() {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    const totalPages = Math.ceil(cardsData.length / itemsPerPage);
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const paginatedCards = cardsData.slice(startIndex, endIndex);
 
     const [name, setFirstName] = useState('');
     const [surname, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [phoneNumber, setPhone] = useState('');
     const [description, setNote] = useState('');
-    const [errors, setErrors] = useState({});
+    const [errors] = useState({});
 
     const handlePageChange = (page) => {
         setCurrentPage(page);
     };
 
-    const array = [{
-        name: "Xərçəng müalicəsi",
-        description: "Abş",
-        icon:icon1,
-    },
-        {
-            name: "Oftamologiya",
-            description: "Bangkok",
-            icon:icon4,
-        },
 
-        {
-            name: "Ginekologiya",
-            description: "İstanbul",
-            icon:icon3,
-        },
 
-        {
-            name: "Hepatologiya",
-            description: "Sinqapur",
-            icon:icon5,
-        }, {
-            name: "Travmatologiya",
-            description: "Bangkok",
-            icon:icon6,
-        },
-        {
-            name: "Onurğanın müalicəsi",
-            description: "Berlin",
-            icon:icon2,
-        },];
-
-    const serviceCards = array.map((item, i) => (
-        <HomeServiceCard key={i + 1} name={item.name} desc={item.description} icon={item.icon} />
+    const serviceCards = clinic?.services?.map((item, i) => (
+        <HomeServiceCard
+            id={item.id}
+            name={getLocalizedText(item, 'name')}
+            desc={getLocalizedText(item, 'desc')}
+            icon={CLINIC_CARD_IMAGES + item.serviceCardImage}
+        />
     ));
     const displayedServiceCards = showAllServices
         ? serviceCards
-        : serviceCards.slice(0, 4);
+        : serviceCards?.slice(0, 4);
 
     const sliderRef = useRef(null);
     const gallerySliderRef = useRef(null);
@@ -211,7 +195,7 @@ function ClinicDetail() {
                     <p>
                         <Link to="/">Ana səhifə</Link>
                         <div className="dot"/>
-                        <Link to="/clinics/1">Klinika</Link>
+                        <Link to={`/clinics/${clinic?.id}`}>{clinic?.name}</Link>
                     </p>
                 </div>
 
@@ -219,13 +203,9 @@ function ClinicDetail() {
                 <div className="row first-section">
                     <div className="col-7 col-md-12 col-sm-12 col-xs-12">
                         <div className="content">
-                            <h3>GlobalMed Klinikası</h3>
+                            <h3>{clinic?.name}</h3>
                             <p>
-                                GlobalMed Klinikası Almaniyada yerləşən, geniş tibbi xidmət sahələr
-                                və ən son texnologiyalarla təchiz olunmuş aparıcı sağlamlıq
-                                mərkəzlərindən biridir. Klinikada kardiologiya, onkologiya,
-                                ortopediya, estetik və digər sahələr üzrə müalicə və diaqnostika
-                                xidmətləri təqdim olunur.
+                                {clinic?.description}
                             </p>
                             <div className={"icons"}>
                                 <div className={"icon1"}>
@@ -295,7 +275,7 @@ function ClinicDetail() {
                     </div>
                     <div className="col-5 col-md-12 col-sm-12 col-xs-12">
                         <div className="image">
-                            <img src={image} alt="GlobalMed Klinikası"/>
+                            <img src={CLINIC_CARD_IMAGES+clinic?.clinicCardImage} alt="GlobalMed Klinikası"/>
                         </div>
                     </div>
                 </div>
@@ -304,12 +284,11 @@ function ClinicDetail() {
                 <div className="second-section">
                     <h2>Sertifikatlar</h2>
                     <div className="row">
-                        {paginatedCards.map((card, idx) => (
+                        {clinic?.clinicSertificates?.map((card, idx) => (
                             <CardCertificate
-                                key={card.id}
                                 index={idx}
-                                image={card.image}
-                                number={card.number}
+                                image={card}
+                                number={idx+1}
                                 text="Sertifikat"
                                 data-aos="zoom-in"
                                 data-aos-delay={idx * 100}
@@ -370,8 +349,8 @@ function ClinicDetail() {
                     </div>
                     <div className="slider-wrapper">
                         <div className="slider-card row" ref={sliderRef}>
-                            {cards.map((item, i) => (
-                                <DoktorCard key={i} name={item.name} img={item.imageUrl} />
+                            {clinic?.doctors?.map((item) => (
+                                <DoktorCard id={item?.id} name={item.name} desc={item.role} img={item.doctorImage} />
                             ))}
                         </div>
                     </div>
@@ -394,9 +373,9 @@ function ClinicDetail() {
                     <div className="gallery">
                         <div className="gallery-slider-wrapper">
                             <div className="gallery-slider" ref={gallerySliderRef}>
-                                {galleryImages.map((src, idx) => (
+                                {clinic?.clinicImages?.map((img, idx) => (
                                     <div className="gallery-slide" key={idx}>
-                                        <img src={src} alt={`Gallery ${idx + 1}`}/>
+                                        <img src={CLINIC_IMAGES+img} alt={`Gallery ${idx + 1}`}/>
                                     </div>
                                 ))}
                             </div>

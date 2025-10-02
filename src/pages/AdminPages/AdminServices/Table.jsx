@@ -63,7 +63,7 @@ const ServicesTable = () => {
             descriptionRu: record.descriptionRu,
             categoryId: record.categoryId,
             optionNames: record.options?.map((opt) => opt.name) || [],
-            clinicServices: record.clinicIds || [], // Ensure clinicIds is set correctly
+            clinicServices: record.clinicIds || [], // Klinik ID'leri doğru set et
         });
 
         // Populate service card image
@@ -94,7 +94,7 @@ const ServicesTable = () => {
 
         setIsEditModalVisible(true);
     };
-    console.log(editingService)
+
     const handleAddCancel = () => {
         setIsAddModalVisible(false);
     };
@@ -117,26 +117,26 @@ const ServicesTable = () => {
         formData.append("descriptionRu", rest.descriptionRu);
         formData.append("categoryId", categoryId);
 
-        // Append optionNames (only new ones, as this is an add operation)
+        // OptionNames ekle (yeni eklemeler için)
         if (optionNames && optionNames.length > 0) {
             optionNames.forEach((option) => {
                 formData.append(`optionNames`, option);
             });
         }
 
-        // Append clinicServices (send clinicIds to the backend in the main payload)
+        // Klinik ID'lerini full liste olarak ekle (backend'e clinicIds olarak gitmesi için)
         if (clinicServices && clinicServices.length > 0) {
             clinicServices.forEach((clinicId) => {
-                formData.append(`clinicServiceIds`, clinicId); // Adjust key as per backend expectation
+                formData.append(`clinicIds`, clinicId); // Tutarlı key: clinicIds
             });
         }
 
-        // Append serviceCardImage (single binary file)
+        // Service card image ekle
         if (cardFileList[0]?.originFileObj) {
             formData.append("serviceCardImage", cardFileList[0].originFileObj);
         }
 
-        // Append serviceImages (multiple binary files)
+        // Service images ekle
         if (serviceImagesFileList.length > 0) {
             serviceImagesFileList.forEach((file) => {
                 if (file.originFileObj) {
@@ -146,21 +146,7 @@ const ServicesTable = () => {
         }
 
         try {
-            const serviceResponse = await postService(formData).unwrap();
-            const serviceId = serviceResponse.data.id;
-
-            // Optional: Send clinic associations to a separate endpoint (if still required)
-            if (clinicServices && clinicServices.length > 0) {
-                for (const clinicId of clinicServices) {
-                    const clinicPayload = { serviceId, clinicId };
-                    await fetch("/api/service-clinics", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(clinicPayload),
-                    });
-                }
-            }
-
+            await postService(formData).unwrap();
             message.success("Xidmət uğurla əlavə edildi!");
             setIsAddModalVisible(false);
             form.resetFields();
@@ -173,11 +159,10 @@ const ServicesTable = () => {
         }
     };
 
-
     const handleEditService = async (values) => {
         const { clinicServices, categoryId, optionNames, ...rest } = values;
 
-        // Compute changes for optionNames
+        // Option changes hesapla (yeni ve silinen)
         const newOptionNames =
             optionNames?.filter(
                 (opt) => !editingService.options?.some((existing) => existing.name === opt)
@@ -187,13 +172,7 @@ const ServicesTable = () => {
                 ?.filter((opt) => !optionNames?.includes(opt.name))
                 .map((opt) => opt.name) || [];
 
-        // Compute changes for clinicServices
-        const newClinicServices =
-            clinicServices?.filter((clinicId) => !editingService.clinicIds?.includes(clinicId)) || [];
-        const deletedClinicServices =
-            editingService.clinicIds?.filter((clinicId) => !clinicServices?.includes(clinicId)) || [];
-
-        // Compute changes for serviceImages
+        // Service images changes hesapla
         const newServiceImages = serviceImagesFileList.filter((file) => file.originFileObj) || [];
         const deletedServiceImages =
             editingService.serviceImages?.filter(
@@ -210,26 +189,33 @@ const ServicesTable = () => {
         formData.append("descriptionRu", rest.descriptionRu);
         formData.append("categoryId", categoryId);
 
-        // Append new optionNames
+        // Yeni optionNames ekle
         if (newOptionNames.length > 0) {
             newOptionNames.forEach((option) => {
                 formData.append(`optionNames`, option);
             });
         }
 
-        // Append deleted optionNames
+        // Silinen optionNames ekle
         if (deletedOptionNames.length > 0) {
             deletedOptionNames.forEach((option) => {
                 formData.append(`deleteOptionNames`, option);
             });
         }
 
-        // Append serviceCardImage (single binary file, only if changed)
+        // Klinik ID'lerini full liste olarak ekle (tüm seçili olanlar, backend güncellesin)
+        if (clinicServices && clinicServices.length > 0) {
+            clinicServices.forEach((clinicId) => {
+                formData.append(`clinicIds`, clinicId); // Tutarlı key: clinicIds (full list)
+            });
+        }
+
+        // Service card image ekle (değişmişse)
         if (cardFileList[0]?.originFileObj) {
             formData.append("serviceCardImage", cardFileList[0].originFileObj);
         }
 
-        // Append new serviceImages (multiple binary files)
+        // Yeni service images ekle
         if (newServiceImages.length > 0) {
             newServiceImages.forEach((file) => {
                 if (file.originFileObj) {
@@ -238,29 +224,12 @@ const ServicesTable = () => {
             });
         }
 
-        // Append deleted serviceImages
+        // Silinen service images ekle
         if (deletedServiceImages.length > 0) {
             deletedServiceImages.forEach((image) => {
                 formData.append(`deleteServiceImages`, image);
             });
         }
-
-        // Append new clinicServices
-        if (newClinicServices.length > 0) {
-            newClinicServices.forEach((clinicId) => {
-                formData.append(`clinicServices`, clinicId);
-            });
-        }
-
-        // Append deleted clinicServices
-        if (deletedClinicServices.length > 0) {
-            deletedClinicServices.forEach((clinicId) => {
-                formData.append(`deleteClinicServices`, clinicId);
-            });
-        }
-
-        // Log FormData for debugging
-
 
         try {
             await putService(formData).unwrap();
@@ -681,7 +650,6 @@ const ServicesTable = () => {
                                     className="rounded-md"
                                     optionFilterProp="children"
                                     showSearch
-                                    value={editForm.getFieldValue("clinicServices")} // Ensure value is bound
                                 >
                                     {clinics.map((clinic) => (
                                         <Select.Option key={clinic.id} value={clinic.id}>
@@ -764,6 +732,11 @@ const ServicesTable = () => {
                                     fileList={serviceImagesFileList}
                                     beforeUpload={() => false}
                                     onChange={({ fileList }) => setServiceImagesFileList(fileList)}
+                                    onRemove={(file) =>
+                                        setServiceImagesFileList(
+                                            serviceImagesFileList.filter((f) => f.uid !== file.uid)
+                                        )
+                                    }
                                     className="rounded-md"
                                     multiple
                                 >

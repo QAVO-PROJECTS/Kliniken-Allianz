@@ -1,25 +1,26 @@
 import './index.scss';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import {SERVICE_CARD_IMAGES, SERVICE_IMAGES} from "../../../../contants.js";
 
-function BestServCard({ name, desc, img, imgAlt, icon, iconAlt }) {
+function BestServCard({ name, desc, img, imgAlt, icon, iconAlt,id }) {
     const { t } = useTranslation();
     const navigate = useNavigate();
 
     return (
-        <div className="col-3 col-md-6 col-sm-6 col-xs-6" onClick={() => navigate('/services/1')}>
+        <div className="col-3 col-md-6 col-sm-6 col-xs-6" onClick={() => navigate(`/services/${id}`)}>
             <div id="bestServCard">
                 <div className="image">
-                    <img src={img} alt={imgAlt} />
+                    <img src={SERVICE_IMAGES+img} alt={imgAlt} />
                     <div>
-                        <img src={icon} alt={iconAlt} />
+                        <img src={SERVICE_CARD_IMAGES +icon} alt={iconAlt} />
                     </div>
                 </div>
                 <div className="content">
                     <h4>{name}</h4>
-                    <p>Həyat keyfiyyətinizi yüksəltmək üçün ən yeni xərçəng müalicə üsulları.</p>
+                    <p>{desc}</p>
                     <div>
-                        <button>
+                        <button onClick={() => navigate(`/services/${id}`)}>
                             {t('bestServCard.button')}
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"

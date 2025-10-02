@@ -15,10 +15,8 @@ import { FaChevronDown } from 'react-icons/fa';
 function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
     const [langDropdownOpen, setLangDropdownOpen] = useState(false);
-    const [toursDropdownOpen, setToursDropdownOpen] = useState(false);
 
     const [langTimeoutId, setLangTimeoutId] = useState(null);
-    const [toursTimeoutId, setToursTimeoutId] = useState(null);
 
     const { t, i18n } = useTranslation();
     const navigate = useNavigate();
@@ -45,9 +43,6 @@ function Navbar() {
         setLangDropdownOpen(!langDropdownOpen);
     };
 
-    const toggleToursDropdown = () => {
-        setToursDropdownOpen(!toursDropdownOpen);
-    };
 
     const handleLanguageChange = (lng) => {
         i18n.changeLanguage(lng);
@@ -80,12 +75,7 @@ function Navbar() {
         setLangTimeoutId(timeout);
     };
 
-    const handleToursMouseEnter = () => {
-        if (toursTimeoutId) {
-            clearTimeout(toursTimeoutId);
-            setToursTimeoutId(null);
-        }
-    };
+
 
     const handleScrollClinic = () => {
         const element = document.getElementById('home-clinic');
@@ -197,9 +187,9 @@ function Navbar() {
                                 <div onClick={() => handleLanguageChange('ru')}>
                                     <img src={flagRu} alt="RU Flag" /> {t('navbar.languages.ru')}
                                 </div>
-                                <div onClick={() => handleLanguageChange('arb')}>
-                                    <img src={flagArb} alt="Arb Flag" /> {t('navbar.languages.ru')}
-                                </div>
+                                {/*<div onClick={() => handleLanguageChange('arb')}>*/}
+                                {/*    <img src={flagArb} alt="Arb Flag" /> {t('navbar.languages.ru')}*/}
+                                {/*</div>*/}
                             </div>
                         </div>
                     </div>

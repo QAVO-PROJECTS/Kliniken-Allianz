@@ -9,34 +9,37 @@ import serv5 from "/src/assets/Servis/oftomoloq.png";
 import serv6 from "/src/assets/Servis/cancer.png";
 import serv7 from "/src/assets/Servis/travmatoloq.png";
 import serv8 from "/src/assets/Servis/sssssssss.png";
+import {useGetAllCategoryQuery} from "../../../../services/userApi.jsx";
+import {CATEGORY_IMAGES} from "../../../../contants.js";
 
 // Kategoriler için veri
-const categories = [
-    { name: "Ginekologiya", icon: serv1 },
-    { name: "Onurğa müalicəsi", icon: serv2 },
-    { name: "Hepatologiya", icon: serv3 },
-    { name: "Kardiologiya", icon: serv4 },
-    { name: "Oftalmologiya", icon: serv5 },
-    { name: "Xərçəng müalicəsi", icon: serv6 },
-    { name: "Travmatologiya", icon: serv7 },
-    { name: "Fizioterapiya", icon: serv8 },
-    { name: "Ginekologiya", icon: serv1 },
-    { name: "Onurğa müalicəsi", icon: serv2 },
-    { name: "Hepatologiya", icon: serv3 },
-    { name: "Kardiologiya", icon: serv4 },
-    { name: "Oftalmologiya", icon: serv5 },
-    { name: "Xərçəng müalicəsi", icon: serv6 },
-    { name: "Travmatologiya", icon: serv7 },
-    { name: "Fizioterapiya", icon: serv8 },
-];
+// const categories = [
+//     { name: "Ginekologiya", icon: serv1 },
+//     { name: "Onurğa müalicəsi", icon: serv2 },
+//     { name: "Hepatologiya", icon: serv3 },
+//     { name: "Kardiologiya", icon: serv4 },
+//     { name: "Oftalmologiya", icon: serv5 },
+//     { name: "Xərçəng müalicəsi", icon: serv6 },
+//     { name: "Travmatologiya", icon: serv7 },
+//     { name: "Fizioterapiya", icon: serv8 },
+//     { name: "Ginekologiya", icon: serv1 },
+//     { name: "Onurğa müalicəsi", icon: serv2 },
+//     { name: "Hepatologiya", icon: serv3 },
+//     { name: "Kardiologiya", icon: serv4 },
+//     { name: "Oftalmologiya", icon: serv5 },
+//     { name: "Xərçəng müalicəsi", icon: serv6 },
+//     { name: "Travmatologiya", icon: serv7 },
+//     { name: "Fizioterapiya", icon: serv8 },
+// ];
 
 const CustomSlider = () => {
     const visibleItems = 4; // Görünen öğe sayısı
     const [currentIndex, setCurrentIndex] = useState(0);
     const sliderRef = useRef(null);
-
+    const {data:getAllCategory} = useGetAllCategoryQuery()
+    const categories = getAllCategory?.data;
     // Dinamik maxIndex hesaplaması (her 4 kart için 1 bullet)
-    const categoriesCount = categories.length;
+    const categoriesCount = categories?.length;
     const maxIndex = Math.max(0, Math.ceil(categoriesCount / visibleItems) - 1);
 
     // Slider pozisyonunu izlemek için scroll eventi
@@ -103,12 +106,12 @@ const CustomSlider = () => {
                     <FaChevronLeft />
                 </button>
                 <div className="slider-container" ref={sliderRef}>
-                    {categories.map((category, index) => (
+                    {categories?.map((category, index) => (
                         <div className="slider-item" key={index}>
                             <div className="icon">
-                                <img src={category.icon} alt={category.name} />
+                                <img src={CATEGORY_IMAGES+category?.categoryImage} alt={category?.name} />
                             </div>
-                            <span>{category.name}</span>
+                            <span>{category?.name}</span>
                         </div>
                     ))}
                 </div>

@@ -9,44 +9,58 @@ import {IoCallOutline} from "react-icons/io5";
 import {LiaHandshakeSolid} from "react-icons/lia";
 import {AiOutlineSafety} from "react-icons/ai";
 import {LuNotebookPen} from "react-icons/lu";
+import mobileBanner from "../../../assets/AboutUsBannerMobil.png";
+import {useMediaQuery} from "react-responsive";
 function AboutUs() {
     const navigate = useNavigate();
+    const isMobile = useMediaQuery({ maxWidth: 768 });
     return (
         <div id={"aboutUs"}>
             <div className={"container"}>
                 <div className={"aboutUs"}>
                     <div className={"head"}>
-                            <h1>Haqqımızda</h1>
+                        <h1>{t("aboutUs.title")}</h1>
                         <p data-aos="fade-up" data-aos-delay="100">
-                            <Link to={"/"}>Ana səhifə</Link>
+                            <Link to={"/"}>{t("aboutUs.breadcrumb.home")}</Link>
                             <div className={"dot"}></div>
-                            <Link to={"/about"}>Haqqımızda</Link>
+                            <Link to={"/about"}>{t("aboutUs.breadcrumb.about")}</Link>
                         </p>
                     </div>
                     <div className={"row firstRow"}>
                         <div className={"col-7 col-md-12 col-sm-12 col-xs-12"}>
                             <div className={"content"}>
-                                <h2>Hər Addımda Sizinlə: Yüksək Keyfiyyətli Tibbi Xidmətlər</h2>
-                                <p>Aviasiya biletlərindən viza dəstəyinə qədər hər detala diqqət yetirərək, sağlamlıq yolculuğunuzu asan və təhlükəsiz bir şəkildə reallaşdırırıq. Bizimlə olan hər addımınızda sizi etibarlı və peşəkar bir xidmət gözləyir.</p>
-                                <div className={"more"} onClick={()=>navigate("/contact")}>Bizimlə əlaqəyə keç <button><FaArrowRightLong /></button></div>
+                                <h2>{t("aboutUs.section1.title")}</h2>
+                                <p>{t("aboutUs.section1.description")}</p>
+                                <div
+                                    className={"more"}
+                                    onClick={() => navigate("/contact")}
+                                >
+                                    {t("aboutUs.section1.contactButton")}{" "}
+                                    <button>
+                                        <FaArrowRightLong />
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         <div className={"col-5 col-md-12 col-sm-12 col-xs-12"}>
                             <div className={"image"}>
-                                <img src={image1} alt=""/>
+                                <img src={image1} alt={t("aboutUs.bannerAlt")} />
                             </div>
                         </div>
                     </div>
                     <div className={"main"}>
-                        <Title title={"Niyə Kliniken Allianz?"} desc={"Kliniken Allianz olaraq, sağlamlıq turizmi sahəsində fərqli ölkələrdəki ən yaxşı tibbi müəssisələrlə əməkdaşlıq edirik."}/>
+                        <Title
+                            title={t("aboutUs.section2.title")}
+                            desc={t("aboutUs.section2.description")}
+                        />
                         <div className={"row"}>
                             <div className={"col-3 col-md-6 col-sm-12 col-xs-12"}>
                                 <div className={"aboutCard"}>
                                     <div className={"icon"}>
                                         <IoCallOutline />
                                     </div>
-                                    <h4>Peşəkar Tibbi Konsultasiya</h4>
-                                    <p>Müxtəlif ölkələrdə tanınmış klinikalar və yüksək ixtisaslı həkimlərlə birbaşa əlaqə imkanı.</p>
+                                    <h4>{t("aboutUs.section2.cards.consultation.title")}</h4>
+                                    <p>{t("aboutUs.section2.cards.consultation.description")}</p>
                                 </div>
                             </div>
                             <div className={"col-3 col-md-6 col-sm-12 col-xs-12"}>
@@ -54,8 +68,8 @@ function AboutUs() {
                                     <div className={"icon"}>
                                         <LiaHandshakeSolid />
                                     </div>
-                                    <h4>Beynəlxalq Klinikalarla Əməkdaşlıq</h4>
-                                    <p> Ölkələrin aparıcı tibb mərkəzləri ilə rəsmi tərəfdaşlıq.</p>
+                                    <h4>{t("aboutUs.section2.cards.partnership.title")}</h4>
+                                    <p>{t("aboutUs.section2.cards.partnership.description")}</p>
                                 </div>
                             </div>
                             <div className={"col-3 col-md-6 col-sm-12 col-xs-12"}>
@@ -63,8 +77,8 @@ function AboutUs() {
                                     <div className={"icon"}>
                                         <AiOutlineSafety />
                                     </div>
-                                    <h4>Rahat və Təhlükəsiz Səyahət</h4>
-                                    <p>Aviabilet, transfer, otel, tərcüməçi və digər bütün ehtiyacların tam təşkili.</p>
+                                    <h4>{t("aboutUs.section2.cards.travel.title")}</h4>
+                                    <p>{t("aboutUs.section2.cards.travel.description")}</p>
                                 </div>
                             </div>
                             <div className={"col-3 col-md-6 col-sm-12 col-xs-12"}>
@@ -72,16 +86,19 @@ function AboutUs() {
                                     <div className={"icon"}>
                                         <LuNotebookPen />
                                     </div>
-                                    <h4>Şəffaf Qiymət və Rəsmi Sənədləşmə</h4>
-                                    <p>Bütün xidmətlər rəsmi şəkildə, gizli xərclər olmadan təklif olunur.</p>
+                                    <h4>{t("aboutUs.section2.cards.pricing.title")}</h4>
+                                    <p>{t("aboutUs.section2.cards.pricing.description")}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className={"bannerAbout"} >
-                <img src={banner} alt="banner logo" />
+            <div className={"bannerAbout"}>
+                <img
+                    src={isMobile ? mobileBanner : banner}
+                    alt={t("aboutUs.bannerAlt")}
+                />
             </div>
             <div className={"icons"}>
                 <div className={"icon1"}>

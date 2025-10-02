@@ -15,6 +15,7 @@ import icon3 from '../../../../assets/Servis/sssssssss.png';
 import icon4 from '../../../../assets/Servis/oftomoloq.png';
 import icon5 from '../../../../assets/Servis/hepatoloq.png';
 import icon6 from '../../../../assets/Servis/travmatoloq.png';
+import {useGetAllServiceQuery} from "../../../../services/userApi.jsx";
 
 function HomeBestServ() {
     const { t } = useTranslation();
@@ -25,7 +26,8 @@ function HomeBestServ() {
     const startPos = useRef(0);
     const currentTranslate = useRef(0);
     const prevTranslate = useRef(0);
-
+    const {data:getAllService} = useGetAllServiceQuery()
+    const cardss = getAllService?.data
     const cards = [
         {
             name: t('homeBestServ.cards.cancer.name'),
@@ -188,14 +190,14 @@ function HomeBestServ() {
                     onTouchMove={drag}
                 >
                     <div className="slider-card row" ref={sliderRef}>
-                        {cards.map((item, index) => (
+                        {cardss?.map((item) => (
                             <BestServCard
-                                key={index}
+                                id={item.id}
                                 name={item.name}
                                 desc={item.description}
-                                img={item.imageUrl}
+                                img={item.serviceImages[0]}
                                 imgAlt={t('homeBestServ.cardImgAlt', { name: item.name })}
-                                icon={item.icon}
+                                icon={item.serviceCardImage}
                                 iconAlt={t('homeBestServ.cardIconAlt', { name: item.name })}
                             />
                         ))}

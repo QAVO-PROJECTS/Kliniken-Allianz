@@ -8,6 +8,7 @@ import image3 from '../../../../assets/HotelCard3.jpg';
 import image4 from '../../../../assets/HotelCard4.jpg';
 import image5 from '../../../../assets/HotelCard5.jpg';
 import image6 from '../../../../assets/HotelCard6.jpg';
+import {useGetAllOtelsQuery} from "../../../../services/userApi.jsx";
 
 function HomeHotel() {
     const { t } = useTranslation();
@@ -18,7 +19,8 @@ function HomeHotel() {
     const startPos = useRef(0);
     const currentTranslate = useRef(0);
     const prevTranslate = useRef(0);
-
+const {data:getAllOtels} = useGetAllOtelsQuery()
+    const cardss = getAllOtels?.data
     const cards = [
         {
             name: t('homeHotel.cards.ritzCarlton.name'),
@@ -146,12 +148,12 @@ function HomeHotel() {
                     onTouchMove={drag}
                 >
                     <div className="slider-card row" ref={sliderRef}>
-                        {cards.map((item, index) => (
+                        {cardss?.map((item) => (
                             <HotelCard
-                                key={index}
+                                id={item.id}
                                 name={item.name}
-                                desc={item.description}
-                                img={item.imageUrl}
+                                desc={item.location}
+                                img={item.cardImage}
                                 imgAlt={t('homeHotel.cardImgAlt', { name: item.name })}
                             />
                         ))}

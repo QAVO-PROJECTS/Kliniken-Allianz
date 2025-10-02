@@ -4,15 +4,10 @@ import ServiceDetailCard from '../../../../components/UserComponents/ServicesDet
 import { HiOutlineArrowLeft, HiOutlineArrowRight } from 'react-icons/hi';
 import { useTranslation } from 'react-i18next';
 
-import image from '/src/assets/ServiceDetailCard.png';
-import image2 from '/src/assets/ServisDetailCard2.png';
-import image3 from '/src/assets/ServisDetailCard3.png';
-import image4 from '/src/assets/ServisDetailCard4.png';
-import image5 from '/src/assets/ServisDetailCard5.png';
-import image6 from '/src/assets/ServisDetailCard6.png';
+import {useGetAllClinicQuery} from "../../../../services/userApi.jsx";
 
 function HomeClinic() {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const [currentIndex, setCurrentIndex] = useState(0);
     const [visibleCards, setVisibleCards] = useState(4);
     const sliderRef = useRef(null);
@@ -20,40 +15,22 @@ function HomeClinic() {
     const startPos = useRef(0);
     const currentTranslate = useRef(0);
     const prevTranslate = useRef(0);
+    const {data:getAllClinic} = useGetAllClinicQuery()
+    const cardss = getAllClinic?.data || [];
 
-    const cards = [
-        {
-            name: t('homeClinic.cards.universitatsklinikum.name'),
-            description: t('homeClinic.cards.universitatsklinikum.description'),
-            imageUrl: image,
-        },
-        {
-            name: t('homeClinic.cards.cleveland.name'),
-            description: t('homeClinic.cards.cleveland.description'),
-            imageUrl: image2,
-        },
-        {
-            name: t('homeClinic.cards.anadolu.name'),
-            description: t('homeClinic.cards.anadolu.description'),
-            imageUrl: image3,
-        },
-        {
-            name: t('homeClinic.cards.bumrungrad.name'),
-            description: t('homeClinic.cards.bumrungrad.description'),
-            imageUrl: image4,
-        },
-        {
-            name: t('homeClinic.cards.hospitalUniversitario.name'),
-            description: t('homeClinic.cards.hospitalUniversitario.description'),
-            imageUrl: image5,
-        },
-        {
-            name: t('homeClinic.cards.singapore.name'),
-            description: t('homeClinic.cards.singapore.description'),
-            imageUrl: image6,
-        },
-    ];
-    const maxIndex = cards.length - visibleCards;
+    // Dil bazlı metin seçimi
+    const getLocalizedText = (item, field) => {
+        switch (i18n.language) {
+            case 'en':
+                return field === 'name' ? item.nameEng : item.descriptionEng;
+            case 'ru':
+                return field === 'name' ? item.nameRu : item.descriptionRu;
+            default: // 'tr' veya varsayılan
+                return field === 'name' ? item.name : item.description;
+        }
+    };
+
+    const maxIndex = Math.max(0, cardss.length - visibleCards);
 
     useEffect(() => {
         const updateVisibleCards = () => {
@@ -70,14 +47,14 @@ function HomeClinic() {
     }, []);
 
     useEffect(() => {
-        const newMaxIndex = cards.length - visibleCards;
+        const newMaxIndex = Math.max(0, cardss.length - visibleCards);
         if (currentIndex > newMaxIndex) {
             setCurrentIndex(newMaxIndex);
             sliderRef.current.style.transform = `translateX(-${newMaxIndex * (100 / visibleCards)}%)`;
             currentTranslate.current = -newMaxIndex * (100 / visibleCards);
             prevTranslate.current = currentTranslate.current;
         }
-    }, [visibleCards, currentIndex]);
+    }, [visibleCards, currentIndex, cardss.length]);
 
     const handleBulletClick = (index) => {
         if (index <= maxIndex) {
@@ -177,19 +154,20 @@ function HomeClinic() {
                     onTouchMove={drag}
                 >
                     <div className="slider-card row" ref={sliderRef}>
-                        {cards.map((item, index) => (
+                        {cardss.map((item, index) => (
                             <ServiceDetailCard
                                 key={index}
-                                name={item.name}
-                                desc={item.description}
-                                img={item.imageUrl}
-                                imgAlt={t('homeClinic.cardImgAlt', { name: item.name })}
+                                id={item.id}
+                                name={getLocalizedText(item, 'name')}
+                                desc={getLocalizedText(item, 'desc')}
+                                img={item.clinicCardImage}
+                                imgAlt={t('homeClinic.cardImgAlt', { name: getLocalizedText(item, 'name') })}
                             />
                         ))}
                     </div>
                 </div>
                 <div className="custom-pagination">
-                    {Array.from({ length: maxIndex + 1 }).map((_, index) => (
+                    {Array.from({ length: Math.max(1, maxIndex + 1) }).map((_, index) => (
                         <span
                             key={index}
                             className={`custom-bullet ${currentIndex === index ? 'active' : ''}`}

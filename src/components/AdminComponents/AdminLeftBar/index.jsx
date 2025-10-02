@@ -2,7 +2,7 @@ import './index.scss'
 import logo from "../../../assets/Logo.png"
 import { NavLink, useLocation } from "react-router-dom";
 import {TbLogs} from "react-icons/tb";
-import {FaClinicMedical} from "react-icons/fa";
+import {FaClinicMedical, FaHotel} from "react-icons/fa";
 import { MdOutlineMiscellaneousServices} from "react-icons/md";
 import {RiContactsBook2Fill} from "react-icons/ri";
 import {FaUserDoctor} from "react-icons/fa6";
@@ -41,6 +41,12 @@ function AdminLeftBar() {
                 <MdOutlineMiscellaneousServices className="icon" />
                 <NavLink to="/admin/service">
                     Xidmətlər
+                </NavLink>
+            </li>
+            <li className={location.pathname === "/admin/otel" ? "selected" : ""}>
+                <FaHotel className="icon" />
+                <NavLink to="/admin/otel">
+                    Otellər
                 </NavLink>
             </li>
 

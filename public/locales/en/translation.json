@@ -13,22 +13,22 @@
   },
   "footer": {
     "logoAlt": "Kliniken Allianz Logo",
-    "description": "We think and plan all the details for you, such as the treatment process, flights, visa support, and accommodation.",
+    "description": "We think and plan every detail for you, from the treatment process to flights, visa support, and accommodation.",
     "links": "Links",
     "contactTitle": "Contact Information",
     "call": "Call Us",
     "phone": "+994 70 765 43 89",
-    "mail": "Email Us",
+    "mail": "Write to Us",
     "email": "klinikenallianz@gmail.com",
     "copyright": "© 2025 Kliniken Allianz. All rights reserved.",
-    "createdBy": "Created by"
+    "createdBy": "Created by:"
   },
   "homeBanner": {
     "title": "Open the Way to the World's Best Clinics",
-    "description": "Regain your health with cutting-edge medical services and convenient travel opportunities.",
-    "button": "Explore Now",
-    "imageAlt": "Home Banner Image",
-    "bannerAlt": "Home Banner"
+    "description": "Regain your health with state-of-the-art medical services and convenient travel opportunities.",
+    "button": "Explore",
+    "imageAlt": "Home Page Image",
+    "bannerAlt": "Home Page Banner"
   },
   "homeServices": {
     "title": "Medical Service Categories We Offer",
@@ -62,7 +62,7 @@
     }
   },
   "homeServiceCard": {
-    "description": "The latest treatment methods to enhance your quality of life.",
+    "description": "The latest cancer treatment methods to improve your quality of life.",
     "button": "Learn More",
     "iconAlt": "{name} Icon"
   },
@@ -171,7 +171,7 @@
   "homeComment": {
     "title": "Those Who Trust Us",
     "desc": "Experiences and opinions of people who chose us for their treatment and health journey.",
-    "backgroundAriaLabel": "Background image of customer testimonials section",
+    "backgroundAriaLabel": "Background image of the customer reviews section",
     "comments": {
       "aytacM": {
         "name": "Aytaç M",
@@ -183,23 +183,178 @@
   "translation": {
     "comments": [
       {
-        "text": "This platform is truly incredible! Every service is organized at the highest level, it’s very easy to use, and it offers solutions tailored to everyone’s needs. The support team is always by your side and responds to your questions immediately. This is not just a platform, it’s a complete experience!"
+        "text": "This platform is truly incredible! Every service is organized at the highest level, it’s very user-friendly, and offers solutions tailored to everyone’s needs. The support team is always there for you and responds to your questions immediately. This isn’t just a platform; it’s a complete experience!"
       },
       {
-        "text": "It’s a truly useful and user-friendly service. The interface is so simple and intuitive that even beginners face no difficulties. Every function is thoughtfully designed and saves users’ time. This platform will significantly simplify your life!"
+        "text": "A truly useful and easy-to-use service. The interface is so simple and intuitive that even beginners have no trouble. Every function is thoughtfully designed and saves users’ time. This platform will significantly simplify your life!"
       },
       {
-        "text": "My experience was absolutely fantastic! The quality of services, the professionalism of the staff, and the attention to detail amazed me. I felt special at every step, and the entire process was very smooth. This platform is definitely worth trying!"
+        "text": "My experience was absolutely fantastic! The quality of services, the professionalism of the staff, and the attention to detail amazed me. I felt special at every step, and the entire process was very smooth. This platform is worth trying!"
       },
       {
-        "text": "The treatment process was incredibly comfortable and stress-free. Everything, from transportation to hotel and hospital services, was perfectly planned in advance. The doctors and staff’s care and professionalism deeply impressed me. I felt safe and in trusted hands at all times, which is the greatest advantage!"
+        " pats": [
+          {
+            "text": "The treatment process was incredibly comfortable and stress-free. Everything, from transportation to hotel and hospital services, was perfectly planned in advance. The care and professionalism of the doctors and staff impressed me greatly. I felt safe and in reliable hands at all times, which is the greatest advantage!"
+          },
+          {
+            "text": "This platform is simply magnificent! With an extremely user-friendly interface, high-quality services, and a responsive support team, it meets everyone’s needs. Every detail is designed with user convenience in mind, making it unique. I recommend everyone to experience this!"
+          },
+          {
+            "text": "The treatment process was completely stress-free and comfortable. Transportation, hotel, and hospital services were perfectly organized in advance, which made me very satisfied. Thanks to the professionalism and caring attitude of the doctors and staff, I felt safe at all times. I wholeheartedly recommend this service to everyone!"
+          }
+        ]
       },
-      {
-        "text": "This platform is simply magnificent! With an extremely user-friendly interface, high-quality services, and a responsive support team, it meets everyone’s needs. Every detail is designed with user comfort in mind, making it truly unique. I recommend everyone to experience it!"
+      "aboutUs": {
+        "title": "About Us",
+        "breadcrumb": {
+          "home": "Home",
+          "about": "About Us"
+        },
+        "section1": {
+          "title": "With You Every Step: High-Quality Medical Services",
+          "description": "From flight tickets to visa support, we pay attention to every detail to make your health journey easy and safe. With us, you are assured reliable and professional service at every step.",
+          "contactButton": "Get in Touch"
+        },
+        "section2": {
+          "title": "Why Kliniken Allianz?",
+          "description": "At Kliniken Allianz, we collaborate with the best medical institutions in various countries in the field of health tourism.",
+          "_cards": {
+            "consultation": {
+              "title": "Professional Medical Consultation",
+              "description": "Direct contact with renowned clinics and highly qualified doctors in various countries."
+            },
+            "partnership": {
+              "title": "Collaboration with International Clinics",
+              "description": "Official partnerships with leading medical centers in various countries."
+            },
+            "travel": {
+              "title": "Comfortable and Safe Travel",
+              "description": "Complete organization of flight tickets, transfers, hotels, interpreters, and all other needs."
+            },
+            "pricing": {
+              "title": "Transparent Pricing and Official Documentation",
+              "description": "All services are offered officially, with no hidden costs."
+            }
+          }
+        },
+        "bannerAlt": "About Us Banner"
       },
-      {
-        "text": "The treatment process was completely stress-free and comfortable. Transportation, hotel, and hospital services were perfectly organized in advance, which made me very satisfied. Thanks to the professionalism and caring attitude of the doctors and staff, I felt safe at all times. I wholeheartedly recommend this service to everyone!"
+      "contact": {
+        "title": "Contact",
+        "breadcrumb": {
+          "home": "Home",
+          "contact": "Contact"
+        },
+        "main": {
+          "title": "Ready to Help",
+          "description": "You can easily contact us for all your questions regarding medical tourism. Our expert team will provide you with suitable solutions."
+        },
+        "contactCard": {
+          "mobile": {
+            "title": "Mobile",
+            "value": "+994 50 123 45 67"
+          },
+          "email": {
+            "title": "Email",
+            "value": "info@kliniken-allianz.az"
+          },
+          "address": {
+            "title": "Address",
+            "value": "Nizami Street 45, Baku, Azerbaijan"
+          }
+        },
+        "form": {
+          "title": "Contact Us by Filling Out the Form",
+          "labels": {
+            "name": "Name",
+            "surname": "Surname",
+            "email": "Email",
+            "phone": "Phone",
+            "description": "Note"
+          },
+          "placeholders": {
+            "name": "Enter your name",
+            "surname": "Enter your surname",
+            "email": "example@gmail.com",
+            "phone": "+994 99 999 99 99",
+            "description": ""
+          },
+          "button": "Send",
+          "errors": {
+            "firstNameRequired": "Please enter your name",
+            "lastNameRequired": "Please enter your surname",
+            "emailRequired": "Please enter your email",
+            "emailInvalid": "Please enter a valid email",
+            "phoneRequired": "Please enter your phone number",
+            "descriptionRequired": "Please enter your message"
+          }
+        },
+        "bannerAlt": "Contact Banner"
+      },
+      "categoryDetail": {
+        "breadcrumb": {
+          "home": "Home",
+          "category": "Categories"
+        },
+        "firstSection": {
+          "title": "Cardiovascular Surgery",
+          "description": "Heart and vascular diseases are among the most common health problems worldwide. At Kliniken Allianz, we collaborate with internationally experienced doctors and high-tech clinics specialized in this field.",
+          "button": "Apply",
+          "bannerAlt": "Category Banner"
+        },
+        "secondSection": {
+          "title": "Cleveland Clinic",
+          "description": "Cleveland Clinic is a trusted and renowned medical center providing world-class services in the treatment of cardiovascular diseases with advanced technologies and a professional medical team.",
+          "imageAlt": "Cleveland Clinic Image",
+          "button": "View All"
+        },
+        "thirdSection": {
+          "title": "Johns Hopkins Medicine",
+          "description": "Johns Hopkins is a globally recognized medical research and treatment center, applying advanced treatment methods in cardiovascular diseases and surgery.",
+          "imageAlt": "Johns Hopkins Image",
+          "button": "View All"
+        },
+        "contact": {
+          "form": {
+            "title": "If you are facing any difficulties, please contact us.",
+            "labels": {
+              "email": "Email",
+              "description": "Note"
+            },
+            "placeholders": {
+              "email": "example@gmail.com",
+              "description": ""
+            },
+            "button": "Send",
+            "errors": {
+              "emailRequired": "Please enter your email",
+              "emailInvalid": "Please enter a valid email",
+              "descriptionRequired": "Please enter your message"
+            }
+          },
+          "imageAlt": "Contact Image"
+        },
+        "services": {
+          "title": "Other Categories",
+          "description": "Benefit from our services offered in various medical fields at international-level clinics."
+        },
+        "cards": {
+          "cancer": {
+            "name": "Cancer Treatment",
+            "description": "USA"
+          },
+          "oftamologiya": {
+            "name": "Ophthalmology",
+            "description": "Bangkok"
+          },
+          "ginekologiya": {
+            "name": "Gynecology",
+            "description": "Istanbul"
+          },
+          "hepatologiya": {
+            "name": "Hepatology",
+            "description": "Singapore"
+          }
+        }
       }
-    ]
-  }
-}
+      }

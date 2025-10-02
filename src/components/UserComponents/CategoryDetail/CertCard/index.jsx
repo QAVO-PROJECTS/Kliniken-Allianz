@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './index.scss';
+import {CERT_DOKTOR_URL} from "../../../../contants.js";
 
 const CardCertificateCategory = ({ image, number, text, index }) => {
     const layoutClass = index % 2 === 0 ? 'layout1' : 'layout2';
@@ -14,7 +15,7 @@ const CardCertificateCategory = ({ image, number, text, index }) => {
 
     return (
         <div className="col-3 col-md-6 col-sm-6 col-xs-6" style={{ padding: "8px" }}>
-            <div className="card-certificate-doktor" style={{ backgroundImage: `url(${image})` }} onClick={openModal}>
+            <div className="card-certificate-doktor" style={{ backgroundImage: `url(${CERT_DOKTOR_URL+image})` }} onClick={openModal}>
                 <div className={`overlay ${layoutClass}`}>
                     <div className="number">{number}</div>
                     <div className="text">{text}</div>
@@ -24,7 +25,7 @@ const CardCertificateCategory = ({ image, number, text, index }) => {
             {isModalOpen && (
                 <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
                     <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                        <img src={image} alt="Certificate" />
+                        <img src={CERT_DOKTOR_URL+image} alt="Certificate" />
                         <button className="close-button" onClick={closeModal}>X</button>
                     </div>
                 </div>

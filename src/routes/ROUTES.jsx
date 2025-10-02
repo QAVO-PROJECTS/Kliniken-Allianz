@@ -17,6 +17,7 @@ import AdminClinic from "../pages/AdminPages/AdminClinic/index.jsx";
 import AdminDoktor from "../pages/AdminPages/AdminDoktor/index.jsx";
 import AdminServices from "../pages/AdminPages/AdminServices/index.jsx";
 import AdminContact from "../pages/AdminPages/AdminContact/index.jsx";
+import AdminOtel from "../pages/AdminPages/AdminOtels/index.jsx";
 
 
 const router = [
@@ -89,6 +90,11 @@ const router = [
             {
                 path: "/admin/contact",
                 element: <AdminContact/>
+            }
+            ,
+            {
+                path: "/admin/otel",
+                element: <AdminOtel/>
             }
         ]
     },

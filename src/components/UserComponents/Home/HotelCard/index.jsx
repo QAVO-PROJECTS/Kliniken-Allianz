@@ -2,6 +2,7 @@ import "./index.scss";
 import defaultImage from "/src/assets/Subtract.png"; // Varsayılan resim
 import hoverImage from "/src/assets/HoverImage.png"; // Hover sırasında gösterilecek resim
 import { IoLocationOutline } from "react-icons/io5";
+import {OTEL_CARD_IMAGES} from "../../../../contants.js";
 
 function HotelCard({name,desc,img}) {
     return (
@@ -9,7 +10,7 @@ function HotelCard({name,desc,img}) {
             <div
                 id={"hotelCard"}
                 style={{
-                    background: `linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url(${img})`,
+                    background: `linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url(${OTEL_CARD_IMAGES+img})`,
                     backgroundSize: "cover",
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "center",
