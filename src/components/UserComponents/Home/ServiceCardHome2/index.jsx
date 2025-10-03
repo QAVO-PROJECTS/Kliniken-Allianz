@@ -1,22 +1,22 @@
 import './index.scss';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import {CATEGORY_IMAGES} from "../../../../contants.js";
+import { SERVICE_CARD_IMAGES} from "../../../../contants.js";
 
-function HomeServiceCard({ name, desc, icon,id }) {
+function HomeServiceCard2({ name, desc, icon,id }) {
     const { t } = useTranslation();
     const navigate = useNavigate();
     console.log(id)
     return (
-        <div className={'col-3 col-md-6 col-sm-6 col-xs-6'} style={{ padding: '8px' }} onClick={() => navigate(`/category/${id}`)}>
+        <div className={'col-3 col-md-6 col-sm-6 col-xs-6'} style={{ padding: '8px' }} onClick={() => navigate(`/services/${id}`)}>
             <div id={'homeServCard'}>
                 <div className={'icons'}>
-                    <img src={CATEGORY_IMAGES + icon} alt={t('homeServiceCard.iconAlt', { name })} />
+                    <img src={SERVICE_CARD_IMAGES + icon} alt={t('homeServiceCard.iconAlt', { name })} />
                 </div>
                 <h4>{name}</h4>
                 <p>{desc}</p>
                 <div className={'btn'}>
-                    <button onClick={() => navigate(`/category/${id}`)}>
+                    <button onClick={() => navigate(`/services/${id}`)}>
                         {t('homeServiceCard.button')}
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
                             <g clip-path="url(#clip0_609_218)">
@@ -40,4 +40,4 @@ function HomeServiceCard({ name, desc, icon,id }) {
     );
 }
 
-export default HomeServiceCard;
+export default HomeServiceCard2;

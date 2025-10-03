@@ -18,12 +18,6 @@ import gallery2 from '/src/assets/2121.jpg';
 import gallery3 from '/src/assets/3313.jpg';
 import gallery4 from '/src/assets/454.jpg';
 import HomeServiceCard from "../../../components/UserComponents/Home/ServiceCardHome/index.jsx";
-import icon1 from "../../../assets/Servis/cancer.png";
-import icon4 from "../../../assets/Servis/oftomoloq.png";
-import icon3 from "../../../assets/Servis/genekoloq.png";
-import icon5 from "../../../assets/Servis/hepatoloq.png";
-import icon6 from "../../../assets/Servis/travmatoloq.png";
-import icon2 from "../../../assets/Servis/ortaped.png";
 import dimage from "/src/assets/doktor.jpg";
 import dimage2 from "/src/assets/doktor2.jpg";
 import dimage3 from "/src/assets/dmarcDoktor.png";
@@ -33,6 +27,7 @@ import dimage6 from "/src/assets/doktor6.jpg";
 import {useGetClinicByIdQuery} from "../../../services/userApi.jsx";
 import {CLINIC_CARD_IMAGES, CLINIC_IMAGES} from "../../../contants.js";
 import {useTranslation} from "react-i18next";
+import HomeServiceCard2 from "../../../components/UserComponents/Home/ServiceCardHome2/index.jsx";
 const galleryImages = [gallery1, gallery2, gallery3, gallery4];
 
 function ClinicDetail() {
@@ -93,11 +88,11 @@ const {data:getClinicById} = useGetClinicByIdQuery(id)
 
 
     const serviceCards = clinic?.services?.map((item, i) => (
-        <HomeServiceCard
+        <HomeServiceCard2
             id={item.id}
             name={getLocalizedText(item, 'name')}
             desc={getLocalizedText(item, 'desc')}
-            icon={CLINIC_CARD_IMAGES + item.serviceCardImage}
+            icon={item.serviceCardImage}
         />
     ));
     const displayedServiceCards = showAllServices
