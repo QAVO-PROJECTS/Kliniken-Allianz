@@ -10,11 +10,10 @@
   .linear{
     height: 20px;
     width: 100%;
-    background-image: linear-gradient(to right, #00DA7B , #00B6E0);
+    background-color: #003778;
   }
   .zakirinChevronu {
     font-size: 14px ;
-    margin-bottom: 3px;
     color: #838383;
     @media (max-width: 991.98px) { // MD ölçü
       font-size:18px;
@@ -25,13 +24,18 @@
   }
   .dropbtn{
     font-size: 14px ;
+    display: flex;
+    align-items: center;
   }
   .wrapper {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 4px;
 
     .logo img {
+      display: flex;
+      align-items: center;
       width: 180px;
       aspect-ratio: 16/4;
       object-fit: contain;
@@ -56,10 +60,10 @@
         font-weight: 500;
         transition: all 0.3s ease-in-out;
         &:hover {
-          color: #00a367;
+          color: #003778;
         }
         &.active {
-          color: black;
+          color: #003778;
         }
       }
 

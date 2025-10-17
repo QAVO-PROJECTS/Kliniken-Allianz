@@ -14,9 +14,9 @@ function ServiceDetailCard({name,desc,img,id}) {
                <div className={"content"}>
                    <div className={"text"}>
                        <h5>{name}</h5>
-                       <p><IoLocationOutline className={"icon"}/> {desc}</p>
+                       <p> {desc}</p>
                    </div>
-                   <BsArrowRight onClick={()=>navigate(`/clinics/${id}`)} className={'arrow'}/>
+
                </div>
            </div>
        </div>

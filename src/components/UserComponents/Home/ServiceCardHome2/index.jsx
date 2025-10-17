@@ -9,7 +9,7 @@ function HomeServiceCard2({ name, desc, icon,id }) {
     console.log(id)
     return (
         <div className={'col-3 col-md-6 col-sm-6 col-xs-6'} style={{ padding: '8px' }} onClick={() => navigate(`/services/${id}`)}>
-            <div id={'homeServCard'}>
+            <div id={'homeServCard2'}>
                 <div className={'icons'}>
                     <img src={SERVICE_CARD_IMAGES + icon} alt={t('homeServiceCard.iconAlt', { name })} />
                 </div>
