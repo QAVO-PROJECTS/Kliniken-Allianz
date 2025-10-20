@@ -9,7 +9,7 @@ import {useGetAllClinicQuery} from "../../../../services/userApi.jsx";
 function HomeClinic() {
     const { t, i18n } = useTranslation();
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [visibleCards, setVisibleCards] = useState(4);
+    const [visibleCards, setVisibleCards] = useState(3);
     const sliderRef = useRef(null);
     const isDragging = useRef(false);
     const startPos = useRef(0);
@@ -37,7 +37,7 @@ function HomeClinic() {
             if (window.innerWidth <= 576) {
                 setVisibleCards(2);
             } else {
-                setVisibleCards(4);
+                setVisibleCards(3);
             }
         };
 
@@ -135,6 +135,7 @@ function HomeClinic() {
                         <div className="content">
                             <h2>{t('homeClinic.title')}</h2>
                             <p>{t('homeClinic.description')}</p>
+                            <button><span>Daha çox</span></button>
                         </div>
                     </div>
                     <div className={'col-7'}>

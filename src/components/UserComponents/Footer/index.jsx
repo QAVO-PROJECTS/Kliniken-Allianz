@@ -132,7 +132,7 @@ function Footer() {
                             </div>
                             <div className="col-6 col-md-12 col-sm-12 col-xs-12">
                                 <div className="createdBy">
-                                    {t('footer.createdBy')} <a href="https://qavo.az/" target="_blank" rel="noopener noreferrer">Qavo Codes</a>
+                                    {t('footer.createdBy')} <a href="https://qavo.az/" target="_blank" rel="noopener noreferrer">BuyonTech</a>
                                 </div>
                             </div>
                         </div>

@@ -1,5 +1,6 @@
 #home-best-service {
   margin-bottom: 140px;
+  padding: 60px 0 ;
   .header {
     display: flex;
     align-items: center;
@@ -13,8 +14,15 @@
       h2 {
         font-weight: 600;
         font-size: 24px;
-        line-height: 60px;
+        line-height: 36px;
         margin-bottom: 8px;
+      }
+      p{
+        color: #727272;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 28px; /* 175% */
       }
 
 
@@ -45,28 +53,15 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        border: none;
         font-size: 16px;
         cursor: pointer;
 
-        &.prev {
-          background-color: white;
-          border: 1px solid #303030;
-          color: #303030;
-          &:hover{
-            background-color: #1F1F1F;
-            color: #fff;
-          }
-        }
-
-        &.next {
-          background-color: #1f1f1f;
-          color: #fff;
-          &:hover {
-            background-color: white;
-            border: 1px solid #303030;
-            color: #303030;
-          }
+        border: 0.864px solid #003778;
+        background: #FFF;
+        &:hover {
+          border: 1px solid #003778;
+          background: #EBF5FF;
+          box-shadow: 0 1px 4px 0 rgba(60, 60, 60, 0.25);
         }
       }
     }

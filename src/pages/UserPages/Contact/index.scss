@@ -41,7 +41,7 @@
         .dot {
           width: 12px;
           height: 12px;
-          background-color: #47D1D6C7;
+          background-color: #003778;
           border-radius: 50%;
           margin: 0 8px 0 16px;
         }
@@ -51,7 +51,7 @@
           transition: all 0.3s ease-in-out;
 
           &:hover {
-            color: rgba(62, 149, 152, 0.78);
+            font-weight: 500;
           }
         }
       }
@@ -75,12 +75,13 @@
         width: 50px;
         height: 50px;
         border-radius: 50%;
-        background-color: #00DA7B;
         display: flex;
         justify-content: center;
         align-items: center;
         color: white;
         font-size: 22px;
+        border: 1px solid #EEE;
+        background: rgba(255, 255, 255, 0.10);
       }
       .text{
         @media screen and (max-width: 576px){
@@ -115,7 +116,7 @@
       }
       .form {
         .form-head {
-          color: #00DA7B;
+          color: black;
           margin-bottom: 24px;
           display: flex;
           align-items: center;
@@ -123,12 +124,12 @@
 
           hr {
             width: 10%;
-            border: 1px solid #00DA7B;
+            border: 1px solid black;
           }
 
           h2 {
             font-weight: 700;
-            font-size: 20px;
+            font-size: 14px;
             line-height: 30px;
             width: 60%;
             @media (max-width: 576px) {
@@ -140,7 +141,7 @@
         .form-body {
           label {
             font-weight: 400;
-            font-size: 16px;
+            font-size: 14px;
             line-height: 30px;
             margin-bottom: 10px;
           }
@@ -167,10 +168,10 @@
           button {
             width: 100%;
             padding: 14px 22px;
-            background-color: black;
+            background-color: #003778;
             color: white;
             border: none;
-            border-radius: 18px;
+            border-radius: 23px;
             font-weight: 500;
             font-size: 16px;
             line-height: 21px;

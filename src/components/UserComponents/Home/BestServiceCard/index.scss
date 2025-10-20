@@ -1,7 +1,8 @@
 #bestServCard{
   padding: 24px 22px;
   border: 1px solid #E3E3E3;
-  background: #FFF;
+  background: #fff;
+  border-radius: 5px;
   cursor: pointer;
   @media screen and (max-width: 576px){
     padding: 14px;
@@ -10,14 +11,15 @@
     .image{
       div{
         border-radius: 42px 42px 0px 42px;
-        border: 2px solid #00DA7B;
+        border: 2px solid #0063A65C;
         background: #FFF;
-        box-shadow: 0px 1px 17.7px 0px rgba(0, 218, 123, 0.22);
+        box-shadow: 0 1px 17.7px 0 rgba(71, 155, 255, 0.31), 0 0.795px 2.464px 0 rgba(151, 151, 151, 0.22);
+
       }
     }
   }
   .image {
-
+border-radius: 5px;
     position: relative;
     margin-bottom: 48px;
     @media screen and (max-width: 576px){
@@ -48,6 +50,7 @@
         width: 36px;
         aspect-ratio: 1/1;
         object-fit: cover;
+
       }
       @media screen and (max-width: 576px){
         width: 60px;
@@ -62,6 +65,7 @@
       width: 100%;
       object-fit: cover;
       aspect-ratio: 1/.6;
+      border-radius: 5px;
     }
   }
   .content{
@@ -98,7 +102,7 @@
         align-items: center;
         border: none;
         background: none;
-        color: #00DA7B;
+        color: #0063A6;
         font-size: 14px;
         font-style: normal;
         font-weight: 500;

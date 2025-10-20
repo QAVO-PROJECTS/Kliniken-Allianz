@@ -62,12 +62,12 @@
     align-items: center;
     gap: 10px;
     border-radius: 20px;
-    border: 1px solid #EBEBEB;
-
+    border: 0.864px solid #003778;
+    background: #FFF;
     &:hover {
-      border-radius: 20px;
-      border: 1px solid #00DA7B;
-      background: rgba(234, 255, 247, 0.51);
+      border: 1px solid #003778;
+      background: #EBF5FF;
+      box-shadow: 0 1px 4px 0 rgba(60, 60, 60, 0.25);
     }
   }
 

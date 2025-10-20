@@ -4,6 +4,7 @@ import HomeClinic from "./HomeClinic/index.jsx";
 import HomeHotel from "./HomeHotel/index.jsx";
 import HomeBestServ from "./HomeBestService/index.jsx";
 import HomeComment from "./HomeComment/index.jsx";
+import HomeTour from "./HomeTour/index.jsx";
 
 function Home() {
     return (
@@ -12,6 +13,7 @@ function Home() {
             <HomeServices/>
             <HomeClinic/>
             <HomeHotel/>
+            <HomeTour/>
             <HomeBestServ/>
             <HomeComment/>
         </>

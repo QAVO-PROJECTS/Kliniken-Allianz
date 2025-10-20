@@ -41,7 +41,7 @@
       .dot {
         width: 12px;
         height: 12px;
-        background-color: #47D1D6C7;
+        background-color: #003778;
         border-radius: 50%;
         margin: 0 8px 0 16px;
       }
@@ -51,7 +51,7 @@
         transition: all 0.3s ease-in-out;
 
         &:hover {
-          color: rgba(62, 149, 152, 0.78);
+          font-weight: 500;
         }
       }
     }
@@ -106,33 +106,65 @@
         margin-bottom: 40px;
         width: 90%;
       }
-      .more{
-        height: 50px;
-        width: max-content;
+      .more {
         display: flex;
         align-items: center;
-        justify-content: center;
-        gap: 20px;
-        padding: 4px 19.5px;
-        background: linear-gradient(90deg, rgba(71, 210, 211, 0.67) 0%, rgba(55, 222, 161, 0.63) 100%);
-        border-radius: 25px;
-        color: #FFFFFF;
-        font-weight: 400;
-        font-size: 16px;
-        line-height: 30px;
+        gap: 10px;
+        border-radius: 35px;
+        padding: 8.5px 20px;
+        color: white;
         cursor: pointer;
-        button{
-          width: 38px;
-          height: 38px;
+        width: max-content;
+        background-color: #003778;
+        transition: all 0.3s ease;
+
+        button {
+          width: 28px;
+          height: 28px;
+          position: relative;
           border-radius: 50%;
           display: flex;
           justify-content: center;
           align-items: center;
-          background-color: #FFFFFF6B;
-          border: none;
-          color: #fff;
-          cursor: pointer;
+          border: 1px solid rgba(255, 255, 255, 0.25);
+          overflow: hidden;
+          background: rgba(255, 255, 255, 0.15);
+          backdrop-filter: blur(10px) saturate(180%);
+          -webkit-backdrop-filter: blur(10px) saturate(180%);
+          box-shadow:
+                  inset 0 0 15px rgba(255, 255, 255, 0.2),
+                  0 4px 20px rgba(0, 0, 0, 0.3);
+          color: #ffffff;
+          transition: all 0.35s ease;
 
+          /* ✨ Liquid glass effect */
+          &::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(
+                            circle at 30% 30%,
+                            rgba(255, 255, 255, 0.4),
+                            transparent 40%
+            );
+            animation: liquidMove 4s linear infinite;
+            opacity: 0.7;
+          }
+
+          /* 💫 Hover parıltı */
+          //&:hover {
+          //  transform: scale(1.05);
+          //  box-shadow:
+          //          0 0 15px rgba(255, 255, 255, 0.4),
+          //          0 0 30px rgba(255, 255, 255, 0.3);
+          //}
+        }
+
+        &:hover {
+          opacity: 0.9;
         }
       }
       @media screen and (max-width: 576px) {
@@ -159,20 +191,29 @@
   }
   .main{
     .aboutCard{
-      padding: 30.5px 12px;
+      padding: 30.5px 16px;
       border: 1px solid #E3E3E3;
       border-radius: 10px;
-      div{
+      height: 180px;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      .icon{
         width: 55px;
         height: 55px;
         border-radius: 50%;
-        background-color: #A7FFDF82;
-        color: #00DA7B;
+
         display: flex;
         justify-content: center;
         align-items: center;
         margin: 0 auto 16px;
         font-size: 24px;
+      }
+      .icon1{
+        background: #E8F1FD;
+      }
+      .icon2{
+        background: rgba(107, 206, 255, 0.78);
       }
       h4{
         font-weight: 500;
