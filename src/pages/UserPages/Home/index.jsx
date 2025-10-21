@@ -14,7 +14,7 @@ function Home() {
             <HomeClinic/>
             <HomeHotel/>
             <HomeTour/>
-            <HomeBestServ/>
+            {/*<HomeBestServ/>*/}
             <HomeComment/>
         </>
     );

@@ -124,19 +124,7 @@ const CustomSlider = () => {
                     <FaChevronRight />
                 </button>
             </div>
-            <div className="custom-pagination">
-                {Array.from({ length: maxIndex + 1 }).map((_, index) => (
-                    <span
-                        key={index}
-                        className={`custom-bullet ${currentIndex === index ? "active" : ""}`}
-                        onClick={() => handleBulletClick(index)}
-                        role="button"
-                        aria-label={`Go to slide ${index + 1}`}
-                        tabIndex={0}
-                        onKeyDown={(e) => e.key === "Enter" && handleBulletClick(index)}
-                    />
-                ))}
-            </div>
+
         </>
     );
 };

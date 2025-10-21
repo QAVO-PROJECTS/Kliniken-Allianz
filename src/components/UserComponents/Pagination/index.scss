@@ -1,0 +1,43 @@
+.custom-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  margin-top: 40px;
+  gap: 6px;
+  font-family: 'Poppins', sans-serif;
+
+  .page-btn,
+  .nav-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    background: #fff;
+    color: #737373;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+    &.active {
+      background: #0063A6; // mavi fon
+      color: #fff;
+      font-weight: 500;
+      border-color: #0063A6;
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  }
+
+  .dots {
+    color: #b3b3b3;
+    padding: 0 4px;
+    font-weight: 600;
+  }
+}

@@ -18,6 +18,11 @@ import AdminDoktor from "../pages/AdminPages/AdminDoktor/index.jsx";
 import AdminServices from "../pages/AdminPages/AdminServices/index.jsx";
 import AdminContact from "../pages/AdminPages/AdminContact/index.jsx";
 import AdminOtel from "../pages/AdminPages/AdminOtels/index.jsx";
+import ClinicsPage from "../pages/UserPages/ClinicsPage/index.jsx";
+import ServicesPage from "../pages/UserPages/ServicesPage/index.jsx";
+import ToursPage from "../pages/UserPages/ToursPage/index.jsx";
+import ClinicsDoctorPage from "../pages/UserPages/ClinicsDoctorPage/index.jsx";
+import DoctorsPage from "../pages/UserPages/DoctorsPage/index.jsx";
 
 
 const router = [
@@ -34,12 +39,24 @@ const router = [
                 element: <Contact/>
             },
             {
-                path: "/portfolio",
-                // element: <Portfolio/>
+                path: "/clinics",
+                element: <ClinicsPage/>
+            },
+            {
+                path: "/tours",
+                element: <ToursPage/>
+            },
+            {
+                path: "/clinics-doctor/:id",
+                element: <ClinicsDoctorPage/>
             },
             {
                 path: "/services",
-                // element: <Services/>
+                element: <ServicesPage/>
+            },
+            {
+                path: "/doctors",
+                element: <DoctorsPage/>
             },
             {
                 path: "/services/:id",

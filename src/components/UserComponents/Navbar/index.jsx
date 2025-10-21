@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 import './index.scss';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import {Link, useNavigate, useLocation} from 'react-router-dom';
+import {useTranslation} from 'react-i18next';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
@@ -10,7 +10,7 @@ import flagEn from '/src/assets/uk.png';
 import flagRu from '/src/assets/circle.png';
 import flagArb from '/src/assets/arabia.png';
 import image1 from '/src/assets/Logo.png';
-import { FaChevronDown } from 'react-icons/fa';
+import {FaChevronDown} from 'react-icons/fa';
 
 function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -18,7 +18,7 @@ function Navbar() {
 
     const [langTimeoutId, setLangTimeoutId] = useState(null);
 
-    const { t, i18n } = useTranslation();
+    const {t, i18n} = useTranslation();
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -57,7 +57,7 @@ function Navbar() {
         currentFlag = flagRu;
     } else if (i18n.language?.startsWith('az')) {
         currentFlag = flagAz;
-    } else if (i18n.language?.startsWith('arb')){
+    } else if (i18n.language?.startsWith('arb')) {
         currentFlag = flagArb;
     }
 
@@ -74,7 +74,6 @@ function Navbar() {
         }, 1000);
         setLangTimeoutId(timeout);
     };
-
 
 
     const handleScrollClinic = () => {
@@ -109,7 +108,7 @@ function Navbar() {
             data-aos-anchor-placement="top-center"
         >
             <div className="linear"></div>
-            <div className="container" style={{ padding: '8px' }}>
+            <div className="container" style={{padding: '8px'}}>
                 <div className="wrapper">
                     <div className="logo">
                         <img
@@ -119,7 +118,7 @@ function Navbar() {
                                 navigate('/');
                                 setMenuOpen(false);
                             }}
-                            style={{ cursor: 'pointer' }}
+                            style={{cursor: 'pointer'}}
                         />
                     </div>
                     <nav className={`nav-links ${menuOpen ? 'active' : ''}`}>
@@ -131,24 +130,41 @@ function Navbar() {
                             {t('navbar.home')}
                         </Link>
                         <Link
-                            to="/"
+                            to="/services"
                             className={`link ${location.pathname === '/services' ? 'active' : ''}`}
-                            onClick={() => {
-                                setMenuOpen(false);
-                                handleScrollServices();
-                            }}
+                            onClick={() =>
+                                setMenuOpen(false)
+
+                            }
                         >
                             {t('navbar.services')}
                         </Link>
                         <Link
-                            to="/"
+                            to="/clinics"
                             className={`link ${location.pathname === '/clinics' ? 'active' : ''}`}
-                            onClick={() => {
-                                setMenuOpen(false);
-                                handleScrollClinic();
-                            }}
+                            onClick={() =>
+                                setMenuOpen(false)
+                            }
                         >
                             {t('navbar.clinics')}
+                        </Link>
+                        <Link
+                            to="/doctors"
+                            className={`link ${location.pathname === '/doctors' ? 'active' : ''}`}
+                            onClick={() =>
+                                setMenuOpen(false)
+                            }
+                        >
+                            Həkimlər
+                        </Link>
+                        <Link
+                            to="/tours"
+                            className={`link ${location.pathname === '/tours' ? 'active' : ''}`}
+                            onClick={() =>
+                                setMenuOpen(false)
+                            }
+                        >
+                            Turlar
                         </Link>
                         <Link
                             to="/about"
@@ -174,18 +190,18 @@ function Navbar() {
                             onMouseLeave={handleLangMouseLeave}
                         >
                             <button className="dropbtn">
-                                <img src={currentFlag} alt="Current Flag" />
-                                <FaChevronDown className="zakirinChevronu" />
+                                <img src={currentFlag} alt="Current Flag"/>
+                                <FaChevronDown className="zakirinChevronu"/>
                             </button>
                             <div className={`dropdown-content ${langDropdownOpen ? 'show' : ''}`}>
                                 <div onClick={() => handleLanguageChange('az')}>
-                                    <img src={flagAz} alt="AZ Flag" /> {t('navbar.languages.az')}
+                                    <img src={flagAz} alt="AZ Flag"/> {t('navbar.languages.az')}
                                 </div>
                                 <div onClick={() => handleLanguageChange('en')}>
-                                    <img src={flagEn} alt="EN Flag" /> {t('navbar.languages.en')}
+                                    <img src={flagEn} alt="EN Flag"/> {t('navbar.languages.en')}
                                 </div>
                                 <div onClick={() => handleLanguageChange('ru')}>
-                                    <img src={flagRu} alt="RU Flag" /> {t('navbar.languages.ru')}
+                                    <img src={flagRu} alt="RU Flag"/> {t('navbar.languages.ru')}
                                 </div>
                                 {/*<div onClick={() => handleLanguageChange('arb')}>*/}
                                 {/*    <img src={flagArb} alt="Arb Flag" /> {t('navbar.languages.ru')}*/}

@@ -1,40 +1,104 @@
 #category-detail{
   padding: 140px 0 100px;
+  position: relative;
+  .bannerAbout{
+    position: absolute;
+    top: -40px;
+    left: 0;
+    width: 100%;
+    z-index:-1;
+    transform: rotate(2deg);
+    img{
+      width: 100%;
+      height: 100%;
+
+    }
+    @media screen and (max-width: 576px) {
+      height: 350px;
+      top: 0;
+    }
+  }
   .head {
     width: 100%;
     text-align: center;
-    margin-bottom: 80px;
-    @media screen and (max-width: 576px){
-      margin-bottom: 40px;
+    margin-bottom: 220px;
+    h1 {
+      color: #191919;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 30px; /* 187.5% */
     }
-
     p {
+      margin-top: 8px;
       display: flex;
       justify-content: center;
       align-items: center;
+      color: #686868;
+      font-size: 14px;
+      font-style: normal;
       font-weight: 400;
-      font-size: 16px;
-      line-height: 24px;
+      line-height: 24px; /* 171.429% */
 
       .dot {
         width: 12px;
         height: 12px;
-        background-color: #c2c2c2c7;
+
         border-radius: 50%;
         margin: 0 8px 0 16px;
-
-        &.active {
-          background-color: #47d1d6c7;
-        }
       }
-
+      .dot1{
+        background-color: #CFCFCF;
+      }
+      .dot2{
+        background-color: #003778;
+      }
       a {
         color: #686868;
         transition: all 0.3s ease-in-out;
 
         &:hover {
-          color: rgba(62, 149, 152, 0.78);
+          font-weight: 500;
         }
+      }
+    }
+    .search{
+      position: relative;
+      width: 50%;
+      margin:24px auto;
+      height: 40px;
+      input{
+        width: 100%;
+        height: 40px;
+        border-radius: 8px;
+        border: 1px solid #E4E4E4;
+        background: #FFF;
+        outline: none;
+        padding: 0 16px;
+        &::placeholder {
+          color: #9A9A9A;
+          font-size: 12px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: normal;
+        }
+      }
+      svg{
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 16px;
+      }
+    }
+    @media screen and (max-width: 576px) {
+      margin-bottom: 63px;
+      h1{
+        font-size: 18px;
+        line-height: 27px; /* 150% */
+      }
+      p{
+        font-size: 14px;
+        line-height: 24px; /* 171.429% */
       }
     }
   }
@@ -90,17 +154,66 @@
           line-height: 28px; /* 200% */
         }
       }
-      button{
-        height: 51px;
-        padding: 10.5px 46.5px 10.5px 39.5px;
-        border-radius: 25px;
-        background: linear-gradient(90deg, rgba(71, 210, 211, 0.67) 0%, rgba(55, 222, 161, 0.63) 100%);
-        border: none;
-        color: #FFF;
-        font-size: 16px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 30px; /* 166.667% */
+      .muraciet {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border-radius: 35px;
+        padding: 8.5px 20px;
+        color: white;
+        cursor: pointer;
+        width: max-content;
+        background-color: #003778;
+        transition: all 0.3s ease;
+
+        button {
+          width: 28px;
+          height: 28px;
+          position: relative;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border: 1px solid rgba(255, 255, 255, 0.25);
+          overflow: hidden;
+          background: rgba(255, 255, 255, 0.15);
+          backdrop-filter: blur(10px) saturate(180%);
+          -webkit-backdrop-filter: blur(10px) saturate(180%);
+          box-shadow:
+                  inset 0 0 15px rgba(255, 255, 255, 0.2),
+                  0 4px 20px rgba(0, 0, 0, 0.3);
+          color: #ffffff;
+          transition: all 0.35s ease;
+
+          /* ✨ Liquid glass effect */
+          &::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(
+                            circle at 30% 30%,
+                            rgba(255, 255, 255, 0.4),
+                            transparent 40%
+            );
+            animation: liquidMove 4s linear infinite;
+            opacity: 0.7;
+          }
+
+          /* 💫 Hover parıltı */
+          //&:hover {
+          //  transform: scale(1.05);
+          //  box-shadow:
+          //          0 0 15px rgba(255, 255, 255, 0.4),
+          //          0 0 30px rgba(255, 255, 255, 0.3);
+          //}
+        }
+
+        &:hover {
+          opacity: 0.9;
+        }
       }
     }
     .image{
@@ -155,20 +268,14 @@
         }
       }
     }
-    button {
-      background: none;
-      border: none;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: auto;
-      gap: 10px;
-      color: #00DA7B;
-      cursor: pointer;
-      @media screen and (max-width: 576px) {
-        font-size: 14px;
-      }
-    }
+.hamisiniBax{
+  border: none;
+  background: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
   }
   .third-section {
     margin-bottom: 80px;
@@ -236,6 +343,35 @@
     background: #FFF;
     padding: 64px 109px 65px 109px;
     margin-bottom: 70px;
+    position: relative;
+    overflow: hidden;
+    .orange{
+      position: absolute;
+      left: 0;
+      bottom: -50px;
+      width: 250px;
+      height: 200px;
+      img{
+        width: 100%;
+      }
+    }
+    .blueIcon{
+      width: 22px;
+      height: 22px;
+      img{
+        width: 100%;
+      }
+    }
+    .whiteIcon{
+      width: 20px;
+      height: 20px;
+      position: relative;
+      left:25px;
+      top:-10px;
+      img{
+        width: 100%;
+      }
+    }
     @media (max-width: 576px) {
       padding: 20px;
     }
@@ -259,7 +395,7 @@
         h2 {
           color: #000;
           font-weight: 600;
-          font-size: 20px;
+          font-size: 18px;
           line-height: 30px;
           width: 70%;
           @media (max-width: 576px) {
@@ -299,10 +435,10 @@
         button {
           width: 100%;
           padding: 14px 22px;
-          background-color: black;
+          background-color: #003778;
           color: white;
           border: none;
-          border-radius: 18px;
+          border-radius: 23px;
           font-weight: 500;
           font-size: 16px;
           line-height: 21px;
@@ -328,20 +464,20 @@
   .services{
     padding: 0 16px;
     .header{
-      margin-bottom: 50px;
+      margin-bottom: 40px;
       h3{
         color: #000;
-        font-size: 24px;
+        font-size: 20px;
         font-style: normal;
         font-weight: 600;
         line-height: 36px; /* 150% */
-        margin-bottom: 8px;
+        margin-bottom:6px;
       }
       p{
         color: #727272;
         font-size: 16px;
         font-style: normal;
-        font-weight: 500;
+        font-weight: 400;
         line-height: 35px; /* 218.75% */
       }
       @media (max-width: 576px) {

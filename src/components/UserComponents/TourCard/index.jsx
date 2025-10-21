@@ -2,6 +2,7 @@ import img1 from '/src/assets/dSamer.png'
 import "./index.scss"
 function TourCard({ name, desc, img, imgAlt, icon, iconAlt,id }) {
     return (
+        <div className={"col-3 col-md-6 col-sm-6 col-xs-6"} style={{padding:'4px'}} onClick={()=>navigate(`/clinics/${id}`)}>
         <div id={"tour-card"}>
             <div className={'image'}>
                 <img src={img1} alt={name} />
@@ -42,6 +43,7 @@ function TourCard({ name, desc, img, imgAlt, icon, iconAlt,id }) {
                 </div>
                 <button>Müraciət et</button>
             </div>
+        </div>
         </div>
     );
 }

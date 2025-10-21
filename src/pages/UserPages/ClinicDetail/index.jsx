@@ -1,23 +1,15 @@
 import './index.scss';
 import {Link, useParams} from 'react-router-dom';
-import image from '/src/assets/ClinicDetialFirst.png';
 import CardCertificate from '../../../components/UserComponents/ClinicDetail/CertCard/index.jsx';
-import sert1 from '/src/assets/Sertifikat/1.png';
-import sert2 from '/src/assets/Sertifikat/2.png';
-import sert3 from '/src/assets/Sertifikat/3.png';
-import sert4 from '/src/assets/Sertifikat/4.png';
-import sert5 from '/src/assets/Sertifikat/5.png';
-import sert6 from '/src/assets/Sertifikat/6.png';
+
 import {useRef, useState, useEffect} from 'react';
 import Pagination from '../../../components/Pagination/index.jsx';
-import {GoArrowDown} from 'react-icons/go';
 import DoktorCard from '../../../components/UserComponents/ClinicDetail/DoktorCard/index.jsx';
 import {HiOutlineArrowLeft, HiOutlineArrowRight} from 'react-icons/hi';
 import gallery1 from '/src/assets/1212.jpg';
 import gallery2 from '/src/assets/2121.jpg';
 import gallery3 from '/src/assets/3313.jpg';
 import gallery4 from '/src/assets/454.jpg';
-import HomeServiceCard from "../../../components/UserComponents/Home/ServiceCardHome/index.jsx";
 import dimage from "/src/assets/doktor.jpg";
 import dimage2 from "/src/assets/doktor2.jpg";
 import dimage3 from "/src/assets/dmarcDoktor.png";
@@ -29,7 +21,9 @@ import {CLINIC_CARD_IMAGES, CLINIC_IMAGES} from "../../../contants.js";
 import {useTranslation} from "react-i18next";
 import HomeServiceCard2 from "../../../components/UserComponents/Home/ServiceCardHome2/index.jsx";
 import banner from "../../../assets/AboutBanner.png";
+import ClinicHotel from "../ClinicHotel/index.jsx";
 const galleryImages = [gallery1, gallery2, gallery3, gallery4];
+
 
 function ClinicDetail() {
     const {id} = useParams()
@@ -138,30 +132,6 @@ const {data:getClinicById} = useGetClinicByIdQuery(id)
     const maxIndex = cards.length - getVisibleCards();
     const maxGalleryIndex = galleryImages.length - 1;
 
-    // doctor slider handlers
-    const handlePrev = () => {
-        if (currentIndex > 0) {
-            const next = currentIndex - 1;
-            setCurrentIndex(next);
-            const percentage = window.innerWidth <= 576 ? next * 50 : next * 25;
-            sliderRef.current.style.transform = `translateX(-${percentage}%)`;
-        }
-    };
-    const handleNext = () => {
-        if (currentIndex < maxIndex) {
-            const next = currentIndex + 1;
-            setCurrentIndex(next);
-            const percentage = window.innerWidth <= 576 ? next * 50 : next * 25;
-            sliderRef.current.style.transform = `translateX(-${percentage}%)`;
-        }
-    };
-    const handleBulletClick = (index) => {
-        if (index <= maxIndex) {
-            setCurrentIndex(index);
-            const percentage = window.innerWidth <= 576 ? index * 50 : index * 25;
-            sliderRef.current.style.transform = `translateX(-${percentage}%)`;
-        }
-    };
 
     // gallery handlers
     const handleGalleryPrev = () => {
@@ -297,32 +267,23 @@ const {data:getClinicById} = useGetClinicByIdQuery(id)
                                 təcrübəyə malikdir.
                             </p>
                         </div>
-                        <div className="navigationBtn">
-                            <button className="prev" onClick={handlePrev} aria-label="Previous">
-                                <HiOutlineArrowLeft/>
-                            </button>
-                            <button className="next" onClick={handleNext} aria-label="Next">
-                                <HiOutlineArrowRight/>
-                            </button>
-                        </div>
+
                     </div>
-                    <div className="slider-wrapper">
+                    <div className="slider-wrapper" style={{
+                        marginBottom: '50px',
+                    }}>
                         <div className="slider-card row" ref={sliderRef}>
                             {clinic?.doctors?.map((item) => (
                                 <DoktorCard id={item?.id} name={item.name} desc={item.role} img={item.doctorImage} />
                             ))}
                         </div>
                     </div>
-                    <div className="custom-pagination">
-                        {Array.from({length: maxIndex + 1}).map((_, idx) => (
-                            <span
-                                key={idx}
-                                className={`custom-bullet ${currentIndex === idx ? 'active' : ''}`}
-                                onClick={() => handleBulletClick(idx)}
-                                role="button"
-                                aria-label={`Go to slide ${idx + 1}`}
-                            />
-                        ))}
+                    <div style={{textAlign: 'center'}}>
+                        <button className={"clinicDetailThird"} onClick={() => setShowAllServices(!showAllServices)}>
+                            Hamısına bax <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+                            <path d="M23.5291 8.03068L20.5291 11.0307C20.3884 11.1714 20.1975 11.2505 19.9985 11.2505C19.7995 11.2505 19.6086 11.1714 19.4679 11.0307C19.3271 10.8899 19.2481 10.6991 19.2481 10.5001C19.2481 10.301 19.3271 10.1102 19.4679 9.96943L21.1882 8.25005H19.9985C16.3732 8.25005 15.6307 10.0313 14.6904 12.2888C13.7219 14.6138 12.6232 17.2501 7.99849 17.2501H7.90474C7.72219 17.957 7.28807 18.5732 6.68373 18.983C6.0794 19.3928 5.34635 19.5681 4.62199 19.4761C3.89763 19.3841 3.23169 19.0311 2.749 18.4832C2.2663 17.9353 2 17.2302 2 16.5001C2 15.7699 2.2663 15.0648 2.749 14.5169C3.23169 13.969 3.89763 13.616 4.62199 13.524C5.34635 13.432 6.0794 13.6073 6.68373 14.0171C7.28807 14.4269 7.72219 15.0431 7.90474 15.7501H7.99849C11.6238 15.7501 12.3663 13.9688 13.3066 11.7113C14.2797 9.3863 15.3738 6.75005 19.9985 6.75005H21.1882L19.4679 5.03068C19.3271 4.88995 19.2481 4.69907 19.2481 4.50005C19.2481 4.30103 19.3271 4.11016 19.4679 3.96943C19.6086 3.8287 19.7995 3.74963 19.9985 3.74963C20.1975 3.74963 20.3884 3.8287 20.5291 3.96943L23.5291 6.96943C23.5988 7.03908 23.6542 7.1218 23.6919 7.21285C23.7297 7.30389 23.7491 7.40149 23.7491 7.50005C23.7491 7.59861 23.7297 7.69621 23.6919 7.78726C23.6542 7.8783 23.5988 7.96102 23.5291 8.03068Z" fill="#424242"/>
+                        </svg>
+                        </button>
                     </div>
                 </div>
 
@@ -343,14 +304,18 @@ const {data:getClinicById} = useGetClinicByIdQuery(id)
                                 onClick={handleGalleryPrev}
                                 aria-label="Previous image"
                             >
-                                <HiOutlineArrowLeft/>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M14 7L9 12L14 17" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
                             </button>
                             <button
                                 className="gallery-next"
                                 onClick={handleGalleryNext}
                                 aria-label="Next image"
                             >
-                                <HiOutlineArrowRight/>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M10 7L15 12L10 17" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
                             </button>
                         </div>
                         <div className="gallery-pagination">
@@ -366,7 +331,7 @@ const {data:getClinicById} = useGetClinicByIdQuery(id)
                         </div>
                     </div>
                 </div>
-
+                <ClinicHotel/>
                 {/* Contact Section */}
                 <div className="contact">
                     <div className="row form-section">

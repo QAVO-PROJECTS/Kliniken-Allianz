@@ -1,13 +1,13 @@
 import "./index.scss"
 import {FaArrowRightLong} from "react-icons/fa6";
 import {useNavigate} from "react-router-dom";
-import {DOCTOR_IMG_URL} from "../../../../contants.js";
-function DoktorCard({id,name,img,desc}) {
+import {DOCTOR_IMG_URL} from "/src/contants.js";
+function DoktorCard2({id,name,img,desc}) {
     console.log(img)
     const navigate = useNavigate();
     return (
-        <div className={"col-3 col-md-6 col-sm-6 col-xs-6"} onClick={()=>navigate(`/doktor/${id}`)}>
-            <div id={"doktorCard"}>
+        <div className={"col-4 col-md-6 col-sm-6 col-xs-6"} onClick={()=>navigate(`/doktor/${id}`)}>
+            <div id={"doktorCard2"}>
                 <div className={"image"}>
                     <img src={DOCTOR_IMG_URL+img}/>
                 </div>
@@ -35,4 +35,4 @@ function DoktorCard({id,name,img,desc}) {
     );
 }
 
-export default DoktorCard;
+export default DoktorCard2;

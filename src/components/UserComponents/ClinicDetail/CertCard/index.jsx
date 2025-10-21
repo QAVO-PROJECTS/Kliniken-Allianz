@@ -12,12 +12,15 @@ const CardCertificate = ({ image, number, text, index }) => {
         e.stopPropagation();
         setIsModalOpen(false);
     };
-
+    let  numbers = number;
+    if(number <=10){
+       numbers = "0"+numbers;
+    }
     return (
         <div className="col-2 col-md-4 col-sm-6 col-xs-6" style={{ padding: "8px" }}>
             <div id="card-certificate-clinic" style={{ backgroundImage: `url(${CERT_CLINIC_URL+image})` }} onClick={openModal}>
                 <div className={`overlay ${layoutClass}`}>
-                    <div className="number">{number}</div>
+                    <div className="number">{numbers}</div>
                     <div className="text">{text}</div>
                 </div>
             </div>
