@@ -1,8 +1,10 @@
 import img1 from '/src/assets/dSamer.png'
 import "./index.scss"
+import {useNavigate} from "react-router-dom";
 function TourCard({ name, desc, img, imgAlt, icon, iconAlt,id }) {
+    const navigate = useNavigate();
     return (
-        <div className={"col-3 col-md-6 col-sm-6 col-xs-6"} style={{padding:'4px'}} onClick={()=>navigate(`/clinics/${id}`)}>
+        <div className={"col-3 col-md-6 col-sm-6 col-xs-6"} style={{padding:'4px'}} onClick={()=>navigate(`/tours/${id}`)}>
         <div id={"tour-card"}>
             <div className={'image'}>
                 <img src={img1} alt={name} />

@@ -1,6 +1,12 @@
 #contact{
   padding: 140px 16px;
   position: relative;
+  @media screen and (max-width: 576px){
+    padding: 120px 16px;
+    .col-4{
+      padding: 8px 0 ;
+    }
+  }
   .bannerAbout{
     position: absolute;
     top: -40px;
@@ -14,7 +20,7 @@
 
     }
     @media screen and (max-width: 576px) {
-      height: 350px;
+      height: 230px;
       top: 0;
     }
   }
@@ -28,6 +34,7 @@
         font-size: 32px;
         line-height: 50px;
         margin-bottom: 13px;
+
       }
       p {
         margin-top: 22px;
@@ -58,12 +65,18 @@
       @media screen and (max-width: 576px) {
         margin-bottom: 63px;
         h1{
-          font-size: 18px;
-          line-height: 27px; /* 150% */
+          font-size: 16px;
+          line-height: 21px; /* 150% */
+          margin-bottom: 6px;
         }
         p{
-          font-size: 14px;
+          margin-top: 0;
+          font-size: 12px;
           line-height: 24px; /* 171.429% */
+          .dot{
+            width: 10px;
+            height: 10px;
+          }
         }
       }
     }
@@ -99,6 +112,17 @@
           line-height: 27px;
           color: #797979;
         }
+        @media screen and (max-width: 576px){
+          h4{
+            font-size: 14px;
+            line-height: 24px;
+            margin-bottom: 4px;
+          }
+          p{
+            font-size: 14px;
+            line-height: 21px;
+          }
+        }
       }
     }
     .form-section {
@@ -109,7 +133,12 @@
       margin-top: 90px;
       border-radius: 4px;
       @media screen and (max-width: 576px) {
+        margin-top: 32px;
         padding: 20px;
+        .col-6,.col-12{
+          padding:8px 0;
+        }
+
         iframe{
           height: 350px;
         }

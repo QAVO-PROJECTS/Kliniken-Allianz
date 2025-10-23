@@ -1,6 +1,9 @@
 #aboutUs{
   padding: 140px 0 ;
   position: relative;
+  @media screen and (max-width: 576px){
+    padding: 120px 0;
+  }
   .bannerAbout{
     position: absolute;
     top: -40px;
@@ -14,7 +17,7 @@
 
     }
     @media screen and (max-width: 576px) {
-      height: 400px;
+      height: 230px;
       top: 0;
     }
   }
@@ -58,12 +61,18 @@
     @media screen and (max-width: 576px) {
       margin-bottom: 52px;
       h1{
-        font-size: 18px;
-        line-height: 27px; /* 150% */
+        font-size: 16px;
+        line-height: 21px;
+        margin-bottom: 6px/* 150% */
       }
       p{
-        font-size: 14px;
+        margin-top: 0;
+        font-size: 12px;
         line-height: 24px; /* 171.429% */
+        .dot{
+          width: 10px;
+          height: 10px;
+        }
       }
     }
   }
@@ -171,12 +180,12 @@
         h2{
           font-size: 20px;
           line-height: 30px; /* 150% */
-          margin-bottom: 15px;
+          margin-bottom: 8px;
         }
         p{
-          font-size: 16px;
+          font-size: 14px;
           line-height: 28px;
-          margin-bottom: 24px;
+          margin-bottom: 16px;
         }
       }
     }
@@ -198,6 +207,17 @@
       display: flex;
       align-items: center;
       flex-direction: column;
+      @media screen and (max-width: 576px) {
+        flex-direction: row;
+        padding: 14px;
+        height: 70px;
+        gap: 12px;
+        h4{
+          font-size: 12px !important;
+          line-height: 21px;
+          margin-bottom: 0 !important;
+        }
+      }
       .icon{
         width: 55px;
         height: 55px;
@@ -208,6 +228,15 @@
         align-items: center;
         margin: 0 auto 16px;
         font-size: 24px;
+        @media screen and (max-width: 576px) {
+          width: 40px;
+          height: 40px;
+          margin: 0;
+          svg{
+            width: 20px;
+            height: 20px;
+          }
+        }
       }
       .icon1{
         background: #E8F1FD;

@@ -12,12 +12,15 @@ const CardCertificateCategory = ({ image, number, text, index }) => {
         e.stopPropagation();
         setIsModalOpen(false);
     };
-
+    let numbers = number;
+    if(numbers<10){
+        numbers = "0"+numbers;
+    }
     return (
-        <div className="col-3 col-md-6 col-sm-6 col-xs-6" style={{ padding: "8px" }}>
+        <div className="col-2 col-md-6 col-sm-6 col-xs-6" style={{ padding: "8px" }}>
             <div className="card-certificate-doktor" style={{ backgroundImage: `url(${CERT_DOKTOR_URL+image})` }} onClick={openModal}>
                 <div className={`overlay ${layoutClass}`}>
-                    <div className="number">{number}</div>
+                    <div className="number">{numbers}</div>
                     <div className="text">{text}</div>
                 </div>
             </div>

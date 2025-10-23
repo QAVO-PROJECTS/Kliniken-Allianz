@@ -1,44 +1,108 @@
 #doktorDetail {
   padding: 140px 16px;
+  .bannerAbout{
+    position: absolute;
+    top: -40px;
+    left: 0;
+    width: 100%;
+    z-index:-1;
+    transform: rotate(2deg);
+    img{
+      width: 100%;
+      height: 100%;
 
+    }
+    @media screen and (max-width: 576px) {
+      height: 350px;
+      top: 0;
+    }
+  }
   .head {
     width: 100%;
     text-align: center;
-    margin-bottom: 90px;
-
+    margin-bottom: 250px;
+    h1 {
+      color: #191919;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 30px; /* 187.5% */
+    }
     p {
+      margin-top: 8px;
       display: flex;
       justify-content: center;
       align-items: center;
+      color: #686868;
+      font-size: 14px;
+      font-style: normal;
       font-weight: 400;
-      font-size: 16px;
-      line-height: 24px;
+      line-height: 24px; /* 171.429% */
 
       .dot {
         width: 12px;
         height: 12px;
-        background-color: #c2c2c2c7;
+
         border-radius: 50%;
         margin: 0 8px 0 16px;
-
-        &.active {
-          background-color: #47d1d6c7;
-        }
       }
-
+      .dot1{
+        background-color: #CFCFCF;
+      }
+      .dot2{
+        background-color: #003778;
+      }
       a {
         color: #686868;
         transition: all 0.3s ease-in-out;
 
         &:hover {
-          color: rgba(62, 149, 152, 0.78);
+          font-weight: 500;
         }
+      }
+    }
+    .search{
+      position: relative;
+      width: 50%;
+      margin:24px auto;
+      height: 40px;
+      input{
+        width: 100%;
+        height: 40px;
+        border-radius: 8px;
+        border: 1px solid #E4E4E4;
+        background: #FFF;
+        outline: none;
+        padding: 0 16px;
+        &::placeholder {
+          color: #9A9A9A;
+          font-size: 12px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: normal;
+        }
+      }
+      svg{
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 16px;
+      }
+    }
+    @media screen and (max-width: 576px) {
+      margin-bottom: 63px;
+      h1{
+        font-size: 18px;
+        line-height: 27px; /* 150% */
+      }
+      p{
+        font-size: 14px;
+        line-height: 24px; /* 171.429% */
       }
     }
   }
 
   .doktorContainer {
-    max-width: 670px;
     margin: 0 auto;
 
     .doktor {
@@ -71,12 +135,10 @@
         }
 
         h2 {
-          color: #2C2C2C;
-          font-size: 18px;
-          font-style: normal;
           font-weight: 600;
-          line-height: 21px; /* 116.667% */
-          margin-bottom: 16px;
+          font-size: 18px;
+          line-height: 21px;
+          margin-bottom: 12px;
 
           @media screen and (max-width: 576px) {
             margin-bottom: 8px;
@@ -85,10 +147,9 @@
 
         p {
           color: #505050;
-          font-size: 16px;
-          font-style: normal;
           font-weight: 500;
-          line-height: 21px; /* 131.25% */
+          font-size: 16px;
+          line-height: 21px;
           margin-bottom: 8px;
         }
 

@@ -9,7 +9,7 @@ import {IoCallOutline} from "react-icons/io5";
 import {LiaHandshakeSolid} from "react-icons/lia";
 import {AiOutlineSafety} from "react-icons/ai";
 import {LuNotebookPen} from "react-icons/lu";
-import mobileBanner from "../../../assets/AboutUsBannerMobil.png";
+import mobileBanner from "../../../assets/MobileBanner.png";
 import {useMediaQuery} from "react-responsive";
 function AboutUs() {
     const navigate = useNavigate();
@@ -44,7 +44,9 @@ function AboutUs() {
                                 </div>
                             </div>
                         </div>
-                        <div className={"col-5 col-md-12 col-sm-12 col-xs-12"}>
+                        <div className={"col-5 col-md-12 col-sm-12 col-xs-12"} style={{
+                            display: isMobile && "none"
+                        }}>
                             <div className={"image"}>
                                 <img src={image1} alt={t("aboutUs.bannerAlt")} />
                             </div>

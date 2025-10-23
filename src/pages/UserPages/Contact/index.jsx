@@ -2,13 +2,12 @@ import "./index.scss";
 import banner from "/src/assets/AboutBanner.png";
 import { Link, useNavigate } from "react-router-dom";
 import Title from "../../../components/UserComponents/Title/index.jsx";
-import { MdCall, MdEmail } from "react-icons/md";
-import { FaLocationDot } from "react-icons/fa6";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { usePostContactMutation } from "../../../services/userApi.jsx"; // Mutation hook'unu ekledim
-import { message } from "antd"; // Success/error için ekledim
-
+import { message } from "antd";
+import {useMediaQuery} from "react-responsive"; // Success/error için ekledim
+import mobileBanner from "/src/assets/MobileBanner.png"
 function Contact() {
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -18,7 +17,7 @@ function Contact() {
     const [email, setEmail] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [description, setDescription] = useState(""); // setNote'u düzelttim: setDescription
-
+    const isMobile = useMediaQuery({maxWidth:768})
     // Validation error state
     const [errors, setErrors] = useState({});
 
@@ -236,7 +235,7 @@ function Contact() {
                 </div>
             </div>
             <div className="bannerAbout">
-                <img src={banner} alt={t("contact.bannerAlt")} />
+                <img src={isMobile ? mobileBanner : banner} alt={t("contact.bannerAlt")} />
             </div>
         </div>
     );

@@ -1,7 +1,7 @@
 import './index.scss'
 import {Link, useParams} from "react-router-dom";
 import doktor from "/src/assets/doktor 1.jpg"
-import Pagination from "../../../components/Pagination/index.jsx";
+import Pagination from "../../../components/UserComponents/Pagination/index.jsx";
 import {useEffect, useState} from "react";
 import sert1 from '/src/assets/Sertifikat/1.png';
 import sert2 from '/src/assets/Sertifikat/2.png';
@@ -13,6 +13,9 @@ import CardCertificateCategory from "../../../components/UserComponents/Category
 import {useGetClinicByIdQuery, useGetDoctorsByIdQuery} from "../../../services/userApi.jsx";
 import {DOCTOR_IMG_URL} from "../../../contants.js";
 import {useTranslation} from "react-i18next";
+import banners from "../../../assets/AboutBanner.png";
+import red from "/src/assets/redTeklif.svg"
+import blue from "/src/assets/blueTeklif.svg"
 function DoktorDetail() {
     const {id} = useParams();
     const {data:getDoctorsById} = useGetDoctorsByIdQuery(id)
@@ -64,12 +67,14 @@ function DoktorDetail() {
     return (
         <div id={"doktorDetail"}>
             <div className={"container"}>
-                <div className={"head"}>
+                <div className="head">
+                    <h1>Doctor</h1>
                     <p data-aos="fade-up" data-aos-delay="100">
-                        <Link to={"/"}>Ana səhifə</Link>
-
-                        <div className={"dot active"}></div>
-                        <Link to={`/doktor/${doctor?.id}`}>{getLocalizedText(doctor, 'name') || doctor?.name}</Link>
+                        <Link to="/">{t("contact.breadcrumb.home")}</Link>
+                        <div className="dot dot1"></div>
+                        <Link to="/">Həkimlər</Link>
+                        <div className="dot dot2"></div>
+                        <Link to="/clinics">Kathy Jackson</Link>
                     </p>
                 </div>
                 <div className={"doktorContainer"}>
@@ -85,31 +90,31 @@ function DoktorDetail() {
                                      fill="none">
                                     <path
                                         d="M8.99975 13.4525L12.1122 15.335C12.6822 15.68 13.3797 15.17 13.2297 14.525L12.4047 10.985L15.1572 8.60001C15.6597 8.16501 15.3897 7.34001 14.7297 7.28751L11.1072 6.98001L9.68975 3.63501C9.43475 3.02751 8.56475 3.02751 8.30975 3.63501L6.89225 6.97251L3.26975 7.28001C2.60975 7.33251 2.33975 8.15751 2.84225 8.59251L5.59475 10.9775L4.76975 14.5175C4.61975 15.1625 5.31725 15.6725 5.88725 15.3275L8.99975 13.4525Z"
-                                        fill="#FDCF6D"/>
+                                        fill="#2F2F2F"/>
                                 </svg>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="19" viewBox="0 0 18 19"
                                      fill="none">
                                     <path
                                         d="M8.99975 13.4525L12.1122 15.335C12.6822 15.68 13.3797 15.17 13.2297 14.525L12.4047 10.985L15.1572 8.60001C15.6597 8.16501 15.3897 7.34001 14.7297 7.28751L11.1072 6.98001L9.68975 3.63501C9.43475 3.02751 8.56475 3.02751 8.30975 3.63501L6.89225 6.97251L3.26975 7.28001C2.60975 7.33251 2.33975 8.15751 2.84225 8.59251L5.59475 10.9775L4.76975 14.5175C4.61975 15.1625 5.31725 15.6725 5.88725 15.3275L8.99975 13.4525Z"
-                                        fill="#FDCF6D"/>
+                                        fill="#2F2F2F"/>
                                 </svg>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="19" viewBox="0 0 18 19"
                                      fill="none">
                                     <path
                                         d="M8.99975 13.4525L12.1122 15.335C12.6822 15.68 13.3797 15.17 13.2297 14.525L12.4047 10.985L15.1572 8.60001C15.6597 8.16501 15.3897 7.34001 14.7297 7.28751L11.1072 6.98001L9.68975 3.63501C9.43475 3.02751 8.56475 3.02751 8.30975 3.63501L6.89225 6.97251L3.26975 7.28001C2.60975 7.33251 2.33975 8.15751 2.84225 8.59251L5.59475 10.9775L4.76975 14.5175C4.61975 15.1625 5.31725 15.6725 5.88725 15.3275L8.99975 13.4525Z"
-                                        fill="#FDCF6D"/>
+                                        fill="#2F2F2F"/>
                                 </svg>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="19" viewBox="0 0 18 19"
                                      fill="none">
                                     <path
                                         d="M8.99975 13.4525L12.1122 15.335C12.6822 15.68 13.3797 15.17 13.2297 14.525L12.4047 10.985L15.1572 8.60001C15.6597 8.16501 15.3897 7.34001 14.7297 7.28751L11.1072 6.98001L9.68975 3.63501C9.43475 3.02751 8.56475 3.02751 8.30975 3.63501L6.89225 6.97251L3.26975 7.28001C2.60975 7.33251 2.33975 8.15751 2.84225 8.59251L5.59475 10.9775L4.76975 14.5175C4.61975 15.1625 5.31725 15.6725 5.88725 15.3275L8.99975 13.4525Z"
-                                        fill="#FDCF6D"/>
+                                        fill="#2F2F2F"/>
                                 </svg>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="19" viewBox="0 0 18 19"
                                      fill="none">
                                     <path
                                         d="M8.99975 13.4525L12.1122 15.335C12.6822 15.68 13.3797 15.17 13.2297 14.525L12.4047 10.985L15.1572 8.60001C15.6597 8.16501 15.3897 7.34001 14.7297 7.28751L11.1072 6.98001L9.68975 3.63501C9.43475 3.02751 8.56475 3.02751 8.30975 3.63501L6.89225 6.97251L3.26975 7.28001C2.60975 7.33251 2.33975 8.15751 2.84225 8.59251L5.59475 10.9775L4.76975 14.5175C4.61975 15.1625 5.31725 15.6725 5.88725 15.3275L8.99975 13.4525Z"
-                                        fill="#FDCF6D"/>
+                                        fill="#2F2F2F"/>
                                 </svg>
                             </div>
                             <div className={"about"}>
@@ -128,42 +133,40 @@ function DoktorDetail() {
                     <div className={"doktorDetail"}>
                         <div className={"first-section"}>
                             <h2>Bio</h2>
-                            <div className={"bio"}>
-                                <div>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="41" height="41" viewBox="0 0 41 41" fill="none">
-                                        <path d="M17.0833 35.875C23.6877 35.875 29.0417 30.5211 29.0417 23.9166C29.0417 17.3122 23.6877 11.9583 17.0833 11.9583C10.4789 11.9583 5.125 17.3122 5.125 23.9166C5.125 30.5211 10.4789 35.875 17.0833 35.875Z" fill="#E3FFF3"/>
-                                        <path d="M10.25 22.2083L17.0833 27.3333L29.0417 11.9583" stroke="#01D683" stroke-opacity="0.78" stroke-width="1.5375"/>
-                                    </svg>
+                            <div className={'row'}>
+                                <div className={'col-6'}>
+                                    <div className={"bio"}>
+                                        <div>
+                                            <img src={blue}/>
+                                        </div>
+                                        <div>
+                                            <h3>Təhsil və akademik keçmiş</h3>
+                                            <p>Azərbaycan Tibb Universiteti məzunu, Almaniyada (Berlin Charité Klinikası) ortopediya üzrə ixtisaslaşma.</p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div>
-                                    <h3>Təhsil və akademik keçmiş</h3>
-                                    <p>Azərbaycan Tibb Universiteti məzunu, Almaniyada (Berlin Charité Klinikası) ortopediya üzrə ixtisaslaşma.</p>
-                                </div>
+                                <div className={'col-6'}><div className={"bio"}>
+                                    <div>
+                                       <img src={red}/>
+                                    </div>
+                                    <div>
+                                        <h3>İş təcrübəsi və çalışdığı müəssisələr</h3>
+                                        <p>5 ildən artıq beynəlxalq təcrübə. Almaniyanın aparıcı klinikalarında çalışmış, hal-hazırda həm Almaniyada, həm də Azərbaycanda fəaliyyət göstərir.</p>
+                                    </div>
+                                </div></div>
+                                <div className={'col-6'}><div className={"bio"}>
+                                    <div>
+                                        <img src={blue}/>
+                                    </div>
+                                    <div>
+                                        <h3>İxtisaslaşdığı sahələr və güclü tərəfləri</h3>
+                                        <p>Travmatik zədələr, oynaq dəyişdirmə əməliyyatları, minimal invaziv cərrahiyyə üzrə ixtisaslaşmışdır.</p>
+                                    </div>
+                                </div></div>
                             </div>
-                            <div className={"bio"}>
-                                <div>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="41" height="41" viewBox="0 0 41 41" fill="none">
-                                        <path d="M17.0833 35.875C23.6877 35.875 29.0417 30.5211 29.0417 23.9166C29.0417 17.3122 23.6877 11.9583 17.0833 11.9583C10.4789 11.9583 5.125 17.3122 5.125 23.9166C5.125 30.5211 10.4789 35.875 17.0833 35.875Z" fill="#E3FFF3"/>
-                                        <path d="M10.25 22.2083L17.0833 27.3333L29.0417 11.9583" stroke="#01D683" stroke-opacity="0.78" stroke-width="1.5375"/>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h3>İş təcrübəsi və çalışdığı müəssisələr</h3>
-                                    <p>5 ildən artıq beynəlxalq təcrübə. Almaniyanın aparıcı klinikalarında çalışmış, hal-hazırda həm Almaniyada, həm də Azərbaycanda fəaliyyət göstərir.</p>
-                                </div>
-                            </div>
-                            <div className={"bio"}>
-                               <div>
-                                   <svg xmlns="http://www.w3.org/2000/svg" width="41   " height="41    " viewBox="0 0 41 41" fill="none">
-                                       <path d="M17.0833 35.875C23.6877 35.875 29.0417 30.5211 29.0417 23.9166C29.0417 17.3122 23.6877 11.9583 17.0833 11.9583C10.4789 11.9583 5.125 17.3122 5.125 23.9166C5.125 30.5211 10.4789 35.875 17.0833 35.875Z" fill="#E3FFF3"/>
-                                       <path d="M10.25 22.2083L17.0833 27.3333L29.0417 11.9583" stroke="#01D683" stroke-opacity="0.78" stroke-width="1.5375"/>
-                                   </svg>
-                               </div>
-                                <div>
-                                    <h3>İxtisaslaşdığı sahələr və güclü tərəfləri</h3>
-                                    <p>Travmatik zədələr, oynaq dəyişdirmə əməliyyatları, minimal invaziv cərrahiyyə üzrə ixtisaslaşmışdır.</p>
-                                </div>
-                            </div>
+
+
+
                         </div>
                         <div>
                             <div className={'second-section'}>
@@ -196,6 +199,9 @@ function DoktorDetail() {
                     </div>
                 </div>
 
+            </div>
+            <div className="bannerAbout">
+                <img src={banners} alt={t("contact.bannerAlt")}/>
             </div>
         </div>
     );

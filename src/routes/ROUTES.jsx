@@ -23,6 +23,7 @@ import ServicesPage from "../pages/UserPages/ServicesPage/index.jsx";
 import ToursPage from "../pages/UserPages/ToursPage/index.jsx";
 import ClinicsDoctorPage from "../pages/UserPages/ClinicsDoctorPage/index.jsx";
 import DoctorsPage from "../pages/UserPages/DoctorsPage/index.jsx";
+import TourDetail from "../pages/UserPages/TourDetail/index.jsx";
 
 
 const router = [
@@ -45,6 +46,10 @@ const router = [
             {
                 path: "/tours",
                 element: <ToursPage/>
+            },
+            {
+                path: "/tours/:id",
+                element: <TourDetail/>
             },
             {
                 path: "/clinics-doctor/:id",
