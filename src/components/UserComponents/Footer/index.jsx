@@ -72,18 +72,14 @@ function Footer() {
                                 <div className="services">
                                     <h3>{t('footer.contactTitle')}</h3>
                                     <div className="foot-contact">
-                                        <div className="icons">
-                                            <FaPhone className="icon" />
-                                        </div>
+
                                         <div className="content">
                                             <span>{t('footer.call')}</span>
                                             <p><a href="tel:+9947076543489">{t('footer.phone')}</a></p>
                                         </div>
                                     </div>
                                     <div className="foot-contact">
-                                        <div className="icons">
-                                            <FiMail className="icon" />
-                                        </div>
+
                                         <div className="content">
                                             <span>{t('footer.mail')}</span>
                                             <p>

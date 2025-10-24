@@ -25,8 +25,8 @@ function HomeServiceCard({ name, desc, icon,id }) {
                             </g>
                             <defs>
                                 <linearGradient id="paint0_linear_609_218" x1="18" y1="9" x2="1.44838e-06" y2="9" gradientUnits="userSpaceOnUse">
-                                    <stop offset="0.105769" stop-color="#37DEA1" stop-opacity="0.51" />
-                                    <stop offset="0.322115" stop-color="#47D1D6" stop-opacity="0.78" />
+                                    <stop offset="0.105769" stop-color="#0063A6" stop-opacity="0.51" />
+                                    <stop offset="0.322115" stop-color="#0B93EF" stop-opacity="0.78" />
                                 </linearGradient>
                                 <clipPath id="clip0_609_218">
                                     <rect width="18" height="18" fill="white" transform="translate(18 18) rotate(180)" />

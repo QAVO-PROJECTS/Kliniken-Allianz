@@ -20,7 +20,7 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
     }
 
     return (
-        <div className="custom-pagination">
+        <div className="custom-paginationn">
             <button
                 disabled={currentPage === 1}
                 onClick={() => onPageChange(1)}

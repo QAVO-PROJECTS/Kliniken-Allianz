@@ -9,7 +9,8 @@ function DoktorCard({id,name,img,desc}) {
         <div className={"col-3 col-md-6 col-sm-6 col-xs-6"} onClick={()=>navigate(`/doktor/${id}`)}>
             <div id={"doktorCard"}>
                 <div className={"image"}>
-                    <img src={DOCTOR_IMG_URL+img}/>
+                    {/*<img src={DOCTOR_IMG_URL+img}/>*/}
+                    <img src={img}/>
                 </div>
                 <div className={"content"}>
                     <h5>{name}</h5>

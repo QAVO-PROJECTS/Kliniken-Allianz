@@ -9,7 +9,8 @@ function ServiceDetailCard({name,desc,img,id}) {
        <div className={"col-3 col-md-6 col-sm-6 col-xs-6"} style={{padding:'4px'}} onClick={()=>navigate(`/clinics/${id}`)}>
            <div id={"serviceDetailCard"}>
                 <div className={"cardImage"}>
-                    <img src={CLINIC_CARD_IMAGES+img} />
+                    {/*<img src={CLINIC_CARD_IMAGES+img} />*/}
+                    <img src={img} />
                 </div>
                <div className={"content"}>
                    <div className={"text"}>

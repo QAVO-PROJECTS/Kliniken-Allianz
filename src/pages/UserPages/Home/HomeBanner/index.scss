@@ -83,7 +83,14 @@ background-color: #F4F9FFA3;
         width: max-content;
         background-color: #003778;
         transition: all 0.3s ease;
-
+.glass-image{
+  width: 28px;
+  height: 28px;
+  img{
+    width: 100%;
+    height: 100%;
+  }
+}
         button {
           width: 28px;
           height: 28px;
