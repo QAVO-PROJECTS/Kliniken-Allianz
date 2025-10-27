@@ -16,6 +16,11 @@ import {useTranslation} from "react-i18next";
 import banners from "../../../assets/AboutBanner.png";
 import red from "/src/assets/redTeklif.svg"
 import blue from "/src/assets/blueTeklif.svg"
+import mobileBanner from "../../../assets/MobileBanner.png";
+import mobileBanners from "../../../assets/MobileBanner.png";
+import banner from "../../../assets/AboutBanner.png";
+import {t} from "i18next";
+import {useMediaQuery} from "react-responsive";
 function DoktorDetail() {
     const {id} = useParams();
     const {data:getDoctorsById} = useGetDoctorsByIdQuery(id)
@@ -37,7 +42,7 @@ function DoktorDetail() {
     const [itemsPerPage, setItemsPerPage] = useState(
         window.innerWidth <= 576 ? 2 : 4
     );
-
+    const isMobile = useMediaQuery({maxWidth:768})
     // update itemsPerPage on resize
     useEffect(() => {
         const handleResize = () => {
@@ -134,7 +139,7 @@ function DoktorDetail() {
                         <div className={"first-section"}>
                             <h2>Bio</h2>
                             <div className={'row'}>
-                                <div className={'col-6'}>
+                                <div className={'col-6 col-md-12 col-sm-12 col-xs-12'}>
                                     <div className={"bio"}>
                                         <div>
                                             <img src={blue}/>
@@ -145,7 +150,7 @@ function DoktorDetail() {
                                         </div>
                                     </div>
                                 </div>
-                                <div className={'col-6'}><div className={"bio"}>
+                                <div className={'col-6 col-md-12 col-sm-12 col-xs-12'}><div className={"bio"}>
                                     <div>
                                        <img src={red}/>
                                     </div>
@@ -154,7 +159,7 @@ function DoktorDetail() {
                                         <p>5 ildən artıq beynəlxalq təcrübə. Almaniyanın aparıcı klinikalarında çalışmış, hal-hazırda həm Almaniyada, həm də Azərbaycanda fəaliyyət göstərir.</p>
                                     </div>
                                 </div></div>
-                                <div className={'col-6'}><div className={"bio"}>
+                                <div className={'col-6 col-md-12 col-sm-12 col-xs-12'}><div className={"bio"}>
                                     <div>
                                         <img src={blue}/>
                                     </div>
@@ -200,8 +205,11 @@ function DoktorDetail() {
                 </div>
 
             </div>
-            <div className="bannerAbout">
-                <img src={banners} alt={t("contact.bannerAlt")}/>
+            <div className={"bannerAbout"}>
+                <img
+                    src={isMobile ? mobileBanners : banners}
+                    alt={t("aboutUs.bannerAlt")}
+                />
             </div>
         </div>
     );

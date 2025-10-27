@@ -91,6 +91,22 @@
     background: #D7D7D7;
   }
 }
+    .mobilee{
+      .vrLine{
+        display: none;
+      }
+      .searchIcon{
+        display: none;
+      }
+      @media screen and (max-width: 576px){
+        .vrLine{
+          display: block;
+        }
+        .searchIcon{
+          display: block;
+        }
+      }
+    }
     .desktopp{
       @media screen and (max-width: 576px){
         .vrLine{

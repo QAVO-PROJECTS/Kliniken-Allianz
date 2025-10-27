@@ -18,6 +18,74 @@
       top: 0;
     }
   }
+  .mobile-filter-btn {
+    display: none;
+    background: #003778;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-bottom: 20px;
+
+    @media screen and (max-width: 768px) {
+      display: block;
+    }
+  }
+
+  .filter-bar-mobile {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 80%;
+    max-width: 320px;
+    height: 100vh;
+    background: #fff;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.15);
+    z-index: 999;
+    padding: 20px;
+    transition: left 0.4s ease;
+    overflow-y: auto;
+
+    &.open {
+      left: 0;
+    }
+
+    .filter-bar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+
+      h3 {
+        font-size: 16px;
+        color: #003778;
+      }
+
+      button {
+        background: none;
+        border: none;
+        font-size: 22px;
+        cursor: pointer;
+        color: #333;
+      }
+    }
+
+    .filter-bar-content {
+      .filter-section {
+        margin-bottom: 24px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .filter-bar {
+      display: none;
+    }
+  }
+
   .doctors-page{
     .head {
       width: 100%;
