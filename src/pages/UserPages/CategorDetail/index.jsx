@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import banners from "/src/assets/AboutBanner.png";
 import banner from "/src/assets/CategoryBanner.png";
 import mobileBanner from "/src/assets/MobileBannerCategoryDetail.png";
+import mobileBanners from "/src/assets/MobileBanner.png";
 import image from "/src/assets/CatgoryContantOrange.png";
 import image1 from "/src/assets/blueIcon.png";
 import image2 from "/src/assets/CategoryDetailImage.png";
@@ -24,7 +25,8 @@ import {
 } from "../../../services/userApi.jsx";
 import { message } from "antd";
 import {CLINIC_CARD_IMAGES} from "../../../contants.js";
-import HomeServiceCard from "../../../components/UserComponents/Home/ServiceCardHome/index.jsx"; // Success/error için ekledim
+import HomeServiceCard from "../../../components/UserComponents/Home/ServiceCardHome/index.jsx";
+import {t} from "i18next"; // Success/error için ekledim
 
 function CategoryDetail() {
     const { id } = useParams();
@@ -172,7 +174,8 @@ function CategoryDetail() {
                                         id={serv.id}
                                         name={getLocalizedText(serv, 'name')}
                                         desc={getLocalizedText(serv, 'desc')}
-                                        icon={serv.serviceCardImage}
+                                        // icon={serv.serviceCardImage}
+                                        icon={icon1}
                                     />
                                 ))}
                             </div>
@@ -270,8 +273,11 @@ function CategoryDetail() {
                     </div>
                 </div>
             </div>
-            <div className="bannerAbout">
-                <img src={banners} alt={t("contact.bannerAlt")} />
+            <div className={"bannerAbout"}>
+                <img
+                    src={isMobile ? mobileBanners : banners}
+                    alt={t("aboutUs.bannerAlt")}
+                />
             </div>
         </div>
     );

@@ -1,0 +1,18 @@
+.ant-dropdown-menu {
+  border-radius: 10px !important;
+  padding: 6px !important;
+}
+
+.ant-dropdown-menu-item {
+  font-size: 14px;
+  padding: 8px 16px !important;
+  transition: all 0.2s ease;
+  &:hover {
+    background-color: #f4f8ff !important;
+    color: #003778 !important;
+  }
+}
+
+.ant-dropdown-menu-submenu-arrow {
+  color: #003778;
+}

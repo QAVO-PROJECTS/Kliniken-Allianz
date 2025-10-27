@@ -19,9 +19,12 @@ import dimage6 from "/src/assets/doktor6.jpg";
 import {useGetClinicByIdQuery} from "../../../services/userApi.jsx";
 import {CLINIC_CARD_IMAGES, CLINIC_IMAGES} from "../../../contants.js";
 import {useTranslation} from "react-i18next";
-import HomeServiceCard2 from "../../../components/UserComponents/Home/ServiceCardHome2/index.jsx";
+import HomeServiceCard from "../../../components/UserComponents/Home/ServiceCardHome/index.jsx";
 import banner from "../../../assets/AboutBanner.png";
 import ClinicHotel from "../ClinicHotel/index.jsx";
+import {t} from "i18next";
+import mobileBanner from "../../../assets/MobileBanner.png";
+import {useMediaQuery} from "react-responsive";
 const galleryImages = [gallery1, gallery2, gallery3, gallery4];
 
 
@@ -83,7 +86,7 @@ const {data:getClinicById} = useGetClinicByIdQuery(id)
 
 
     const serviceCards = clinic?.services?.map((item, i) => (
-        <HomeServiceCard2
+        <HomeServiceCard
             id={item.id}
             name={getLocalizedText(item, 'name')}
             desc={getLocalizedText(item, 'desc')}
@@ -152,12 +155,13 @@ const {data:getClinicById} = useGetClinicByIdQuery(id)
         setGalleryIndex(index);
         gallerySliderRef.current.style.transform = `translateX(-${index * 100}%)`;
     };
-
+    const isMobile = useMediaQuery({maxWidth:768})
     return (
         <div id="clinic-detail">
             <div className="container">
                 {/* Breadcrumb */}
                 <div className="head" data-aos="fade-up" data-aos-delay="100">
+                    <h1>Klinika</h1>
                     <p>
                         <Link to="/">Ana səhifə</Link>
                         <div className="dot"/>
@@ -433,8 +437,11 @@ const {data:getClinicById} = useGetClinicByIdQuery(id)
                     </div>
                 </div>
             </div>
-            <div className="bannerAbout">
-                <img src={banner} alt={t("contact.bannerAlt")} />
+            <div className={"bannerAbout"}>
+                <img
+                    src={isMobile ? mobileBanner : banner}
+                    alt={t("aboutUs.bannerAlt")}
+                />
             </div>
         </div>
     );

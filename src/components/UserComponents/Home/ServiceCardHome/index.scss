@@ -36,6 +36,7 @@
   @media screen and (max-width: 576px) {
    width: 55px;
    height: 55px;
+   margin-bottom: 8px;
    img{
     width: 23px;
    }
@@ -59,6 +60,8 @@
   @media screen and (max-width: 576px) {
    font-size: 14px;
    font-weight: 600;
+   margin-bottom: 6px;
+   line-height: 21px;
   }
  }
  p{
@@ -76,6 +79,8 @@
    font-size: 12px;
    font-weight: 500;
    line-height: 18px; /* 150% */
+   -webkit-line-clamp:1;
+   margin-bottom: 12px;
   }
  }
  .btn{
@@ -91,6 +96,9 @@
    font-weight: 500;
    background: linear-gradient(90deg, #0063A6, #0B93EF);    -webkit-background-clip: text;
    color: transparent;
+   @media screen and (max-width: 576px) {
+    font-size: 12px;
+   }
   }
  }
 }

@@ -26,13 +26,19 @@
     font-size: 14px ;
     display: flex;
     align-items: center;
+    gap: 8px;
   }
   .wrapper {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 4px;
-
+.settings{
+  display: flex;
+  align-items: center;
+  height: 40px;
+  gap: 12px;
+}
     .logo img {
       display: flex;
       align-items: center;
@@ -68,7 +74,33 @@
       }
 
     }
-
+    .searchIcon{
+      width: 24px;
+      height: 24px;
+      img{
+        width: 24px;
+        height: 24px;
+      }
+    }
+.desktopp,.mobilee{
+  display: flex;
+  gap: 12px;
+  .vrLine{
+    width: 1px;
+    height: 20px;
+    background: #D7D7D7;
+  }
+}
+    .desktopp{
+      @media screen and (max-width: 576px){
+        .vrLine{
+          display: none;
+        }
+        .searchIcon{
+          display: none;
+        }
+      }
+    }
     .language {
       position: relative;
 
@@ -83,7 +115,6 @@
 
           img {
             width: 22px;
-            margin-right: 10px;
           }
         }
 
@@ -130,15 +161,10 @@
     .burger {
       display: none;
       cursor: pointer;
-      flex-direction: column;
-      justify-content: space-between;
-      width: 25px;
-      height: 20px;
 
-      div {
-        height: 3px;
-        background-color: black;
-        transition: all 0.3s ease;
+      img{
+        width: 18px;
+        height: 18px;
       }
     }
   }
@@ -152,7 +178,7 @@
       align-items: center;
       .logo {
         img {
-          width: 150px;
+          width:90px;
         }
       }
       .nav-links {
@@ -185,7 +211,7 @@
       }
 
       .burger {
-        display: flex;
+        display: block;
       }
     }
   }
@@ -236,8 +262,7 @@
 }
 @media screen and (max-width: 970px) {
   .language {
-    margin-top: 10px;
-    margin-right: -80px;
+    margin-right: 0px;
   }
 
   .tours-dropdown {

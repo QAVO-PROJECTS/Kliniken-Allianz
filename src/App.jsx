@@ -6,6 +6,7 @@ import {ToastContainer} from "react-toastify";
 import Cookies from "js-cookie";
 import {useEffect} from "react";
 import {useTranslation} from "react-i18next";
+import 'antd/dist/reset.css';
 
 function App() {
     const token = Cookies.get("klinikenToken");

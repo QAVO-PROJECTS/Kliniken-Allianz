@@ -11,7 +11,8 @@ function HomeServiceCard({ name, desc, icon,id }) {
         <div className={'col-3 col-md-6 col-sm-6 col-xs-6'} style={{ padding: '8px' }} onClick={() => navigate(`/category/${id}`)}>
             <div id={'homeServCard'}>
                 <div className={'icons'}>
-                    <img src={CATEGORY_IMAGES + icon} alt={t('homeServiceCard.iconAlt', { name })} />
+                    {/*<img src={CATEGORY_IMAGES + icon} alt={t('homeServiceCard.iconAlt', { name })} />*/}
+                    <img src={icon} alt={t('homeServiceCard.iconAlt', { name })} />
                 </div>
                 <h4>{name}</h4>
                 <p>{desc}</p>

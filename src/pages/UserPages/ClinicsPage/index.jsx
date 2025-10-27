@@ -8,6 +8,8 @@ import { usePostContactMutation } from "../../../services/userApi.jsx"; // Mutat
 import { message } from "antd";
 import ServiceDetailCard from "../../../components/UserComponents/ServicesDetailCard/index.jsx"; // Success/error için ekledim
 import img1 from "/src/assets/dSamer.png"
+import {useMediaQuery} from "react-responsive";
+import mobileBanner from "../../../assets/MobileBanner.png";
 function ClinicsPage() {
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -17,7 +19,7 @@ function ClinicsPage() {
     const [email, setEmail] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [description, setDescription] = useState(""); // setNote'u düzelttim: setDescription
-
+    const isMobile = useMediaQuery({maxWidth:768})
     // Validation error state
     const [errors, setErrors] = useState({});
 
@@ -113,8 +115,11 @@ function ClinicsPage() {
                     </div>
                 </div>
             </div>
-            <div className="bannerAbout">
-                <img src={banner} alt={t("contact.bannerAlt")} />
+            <div className={"bannerAbout"}>
+                <img
+                    src={isMobile ? mobileBanner : banner}
+                    alt={t("aboutUs.bannerAlt")}
+                />
             </div>
         </div>
     );
