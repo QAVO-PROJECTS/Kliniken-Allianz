@@ -1,9 +1,12 @@
 #doctors-page{
   padding: 140px 16px;
   position: relative;
+  @media screen and (max-width: 576px){
+    padding: 120px 16px;
+  }
   .bannerAbout{
     position: absolute;
-    top: 0;
+    top: -40px;
     left: 0;
     width: 100%;
     z-index:-1;
@@ -14,7 +17,7 @@
 
     }
     @media screen and (max-width: 576px) {
-      height: 350px;
+      height: 280px;
       top: 0;
     }
   }
@@ -38,21 +41,110 @@
   .filter-bar-mobile {
     position: fixed;
     top: 0;
-    left: -100%;
-    width: 80%;
-    max-width: 320px;
-    height: 100vh;
+    right: -100%;
+    width: 100%;
+    height: 100%;
     background: #fff;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.15);
     z-index: 999;
     padding: 20px;
-    transition: left 0.4s ease;
-    overflow-y: auto;
+    transition: right 0.4s ease;
+    overflow: auto;
 
     &.open {
-      left: 0;
+      right: 0;
     }
+  //.filter-bar-content{
+  //         height:90vh;
+  //         overflow-y: auto;
+  //       }
+    .filter-section {
+      margin-bottom: 28px;
+pointer-events: none;
+      .filter-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
 
+        span {
+          color: #060606;
+          font-size: 12px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: 20.636px; /* 171.97% */
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        button {
+          font-size: 13px;
+          color: #888;
+          border: none;
+          background: none;
+          cursor: pointer;
+        }
+      }
+
+      .filter-options {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        max-height: 120px;
+        overflow-y: auto;
+        padding-right: 4px;
+
+        label {
+          display: flex;
+          align-items: center;
+          font-size: 12px;
+          color: #474747;
+          gap: 6px;
+          cursor: pointer;
+          input {
+            appearance: none;
+            width: 14px;
+            height: 14px;
+            border: 1.5px solid #bdbdbd;
+            border-radius: 4px;
+            display: inline-block;
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+
+            &:checked {
+              background-color: #FE9754;
+              border-color: #FE9754;
+            }
+
+            &:checked::after {
+              content: "✔";
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%) scale(1);
+              font-size: 9px;
+              color: white;
+            }
+          }
+        }
+
+        &::-webkit-scrollbar {
+          width: 4px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background: #d4d4d4;
+          border-radius: 10px;
+        }
+      }
+
+      &.rating label {
+        font-size: 14px;
+        color: #f0b000;
+      }
+    }
     .filter-bar-header {
       display: flex;
       justify-content: space-between;
@@ -60,8 +152,12 @@
       margin-bottom: 16px;
 
       h3 {
-        font-size: 16px;
-        color: #003778;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 23.22px;
+        span{
+          font-size: 16px;
+        }
       }
 
       button {
@@ -72,7 +168,33 @@
         color: #333;
       }
     }
-
+  .buttons{
+    display: flex;
+    padding: 24px 0px 0px;
+    gap: 12px;
+    border-top: 1px solid #EFEFEF;
+    button{
+      width: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 14px;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 21px;
+      height: 40px;
+    }
+    .clean{
+      border: 1px solid #AEAEAE;
+      background: transparent;
+      color: #9F9F9F;
+    }
+    .submitButton{
+      border: 1px solid #003778;
+      background: #003778;
+      color: #fff;
+    }
+  }
     .filter-bar-content {
       .filter-section {
         margin-bottom: 24px;
@@ -126,6 +248,7 @@
           }
         }
       }
+
       .search{
         position: relative;
         width: 50%;
@@ -157,12 +280,49 @@
       @media screen and (max-width: 576px) {
         margin-bottom: 63px;
         h1{
-          font-size: 18px;
-          line-height: 27px; /* 150% */
+          font-size: 16px;
+          line-height: 21px;
+          margin-bottom: 6px/* 150% */
         }
         p{
-          font-size: 14px;
+          margin-top: 0;
+          font-size: 12px;
           line-height: 24px; /* 171.429% */
+          .dot{
+            width: 10px;
+            height: 10px;
+          }
+        }
+        .search{
+          margin: 0;
+          width: 80%;
+        }
+      }
+      .settingss{
+        display: flex;
+        gap: 8px;
+        .mobile-filter-btn{
+          height: 40px;
+          border: 0.85px solid #E4E4E4;
+          background: #fff;
+          color: #9A9A9A;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 6px;
+          div{
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #FFEFE4;
+            font-weight: 600;
+            font-size: 12px;
+            line-height: 100%;
+          color: #FE9754 !important;
+          }
         }
       }
     }
@@ -182,6 +342,19 @@
         font-style: normal;
         font-weight: 400;
         line-height: 28px; /* 175% */
+      }
+      @media screen and (max-width: 576px) {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        h2{
+          font-size: 18px;
+          line-height: 27px;
+          margin-bottom: 6px;
+        }
+        p{
+          font-size: 14px;
+          line-height: 24px;
+        }
       }
     }
     .filter-bar {
@@ -298,7 +471,14 @@
         }
       }
     }
+    .row{
+      .col-md-6{
+        @media screen and (max-width: 576px){
+          padding: 8px;
+        }
 
+      }
+    }
   }
 
 

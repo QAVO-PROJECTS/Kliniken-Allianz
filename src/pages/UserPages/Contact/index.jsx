@@ -86,7 +86,7 @@ function Contact() {
                             desc={'Tibbi turizmlə bağlı bütün suallarınız üçün bizimlə rahatlıqla əlaqə saxlaya bilərsiniz. Mütəxəssis komandamız sizə uyğun həll yollarını təqdim edəcək.'}
                         />
                         <div className="row">
-                            <div className="col-4 col-md-12 col-sm-12 col-xs-12">
+                            <div className="col-20 col-md-60 col-sm-60 col-xs-60">
                                 <div className="contactCard">
                                     <div className="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
@@ -99,7 +99,7 @@ function Contact() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-4 col-md-12 col-sm-12 col-xs-12">
+                            <div className="col-20 col-md-60 col-sm-60 col-xs-60">
                                 <div className="contactCard">
                                     <div className="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
@@ -112,7 +112,7 @@ function Contact() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-4 col-md-12 col-sm-12 col-xs-12">
+                            <div className="col-20 col-md-60 col-sm-60 col-xs-60">
                                 <div className="contactCard">
                                     <div className="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
@@ -128,7 +128,7 @@ function Contact() {
                         </div>
                     </div>
                     <div className="row form-section">
-                        <div className="col-6 col-md-12 col-sm-12 col-xs-12">
+                        <div className="col-30 col-md-60 col-sm-60 col-xs-60">
                             <div className="form" data-aos="fade-right">
                                 <div className="form-head">
                                     <hr />
@@ -137,7 +137,7 @@ function Contact() {
                                 <div className="form-body">
                                     <form onSubmit={handleSubmit}> {/* onSubmit'i handleSubmit ile bağladım */}
                                         <div className="row">
-                                            <div className="col-6 col-md-12 col-sm-12 col-xs-12">
+                                            <div className="col-30 col-md-60 col-sm-60 col-xs-60">
                                                 <label>{t("contact.form.labels.name")}</label> <br />
                                                 <input
                                                     placeholder={t("contact.form.placeholders.name")}
@@ -150,7 +150,7 @@ function Contact() {
                                                     <span className="error-message">{errors.name}</span>
                                                 )}
                                             </div>
-                                            <div className="col-6 col-md-12 col-sm-12 col-xs-12">
+                                            <div className="col-30 col-md-60 col-sm-60 col-xs-60">
                                                 <label>{t("contact.form.labels.surname")}</label> <br />
                                                 <input
                                                     placeholder={t("contact.form.placeholders.surname")}
@@ -163,7 +163,7 @@ function Contact() {
                                                     <span className="error-message">{errors.surname}</span>
                                                 )}
                                             </div>
-                                            <div className="col-12">
+                                            <div className="col-60">
                                                 <label>{t("contact.form.labels.email")}</label> <br />
                                                 <input
                                                     type="email"
@@ -177,7 +177,7 @@ function Contact() {
                                                     <span className="error-message">{errors.email}</span>
                                                 )}
                                             </div>
-                                            <div className="col-12">
+                                            <div className="col-60">
                                                 <label>{t("contact.form.labels.phone")}</label> <br />
                                                 <input
                                                     type="tel"
@@ -193,7 +193,7 @@ function Contact() {
                                                     </span>
                                                 )}
                                             </div>
-                                            <div className="col-12">
+                                            <div className="col-60">
                                                 <label>{t("contact.form.labels.description")}</label>{" "}
                                                 <br />
                                                 <textarea
@@ -209,7 +209,7 @@ function Contact() {
                                                     </span>
                                                 )}
                                             </div>
-                                            <div className="col-12">
+                                            <div className="col-60">
                                                 <button type="submit">{t("contact.form.button")}</button>
                                             </div>
                                         </div>
@@ -217,7 +217,7 @@ function Contact() {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-6 col-md-12 col-sm-12 col-xs-12">
+                        <div className="col-30 col-md-60 col-sm-60 col-xs-60">
                             <div className="map" data-aos="fade-left">
                                 <iframe
                                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3603.5460616273745!2d49.85555347640196!3d40.41115175597831!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40307d003436b447%3A0xb8c6c13c52985f63!2sQAVO%20MMC!5e1!3m2!1sen!2saz!4v1745930590256!5m2!1sen!2saz"

@@ -6,7 +6,7 @@ function DoktorCard2({id,name,img,desc}) {
     console.log(img)
     const navigate = useNavigate();
     return (
-        <div className={"col-4 col-md-6 col-sm-6 col-xs-6"} onClick={()=>navigate(`/doktor/${id}`)}>
+        <div className={"col-20 col-md-30 col-sm-30 col-xs-30"} onClick={()=>navigate(`/doktor/${id}`)}>
             <div id={"doktorCard2"}>
                 <div className={"image"}>
                     {/*<img src={DOCTOR_IMG_URL+img}/>*/}

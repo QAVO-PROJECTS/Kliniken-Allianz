@@ -16,23 +16,23 @@ function AboutUs() {
             <div className={"container"}>
                 <div className={"aboutUs"}>
                     <div className={"head"}>
-                        <h1>{t("aboutUs.title")}</h1>
+                        <h1>Haqqımızda</h1>
                         <p data-aos="fade-up" data-aos-delay="100">
-                            <Link to={"/"}>{t("aboutUs.breadcrumb.home")}</Link>
+                            <Link to={"/"}>Ana səhifə</Link>
                             <div className={"dot"}></div>
-                            <Link to={"/about"}>{t("aboutUs.breadcrumb.about")}</Link>
+                            <Link to={"/about"}>Layihələrimiz</Link>
                         </p>
                     </div>
                     <div className={"row firstRow"}>
-                        <div className={"col-7 col-md-12 col-sm-12 col-xs-12"}>
+                        <div className={"col-35 col-md-60 col-sm-60 col-xs-60"}>
                             <div className={"content"}>
-                                <h2>{t("aboutUs.section1.title")}</h2>
-                                <p>{t("aboutUs.section1.description")}</p>
+                                <h2>Hər Addımda Sizinlə: Yüksək Keyfiyyətli Tibbi Xidmətlər</h2>
+                                <p>Aviasiya biletlərindən viza dəstəyinə qədər hər detala diqqət yetirərək, sağlamlıq yolculuğunuzu asan və təhlükəsiz bir şəkildə reallaşdırırıq. Bizimlə olan hər addımınızda sizi etibarlı və peşəkar bir xidmət gözləyir.</p>
                                 <div
                                     className={"more"}
                                     onClick={() => navigate("/contact")}
                                 >
-                                    {t("aboutUs.section1.contactButton")}{" "}
+                                    Bizimlə əlaaqəyə keç
                                     <img src={glass} className={'glass-image'} />
                                     {/*<button>*/}
                                     {/*    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">*/}
@@ -42,7 +42,7 @@ function AboutUs() {
                                 </div>
                             </div>
                         </div>
-                        <div className={"col-5 col-md-12 col-sm-12 col-xs-12"} style={{
+                        <div className={"col-25 col-md-60 col-sm-60 col-xs-60"} style={{
                             display: isMobile && "none"
                         }}>
                             <div className={"image"}>
@@ -56,7 +56,7 @@ function AboutUs() {
                             desc='"Kliniken Allianz olaraq, sağlamlıq turizmi sahəsində fərqli ölkələrdəki ən yaxşı tibbi müəssisələrlə əməkdaşlıq edirik.'
                         />
                         <div className={"row"}>
-                            <div className={"col-3 col-md-6 col-sm-12 col-xs-12"}>
+                            <div className={"col-15 col-md-30 col-sm-60 col-xs-60"}>
                                 <div className={"aboutCard"}>
                                     <div className={"icon icon1"}>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -66,7 +66,7 @@ function AboutUs() {
                                     <h4>{t("aboutUs.section2.cards.consultation.title")}</h4>
                                 </div>
                             </div>
-                            <div className={"col-3 col-md-6 col-sm-12 col-xs-12"}>
+                            <div className={"col-15 col-md-30 col-sm-60 col-xs-60"}>
                                 <div className={"aboutCard"}>
                                     <div className={"icon icon2"}>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
@@ -76,7 +76,7 @@ function AboutUs() {
                                     <h4>{t("aboutUs.section2.cards.partnership.title")}</h4>
                                 </div>
                             </div>
-                            <div className={"col-3 col-md-6 col-sm-12 col-xs-12"}>
+                            <div className={"col-15 col-md-30 col-sm-60 col-xs-60"}>
                                 <div className={"aboutCard"}>
                                     <div className={"icon icon1"}>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
@@ -87,7 +87,7 @@ function AboutUs() {
                                     <h4>{t("aboutUs.section2.cards.travel.title")}</h4>
                                 </div>
                             </div>
-                            <div className={"col-3 col-md-6 col-sm-12 col-xs-12"}>
+                            <div className={"col-15 col-md-30 col-sm-60 col-xs-60"}>
                                 <div className={"aboutCard"}>
                                     <div className={"icon icon2"}>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">

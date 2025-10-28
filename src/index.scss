@@ -33,36 +33,36 @@ body>div {
 button{
   cursor: pointer;
 }
-@for $i from 1 through 12 {
+@for $i from 1 through 60 {
   .col-#{$i} {
-    width: calc(100% / 12 * #{$i});
+    width: calc(100% / 60 * #{$i});
     padding: 16px;
   }
 }
 
 
 @media screen and (max-width: 992px) and (min-width: 768px) {
-  @for $i from 1 through 12 {
+  @for $i from 1 through 60 {
     .col-md-#{$i} {
-      width: calc(100% / 12 * #{$i});
+      width: calc(100% / 60 * #{$i});
       padding: 16px;
     }
   }
 }
 
 @media screen and (max-width: 768px) and (min-width: 576px) {
-  @for $i from 1 through 12 {
+  @for $i from 1 through 60 {
     .col-sm-#{$i} {
-      width: calc(100% / 12 * #{$i});
+      width: calc(100% / 60 * #{$i});
       padding: 16px;
     }
   }
 }
 
 @media screen and (max-width: 576px) {
-  @for $i from 1 through 12 {
+  @for $i from 1 through 60 {
     .col-xs-#{$i} {
-      width: calc(100% / 12 * #{$i});
+      width: calc(100% / 60 * #{$i});
       padding: 16px;
     }
   }

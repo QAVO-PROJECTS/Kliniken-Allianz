@@ -26,8 +26,9 @@ import {t} from "i18next";
 import mobileBanner from "../../../assets/MobileBanner.png";
 import {useMediaQuery} from "react-responsive";
 const galleryImages = [gallery1, gallery2, gallery3, gallery4];
-
-
+import img2 from '/src/assets/ClinicDetialFirst.png'
+import sertifikat from '/src/assets/Sertifikat11.jpg'
+import cardIcon from "/src/assets/icon1.png"
 function ClinicDetail() {
     const {id} = useParams()
 
@@ -84,13 +85,18 @@ const {data:getClinicById} = useGetClinicByIdQuery(id)
     };
 
 
-
-    const serviceCards = clinic?.services?.map((item, i) => (
+    const services = [
+        {},
+        {},
+        {},
+        {},
+    ]
+    const serviceCards = services.map((item, i) => (
         <HomeServiceCard
             id={item.id}
-            name={getLocalizedText(item, 'name')}
-            desc={getLocalizedText(item, 'desc')}
-            icon={item.serviceCardImage}
+            name={"Xərçəng müalicəsi"}
+            desc={"Həyat keyfiyyətinizi yüksəltmək üçün ən yeni xərçəng müalicə üsulları."}
+            icon={cardIcon}
         />
     ));
     const displayedServiceCards = showAllServices
@@ -156,6 +162,20 @@ const {data:getClinicById} = useGetClinicByIdQuery(id)
         gallerySliderRef.current.style.transform = `translateX(-${index * 100}%)`;
     };
     const isMobile = useMediaQuery({maxWidth:768})
+    const sertifikats = [
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+    ]
+const doctors = [
+    {},
+    {},
+    {},
+    {},
+]
     return (
         <div id="clinic-detail">
             <div className="container">
@@ -165,17 +185,17 @@ const {data:getClinicById} = useGetClinicByIdQuery(id)
                     <p>
                         <Link to="/">Ana səhifə</Link>
                         <div className="dot"/>
-                        <Link to={`/clinics/${clinic?.id}`}>{clinic?.name}</Link>
+                        <Link to={`/clinics/${clinic?.id}`}>GlobalMed Klinikası</Link>
                     </p>
                 </div>
 
                 {/* First Section */}
                 <div className="row first-section">
-                    <div className="col-7 col-md-12 col-sm-12 col-xs-12">
+                    <div className="col-35 col-md-60 col-sm-60 col-xs-60">
                         <div className="content">
-                            <h3>{clinic?.name}</h3>
+                            <h3>GlobalMed Klinikası</h3>
                             <p>
-                                {clinic?.description}
+                                GlobalMed Klinikası Almaniyada yerləşən, geniş tibbi xidmət sahələr və ən son texnologiyalarla təchiz olunmuş aparıcı sağlamlıq mərkəzlərindən biridir. Klinikada kardiologiya, onkologiya, ortopediya, estetik və digər sahələr üzrə müalicə və diaqnostika xidmətləri təqdim olunur.
                             </p>
                             <div className={"icons"}>
                                 <div className={"icon1"}>
@@ -204,9 +224,10 @@ const {data:getClinicById} = useGetClinicByIdQuery(id)
                             </div>
                         </div>
                     </div>
-                    <div className="col-5 col-md-12 col-sm-12 col-xs-12">
+                    <div className="col-25 col-md-60 col-sm-60 col-xs-60">
                         <div className="image">
-                            <img src={CLINIC_CARD_IMAGES+clinic?.clinicCardImage} alt="GlobalMed Klinikası"/>
+                            {/*<img src={CLINIC_CARD_IMAGES+clinic?.clinicCardImage} alt="GlobalMed Klinikası"/>*/}
+                            <img src={img2} alt="GlobalMed Klinikası"/>
                         </div>
                     </div>
                 </div>
@@ -215,10 +236,20 @@ const {data:getClinicById} = useGetClinicByIdQuery(id)
                 <div className="second-section">
                     <h2>Sertifikatlar</h2>
                     <div className="row">
-                        {clinic?.clinicSertificates?.map((card, idx) => (
+                        {/*{clinic?.clinicSertificates?.map((card, idx) => (*/}
+                        {/*    <CardCertificate*/}
+                        {/*        index={idx}*/}
+                        {/*        image={card}*/}
+                        {/*        number={idx+1}*/}
+                        {/*        text="Sertifikat"*/}
+                        {/*        data-aos="zoom-in"*/}
+                        {/*        data-aos-delay={idx * 100}*/}
+                        {/*    />*/}
+                        {/*))}*/}
+                        {sertifikats.map((card, idx) => (
                             <CardCertificate
                                 index={idx}
-                                image={card}
+                                image={sertifikat}
                                 number={idx+1}
                                 text="Sertifikat"
                                 data-aos="zoom-in"
@@ -277,8 +308,8 @@ const {data:getClinicById} = useGetClinicByIdQuery(id)
                         marginBottom: '50px',
                     }}>
                         <div className="slider-card row" ref={sliderRef}>
-                            {clinic?.doctors?.map((item) => (
-                                <DoktorCard id={item?.id} name={item.name} desc={item.role} img={item.doctorImage} />
+                            {cards.map((item) => (
+                                <DoktorCard id={item?.id} name={item.name} desc={item.role} img={item.imageUrl} />
                             ))}
                         </div>
                     </div>
@@ -297,9 +328,9 @@ const {data:getClinicById} = useGetClinicByIdQuery(id)
                     <div className="gallery">
                         <div className="gallery-slider-wrapper">
                             <div className="gallery-slider" ref={gallerySliderRef}>
-                                {clinic?.clinicImages?.map((img, idx) => (
+                                {galleryImages.map((img, idx) => (
                                     <div className="gallery-slide" key={idx}>
-                                        <img src={CLINIC_IMAGES+img} alt={`Gallery ${idx + 1}`}/>
+                                        <img src={img} alt={`Gallery ${idx + 1}`}/>
                                     </div>
                                 ))}
                             </div>
@@ -339,7 +370,7 @@ const {data:getClinicById} = useGetClinicByIdQuery(id)
                 {/* Contact Section */}
                 <div className="contact">
                     <div className="row form-section">
-                        <div className="col-6 col-md-12 col-sm-12 col-xs-12">
+                        <div className="col-30 col-md-60 col-sm-60 col-xs-60">
                             <div className="form" data-aos="fade-right">
                                 <div className="form-head">
                                     <hr/>
@@ -349,7 +380,7 @@ const {data:getClinicById} = useGetClinicByIdQuery(id)
                                     <form onSubmit={() => { /* handle submission */
                                     }}>
                                         <div className="row">
-                                            <div className="col-6 col-md-12 col-sm-12 col-xs-12">
+                                            <div className="col-30 col-md-60 col-sm-60 col-xs-60">
                                                 <label>Ad</label>
                                                 <input
                                                     placeholder="Adınızı daxil edin"
@@ -360,7 +391,7 @@ const {data:getClinicById} = useGetClinicByIdQuery(id)
                                                 />
                                                 {errors.name && <span className="error-message">{errors.name}</span>}
                                             </div>
-                                            <div className="col-6 col-md-12 col-sm-12 col-xs-12">
+                                            <div className="col-30 col-md-60 col-sm-60 col-xs-60">
                                                 <label>Soyad</label>
                                                 <input
                                                     placeholder="Soyadınızı daxil edin"
@@ -373,7 +404,7 @@ const {data:getClinicById} = useGetClinicByIdQuery(id)
                                                     <span className="error-message">{errors.surname}</span>
                                                 )}
                                             </div>
-                                            <div className="col-12">
+                                            <div className="col-60">
                                                 <label>Email</label>
                                                 <input
                                                     type="email"
@@ -385,7 +416,7 @@ const {data:getClinicById} = useGetClinicByIdQuery(id)
                                                 />
                                                 {errors.email && <span className="error-message">{errors.email}</span>}
                                             </div>
-                                            <div className="col-12">
+                                            <div className="col-60">
                                                 <label>Nömrə</label>
                                                 <input
                                                     type="tel"
@@ -399,7 +430,7 @@ const {data:getClinicById} = useGetClinicByIdQuery(id)
                                                     <span className="error-message">{errors.phoneNumber}</span>
                                                 )}
                                             </div>
-                                            <div className="col-12">
+                                            <div className="col-60">
                                                 <label>Qeyd</label>
                                                 <textarea
                                                     rows={5}
@@ -412,7 +443,7 @@ const {data:getClinicById} = useGetClinicByIdQuery(id)
                                                     <span className="error-message">{errors.description}</span>
                                                 )}
                                             </div>
-                                            <div className="col-12">
+                                            <div className="col-60">
                                                 <button type="submit">Göndər</button>
                                             </div>
                                         </div>
@@ -420,7 +451,7 @@ const {data:getClinicById} = useGetClinicByIdQuery(id)
                                 </div>
                             </div>
                         </div>
-                        <div className="col-6 col-md-12 col-sm-12 col-xs-12">
+                        <div className="col-30 col-md-60 col-sm-60 col-xs-60">
                             <div className="map" data-aos="fade-left">
                                 <iframe
                                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3603.5460616273745!2d49.85555347640196!3d40.41115175597831!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40307d003436b447%3A0xb8c6c13c52985f63!2sQAVO%20MMC!5e1!3m2!1sen!2saz!4v1745930590256!5m2!1sen!2saz"

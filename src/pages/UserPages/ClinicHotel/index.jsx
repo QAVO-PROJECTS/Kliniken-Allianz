@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import {useGetAllOtelsQuery} from "../../../services/userApi.jsx";
 import HotelCard from "../../../components/UserComponents/Home/HotelCard/index.jsx";
+import image from "../../../assets/ServiceDetailCard.png";
 
 function ClinicHotel() {
     const { t } = useTranslation();
@@ -95,9 +96,9 @@ const {data:getAllOtels} = useGetAllOtelsQuery()
     };
 
     return (
-        <div id="home-hotel">
+        <div id="clinic-hotel">
             <div className="container">
-                <div className="head">
+                <div className="headd">
                     <h2>{t('homeHotel.title')}</h2>
                     <p>Sizin rahatlığınız üçün seçilmiş, beynəlxalq standartlara uyğun otellər.</p>
                 </div>
@@ -114,11 +115,12 @@ const {data:getAllOtels} = useGetAllOtelsQuery()
                     <div className="slider-card row" ref={sliderRef}>
                         {cards?.map((item) => (
                             <HotelCard
+                                key={item.id}
                                 id={item.id}
-                                name={item.name}
-                                desc={item.location}
-                                img={item.cardImage}
-                                imgAlt={t('homeHotel.cardImgAlt', { name: item.name })}
+                                name={"Universitätsklinikum"}
+                                desc={"Frankfurt, Almaniya"}
+                                img={image}
+                                imgAlt={t('homeClinic.cardImgAlt')}
                             />
                         ))}
                     </div>

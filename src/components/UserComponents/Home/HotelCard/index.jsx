@@ -4,11 +4,18 @@ import {OTEL_CARD_IMAGES} from "../../../../contants.js";
 
 function HotelCard({name,desc,img}) {
     return (
-        <div className={"col-3"}>
+        <div className={"col-12"}>
             <div
                 id={"hotelCard"}
+                // style={{
+                //     background: `linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(${OTEL_CARD_IMAGES+img})`,
+                //     backgroundSize: "cover",
+                //     backgroundRepeat: "no-repeat",
+                //     backgroundPosition: "center",
+                //
+                // }}
                 style={{
-                    background: `linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(${OTEL_CARD_IMAGES+img})`,
+                    background: `linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(${img})`,
                     backgroundSize: "cover",
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "center",

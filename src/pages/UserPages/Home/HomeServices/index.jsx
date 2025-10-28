@@ -3,7 +3,7 @@ import HomeServiceCard from '../../../../components/UserComponents/Home/ServiceC
 import image from '/src/assets/HomeVideo.gif';
 import { useTranslation } from 'react-i18next';
 import { useGetAllCategoryQuery } from "../../../../services/userApi.jsx";
-
+import icons from "/src/assets/icon1.png"
 function HomeServices() {
     const { t, i18n } = useTranslation();
     const { data: getAllService } = useGetAllCategoryQuery();
@@ -26,8 +26,8 @@ function HomeServices() {
             <div className={'container'}>
                 <div className={'head'}>
                     <div className={'title'}>
-                        <h2>{t('homeServices.title')}</h2>
-                        <p>{t('homeServices.description')}</p>
+                        <h2>Sizə Təklif Etdiyimiz Tibbi Xidmətlər</h2>
+                        <p>Sizin ehtiyaclarınıza uyğun tibbi xidmət sahələrini kəşf edin.</p>
                     </div>
                     <div>
                         <button>
@@ -53,9 +53,9 @@ function HomeServices() {
                     {cardss?.map((card) => (
                         <HomeServiceCard
                             id={card?.id}
-                            name={getLocalizedText(card, 'name')}
-                            desc={getLocalizedText(card, 'desc')}
-                            icon={card.categoryImage}
+                            name={"Xərçəng müalicəsi"}
+                            desc={"Həyat keyfiyyətinizi yüksəltmək üçün ən yeni xərçəng müalicə üsulları."}
+                            icon={icons}
                         />
                     ))}
                 </div>

@@ -8,7 +8,7 @@ function HomeServiceCard({ name, desc, icon,id }) {
     const navigate = useNavigate();
     console.log(id)
     return (
-        <div className={'col-3 col-md-6 col-sm-6 col-xs-6'} style={{ padding: '8px' }} onClick={() => navigate(`/category/${id}`)}>
+        <div className={'col-15 col-md-30 col-sm-30 col-xs-30'} style={{ padding: '8px' }} onClick={() => navigate(`/category/${id}`)}>
             <div id={'homeServCard'}>
                 <div className={'icons'}>
                     {/*<img src={CATEGORY_IMAGES + icon} alt={t('homeServiceCard.iconAlt', { name })} />*/}

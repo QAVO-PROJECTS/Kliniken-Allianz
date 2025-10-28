@@ -6,7 +6,7 @@
   }
   .bannerAbout{
     position: absolute;
-    top: -40px;
+    top: -100px;
     left: 0;
     width: 100%;
     z-index:-1;
@@ -138,20 +138,20 @@
     .content{
       h2{
         color: #000;
-        font-size: 32px;
+        font-size: 24px;
         font-style: normal;
         font-weight: 600;
-        line-height: 48px; /* 150% */
-        margin-bottom: 16px;
+        line-height: 36px; /* 150% */
+        margin-bottom: 12px;
       }
       p{
         width: 95%;
         color: #454545;
-        font-size: 16px;
+        font-size: 14px;
         font-style: normal;
         font-weight: 400;
-        line-height: 35px; /* 218.75% */
-        margin-bottom: 32px;
+        line-height: 32px; /* 218.75% */
+        margin-bottom: 24px;
       }
       @media (max-width: 576px) {
         h2{
@@ -243,7 +243,7 @@
   .second-section {
     margin-bottom: 72px;
     .header{
-      margin-bottom: 48px;
+      margin-bottom: 32px;
       padding: 0 16px;
       @media (max-width: 576px) {
         margin-bottom: 24px;
@@ -259,10 +259,11 @@
         }
         h2{
           color: #000;
-          font-size: 24px;
+          font-size: 20px;
           font-style: normal;
           font-weight: 600;
           line-height: 48px; /* 200% */
+          margin: 0;
         }
         @media (max-width: 576px) {
           h2{
@@ -274,10 +275,10 @@
       p{
         width: 85%;
         color: #454545;
-        font-size: 16px;
+        font-size: 14px;
         font-style: normal;
         font-weight: 400;
-        line-height: 35px; /* 218.75% */
+        line-height: 28px; /* 218.75% */
         @media (max-width: 576px) {
           width: 100%;
           font-size: 14px;

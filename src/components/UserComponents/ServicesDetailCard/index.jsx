@@ -6,7 +6,7 @@ import {CLINIC_CARD_IMAGES} from "../../../contants.js";
 function ServiceDetailCard({name,desc,img,id}) {
     const navigate = useNavigate();
     return (
-       <div className={"col-3 col-md-6 col-sm-6 col-xs-6"} style={{padding:'4px'}} onClick={()=>navigate(`/clinics/${id}`)}>
+       <div className={"col-12 col-md-30 col-sm-30 col-xs-30"} style={{padding:'4px'}} onClick={()=>navigate(`/clinics/${id}`)}>
            <div id={"serviceDetailCard"}>
                 <div className={"cardImage"}>
                     {/*<img src={CLINIC_CARD_IMAGES+img} />*/}

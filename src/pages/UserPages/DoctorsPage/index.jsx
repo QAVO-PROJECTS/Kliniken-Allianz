@@ -2,28 +2,26 @@ import "./index.scss";
 import banner from "/src/assets/AboutBanner.png";
 import { Link, useNavigate } from "react-router-dom";
 
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import { useTranslation } from "react-i18next";
-import { usePostContactMutation } from "../../../services/userApi.jsx"; // Mutation hook'unu ekledim
-import { message } from "antd";
-import ServiceDetailCard from "../../../components/UserComponents/ServicesDetailCard/index.jsx"; // Success/error için ekledim
 import img1 from "/src/assets/dSamer.png"
 import DoktorCard2 from "../../../components/UserComponents/DoktorCard2/index.jsx";
 import dolu from "/src/assets/doluUlduz.svg"
 import bos from  "/src/assets/bosUlduz.svg"
 import Pagination from "../../../components/UserComponents/Pagination/index.jsx";
 import {useMediaQuery} from "react-responsive";
+import filtr from "/src/assets/filter.svg"
+import mobileBanner from "../../../assets/MobileBanner.png";
 function DoctorsPage() {
     const { t } = useTranslation();
 
     const [filterOpen, setFilterOpen] = useState(false);
-
+    const isMobile = useMediaQuery({maxWidth:768})
     // ---- FILTER STATE-lər ----
     const [selectedExperience, setSelectedExperience] = useState([]);
     const [selectedClinics, setSelectedClinics] = useState([]);
     const [selectedRatings, setSelectedRatings] = useState([]);
     const [selectedAreas, setSelectedAreas] = useState([]);
-    const isMobile = useMediaQuery({maxWidth:768})
     // ---- Toggle funksiyaları ----
     const toggleExperience = (val) => {
         setSelectedExperience((prev) =>
@@ -47,6 +45,27 @@ function DoctorsPage() {
         setSelectedAreas((prev) =>
             prev.includes(val) ? prev.filter((v) => v !== val) : [...prev, val]
         );
+    };
+    useEffect(() => {
+        if (filterOpen) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "auto";
+        }
+        return () => {
+            document.body.style.overflow = "auto";
+        };
+    }, [filterOpen]);
+    const totalSelectedCount =
+        selectedExperience.length +
+        selectedClinics.length +
+        selectedRatings.length +
+        selectedAreas.length;
+    const handleClearAll = () => {
+        setSelectedExperience([]);
+        setSelectedClinics([]);
+        setSelectedRatings([]);
+        setSelectedAreas([]);
     };
 
     // ---- Reset funksiyaları ----
@@ -81,7 +100,7 @@ function DoctorsPage() {
                             <div className="dot"></div>
                             <Link to="/doctors">Həkimlər</Link>
                         </p>
-                        <div>
+                        <div className={"settingss"}>
                             <div className={'search'}>
                                 <input type={'text'} placeholder={"Axtarış edin....."}/>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -90,7 +109,9 @@ function DoctorsPage() {
 
                             </div>
                             <button className="mobile-filter-btn" onClick={() => setFilterOpen(true)}>
+                                <img src={filtr}/>
                                 Filtrlə
+                                <div style={{ color: "#8C8C8C" }}>{totalSelectedCount > 0 ? `${totalSelectedCount}` : "0"}</div>
                             </button>
 
                         </div>
@@ -101,8 +122,8 @@ function DoctorsPage() {
                     </div>
                     <div className={'cards'}>
                         <div className={'row'}>
-                            <div className={'col-3'} style={{
-                                padding:"32px 8px",
+                            <div className={'col-15'} style={{
+                                padding:"16px 8px",
                                 display: isMobile ? 'none' : 'block',
                             }}>
                                 <div className="filter-bar">
@@ -205,7 +226,7 @@ function DoctorsPage() {
                                 </div>
 
                             </div>
-                            <div className={isMobile ? 'col-12' : 'col-9'} style={{
+                            <div className={isMobile ? 'col-60' : 'col-45'} style={{
                                 padding:'0px'
                             }}>
                                 <div className={'row'}>
@@ -225,7 +246,7 @@ function DoctorsPage() {
             </div>
             <div className={`filter-bar-mobile ${filterOpen ? "open" : ""}`}>
                 <div className="filter-bar-header">
-                    <h3>Filtr</h3>
+                    <h3>Filtr <span style={{ color: "#8C8C8C" }}>{totalSelectedCount > 0 ? `(${totalSelectedCount})` : ""}</span></h3>
                     <button onClick={() => setFilterOpen(false)}>✕</button>
                 </div>
                 <div className="filter-bar-content">
@@ -323,11 +344,19 @@ function DoctorsPage() {
                             ))}
                         </div>
                     </div>
+                    <div className={'buttons'}>
+                        <button className={"clean"} onClick={handleClearAll}>Təmizlə</button>
+                        <button className={'submitButton'}>Tətbiq et</button>
+                    </div>
                 </div>
+
             </div>
 
-            <div className="bannerAbout">
-                <img src={banner} alt={t("contact.bannerAlt")} />
+            <div className={"bannerAbout"}>
+                <img
+                    src={isMobile ? mobileBanner : banner}
+                    alt={t("aboutUs.bannerAlt")}
+                />
             </div>
         </div>
     );

@@ -17,8 +17,11 @@ const CardCertificate = ({ image, number, text, index }) => {
        numbers = "0"+numbers;
     }
     return (
-        <div className="col-2 col-md-4 col-sm-6 col-xs-6" style={{ padding: "8px" }}>
-            <div id="card-certificate-clinic" style={{ backgroundImage: `url(${CERT_CLINIC_URL+image})` }} onClick={openModal}>
+        <div className="col-10 col-md-20 col-sm-30 col-xs-30" style={{ padding: "8px" }}>
+            <div id="card-certificate-clinic"
+                 // style={{ backgroundImage: `url(${CERT_CLINIC_URL+image})` }}
+                 style={{ backgroundImage: `url(${image})` }}
+                 onClick={openModal}>
                 <div className={`overlay ${layoutClass}`}>
                     <div className="number">{numbers}</div>
                     <div className="text">{text}</div>
@@ -28,7 +31,8 @@ const CardCertificate = ({ image, number, text, index }) => {
             {isModalOpen && (
                 <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
                     <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                        <img src={CERT_CLINIC_URL+image} alt="Certificate" />
+                        {/*<img src={CERT_CLINIC_URL+image} alt="Certificate" />*/}
+                        <img src={image} alt="Certificate" />
                         <button className="close-button" onClick={closeModal}>X</button>
                     </div>
                 </div>

@@ -38,7 +38,7 @@ function Footer() {
         <section id="footer">
             <div className="container">
                 <div className="row">
-                    <div className="col-4 col-md-12 col-sm-12 col-xs-12">
+                    <div className="col-20 col-md-60 col-sm-60 col-xs-60">
                         <div className="main-text">
                             <div className="logo">
                                 <img
@@ -51,9 +51,9 @@ function Footer() {
                             <p>{t('footer.description')}</p>
                         </div>
                     </div>
-                    <div className="col-8 col-md-12 col-sm-12 col-xs-12">
+                    <div className="col-40 col-md-60 col-sm-60 col-xs-60">
                         <div className="row">
-                            <div className="col-4 col-md-12 col-sm-12 col-xs-12">
+                            <div className="col-20 col-md-60 col-sm-60 col-xs-60">
                                 <div className="services">
                                     <h3>{t('footer.links')}</h3>
                                     <ul>
@@ -68,7 +68,7 @@ function Footer() {
                                     </ul>
                                 </div>
                             </div>
-                            <div className="col-4 col-md-12 col-sm-12 col-xs-12">
+                            <div className="col-20 col-md-60 col-sm-60 col-xs-60">
                                 <div className="services">
                                     <h3>{t('footer.contactTitle')}</h3>
                                     <div className="foot-contact">
@@ -91,7 +91,7 @@ function Footer() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-4 col-md-12 col-sm-12 col-xs-12">
+                            <div className="col-20 col-md-60 col-sm-60 col-xs-60">
                                 <div className="social">
                                     <div className="icons">
                                         <div className="icon">
@@ -119,14 +119,14 @@ function Footer() {
                             </div>
                         </div>
                     </div>
-                    <div className="col-12">
+                    <div className="col-60">
                         <div className="row created">
-                            <div className="col-6 col-md-12 col-sm-12 col-xs-12">
+                            <div className="col-30 col-md-60 col-sm-60 col-xs-60">
                                 <div className="permision">
                                     {t('footer.copyright')}
                                 </div>
                             </div>
-                            <div className="col-6 col-md-12 col-sm-12 col-xs-12">
+                            <div className="col-30 col-md-60 col-sm-60 col-xs-60">
                                 <div className="createdBy">
                                     {t('footer.createdBy')} <a href="https://qavo.az/" target="_blank" rel="noopener noreferrer">BuyonTech</a>
                                 </div>

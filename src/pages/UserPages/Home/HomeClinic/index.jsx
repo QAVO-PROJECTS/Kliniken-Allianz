@@ -3,8 +3,9 @@ import { useRef, useState, useEffect } from 'react';
 import ServiceDetailCard from '../../../../components/UserComponents/ServicesDetailCard/index.jsx';
 import { HiOutlineArrowLeft, HiOutlineArrowRight } from 'react-icons/hi';
 import { useTranslation } from 'react-i18next';
-
+import image from "/src/assets/ServiceDetailCard.png"
 import {useGetAllClinicQuery} from "../../../../services/userApi.jsx";
+import ClinicCard from "../../../../components/UserComponents/ClinicCard/index.jsx";
 
 function HomeClinic() {
     const { t, i18n } = useTranslation();
@@ -131,14 +132,14 @@ function HomeClinic() {
             <div className="container">
 
                 <div className={'row'}>
-                    <div className={"col-5"}>
+                    <div className={"col-25"}>
                         <div className="content">
-                            <h2>{t('homeClinic.title')}</h2>
-                            <p>{t('homeClinic.description')}</p>
+                            <h2>Etibar Edilən Sağlamlıq Mərkəzləri</h2>
+                            <p>Kliniken Allianz yalnız beynəlxalq standartlara cavab verən, müasir və etibarlı klinikalarla əməkdaşlıq edir.</p>
                             <button><span>Daha çox</span></button>
                         </div>
                     </div>
-                    <div className={'col-7'}>
+                    <div className={'col-35'}>
                         <div
                             className="slider-wrapper"
                             onMouseDown={startDragging}
@@ -151,12 +152,12 @@ function HomeClinic() {
                         >
                             <div className="slider-card row" ref={sliderRef}>
                                 {cardss.map((item, index) => (
-                                    <ServiceDetailCard
+                                    <ClinicCard
                                         key={index}
                                         id={item.id}
-                                        name={getLocalizedText(item, 'name')}
-                                        desc={getLocalizedText(item, 'desc')}
-                                        img={item.clinicCardImage}
+                                        name={"Universitätsklinikum"}
+                                        desc={"Frankfurt, Almaniya"}
+                                        img={image}
                                         imgAlt={t('homeClinic.cardImgAlt', { name: getLocalizedText(item, 'name') })}
                                     />
                                 ))}

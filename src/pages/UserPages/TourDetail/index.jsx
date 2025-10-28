@@ -27,42 +27,42 @@ function TourDetail() {
                     </p>
                 </div>
                 <div className={"row"}>
-                    <div className={'col-6 col-md-12 col-sm-12 col-xs-12 order2'}>
+                    <div className={'col-30 col-md-60 col-sm-60 col-xs-60 order2'}>
                         <div className={'content'}>
                             <h2>Almanya full paket</h2>
                             <p>Ürək və damar xəstəlikləri dünya üzrə ən geniş yayılmış sağlamlıq problemlərindəndir. Kliniken Allianz olaraq, bu sahədə ixtisaslaşmış, beynəlxalq təcrübəyə malik həkimlər və yüksək texnologiyalı klinikalarla əməkdaşlıq edirik.</p>
                             <div className={'row'}>
-                                <div className={'col-6'}>
+                                <div className={'col-30'}>
                                     <div className={'teklif'}>
                                         <img src={red} alt="" />
                                         <h5>Otel dəstəyi</h5>
                                     </div>
                                 </div>
-                                <div className={'col-6'}>
+                                <div className={'col-30'}>
                                     <div className={'teklif'}>
                                         <img src={red} alt="" />
                                         <h5>Otel dəstəyi</h5>
                                     </div>
                                 </div>
-                                <div className={'col-6'}>
+                                <div className={'col-30'}>
                                     <div className={'teklif'}>
                                         <img src={blue} alt="" />
                                         <h5>Otel dəstəyi</h5>
                                     </div>
                                 </div>
-                                <div className={'col-6'}>
+                                <div className={'col-30'}>
                                     <div className={'teklif'}>
                                         <img src={blue} alt="" />
                                         <h5>Otel dəstəyi</h5>
                                     </div>
                                 </div>
-                                <div className={'col-6'}>
+                                <div className={'col-30'}>
                                     <div className={'teklif'}>
                                         <img src={red} alt="" />
                                         <h5>Otel dəstəyi</h5>
                                     </div>
                                 </div>
-                                <div className={'col-6'}>
+                                <div className={'col-30'}>
                                     <div className={'teklif'}>
                                         <img src={red} alt="" />
                                         <h5>Otel dəstəyi</h5>
@@ -72,7 +72,7 @@ function TourDetail() {
                             <button>Müraciət et</button>
                         </div>
                     </div>
-                    <div className={'col-6 col-md-12 col-sm-12 col-xs-12 order1'}>
+                    <div className={'col-30 col-md-60 col-sm-60 col-xs-60 order1'}>
                         <div className="image-grid">
                             <div className="image image1">
                                 <img src={img1} alt="Germany"/>

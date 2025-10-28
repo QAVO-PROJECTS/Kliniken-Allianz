@@ -1,0 +1,78 @@
+#clinicCard {
+  overflow: hidden;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 12px;
+  .cardImage {
+    width: 100%;
+    aspect-ratio: 1/1.2;
+    border-radius: 12px;
+    overflow: hidden;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .content {
+    padding: 8px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    @media screen and (max-width: 576px){
+      padding: 10px 12px;
+    }
+    .text {
+      h5 {
+        font-weight: 500;
+        margin-bottom: 4px;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: #222;
+        font-size: 14px;
+        font-style: normal;
+        line-height: 21px; /* 150% */
+      }
+      p {
+        color: #8E8E8E;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 18px; /* 150% */
+
+        .icon {
+          color: #000000;
+          font-size: 15px;
+        }
+      }
+      @media screen and (max-width: 576px){
+        h5{
+          font-size: 13px;
+          font-style: normal;
+          line-height: 18px;
+        }
+        p{
+          width: 116%;
+          font-size: 11px;
+          font-style: normal;
+          line-height: 16.386px;
+        }
+      }
+    }
+
+    .arrow {
+      width: 24px;
+      height: 24px;
+      color: #00a367;
+      @media screen and (max-width: 576px){
+        width: 14px;
+        height: 14px;
+      }
+    }
+  }
+}

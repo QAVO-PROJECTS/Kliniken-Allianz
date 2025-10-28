@@ -18,6 +18,7 @@ import icon4 from "../../../assets/Servis/oftomoloq.png";
 import icon3 from "../../../assets/Servis/genekoloq.png";
 import icon5 from "../../../assets/Servis/hepatoloq.png";
 import glass from "/src/assets/glassButton.png"
+import clinicIcon from '/src/assets/clevelandClinic.png'
 import {
     useGetCategoryByIdQuery,
     useGetClinicByCategoryQuery,
@@ -118,6 +119,16 @@ function CategoryDetail() {
             icon: icon5,
         },
     ];
+    const clinics = [
+        {},
+        {},
+    ]
+    const services = [
+        {},
+        {},
+        {},
+        {},
+    ]
 
     return (
         <div id="category-detail">
@@ -125,20 +136,20 @@ function CategoryDetail() {
                 <div className="head">
                     <h1>Xidmət</h1>
                     <p data-aos="fade-up" data-aos-delay="100">
-                        <Link to="/">{t("contact.breadcrumb.home")}</Link>
+                        <Link to="/">Ana səhifə</Link>
                         <div className="dot dot1"></div>
                         <Link to="/">Kateqoriya</Link>
                         <div className="dot dot2"></div>
-                        <Link to="/clinics">Klinikalar</Link>
+                        <Link to="/clinics">Ürək-Damar Cərrahiyyəsi</Link>
                     </p>
 
 
                 </div>
                 <div className="first-section row">
-                    <div className="col-6 col-md-12 col-sm-12 col-xs-12 second">
+                    <div className="col-30 col-md-60 col-sm-60 col-xs-60 second">
                         <div className="content">
-                            <h2>{getLocalizedText(category, 'name')}</h2>
-                            <p>{getLocalizedText(category, 'desc')}</p>
+                            <h2>Ürək-Damar Cərrahiyyəsi</h2>
+                            <p>Ürək və damar xəstəlikləri dünya üzrə ən geniş yayılmış sağlamlıq problemlərindəndir. Kliniken Allianz olaraq, bu sahədə ixtisaslaşmış, beynəlxalq təcrübəyə malik həkimlər və yüksək texnologiyalı klinikalarla əməkdaşlıq edirik.</p>
                             <div className={"muraciet"} onClick={()=>navigate('/contact')}>
                                 Müraciət et
                                 <img src={glass} className={'glass-image'} />
@@ -148,7 +159,7 @@ function CategoryDetail() {
                             </div>
                         </div>
                     </div>
-                    <div className="col-6 col-md-12 col-sm-12 col-xs-12 first">
+                    <div className="col-30 col-md-60 col-sm-60 col-xs-60 first">
                         <div className="image">
                             <img
                                 src={isMobile ? mobileBanner : banner}
@@ -158,22 +169,33 @@ function CategoryDetail() {
                     </div>
                 </div>
                 <div>
-                    {clinic?.map((item) => (
+                    {clinics?.map((item) => (
                         <div className="second-section">
                             <div className="header">
                                 <div className="title">
-                                    <img src={CLINIC_CARD_IMAGES+item.clinicCardImage} alt={t("categoryDetail.secondSection.imageAlt")} />
-                                    <h2>{getLocalizedText(item, 'name')}</h2>
+                                    {/*<img src={CLINIC_CARD_IMAGES+item.clinicCardImage} alt={t("categoryDetail.secondSection.imageAlt")} />*/}
+                                    <img src={clinicIcon} alt={t("categoryDetail.secondSection.imageAlt")} />
+                                    <h2>Cleveland Clinic</h2>
                                 </div>
-                                <p>{getLocalizedText(item, 'desc')}</p>
+                                <p>Cleveland Clinic, qabaqcıl texnologiyalar və peşəkar həkim heyəti ilə ürək-damar xəstəliklərinin müalicəsində dünya səviyyəli xidmətlər təqdim edən, etibarlı və tanınmış bir tibbi mərkəzdir.</p>
                             </div>
                             <div className="row" style={{ marginBottom: "48px" }}>
-                                {item.services?.map((serv) => (
+                                {/*{services?.map((serv) => (*/}
+                                {/*    <HomeServiceCard*/}
+                                {/*        key={serv.id} // Key ekledim, unique olması için*/}
+                                {/*        id={serv.id}*/}
+                                {/*        name={getLocalizedText(serv, 'name')}*/}
+                                {/*        desc={getLocalizedText(serv, 'desc')}*/}
+                                {/*        // icon={serv.serviceCardImage}*/}
+                                {/*        icon={icon1}*/}
+                                {/*    />*/}
+                                {/*))}*/}
+                                {services?.map((serv) => (
                                     <HomeServiceCard
                                         key={serv.id} // Key ekledim, unique olması için
                                         id={serv.id}
-                                        name={getLocalizedText(serv, 'name')}
-                                        desc={getLocalizedText(serv, 'desc')}
+                                        name={'Xərçəng müalicəsi'}
+                                        desc={"Həyat keyfiyyətinizi yüksəltmək üçün ən yeni xərçəng müalicə üsulları."}
                                         // icon={serv.serviceCardImage}
                                         icon={icon1}
                                     />
@@ -201,9 +223,11 @@ function CategoryDetail() {
                     <div className={'whiteIcon'}>
                         <img  src={image3}/>
                     </div>
-                    <div className="row">
+                    <div className="row" style={{
+                        justifyContent: 'space-between',
+                    }}>
 
-                        <div className="col-7 col-md-12 col-sm-12 col-xs-12">
+                        <div className="col-32 col-md-60 col-sm-60 col-xs-60">
                             <div className="form">
                                 <div className="form-head">
 
@@ -212,7 +236,7 @@ function CategoryDetail() {
                                 <div className="form-body">
                                     <form onSubmit={handleSubmit}> {/* onSubmit'i handleSubmit ile bağladım */}
                                         <div className="row">
-                                            <div className="col-12" style={{
+                                            <div className="col-60" style={{
                                                 padding:"12px 0"
                                             }}>
                                                 <input
@@ -227,7 +251,7 @@ function CategoryDetail() {
                                                     <span className="error-message">{errors.email}</span>
                                                 )}
                                             </div>
-                                            <div className="col-12" style={{
+                                            <div className="col-60" style={{
                                                 padding:"12px 0"
                                             }}>
                                                 <textarea
@@ -242,7 +266,7 @@ function CategoryDetail() {
                                                     <span className="error-message">{errors.description}</span>
                                                 )}
                                             </div>
-                                            <div className="col-12" style={{
+                                            <div className="col-60" style={{
                                                 padding:"12px 0"
                                             }}>
                                                 <button type="submit">{t("categoryDetail.contact.form.button")}</button>
@@ -252,26 +276,26 @@ function CategoryDetail() {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-5 col-md-12 col-sm-12 col-xs-12">
+                        <div className="col-25 col-md-60 col-sm-60 col-xs-60">
                             <div className="image">
                                 <img src={image2} alt={t("categoryDetail.contact.imageAlt")} />
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="services">
-                    <div className="header">
-                        <h3>{t("categoryDetail.services.title")}</h3>
-                        <p>{t("categoryDetail.services.description")}</p>
-                    </div>
-                    <div>
-                        <CustomSlider
-                            currentIndex={currentIndex}
-                            setCurrentIndex={setCurrentIndex}
-                            visibleItems={visibleItems}
-                        />
-                    </div>
-                </div>
+                {/*<div className="services">*/}
+                {/*    <div className="header">*/}
+                {/*        <h3>{t("categoryDetail.services.title")}</h3>*/}
+                {/*        <p>{t("categoryDetail.services.description")}</p>*/}
+                {/*    </div>*/}
+                {/*    <div>*/}
+                {/*        <CustomSlider*/}
+                {/*            currentIndex={currentIndex}*/}
+                {/*            setCurrentIndex={setCurrentIndex}*/}
+                {/*            visibleItems={visibleItems}*/}
+                {/*        />*/}
+                {/*    </div>*/}
+                {/*</div>*/}
             </div>
             <div className={"bannerAbout"}>
                 <img

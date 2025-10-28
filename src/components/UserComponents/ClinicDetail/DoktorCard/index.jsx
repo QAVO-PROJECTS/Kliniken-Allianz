@@ -14,7 +14,7 @@ function DoktorCard({id,name,img,desc}) {
                 </div>
                 <div className={"content"}>
                     <h5>{name}</h5>
-                    <p>{desc}</p>
+                    <p>7 illik təcrübə</p>
                     <div className={"position"}>
                         Dermetology
                     </div>
