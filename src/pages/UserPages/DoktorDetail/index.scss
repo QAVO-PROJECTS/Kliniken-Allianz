@@ -5,7 +5,7 @@
   }
   .bannerAbout{
     position: absolute;
-    top: -100px;
+    top: -80px;
     left: 0;
     width: 100%;
     z-index:-1;
@@ -23,7 +23,7 @@
   .head {
     width: 100%;
     text-align: center;
-    margin-bottom: 250px;
+    margin-bottom: 200px;
     h1 {
       color: #191919;
       font-size: 16px;
@@ -66,7 +66,7 @@
     }
     .search{
       position: relative;
-      width: 50%;
+      width: 40%;
       margin:24px auto;
       height: 40px;
       input{
@@ -213,7 +213,7 @@
     }
 
     .doktorDetail {
-      padding: 67px 79.919px 35.129px 80px;
+      padding: 49px;
       border-radius: 15px;
       border: 0.95px solid #E5E5E5;
       background: #FFF;
@@ -221,15 +221,20 @@
       .first-section {
         padding: 0 8px;
         margin-bottom: 32px;
-
+        .row{
+          .col-30{
+            padding: 8px;
+          }
+        }
         h2 {
           color: #2C2C2C;
           font-family: Poppins;
           font-size: 18px;
           font-style: normal;
-          font-weight: 600;
+          font-weight: 500;
           line-height: 21px; /* 116.667% */
           margin-bottom: 32px;
+          margin-left: 8px;
         }
 
         .bio {
@@ -257,7 +262,7 @@
       }
 
       .second-section {
-
+margin-left: 8px;
         h2 {
           padding: 0 8px;
           color: #2C2C2C;

@@ -26,8 +26,10 @@ function TourDetail() {
                         <Link to="/clinics">Almanya full paket</Link>
                     </p>
                 </div>
-                <div className={"row"}>
-                    <div className={'col-30 col-md-60 col-sm-60 col-xs-60 order2'}>
+                <div className={"row"} style={{
+                    justifyContent: "space-between"
+                }}>
+                    <div className={'col-25 col-md-60 col-sm-60 col-xs-60 order2'}>
                         <div className={'content'}>
                             <h2>Almanya full paket</h2>
                             <p>Ürək və damar xəstəlikləri dünya üzrə ən geniş yayılmış sağlamlıq problemlərindəndir. Kliniken Allianz olaraq, bu sahədə ixtisaslaşmış, beynəlxalq təcrübəyə malik həkimlər və yüksək texnologiyalı klinikalarla əməkdaşlıq edirik.</p>

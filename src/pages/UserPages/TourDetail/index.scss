@@ -148,7 +148,7 @@
       font-weight: 400;
       font-size: 14px;
       line-height: 29px;
-      margin-bottom: 24px;
+      margin-bottom: 12px;
     }
     @media screen and (max-width: 576px) {
       h2{
@@ -169,7 +169,11 @@
       }
     }
     .row{
-      margin-bottom: 32px;
+      margin-bottom: 16px;
+      .col-30{
+        padding: 8px 8px 0 0;
+
+      }
     }
     .teklif{
       display: flex;

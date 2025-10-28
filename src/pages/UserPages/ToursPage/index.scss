@@ -1,12 +1,12 @@
 #tours-page{
-  padding: 140px 16px;
+  padding: 140px 16px 120px;
   position: relative;
   @media screen and (max-width: 576px){
     padding: 120px 16px;
   }
   .bannerAbout{
     position: absolute;
-    top: 0;
+    top: -40px;
     left: 0;
     width: 100%;
     z-index:-1;
@@ -63,7 +63,7 @@
       }
       .search{
         position: relative;
-        width: 50%;
+        width: 40%;
         margin:24px auto;
         height: 40px;
         input{
