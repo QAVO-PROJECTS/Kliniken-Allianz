@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './index.scss';
 import {CERT_DOKTOR_URL} from "../../../../contants.js";
-
+import ReactDOM from 'react-dom';
 const CardCertificateCategory = ({ image, number, text, index }) => {
     const layoutClass = index % 2 === 0 ? 'layout1' : 'layout2';
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -16,8 +16,17 @@ const CardCertificateCategory = ({ image, number, text, index }) => {
     if(numbers<10){
         numbers = "0"+numbers;
     }
+    const modalElement = isModalOpen ? ReactDOM.createPortal(
+        <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
+            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                <img src={image} alt="Certificate" />
+                <button className="close-button" onClick={closeModal}>X</button>
+            </div>
+        </div>,
+        document.body // 👈 modalı birbaşa body içində göstər
+    ) : null;
     return (
-        <div className="col-10 col-md-30 col-sm-30 col-xs-30" style={{ padding: "8px" }}>
+        <div className="col-60 col-md-60 col-sm-60 col-xs-60" style={{ padding: "8px" }}>
             <div className="card-certificate-doktor"
                  // style={{ backgroundImage: `url(${CERT_DOKTOR_URL+image})` }}
                  style={{ backgroundImage: `url(${image})` }}
@@ -28,15 +37,7 @@ const CardCertificateCategory = ({ image, number, text, index }) => {
                 </div>
             </div>
 
-            {isModalOpen && (
-                <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
-                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                        <img src={image} alt="Certificate" />
-                        {/*<img src={CERT_DOKTOR_URL+image} alt="Certificate" />*/}
-                        <button className="close-button" onClick={closeModal}>X</button>
-                    </div>
-                </div>
-            )}
+            {modalElement}
         </div>
     );
 };

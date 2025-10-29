@@ -6,6 +6,8 @@
   overflow: hidden;
   height: 300px !important;
   cursor: pointer;
+  border: 1px solid #fafafa;
+  border-radius: 4px;
 
   @media screen and (max-width: 576px){
     height: 250px !important;

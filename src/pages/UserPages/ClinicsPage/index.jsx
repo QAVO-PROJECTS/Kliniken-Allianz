@@ -10,6 +10,7 @@ import ServiceDetailCard from "../../../components/UserComponents/ServicesDetail
 import img1 from "/src/assets/dSamer.png"
 import {useMediaQuery} from "react-responsive";
 import mobileBanner from "../../../assets/MobileBanner.png";
+import ClinicCard2 from "../../../components/UserComponents/ClinicCard2/index.jsx";
 function ClinicsPage() {
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -109,7 +110,7 @@ function ClinicsPage() {
                     <div className={'cards'}>
                         <div className={'row'}>
                             {array.map((item, index) => (
-                                <ServiceDetailCard desc={"Baki"} name={"Anar"} img={img1}/>
+                                <ClinicCard2 desc={"Baki"} name={"Anar"} img={img1}/>
                             ))}
                         </div>
                     </div>

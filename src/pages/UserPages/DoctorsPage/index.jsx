@@ -108,11 +108,11 @@ function DoctorsPage() {
                                 </svg>
 
                             </div>
-                            <button className="mobile-filter-btn" onClick={() => setFilterOpen(true)}>
+                            {isMobile ? <button className="mobile-filter-btn" onClick={() => setFilterOpen(true)}>
                                 <img src={filtr}/>
                                 Filtrlə
                                 <div style={{ color: "#8C8C8C" }}>{totalSelectedCount > 0 ? `${totalSelectedCount}` : "0"}</div>
-                            </button>
+                            </button> : ''}
 
                         </div>
                     </div>

@@ -136,16 +136,17 @@ function Navbar() {
                         {/*>*/}
                         {/*    {t('navbar.home')}*/}
                         {/*</Link>*/}
-                        <Link
-                            to="/services"
-                            className={`link ${location.pathname === '/services' ? 'active' : ''}`}
-                            onClick={() =>
-                                setMenuOpen(false)
+                        {/*<Link*/}
+                        {/*    to="/services"*/}
+                        {/*    className={`link ${location.pathname === '/services' ? 'active' : ''}`}*/}
+                        {/*    onClick={() =>*/}
+                        {/*        setMenuOpen(false)*/}
 
-                            }
-                        >
-                            {t('navbar.services')}
-                        </Link>
+                        {/*    }*/}
+                        {/*>*/}
+                        {/*    {t('navbar.services')}*/}
+                        {/*</Link>*/}
+                        <CategoriesMenuAntd />
                         <Link
                             to="/clinics"
                             className={`link ${location.pathname === '/clinics' ? 'active' : ''}`}
@@ -187,7 +188,7 @@ function Navbar() {
                         >
                             {t('navbar.contact')}
                         </Link>
-                        {/*<CategoriesMenuAntd />*/}
+
                     </nav>
                <div className={'settings'}>
                   <div className={'mobilee'}>

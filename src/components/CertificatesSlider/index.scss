@@ -1,0 +1,50 @@
+#certificate-slider {
+  margin-top: 32px;
+
+  .slider-wrapper {
+    overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .slider-card {
+    display: flex;
+    flex-wrap: nowrap;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .slider-item {
+    flex: 0 0 16.6%;
+    box-sizing: border-box;
+    cursor: grab;
+
+    @media screen and (max-width: 576px) {
+      flex: 0 0 50%;
+    }
+
+    &:active {
+      cursor: grabbing;
+    }
+  }
+
+  .custom-pagination {
+    text-align: center;
+    margin-top: 30px;
+
+    .custom-bullet {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      margin: 0 3px;
+      background: none;
+      border: 0.76px solid #d3d3d3;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s;
+
+      &.active {
+        background: #003778;
+      }
+    }
+  }
+}

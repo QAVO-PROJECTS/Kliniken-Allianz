@@ -20,6 +20,7 @@ import mobileBanners from "../../../assets/MobileBanner.png";
 import doctorImage from "/src/assets/dmarcDoktor.png"
 import {t} from "i18next";
 import {useMediaQuery} from "react-responsive";
+import CertificateSlider from "../../../components/CertificatesSlider/index.jsx";
 function DoktorDetail() {
     const {id} = useParams();
     const {data:getDoctorsById} = useGetDoctorsByIdQuery(id)
@@ -174,41 +175,9 @@ function DoktorDetail() {
                         <div>
                             <div className={'second-section'}>
                                 <h2>Sertifikatlar</h2>
-                                <div className={'row'}>
-                                    {/*{doctor?.doctorSertificates?.map((card, index) => (*/}
-                                    {/*    <CardCertificateCategory*/}
-                                    {/*        key={card.id}*/}
-                                    {/*        index={index}*/}
-                                    {/*        image={card}*/}
-                                    {/*        number={index+1}*/}
-                                    {/*        text='Sertifikat'*/}
-                                    {/*        data-aos='zoom-in'*/}
-                                    {/*        data-aos-delay={index * 100}*/}
-                                    {/*    />*/}
-                                    {/*))}*/}
-                                    {cardsData.map((card, index) => (
-                                        <CardCertificateCategory
-                                            key={card.id}
-                                            index={index}
-                                            image={card.image}
-                                            number={index+1}
-                                            text='Sertifikat'
-                                            data-aos='zoom-in'
-                                            data-aos-delay={index * 100}
-                                        />
-                                    ))}
-                                </div>
+                                <CertificateSlider  cards={cardsData} />
                             </div>
-                            <div
-                                style={{display: 'flex', justifyContent: 'end', marginTop: '30px', marginBottom: '45px'}}
-                                data-aos='fade-up'
-                            >
-                                <Pagination
-                                    currentPage={currentPage}
-                                    totalPages={totalPages}
-                                    onPageChange={handlePageChange}
-                                />
-                            </div>
+
                         </div>
                     </div>
                 </div>

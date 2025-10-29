@@ -2,6 +2,8 @@ import React from "react";
 import { Menu, Dropdown, Space } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 import "./index.scss"
+import icon from '/src/assets/icon1.png'
+import rightIcon from "/src/assets/rigthIcon.svg"
 const cancerSubMenu = (
     <Menu
         items={[
@@ -26,11 +28,31 @@ const mainMenu = (
                 key: "cancer",
                 label: (
                     <Dropdown overlay={cancerSubMenu} placement="rightTop" trigger={["hover"]}>
-                        <a href="#" onClick={(e) => e.preventDefault()}>
-                            Xərçəng müalicəsi →
-                        </a>
+                        <div style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            gap:"60px"
+                        }}>
+                            <div style={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                gap:"12px"
+                            }}>
+                                <img src={icon} alt="" style={{
+                                    width:"20px",
+                                    height:"20px",
+                                }}/>
+                                <a href="#" onClick={(e) => e.preventDefault()}>
+                                    Xərçəng müalicəsi
+                                </a>
+                            </div>
+                            <img src={rightIcon} alt="" />
+                        </div>
                     </Dropdown>
                 ),
+
             },
             { key: "2", label: "Ginekologiya" },
             { key: "3", label: "Kardiologiya" },
@@ -47,12 +69,12 @@ export default function CategoriesMenuAntd() {
             <a
                 onClick={(e) => e.preventDefault()}
                 style={{
-                    color: "#003778",
+                    color: "#5f5f5f",
                     fontWeight: 500,
                     fontSize: "16px",
                 }}
             >
-                Kateqoriyalar <DownOutlined />
+                Kateqoriyalar
             </a>
         </Dropdown>
     );
