@@ -30,6 +30,13 @@
       font-weight: 500;
       line-height: 21px; /* 150% */
       margin-bottom: 8px;
+      @media screen and (max-width: 576px){
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
     .offers{
       display: flex;
@@ -71,6 +78,9 @@
         border-radius: 14px;
         border: 1px solid #003778;
         background: #003778;color: #FFF;
+      }
+      @media screen and (max-width: 576px) {
+        font-size: 12px;
       }
     }
   }

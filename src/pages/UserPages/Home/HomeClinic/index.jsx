@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import image from "/src/assets/ServiceDetailCard.png"
 import {useGetAllClinicQuery} from "../../../../services/userApi.jsx";
 import ClinicCard from "../../../../components/UserComponents/ClinicCard/index.jsx";
+import {useMediaQuery} from "react-responsive";
 
 function HomeClinic() {
     const { t, i18n } = useTranslation();
@@ -18,7 +19,7 @@ function HomeClinic() {
     const prevTranslate = useRef(0);
     const {data:getAllClinic} = useGetAllClinicQuery()
     const cardss = getAllClinic?.data || [];
-
+const isMobile = useMediaQuery({maxWidth:768})
     // Dil bazlı metin seçimi
     const getLocalizedText = (item, field) => {
         switch (i18n.language) {
@@ -132,14 +133,14 @@ function HomeClinic() {
             <div className="container">
 
                 <div className={'row'}>
-                    <div className={"col-25"}>
+                    <div className={"col-25 col-md-60 col-sm-60 col-xs-60"}>
                         <div className="content">
                             <h2>Etibar Edilən Sağlamlıq Mərkəzləri</h2>
                             <p>Kliniken Allianz yalnız beynəlxalq standartlara cavab verən, müasir və etibarlı klinikalarla əməkdaşlıq edir.</p>
-                            <button><span>Daha çox</span></button>
+                            {isMobile ? ('') : (<button className={'headBtn'}><span>Daha çox</span></button>)}
                         </div>
                     </div>
-                    <div className={'col-35'}>
+                    <div className={'col-35 col-md-60 col-sm-60 col-xs-60'}>
                         <div
                             className="slider-wrapper"
                             onMouseDown={startDragging}
@@ -177,6 +178,7 @@ function HomeClinic() {
                         />
                     ))}
                 </div>
+                {isMobile ?  (<button className={'headBtn'}><span>Daha çox</span></button>) : ('')}
                 <div className="header">
 
                     <div className="navigationBtn">

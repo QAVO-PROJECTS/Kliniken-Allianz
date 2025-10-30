@@ -23,8 +23,14 @@ background: #FAFCFF;
     }
     @media screen and (max-width: 576px) {
       h2{
-        font-size: 20px;
-        line-height: 30px; /* 150% */
+        font-size: 18px;
+        line-height: 27px; /* 150% */
+        margin-bottom: 6px;
+      }
+      p{
+        font-size: 14px;
+        line-height:24px;
+        margin-bottom: 24px;
       }
     }
   }
@@ -42,7 +48,7 @@ background: #FAFCFF;
     transition: transform 0.3s ease-in-out;
 
     @media screen and (max-width: 576px) {
-      width: calc(100% * 6 / 3); /* 6 cards, 2 visible on mobile */
+      width: calc(100% * 6 / 2.5); /* 6 cards, 2 visible on mobile */
     }
   }
 

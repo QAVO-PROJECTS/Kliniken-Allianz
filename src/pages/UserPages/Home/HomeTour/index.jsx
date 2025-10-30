@@ -126,7 +126,7 @@ const {data:getAllOtels} = useGetAllOtelsQuery()
                     </div>
                 </div>
                 <div className="custom-pagination">
-                    {Array.from({ length: maxIndex + 1 }).map((_, index) => (
+                    {Array.from({ length: maxIndex + 1 }    ).map((_, index) => (
                         <span
                             key={index}
                             className={`custom-bullet ${currentIndex === index ? 'active' : ''}`}

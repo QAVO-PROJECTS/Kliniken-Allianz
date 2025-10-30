@@ -55,7 +55,15 @@
   }
 
   }
-
+  .hamisiniBax{
+    border: none;
+    background: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 24px auto 0;
+    font-size: 12px;
+  }
   .row {
     display: flex;
     flex-wrap: wrap;
