@@ -1,16 +1,17 @@
 import  { useState } from 'react';
 import Cookies from 'js-cookie';
 import './index.scss';
-import banner from '/src/assets/Group 47.png';
+import banner from '/src/assets/LoginBanner.png';
 import {useNavigate} from "react-router-dom";
 import {usePostAdminLoginMutation} from "../../../services/userApi.jsx";
 import showToast from "../../../components/ToastMessage.js";
-
+import { Eye, EyeOff } from 'lucide-react';
 function AdminLogin() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [postAdminLogin] = usePostAdminLoginMutation();
+    const [postAdminLogin,{isLoading}] = usePostAdminLoginMutation();
     const navigate = useNavigate();
+    const [showPassword, setShowPassword] = useState(false);
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -37,34 +38,46 @@ function AdminLogin() {
             <img src={banner} alt="" className="login-banner" />
             <div className="login-form">
                 <div className="title">
-                    <h1>Daxil ol</h1>
-                    <p>Admin panelə giriş</p>
+                    <h1>Sistemə daxil olun</h1>
+                    <p>Sistemdəki funksiyalara və məlumatlara çıxış əldə etmək üçün aşağıdakı formanı istifadə edərək hesabınıza daxil olun.</p>
                 </div>
 
                 <form className="form" onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <label>Email</label>
+                        <label>Istifadəçi adı</label>
                         <input
                             type="email"
-                            placeholder="Emailinizi daxil edin"
+                            placeholder="Istifadəçi adınızı daxil edin"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
                         />
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group password-group">
                         <label>Şifrə</label>
-                        <input
-                            type="password"
-                            placeholder="Şifrənizi daxil edin"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                        />
+                        <div className="password-wrapper">
+                            <input
+                                type={showPassword ? 'text' : 'password'}
+                                placeholder="Şifrənizi daxil edin"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                            />
+                            <button
+                                type="button"
+                                className="toggle-password"
+                                onClick={() => setShowPassword((v) => !v)}
+                                aria-label={showPassword ? 'Şifrəni gizlə' : 'Şifrəni göstər'}
+                            >
+                                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                            </button>
+                        </div>
                     </div>
 
-                    <button type="submit">Daxil ol</button>
+                    <button type="submit" className="submit" disabled={isLoading}>
+                        {isLoading ? 'Yoxlanılır...' : 'Giriş et'}
+                    </button>
                 </form>
             </div>
 

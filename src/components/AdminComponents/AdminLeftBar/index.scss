@@ -1,18 +1,26 @@
 #adminLeftBar {
-  width: 250px; /* Sidebar genişliyi */
-  background: #333; /* Dark background color */
+  width: 100%; /* Sidebar genişliyi */
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  height: 100vh;
-  padding: 16px;
+  justify-content: space-between;
+  height:calc(100vh - 127px);
+  background-color: #FFFFFF;
+  border-radius: 0 0 15px 15px;
+  padding: 32px 32px 32px 0;
 
-  img {
-    width: 100%;
-    filter: brightness(0) invert(1);
-    margin: 20px 0 40px;
+  .logout{
+    margin-left: 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border: none;
+    background-color: transparent;
+    font-weight: 500;
+    font-size: 14px;
+    color: #FA001A;
+
   }
-
   ul {
     list-style: none;
     padding: 0;
@@ -20,24 +28,51 @@
   }
 
   li {
+
+    width: 100%;
+    margin-top: 10px;
+    position: relative;
+    padding: 0 0 0 32px;
+  .selectedIcon{
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 20px;
+    img{
+      height: 20px;
+    }
+  }
+  .linkk{
     width: 100%;
     font-size: 14px;
-    padding: 8px 16px;
-    border-radius: 10px;
-    margin-top: 10px;
     display: flex;
     align-items: center;
-    gap: 10px;
-
+    gap: 12px;
+    border-radius: 10px;
+    padding: 8px 12px;
+    a{
+      color: #656565;
+      font-weight: 500;
+    }
+  }
     .icon {
-      color: white;
+      color: #656565;
       font-size: 20px;
     }
   }
 
   .selected {
     transition: all .2s ease;
-    background-color: #0D60FE;
+    .linkk{
+      background-color: #F9F9F9C9;
+      a{
+        color: black;
+      }
+    }
+    svg{
+      color: #093F80;
+    }
   }
 
   li a {

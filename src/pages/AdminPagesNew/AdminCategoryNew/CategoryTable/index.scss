@@ -1,0 +1,320 @@
+#category-table {
+  .category-table-wrapper {
+    border: 1px solid #EBEBEB;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .grid-header, .grid-row {
+    display: grid;
+    grid-template-columns: 60px 150px 1fr 1fr 150px;
+    align-items: center;
+    padding: 12px 16px;
+    gap: 12px;
+
+
+  }
+
+  .grid-header {
+    background: #fbfbfb;
+    color: #555;
+    border-bottom: 1px solid #ebebeb;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 100%;
+  }
+
+  .grid-body {
+
+    .grid-row {
+      border-bottom: 1px solid #ebebeb;
+      transition: background 0.2s ease;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 100%;
+      color: #7E7E7E;
+
+      &:hover {
+        background: #fafafa;
+      }
+
+      .count {
+        text-align: center;
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      .icon {
+        width: 30px;
+        height: 30px;
+        border-radius: 6px;
+        border: 1px solid #D5D5D5;
+
+      }
+      input[type="checkbox"] {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        width: 18px;
+        height: 18px;
+        border: 1px solid #d1d1d1;
+        border-radius: 4px;
+        background-color: #fff;
+        cursor: pointer;
+        display: grid;
+        place-items: center;
+        transition: all 0.2s ease;
+        position: relative;
+
+        box-shadow: 0px 1px 1px 0px #0000001A;
+
+        &:hover {
+          border-color: #527fe9;
+        }
+
+        &:checked {
+          background-color: #fff;
+          border-color: #0C4281;
+        }
+
+        &:checked::after {
+          content: "✓";
+          color: #094080;
+          font-size: 12px;
+          font-weight: 700;
+        }
+      }
+      .actions {
+        display: flex;
+        gap: 6px;
+        justify-content: flex-start;
+
+        .action {
+          width: 32px;
+          height: 32px;
+          border: 1px solid #EBEBEB;
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: all .2s ease;
+          &:hover {
+            border-color: #527fe9;
+          }
+        }
+      }
+    }
+  }
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.2s ease;
+  }
+
+  .modal-content {
+    background: #fff;
+    border-radius: 12px;
+    padding: 32px 28px;
+    width: 335px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    animation: popIn 0.25s ease;
+    position: relative;
+    .close-icon{
+      width: 15px;
+      height: 15px;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      cursor: pointer;
+    }
+    h3 {
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 21px;
+      text-align: center;
+      margin-bottom: 12px;
+
+    }
+
+    .edit-form{
+      label{
+        display: block;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 100%;
+        margin-top: 16px;
+        margin-bottom: 8px;
+      }
+      .editInput{
+        width: 100%;
+        height: 40px;
+        position: relative;
+        input{
+          width: 100%;
+          height: 100%;
+          border: 1px solid #EBEBEB;
+          outline: none;
+          border-radius: 10px;
+          padding: 0 16px;
+          &::placeholder {
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 100%;
+          }
+        }
+        .editIconModal{
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          right: 16px;
+          width: 18px;
+          height: 18px;
+        }
+      }
+      .editCategory{
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 6px;
+        width: 100%;
+        max-height: 195px;
+        overflow-y: auto;
+        margin-bottom: 24px;
+        padding-right: 6px; // scrollbar üçün az boşluq
+
+        /* 🔹 Custom Scrollbar */
+        &::-webkit-scrollbar {
+          width: 4px;
+        }
+
+        /* Arxa fon (track) */
+        &::-webkit-scrollbar-track {
+          background: #ebebeb;
+          border-radius: 10px;
+          margin: 2px 0; // üst və alt boşluq (ox yerinə)
+        }
+
+        /* Bar hissəsi (thumb) */
+        &::-webkit-scrollbar-thumb {
+          background-color: #1d2b70; // navy blue
+          border-radius: 10px;
+          min-height: 30px; // həddindən artıq incə olmasın
+          transition: background 0.3s ease;
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+          background-color: #142058; // hover effekti
+        }
+
+        /* Oxları tamamilə gizlə */
+        &::-webkit-scrollbar-button {
+          display: none;
+          height: 0;
+          width: 0;
+        }
+        .iconDiv{
+          width: 60px;
+          height: 60px;
+          border-radius: 5px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: 0.5px solid #B7B7B7;
+          cursor: pointer;
+          img{
+            width: 27px;
+            height: 27px;
+          }
+          &.active {
+            border-color: #0063A6;
+            background: #F9FDFF8A;
+          }
+        }
+      }
+
+    }
+    .submit-btn{
+      height: 40px;
+      width: 100%;
+      background-color: #0A4080;
+      border: none;
+      border-radius: 10px;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 21px;
+      color: #fff;
+    }
+
+  }
+  .delete-modal-content {
+    background: #fff;
+    border-radius: 12px;
+    padding: 30px;
+    width: 300px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    animation: popIn 0.25s ease;
+    position: relative;
+    text-align: center;
+    .close-icon{
+      width: 15px;
+      height: 15px;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      cursor: pointer;
+
+    }
+    h3 {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 21px;
+      text-align: center;
+      margin-bottom: 12px;
+
+    }
+    .deleteImg{
+        width: 56px;
+        height: 56px;
+        margin: 0 auto 8px !important;
+      }
+      .modal-actions {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+
+        button {
+          flex: 1;
+          border-radius: 8px;
+          height: 36px;
+          font-size: 14px;
+          cursor: pointer;
+          border: none;
+          transition: 0.2s ease;
+          font-weight: 400;
+          line-height: 100%;
+
+        }
+
+        .cancel {
+          background: transparent;
+          border: 1px solid #AAAAAA;
+          color: #8C8C8C;
+        }
+
+        .confirm {
+          background: #ff5c5c;
+          color: white;
+          &:hover { background: #e04545; }
+        }
+      }
+
+  }
+}

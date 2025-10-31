@@ -24,6 +24,8 @@ import ToursPage from "../pages/UserPages/ToursPage/index.jsx";
 import ClinicsDoctorPage from "../pages/UserPages/ClinicsDoctorPage/index.jsx";
 import DoctorsPage from "../pages/UserPages/DoctorsPage/index.jsx";
 import TourDetail from "../pages/UserPages/TourDetail/index.jsx";
+import AdminCategoryNew from "../pages/AdminPagesNew/AdminCategoryNew/index.jsx";
+import CategoryAdd from "../pages/AdminPagesNew/AdminCategoryAdd/index.jsx";
 
 
 const router = [
@@ -95,7 +97,11 @@ const router = [
         children: [
             {
                 path: "/admin/category",
-                element: <AdminCategory/>
+                element: <AdminCategoryNew/>
+            },
+            {
+                path: "/admin/category/add",
+                element: <CategoryAdd/>
             },
             {
                 path: "/admin/clinic",
