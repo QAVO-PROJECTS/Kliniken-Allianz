@@ -9,97 +9,40 @@ import serhIcon from '/src/assets/leftBarIcon/serhIcon.svg'
 import contactIcon from '/src/assets/leftBarIcon/contactIcon.svg'
 import selectedIcon from '/src/assets/adminSelected.svg'
 import logoutIcon from '/src/assets/logoutIcon.svg'
+
 function AdminLeftBar() {
     const location = useLocation();
 
+    const menuItems = [
+        { path: "/admin/category", icon: categoryIcon, label: "Kateqoriya" },
+        { path: "/admin/clinic", icon: clinicIcon, label: "Klinika" },
+        { path: "/admin/doctors", icon: doctorIcon, label: "Həkim" },
+        { path: "/admin/service", icon: turIcon, label: "Xidmət paketi" },
+        { path: "/admin/otel", icon: hotelIcon, label: "Otel" },
+        { path: "/admin/serh", icon: serhIcon, label: "Şərh" },
+        { path: "/admin/contact", icon: contactIcon, label: "Əlaqələr" },
+    ];
+
     return (
         <section id="adminLeftBar">
-           <div style={{
-               width: '100%',
-           }}>
-               <li className={location.pathname === "/admin/category" ? "selected" : ""}>
-                   {location.pathname === "/admin/category" && (
-                       <img src={selectedIcon} className={"selectedIcon"} alt="" />
-                   )}
-                   <div className={'linkk'}>
-                       <img  src={categoryIcon} className="icon" />
-                       <NavLink to="/admin/category">
-                           Kateqoriya
-                       </NavLink>
-                   </div>
-               </li>
-               <li className={location.pathname === "/admin/clinic" ? "selected" : ""}>
-                   {location.pathname === "/admin/clinic" && (
-                       <img src={selectedIcon} className={"selectedIcon"} alt="" />
-                   )}
-                   <div className={'linkk'}>
-                       <img src={clinicIcon} className="icon" />
-                       <NavLink to="/admin/clinic">
-                           Klinika
-                       </NavLink>
-                   </div>
-               </li>
-               <li className={location.pathname === "/admin/doctors" ? "selected" : ""}>
-                   {location.pathname === "/admin/doctors" && (
-                       <img src={selectedIcon} className={"selectedIcon"} alt="" />
-                   )}
-                   <div className={'linkk'}>
-                       <img src={doctorIcon} className="icon" />
-                       <NavLink to="/admin/doctors">
-                           Həkim
-                       </NavLink>
-                   </div>
-               </li>
-               <li className={location.pathname === "/admin/service" ? "selected" : ""}>
-                   {location.pathname === "/admin/service" && (
-                       <img src={selectedIcon} className={"selectedIcon"} alt="" />
-                   )}
-                   <div className={'linkk'}>
-                       <img src={turIcon} className="icon" />
-                       <NavLink to="/admin/service">
-                           Xidmət paketi
-                       </NavLink>
-                   </div>
-               </li>
-               <li className={location.pathname === "/admin/otel" ? "selected" : ""}>
-                   {location.pathname === "/admin/otel" && (
-                       <img src={selectedIcon} className={"selectedIcon"} alt="" />
-                   )}
-                   <div className={'linkk'}>
-                       <img src={hotelIcon} className="icon" />
-                       <NavLink to="/admin/otel">
-                           Otel
-                       </NavLink>
-                   </div>
-               </li>
-               <li className={location.pathname === "/admin/serh" ? "selected" : ""}>
-                   {location.pathname === "/admin/serh" && (
-                       <img src={selectedIcon} className={"selectedIcon"} alt="" />
-                   )}
-                   <div className={'linkk'}>
-                       <img src={serhIcon} className="icon" />
-                       <NavLink to="/admin/serh">
-                           Şərh
-                       </NavLink>
-                   </div>
-               </li>
-               <li className={location.pathname === "/admin/contact" ? "selected" : ""}>
-                   {location.pathname === "/admin/contact" && (
-                       <img src={selectedIcon} className={"selectedIcon"} alt="" />
-                   )}
-                   <div className={'linkk'}>
-                       <img src={contactIcon} className="icon" />
-                       <NavLink to="/admin/contact">
-                           Əlaqələr
-                       </NavLink>
-                   </div>
-               </li>
+            <div style={{ width: '100%' }}>
+                {menuItems.map((item, index) => {
+                    const isActive = location.pathname.startsWith(item.path);
+                    return (
+                        <li key={index} className={isActive ? "selected" : ""}>
+                            {isActive && (
+                                <img src={selectedIcon} className="selectedIcon" alt="" />
+                            )}
+                            <div className="linkk">
+                                <img src={item.icon} className="icon" alt="" />
+                                <NavLink to={item.path}>{item.label}</NavLink>
+                            </div>
+                        </li>
+                    );
+                })}
+            </div>
 
-
-
-
-           </div>
-            <button className={'logout'}>
+            <button className="logout">
                 <img src={logoutIcon} alt="" />
                 Çıxış edin
             </button>

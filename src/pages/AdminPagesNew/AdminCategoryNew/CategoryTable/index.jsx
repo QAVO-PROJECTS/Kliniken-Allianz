@@ -25,6 +25,7 @@ function CategoryTableNew() {
         {},
         {},
         {},
+
     ]
     const [showEditModal, setShowEditModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -83,7 +84,7 @@ function CategoryTableNew() {
                                <div className={'action trash'} onClick={() => openDeleteModal(item)}>
                                    <img src={delIcon} />
                                </div>
-                               <div className={'action navigate'} onClick={()=>navigate('/admin/category/add')}>
+                               <div className={'action navigate'} onClick={()=>navigate('/admin/category/servis/:id')}>
                                    <img src={navIcon} />
                                </div>
                            </div>

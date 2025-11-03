@@ -13,10 +13,10 @@ function AdminCategoryNew() {
                     </div>
                     <div className={'category-buttons'}>
                         <LanguageDiv />
-                        <AddBtn/>
+                        <AddBtn nav={'/admin/category/add'}/>
                     </div>
                 </div>
-                <CategoryTableNew/>
+                <CategoryTableNew />
             </div>
         </div>
     );
