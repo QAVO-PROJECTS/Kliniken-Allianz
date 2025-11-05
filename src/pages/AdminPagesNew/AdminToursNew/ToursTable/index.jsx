@@ -7,7 +7,7 @@ import deleteImgModal from '/src/assets/deleteModalImg.png'
 import {useNavigate} from "react-router-dom";
 import closeIcon from '/src/assets/accordionClose.svg'
 import openIcon from '/src/assets/accordionOpen.svg'
-function CategoryTableServisNew() {
+function ToursTableNew() {
     const arr = [
         {},
         {},
@@ -54,13 +54,14 @@ function CategoryTableServisNew() {
         setIsOpen(true);
     };
     return (
-        <div id={'category-servis-table'}>
-           <div className={'category-servis-table-wrapper'}>
+        <div id={'tours-table'}>
+           <div className={'tours-table-wrapper'}>
                <div className="grid-header">
                    <div></div>
+                   <div>Şəkil</div>
                    <div>Adı</div>
+                   <div>Təklif</div>
                    <div>Təsvir</div>
-                   <div>Klinikalar</div>
                    <div>Fəaliyyətlər</div>
                </div>
 
@@ -71,6 +72,9 @@ function CategoryTableServisNew() {
                            <div className="grid-row" key={index}>
                                <div>
                                    <input type="checkbox" />
+                               </div>
+                               <div className="icon">
+                                   {item.icon}
                                </div>
                                <div>Xərçəng müalicəsi</div>
 
@@ -104,7 +108,7 @@ function CategoryTableServisNew() {
 
                                {/* --- Actions --- */}
                                <div className="actions">
-                                   <div className="action edit" onClick={() => navigate('/admin/category/servis/edit/:id')}>
+                                   <div className="action edit" onClick={() => navigate('/admin/tours/edit/:id')}>
                                        <img src={editIcon} />
                                    </div>
                                    <div className="action trash" onClick={() => openDeleteModal(item)}>
@@ -126,7 +130,7 @@ function CategoryTableServisNew() {
                 <div className="modal-overlay" onClick={closeModal}>
                     <div className="delete-modal-content" onClick={(e) => e.stopPropagation()}>
                        <img src={deleteImgModal} className={'deleteImg'}/>
-                        <h3>Servisi silmək istədiyinizə əminsiz?</h3>
+                        <h3>Xidmət paketini silmək istədiyinizə əminsiz?</h3>
                         <div className="modal-actions">
                             <button className="cancel" onClick={closeModal}>Ləğv et</button>
                             <button className="confirm">Sil</button>
@@ -138,4 +142,4 @@ function CategoryTableServisNew() {
     );
 }
 
-export default CategoryTableServisNew;
+export default ToursTableNew;

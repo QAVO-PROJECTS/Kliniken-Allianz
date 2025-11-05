@@ -22,7 +22,7 @@ function AdminCategoryServisNew() {
                     </div>
                     <div className={'category-buttons'}>
                         <LanguageDiv />
-                        <AddBtn nav={'/admin/category/add'}/>
+                        <AddBtn nav={'/admin/category/servis/add/:id'}/>
                     </div>
                 </div>
                 <CategoryTableServisNew />

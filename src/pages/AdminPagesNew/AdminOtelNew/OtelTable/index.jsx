@@ -5,9 +5,8 @@ import editIcon from '/src/assets/adminEditİcon.svg'
 import delIcon from '/src/assets/adminDelİcon.svg'
 import deleteImgModal from '/src/assets/deleteModalImg.png'
 import {useNavigate} from "react-router-dom";
-import closeIcon from '/src/assets/accordionClose.svg'
-import openIcon from '/src/assets/accordionOpen.svg'
-function CategoryTableServisNew() {
+import starDolu from '/src/assets/doluUlduz.svg'
+function OtelTableNew() {
     const arr = [
         {},
         {},
@@ -54,13 +53,14 @@ function CategoryTableServisNew() {
         setIsOpen(true);
     };
     return (
-        <div id={'category-servis-table'}>
-           <div className={'category-servis-table-wrapper'}>
+        <div id={'otel-table'}>
+           <div className={'otel-table-wrapper'}>
                <div className="grid-header">
                    <div></div>
+                   <div>Şəkil</div>
                    <div>Adı</div>
-                   <div>Təsvir</div>
-                   <div>Klinikalar</div>
+                   <div>Yerləşdiyi ölkə</div>
+                   <div>Reytinq</div>
                    <div>Fəaliyyətlər</div>
                </div>
 
@@ -72,39 +72,27 @@ function CategoryTableServisNew() {
                                <div>
                                    <input type="checkbox" />
                                </div>
+                               <div className="icon">
+                                   {item.icon}
+                               </div>
                                <div>Xərçəng müalicəsi</div>
 
                                {/* --- Təsvir --- */}
-                               <div className={`name ${isOpen ? "open" : ""}`}>
-                                   <p>
-                                       Bu xidmət müştərilərə [məqsəd] üçün nəzərdə tutulub.
-                                       Keyfiyyətli və etibarlı nəticə üçün peşəkar komanda tərəfindən həyata keçirilir.
-                                   </p>
-                                   <button
-                                       className="accordion-btn"
-                                       onClick={() => toggleAccordion(index)}
-                                   >
-                                       <img src={isOpen ? openIcon : closeIcon}/>
-                                   </button>
+                               <div>
+                                   Almanya
+                               </div>
+                               <div>
+                                   <img src={starDolu}/>
+                                   <img src={starDolu}/>
+                                   <img src={starDolu}/>
+                                   <img src={starDolu}/>
+                                   <img src={starDolu}/>
                                </div>
 
-                               {/* --- Klinikalar --- */}
-                               <div className={`count ${isOpen ? "open" : ""}`}>
-                                   <p>
-                                       GlobalMed, Sağlam Ailə, GlobalMed, Sağlam Ailə,
-                                       GlobalMed, Sağlam Ailə, GlobalMed
-                                   </p>
-                                   <button
-                                       className="accordion-btn"
-                                       onClick={() => toggleAccordion(index)}
-                                   >
-                                       <img src={isOpen ? openIcon : closeIcon}/>
-                                   </button>
-                               </div>
 
                                {/* --- Actions --- */}
                                <div className="actions">
-                                   <div className="action edit" onClick={() => navigate('/admin/category/servis/edit/:id')}>
+                                   <div className="action edit" onClick={() => navigate('/admin/otel/edit/:id')}>
                                        <img src={editIcon} />
                                    </div>
                                    <div className="action trash" onClick={() => openDeleteModal(item)}>
@@ -126,7 +114,7 @@ function CategoryTableServisNew() {
                 <div className="modal-overlay" onClick={closeModal}>
                     <div className="delete-modal-content" onClick={(e) => e.stopPropagation()}>
                        <img src={deleteImgModal} className={'deleteImg'}/>
-                        <h3>Servisi silmək istədiyinizə əminsiz?</h3>
+                        <h3>Oteli silmək istədiyinizə əminsiz?</h3>
                         <div className="modal-actions">
                             <button className="cancel" onClick={closeModal}>Ləğv et</button>
                             <button className="confirm">Sil</button>
@@ -138,4 +126,4 @@ function CategoryTableServisNew() {
     );
 }
 
-export default CategoryTableServisNew;
+export default OtelTableNew;

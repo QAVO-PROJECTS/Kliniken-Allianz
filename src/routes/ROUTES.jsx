@@ -27,6 +27,21 @@ import TourDetail from "../pages/UserPages/TourDetail/index.jsx";
 import AdminCategoryNew from "../pages/AdminPagesNew/AdminCategoryNew/index.jsx";
 import CategoryAdd from "../pages/AdminPagesNew/AdminCategoryAdd/index.jsx";
 import AdminCategoryServisNew from "../pages/AdminPagesNew/AdminCategoryServisNew/index.jsx";
+import CategoryServisAdd from "../pages/AdminPagesNew/AdminCategoryServisAdd/index.jsx";
+import CategoryServisEdit from "../pages/AdminPagesNew/AdminCategoryServisEdit/index.jsx";
+import AdminContactNew from "../pages/AdminPagesNew/AdminContactNew/index.jsx";
+import AdminSerhNew from "../pages/AdminPagesNew/AdminSerhNew/index.jsx";
+import SerhAdd from "../pages/AdminPagesNew/AdminSerhAdd/index.jsx";
+import SerhEdit from "../pages/AdminPagesNew/AdminSerhEdit/index.jsx";
+import AdminOtelNew from "../pages/AdminPagesNew/AdminOtelNew/index.jsx";
+import OtelAdd from "../pages/AdminPagesNew/AdminOtelAdd/index.jsx";
+import OtelEdit from "../pages/AdminPagesNew/AdminOtelEdit/index.jsx";
+import AdminToursNew from "../pages/AdminPagesNew/AdminToursNew/index.jsx";
+import ToursAdd from "../pages/AdminPagesNew/AdminToursAdd/index.jsx";
+import ToursEdit from "../pages/AdminPagesNew/AdminToursEdit/index.jsx";
+import AdminClinicNew from "../pages/AdminPagesNew/AdminClinicaNew/index.jsx";
+import ClinicAdd from "../pages/AdminPagesNew/AdminClinicAdd/index.jsx";
+import ClinicEdit from "../pages/AdminPagesNew/AdminClinicEdit/index.jsx";
 
 
 const router = [
@@ -109,25 +124,70 @@ const router = [
                 element: <AdminCategoryServisNew/>
             },
             {
-                path: "/admin/clinic",
-                element: <AdminClinic/>
+                path: "/admin/category/servis/add/:id",
+                element: <CategoryServisAdd/>
             },
+            {
+                path: "/admin/category/servis/edit/:id",
+                element: <CategoryServisEdit/>
+            },
+
             {
                 path: "/admin/doctors",
                 element: <AdminDoktor/>
             },
             {
-                path: "/admin/service",
-                element: <AdminServices/>
+                path: "/admin/contact",
+                element: <AdminContactNew/>
             },
             {
-                path: "/admin/contact",
-                element: <AdminContact/>
+                path: "/admin/serh",
+                element: <AdminSerhNew/>
+            },
+            {
+                path: "/admin/serh/add",
+                element: <SerhAdd/>
+            },
+            {
+                path: "/admin/serh/edit/:id",
+                element: <SerhEdit/>
             },
             {
                 path: "/admin/otel",
-                element: <AdminOtel/>
-            }
+                element: <AdminOtelNew/>
+            },
+            {
+                path: "/admin/otel/add",
+                element: <OtelAdd/>
+            },
+            {
+                path: "/admin/otel/edit/:id",
+                element: <OtelEdit/>
+            },
+            {
+                path: "/admin/tours",
+                element: <AdminToursNew/>
+            },
+            {
+                path: "/admin/tours/add",
+                element: <ToursAdd/>
+            },
+            {
+                path: "/admin/tours/edit/:id",
+                element: <ToursEdit/>
+            },
+            {
+                path: "/admin/clinic",
+                element: <AdminClinicNew/>
+            },
+            {
+                path: "/admin/clinic/add",
+                element: <ClinicAdd/>
+            },
+            {
+                path: "/admin/clinic/edit/:id",
+                element: <ClinicEdit/>
+            },
         ]
     },
     {

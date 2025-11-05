@@ -7,7 +7,7 @@ import deleteImgModal from '/src/assets/deleteModalImg.png'
 import {useNavigate} from "react-router-dom";
 import closeIcon from '/src/assets/accordionClose.svg'
 import openIcon from '/src/assets/accordionOpen.svg'
-function CategoryTableServisNew() {
+function ClinicTableNew() {
     const arr = [
         {},
         {},
@@ -54,13 +54,13 @@ function CategoryTableServisNew() {
         setIsOpen(true);
     };
     return (
-        <div id={'category-servis-table'}>
-           <div className={'category-servis-table-wrapper'}>
+        <div id={'clinic-table'}>
+           <div className={'clinic-table-wrapper'}>
                <div className="grid-header">
                    <div></div>
+                   <div>Şəkil</div>
                    <div>Adı</div>
                    <div>Təsvir</div>
-                   <div>Klinikalar</div>
                    <div>Fəaliyyətlər</div>
                </div>
 
@@ -72,21 +72,12 @@ function CategoryTableServisNew() {
                                <div>
                                    <input type="checkbox" />
                                </div>
+                               <div className="icon">
+                                   {item.icon}
+                               </div>
                                <div>Xərçəng müalicəsi</div>
 
-                               {/* --- Təsvir --- */}
-                               <div className={`name ${isOpen ? "open" : ""}`}>
-                                   <p>
-                                       Bu xidmət müştərilərə [məqsəd] üçün nəzərdə tutulub.
-                                       Keyfiyyətli və etibarlı nəticə üçün peşəkar komanda tərəfindən həyata keçirilir.
-                                   </p>
-                                   <button
-                                       className="accordion-btn"
-                                       onClick={() => toggleAccordion(index)}
-                                   >
-                                       <img src={isOpen ? openIcon : closeIcon}/>
-                                   </button>
-                               </div>
+
 
                                {/* --- Klinikalar --- */}
                                <div className={`count ${isOpen ? "open" : ""}`}>
@@ -104,7 +95,7 @@ function CategoryTableServisNew() {
 
                                {/* --- Actions --- */}
                                <div className="actions">
-                                   <div className="action edit" onClick={() => navigate('/admin/category/servis/edit/:id')}>
+                                   <div className="action edit" onClick={() => navigate('/admin/clinic/edit/:id')}>
                                        <img src={editIcon} />
                                    </div>
                                    <div className="action trash" onClick={() => openDeleteModal(item)}>
@@ -126,7 +117,7 @@ function CategoryTableServisNew() {
                 <div className="modal-overlay" onClick={closeModal}>
                     <div className="delete-modal-content" onClick={(e) => e.stopPropagation()}>
                        <img src={deleteImgModal} className={'deleteImg'}/>
-                        <h3>Servisi silmək istədiyinizə əminsiz?</h3>
+                        <h3>Şərhi silmək istədiyinizə əminsiz?</h3>
                         <div className="modal-actions">
                             <button className="cancel" onClick={closeModal}>Ləğv et</button>
                             <button className="confirm">Sil</button>
@@ -138,4 +129,4 @@ function CategoryTableServisNew() {
     );
 }
 
-export default CategoryTableServisNew;
+export default ClinicTableNew;

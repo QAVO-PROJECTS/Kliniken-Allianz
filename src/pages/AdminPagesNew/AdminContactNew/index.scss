@@ -1,0 +1,59 @@
+#admin-contact {
+  .admin-contact {
+    .root{
+      h2 {
+        font-size: 12px;
+        margin-bottom: 12px;
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        font-weight: 500;
+        .link {
+          color: #5b5b5b;
+          text-decoration: none;
+        }
+      }
+    }
+    .category-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+      .category-header{
+        h4{
+          font-weight: 500;
+          font-size: 20px;
+          line-height: 100%;
+          margin-bottom: 6px;
+        }
+        p{
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 100%;
+          color: #7E7E7E;
+          margin: 0;
+        }
+      }
+      .category-buttons{
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+      }
+    }
+    .filter{
+      padding: 6px 12px;
+      height: 40px;
+      border: 1px solid #EBEBEB;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px ;
+      gap: 10px;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 18px;
+      color: #737373;
+    }
+  }
+}

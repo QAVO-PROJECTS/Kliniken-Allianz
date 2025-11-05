@@ -1,0 +1,31 @@
+#admin-serh {
+  .admin-serh {
+    .category-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+      .category-header{
+        h4{
+          font-weight: 500;
+          font-size: 20px;
+          line-height: 100%;
+          margin-bottom: 6px;
+        }
+        p{
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 100%;
+          color: #7E7E7E;
+          margin: 0;
+        }
+      }
+      .category-buttons{
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+      }
+    }
+  }
+}

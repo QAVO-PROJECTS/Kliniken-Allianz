@@ -17,7 +17,7 @@ function AdminLeftBar() {
         { path: "/admin/category", icon: categoryIcon, label: "Kateqoriya" },
         { path: "/admin/clinic", icon: clinicIcon, label: "Klinika" },
         { path: "/admin/doctors", icon: doctorIcon, label: "Həkim" },
-        { path: "/admin/service", icon: turIcon, label: "Xidmət paketi" },
+        { path: "/admin/tours", icon: turIcon, label: "Xidmət paketi" },
         { path: "/admin/otel", icon: hotelIcon, label: "Otel" },
         { path: "/admin/serh", icon: serhIcon, label: "Şərh" },
         { path: "/admin/contact", icon: contactIcon, label: "Əlaqələr" },
