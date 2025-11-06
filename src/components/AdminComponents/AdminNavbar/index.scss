@@ -19,6 +19,7 @@ align-content: center;
     align-items: center;
     .logo{
       width: 120px;
+      position: relative;
       img{
         object-fit: cover;
       }

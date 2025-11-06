@@ -2,6 +2,7 @@ import './index.scss'
 import LanguageDiv from "../../../components/AdminComponents/LanguageDic/index.jsx";
 import filterIcon from '/src/assets/filterIcon.svg'
 import ContactTableNew from "./ContactTable/index.jsx";
+import FilterDropdown from "../../../components/AdminComponents/FilterDiv/index.jsx";
 function AdminContactNew() {
     return (
         <div id={'admin-contact'}>
@@ -13,9 +14,7 @@ function AdminContactNew() {
                     </div>
                     <div className={'category-buttons'}>
                         <LanguageDiv />
-                        <div className={"filter"}>
-                           <img src={filterIcon}/> Filter
-                        </div>
+                        <FilterDropdown />
                     </div>
                 </div>
                 <ContactTableNew />

@@ -3,7 +3,7 @@ import left from '/src/assets/AdminNavLeft.png'
 import logo from '/src/assets/Logo.png'
 import searchIcon from "/src/assets/mingcute_search-line.png"
 import profileSvg from '/src/assets/profileSvg.svg'
-import LanguageDiv from "../LanguageDic/index.jsx";
+import LanguageDiv2 from "../LanguageDiv/index.jsx";
 
 function AdminNavbar() {
     return (
@@ -19,7 +19,7 @@ function AdminNavbar() {
                         <img src={searchIcon} className="searchIcon"/>
                     </div>
                     <div className={'navRight'}>
-                        <LanguageDiv/>
+                        <LanguageDiv2/>
                         <div className={'hrXett'}></div>
                         <div className={'profileDiv'}>
                             <div className={'profilIcon'}>

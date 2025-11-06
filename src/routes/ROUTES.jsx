@@ -42,6 +42,9 @@ import ToursEdit from "../pages/AdminPagesNew/AdminToursEdit/index.jsx";
 import AdminClinicNew from "../pages/AdminPagesNew/AdminClinicaNew/index.jsx";
 import ClinicAdd from "../pages/AdminPagesNew/AdminClinicAdd/index.jsx";
 import ClinicEdit from "../pages/AdminPagesNew/AdminClinicEdit/index.jsx";
+import AdminDoctorNew from "../pages/AdminPagesNew/AdminDoctorNew/index.jsx";
+import DoctorAdd from "../pages/AdminPagesNew/AdminDoctorAdd/index.jsx";
+import DoctorEdit from "../pages/AdminPagesNew/AdminDoctorEdit/index.jsx";
 
 
 const router = [
@@ -131,11 +134,6 @@ const router = [
                 path: "/admin/category/servis/edit/:id",
                 element: <CategoryServisEdit/>
             },
-
-            {
-                path: "/admin/doctors",
-                element: <AdminDoktor/>
-            },
             {
                 path: "/admin/contact",
                 element: <AdminContactNew/>
@@ -187,6 +185,18 @@ const router = [
             {
                 path: "/admin/clinic/edit/:id",
                 element: <ClinicEdit/>
+            },
+            {
+                path: "/admin/doctors",
+                element: <AdminDoctorNew/>
+            },
+            {
+                path: "/admin/doctors/add",
+                element: <DoctorAdd/>
+            },
+            {
+                path: "/admin/doctors/edit/:id",
+                element: <DoctorEdit/>
             },
         ]
     },

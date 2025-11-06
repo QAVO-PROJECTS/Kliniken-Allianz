@@ -3,18 +3,14 @@ import { useState } from "react";
 import earthIcon from "/src/assets/earthIcon.svg";
 import aze from "/src/assets/azerbaijan.svg";
 import rus from "/src/assets/russia.svg";
-import ger from '/src/assets/germany.svg'
-import usa from '/src/assets/unitedstates.svg';
-import arb from '/src/assets/unitedarabemirates.svg'
-function LanguageDiv() {
+
+function LanguageDiv2() {
     const [open, setOpen] = useState(false);
     const [selected, setSelected] = useState('AZ');
+
     const languages = [
         { code: 'AZ', label: 'Azərbaycan', flag: aze },
-        { code: 'EN', label: 'English', flag: usa },
-        { code: 'RU', label: 'Русский', flag: rus },
-        { code: 'DE', label: 'Deutsch', flag: ger },
-        { code: 'AR', label: 'العربية', flag: arb },
+        { code: 'RU', label: 'Русский', flag: rus }
     ];
 
     const handleSelect = (lang) => {
@@ -24,7 +20,7 @@ function LanguageDiv() {
     };
 
     return (
-        <div className="languageDropdown">
+        <div className="languageDropdown2">
             <div className="languageTrigger" onClick={() => setOpen(!open)}>
                 <img src={earthIcon} alt="earth" className="profileSvg"/>
             </div>
@@ -47,4 +43,4 @@ function LanguageDiv() {
     );
 }
 
-export default LanguageDiv;
+export default LanguageDiv2;

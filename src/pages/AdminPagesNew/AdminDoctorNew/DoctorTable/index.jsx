@@ -7,7 +7,7 @@ import deleteImgModal from '/src/assets/deleteModalImg.png'
 import {useNavigate} from "react-router-dom";
 import closeIcon from '/src/assets/accordionClose.svg'
 import openIcon from '/src/assets/accordionOpen.svg'
-function ClinicTableNew() {
+function DoctorTableNew() {
     const arr = [
         {},
         {},
@@ -24,42 +24,38 @@ function ClinicTableNew() {
         {},
         {},
     ]
-    const [showEditModal, setShowEditModal] = useState(false);
+
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const [selectedItem, setSelectedItem] = useState(null);
+
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 9;
     const totalPages = Math.ceil(arr.length / itemsPerPage);
-    const [activeIcon, setActiveIcon] = useState(null);
+
     const startIndex = (currentPage - 1) * itemsPerPage;
     const currentItems = arr.slice(startIndex, startIndex + itemsPerPage);
     const [openIndex, setOpenIndex] = useState(null);
-    const openEditModal = (item) => {
-        setSelectedItem(item);
-        setShowEditModal(true);
-    };
+
     const navigate =useNavigate();
     const openDeleteModal = (item) => {
-        setSelectedItem(item);
         setShowDeleteModal(true);
     };
 
-    const closeModal = () => {
-        setShowEditModal(false);
-        setShowDeleteModal(false);
-        setSelectedItem(null);
-    };
+
     const toggleAccordion = (index) => {
         setOpenIndex(openIndex === index ? null : index);
-        setIsOpen(true);
     };
     return (
-        <div id={'clinic-table'}>
-           <div className={'clinic-table-wrapper'}>
+        <div id={'doctor-table'}>
+           <div className={'doctor-table-wrapper'}>
                <div className="grid-header">
                    <div></div>
                    <div>Şəkil</div>
                    <div>Adı</div>
+                   <div>Soyadı</div>
+                   <div>Vəzifə</div>
+                   <div style={{
+                       textAlign: "center"
+                   }}>Təcrübə</div>
                    <div>Təsvir</div>
                    <div>Fəaliyyətlər</div>
                </div>
@@ -75,7 +71,12 @@ function ClinicTableNew() {
                                <div className="icon">
                                    {item.icon}
                                </div>
-                               <div>Xərçəng müalicəsi</div>
+                               <div>Səbinə</div>
+                               <div>Heydərova</div>
+                               <div>Kardioloq</div>
+                               <div style={{
+                                   textAlign: "center"
+                               }}>3</div>
 
 
 
@@ -95,7 +96,7 @@ function ClinicTableNew() {
 
                                {/* --- Actions --- */}
                                <div className="actions">
-                                   <div className="action edit" onClick={() => navigate('/admin/clinic/edit/:id')}>
+                                   <div className="action edit" onClick={() => navigate('/admin/doctors/edit/:id')}>
                                        <img src={editIcon} />
                                    </div>
                                    <div className="action trash" onClick={() => openDeleteModal(item)}>
@@ -117,7 +118,7 @@ function ClinicTableNew() {
                 <div className="modal-overlay" onClick={closeModal}>
                     <div className="delete-modal-content" onClick={(e) => e.stopPropagation()}>
                        <img src={deleteImgModal} className={'deleteImg'}/>
-                        <h3>Klinikanı silmək istədiyinizə əminsiz?</h3>
+                        <h3>Həkimi silmək istədiyinizə əminsiz?</h3>
                         <div className="modal-actions">
                             <button className="cancel" onClick={closeModal}>Ləğv et</button>
                             <button className="confirm">Sil</button>
@@ -129,4 +130,4 @@ function ClinicTableNew() {
     );
 }
 
-export default ClinicTableNew;
+export default DoctorTableNew;

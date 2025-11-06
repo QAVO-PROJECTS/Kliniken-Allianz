@@ -1,4 +1,4 @@
-.languageDropdown {
+.languageDropdown2 {
   position: relative;
   display: inline-block;
 
@@ -19,9 +19,9 @@
   }
 
   .languageMenu {
-    position: absolute;
-    top: 50px;
-    right: 0;
+    position: fixed;
+    top: 80px;
+    right: 200px;
     background: white;
     border: 1px solid #EBEBEB;
     border-radius: 12px;
