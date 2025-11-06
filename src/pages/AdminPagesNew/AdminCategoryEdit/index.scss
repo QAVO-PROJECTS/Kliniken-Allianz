@@ -1,5 +1,5 @@
-#category-add{
-  .category-add{
+#category-edit{
+  .category-edit{
     .root{
       h2 {
         font-size: 12px;
@@ -14,7 +14,7 @@
         }
       }
     }
-    .category-add-head{
+    .category-edit-head{
       margin-bottom: 32px;
       h1{
         font-weight: 500;
@@ -30,8 +30,8 @@
         margin: 0;
       }
     }
-    .category-add-main{
-      .category-add-data{
+    .category-edit-main{
+      .category-edit-data{
         display: flex;
         //align-items: center;
         justify-content: center;

@@ -1,5 +1,5 @@
 import './index.scss'
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate, useParams} from "react-router-dom";
 import rootIcon from '/src/assets/rootIcon.svg'
 import aze from '/src/assets/azerbaijan.svg'
 import rus from '/src/assets/russia.svg'
@@ -7,12 +7,32 @@ import usa from '/src/assets/unitedstates.svg'
 import ger from '/src/assets/germany.svg'
 import arb from '/src/assets/unitedarabemirates.svg'
 import uploadIcon from '/src/assets/uploadIcon.svg'
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {useGetCustomerViewByIdQuery, usePutCustomerViewMutation} from "../../../services/userApi.jsx";
+import {VIEW_CARD_IMAGES} from "../../../contants.js";
+import showToast from "../../../components/ToastMessage.js";
 function SerhEdit() {
-    const [activeIcon, setActiveIcon] = useState(null);
+    const {id} = useParams();
+    const { data: getCustomerViewById, isLoading } = useGetCustomerViewByIdQuery(id);
+    const view = getCustomerViewById?.data;
+    const navigate = useNavigate();
+    const [editView, { isLoading: isUpdating }] = usePutCustomerViewMutation();
+    const [name, setName] = useState("");
+    const [country, setCountry] = useState("");
+    const [descAz, setDescAz] = useState("");
+    const [descRu, setDescRu] = useState("");
+    const [descEn, setDescEn] = useState("");
     const [selectedFile, setSelectedFile] = useState(null);
     const [isDragging, setIsDragging] = useState(false);
-
+    useEffect(() => {
+        if (view) {
+            setName(view.customerName || "");
+            setCountry(view.country || "");
+            setDescAz(view.reviewText || "");
+            setDescRu(view.reviewTextRu || "");
+            setDescEn(view.reviewTextEng || "");
+        }
+    }, [view]);
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) setSelectedFile(file);
@@ -36,41 +56,35 @@ function SerhEdit() {
 
     const handleRemoveFile = () => {
         setSelectedFile(null);
+    }; const handleSubmit = async () => {
+        if (!name.trim() || !country.trim() || !descAz.trim()) {
+            showToast("Bütün əsas sahələr doldurulmalıdır!", "warning");
+            return;
+        }
+
+        try {
+            const formData = new FormData();
+            formData.append("id", id);
+            formData.append("customerName", name);
+            formData.append("reviewText", descAz);
+            formData.append("reviewTextRu", descRu);
+            formData.append("reviewTextEng", descEn);
+            formData.append("country", country);
+            formData.append("rating", 1); // sabit
+
+            if (selectedFile) {
+                formData.append("profilImage", selectedFile);
+            }
+
+            await editView(formData).unwrap();
+            showToast("Şərh uğurla yeniləndi ✅", "success");
+            navigate("/admin/serh");
+        } catch (err) {
+            console.error("PUT error:", err);
+            showToast("Yeniləmə zamanı xəta baş verdi ❌", "error");
+        }
     };
-    const arr = [
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-    ]
+    if (isLoading) return <p>Yüklənir...</p>;
     return (
         <div id={'serh-edit'}>
             <div className={'serh-edit'}>
@@ -95,44 +109,100 @@ function SerhEdit() {
                             <div className={'add-inputs'}>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
+                                        <input
+                                            value={name}
+                                            onChange={(e) => setName(e.target.value)}
+                                            placeholder={'Ad daxil edin'}
+                                        />
                                     </div>
-                                    <div className={'langCountry'}>
-                                        <img src={aze} alt="" />
-                                    </div>
+                                    {/*<div className={'langCountry'}>*/}
+                                    {/*    <img src={aze} alt="" />*/}
+                                    {/*</div>*/}
                                 </div>
+                                {/*<div className={'add-data'}>*/}
+                                {/*    <div className={'add-input'}>*/}
+                                {/*        <input placeholder={'Travmatologiya'}/>*/}
+                                {/*    </div>*/}
+                                {/*    <div className={'langCountry'}>*/}
+                                {/*        <img src={rus} alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
+                                {/*<div className={'add-data'}>*/}
+                                {/*    <div className={'add-input'}>*/}
+                                {/*        <input placeholder={'Travmatologiya'}/>*/}
+                                {/*    </div>*/}
+                                {/*    <div className={'langCountry'}>*/}
+                                {/*        <img src={usa} alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
+                                {/*<div className={'add-data'}>*/}
+                                {/*    <div className={'add-input'}>*/}
+                                {/*        <input placeholder={'Travmatologiya'}/>*/}
+                                {/*    </div>*/}
+                                {/*    <div className={'langCountry'}>*/}
+                                {/*        <img src={ger} alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
+                                {/*<div className={'add-data'}>*/}
+                                {/*    <div className={'add-input'}>*/}
+                                {/*        <input placeholder={'Travmatologiya'}/>*/}
+                                {/*    </div>*/}
+                                {/*    <div className={'langCountry'}>*/}
+                                {/*        <img src={arb} alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
+                            </div>
+                        </div>
+                        <div className={"dataDiv inputs"}>
+                            <div className={'header'}>
+                                <h3>Şərhin yazıldığı ölkənin adı</h3>
+                                <p>Rəyin hansı ölkədən yazıldığını göstərin.</p>
+                            </div>
+                            <div className={'add-inputs'}>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
+                                        <input
+                                            value={country}
+                                            onChange={(e) => setCountry(e.target.value)}
+                                            placeholder={'Məsələn: Azərbaycan'}
+                                        />
                                     </div>
-                                    <div className={'langCountry'}>
-                                        <img src={rus} alt="" />
-                                    </div>
+                                    {/*<div className={'langCountry'}>*/}
+                                    {/*    <img src={aze} alt="" />*/}
+                                    {/*</div>*/}
                                 </div>
-                                <div className={'add-data'}>
-                                    <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
-                                    </div>
-                                    <div className={'langCountry'}>
-                                        <img src={usa} alt="" />
-                                    </div>
-                                </div>
-                                <div className={'add-data'}>
-                                    <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
-                                    </div>
-                                    <div className={'langCountry'}>
-                                        <img src={ger} alt="" />
-                                    </div>
-                                </div>
-                                <div className={'add-data'}>
-                                    <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
-                                    </div>
-                                    <div className={'langCountry'}>
-                                        <img src={arb} alt="" />
-                                    </div>
-                                </div>
+                                {/*<div className={'add-data'}>*/}
+                                {/*    <div className={'add-input'}>*/}
+                                {/*        <input placeholder={'Travmatologiya'}/>*/}
+                                {/*    </div>*/}
+                                {/*    <div className={'langCountry'}>*/}
+                                {/*        <img src={rus} alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
+                                {/*<div className={'add-data'}>*/}
+                                {/*    <div className={'add-input'}>*/}
+                                {/*        <input placeholder={'Travmatologiya'}/>*/}
+                                {/*    </div>*/}
+                                {/*    <div className={'langCountry'}>*/}
+                                {/*        <img src={usa} alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
+                                {/*<div className={'add-data'}>*/}
+                                {/*    <div className={'add-input'}>*/}
+                                {/*        <input placeholder={'Travmatologiya'}/>*/}
+                                {/*    </div>*/}
+                                {/*    <div className={'langCountry'}>*/}
+                                {/*        <img src={ger} alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
+                                {/*<div className={'add-data'}>*/}
+                                {/*    <div className={'add-input'}>*/}
+                                {/*        <input placeholder={'Travmatologiya'}/>*/}
+                                {/*    </div>*/}
+                                {/*    <div className={'langCountry'}>*/}
+                                {/*        <img src={arb} alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
                             </div>
                         </div>
                         <div className="dataDiv images">
@@ -156,21 +226,23 @@ function SerhEdit() {
                                 />
                                 <label htmlFor="fileInput" className="uploadArea">
                                     <img src={uploadIcon} alt="upload" />
-                                    <p>
-                                        Faylı yükləmək üçün bu sahəyə klikləyin <br /> və ya sürükləyin
-                                    </p>
+                                    <p>Faylı yükləmək üçün klikləyin və ya sürükləyin</p>
                                 </label>
                             </div>
 
-                            {selectedFile && (
+                            {(selectedFile || view?.profilImage) && (
                                 <div className="uploadedFile">
                                     <div className="fileInfo">
                                         <img
-                                            src={URL.createObjectURL(selectedFile)}
+                                            src={
+                                                selectedFile
+                                                    ? URL.createObjectURL(selectedFile)
+                                                    : VIEW_CARD_IMAGES + view.profilImage
+                                            }
                                             alt="preview"
                                             className="previewImg"
                                         />
-                                        <span>{selectedFile.name}</span>
+                                        <span>{selectedFile ? selectedFile.name : view.profilImage}</span>
                                     </div>
                                     <button onClick={handleRemoveFile}>✕</button>
                                 </div>
@@ -184,7 +256,11 @@ function SerhEdit() {
                             <div className={'add-inputs'}>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
+                                        <input
+                                            value={descAz}
+                                            onChange={(e) => setDescAz(e.target.value)}
+                                            placeholder={'Təsvir (AZ)'}
+                                        />
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={aze} alt="" />
@@ -192,7 +268,11 @@ function SerhEdit() {
                                 </div>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
+                                        <input
+                                            value={descRu}
+                                            onChange={(e) => setDescRu(e.target.value)}
+                                            placeholder={'Описание (RU)'}
+                                        />
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={rus} alt="" />
@@ -200,80 +280,43 @@ function SerhEdit() {
                                 </div>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
+                                        <input
+                                            value={descEn}
+                                            onChange={(e) => setDescEn(e.target.value)}
+                                            placeholder={'Description (EN)'}
+                                        />
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={usa} alt="" />
                                     </div>
                                 </div>
-                                <div className={'add-data'}>
-                                    <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
-                                    </div>
-                                    <div className={'langCountry'}>
-                                        <img src={ger} alt="" />
-                                    </div>
-                                </div>
-                                <div className={'add-data'}>
-                                    <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
-                                    </div>
-                                    <div className={'langCountry'}>
-                                        <img src={arb} alt="" />
-                                    </div>
-                                </div>
+                                {/*<div className={'add-data'}>*/}
+                                {/*    <div className={'add-input'}>*/}
+                                {/*        <input placeholder={'Travmatologiya'}/>*/}
+                                {/*    </div>*/}
+                                {/*    <div className={'langCountry'}>*/}
+                                {/*        <img src={ger} alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
+                                {/*<div className={'add-data'}>*/}
+                                {/*    <div className={'add-input'}>*/}
+                                {/*        <input placeholder={'Travmatologiya'}/>*/}
+                                {/*    </div>*/}
+                                {/*    <div className={'langCountry'}>*/}
+                                {/*        <img src={arb} alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
                             </div>
                         </div>
-                        <div className={"dataDiv inputs"}>
-                            <div className={'header'}>
-                                <h3>Şərhin yazıldığı ölkənin adı</h3>
-                                <p>Rəyin hansı ölkədən yazıldığını göstərin.</p>
-                            </div>
-                            <div className={'add-inputs'}>
-                                <div className={'add-data'}>
-                                    <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
-                                    </div>
-                                    <div className={'langCountry'}>
-                                        <img src={aze} alt="" />
-                                    </div>
-                                </div>
-                                <div className={'add-data'}>
-                                    <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
-                                    </div>
-                                    <div className={'langCountry'}>
-                                        <img src={rus} alt="" />
-                                    </div>
-                                </div>
-                                <div className={'add-data'}>
-                                    <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
-                                    </div>
-                                    <div className={'langCountry'}>
-                                        <img src={usa} alt="" />
-                                    </div>
-                                </div>
-                                <div className={'add-data'}>
-                                    <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
-                                    </div>
-                                    <div className={'langCountry'}>
-                                        <img src={ger} alt="" />
-                                    </div>
-                                </div>
-                                <div className={'add-data'}>
-                                    <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
-                                    </div>
-                                    <div className={'langCountry'}>
-                                        <img src={arb} alt="" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
-                    <button className={'submitButton'}>Yadda saxla</button>
+                    <button
+                        className={'submitButton'}
+                        onClick={handleSubmit}
+                        disabled={isUpdating}
+                    >
+                        {isUpdating ? "Yenilənir..." : "Yadda saxla"}
+                    </button>
                 </div>
             </div>
         </div>

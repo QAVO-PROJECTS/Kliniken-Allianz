@@ -1,43 +1,65 @@
 import './index.scss'
 import Pagination from "../../../../components/UserComponents/Pagination/index.jsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import editIcon from '/src/assets/adminEditİcon.svg'
 import delIcon from '/src/assets/adminDelİcon.svg'
 import deleteImgModal from '/src/assets/deleteModalImg.png'
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import closeIcon from '/src/assets/accordionClose.svg'
 import openIcon from '/src/assets/accordionOpen.svg'
-function CategoryTableServisNew() {
-    const arr = [
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-    ]
-    const [showEditModal, setShowEditModal] = useState(false);
+import {
+    useDeleteServiceMutation,
+    useGetCategoryByIdQuery,
+     useLazyGetServiceByIdQuery
+} from "../../../../services/userApi.jsx";
+import showToast from "../../../../components/ToastMessage.js";
+function CategoryTableServisNew({language}) {
+    const {id} = useParams();
+    const {data:getCategoryById, isLoading ,refetch} = useGetCategoryByIdQuery(id)
+    const category = getCategoryById?.data
+    const services = category?.services || [];
+    // Lazy query (elle tetikleme)
+    const [fetchServiceById] = useLazyGetServiceByIdQuery();
+    const [servicesWithClinics, setServicesWithClinics] = useState([])
+    useEffect(() => {
+        const fetchAllServices = async () => {
+            if (!services.length) return;
+
+            const results = await Promise.all(
+                services.map(async (srv) => {
+                    console.log(srv.id)
+                    try {
+                        const { data } = await fetchServiceById(srv.id).unwrap();
+                        console.log(data)
+                        return {
+                            ...srv,
+                            clinics: data.clinics,
+                        };
+                    } catch (e) {
+                        console.error("Xidmət məlumatı alınmadı:", e);
+                        return { ...srv, clinics: [] };
+                    }
+                })
+            );
+
+            setServicesWithClinics(results);
+        };
+
+        fetchAllServices();
+    }, [services]);
+    const [deleteService, { isLoading: isDeleting }] = useDeleteServiceMutation()
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 9;
-    const totalPages = Math.ceil(arr.length / itemsPerPage);
-    const [activeIcon, setActiveIcon] = useState(null);
+    const totalPages = Math.ceil(servicesWithClinics.length / itemsPerPage);
+    console.log("servicesWithClinics", servicesWithClinics);
     const startIndex = (currentPage - 1) * itemsPerPage;
-    const currentItems = arr.slice(startIndex, startIndex + itemsPerPage);
+    const currentItems = servicesWithClinics.slice(startIndex, startIndex + itemsPerPage);
     const [openIndex, setOpenIndex] = useState(null);
-    const openEditModal = (item) => {
-        setSelectedItem(item);
-        setShowEditModal(true);
-    };
+    useEffect(() => {
+        refetch()
+    }, []);
     const navigate =useNavigate();
     const openDeleteModal = (item) => {
         setSelectedItem(item);
@@ -45,14 +67,60 @@ function CategoryTableServisNew() {
     };
 
     const closeModal = () => {
-        setShowEditModal(false);
-        setShowDeleteModal(false);
         setSelectedItem(null);
+        setShowDeleteModal(false);
+
     };
     const toggleAccordion = (index) => {
         setOpenIndex(openIndex === index ? null : index);
-        setIsOpen(true);
+
     };
+    const getLocalizedName = (item) => {
+        switch (language) {
+            case "EN": return item.nameEng || item.name;
+            case "RU": return item.nameRu || item.name;
+            case "DE": return item.nameAlm || item.name;
+            case "AR": return item.nameArab || item.name;
+            default: return item.name;
+        }
+    };
+
+    const getLocalizedDescription = (item) => {
+        switch (language) {
+            case "EN": return item.descriptionEng || item.description;
+            case "RU": return item.descriptionRu || item.description;
+            case "DE": return item.descriptionAlm || item.description;
+            case "AR": return item.descriptionArab || item.description;
+            default: return item.description;
+        }
+    };
+    const handleDelete = async () => {
+        if (!selectedItem?.id) {
+            showToast("Xidmət tapılmadı ❌", "error");
+            return;
+        }
+
+        try {
+            await deleteService(selectedItem.id).unwrap();
+            showToast("Xidmət uğurla silindi ✅", "success");
+            closeModal();
+            refetch();
+        } catch (err) {
+            console.error("Silinmə xətası:", err);
+            showToast("Xidməti silmək mümkün olmadı ❌", "error");
+        }
+    };
+    const getLocalizedClinicName = (clinic) => {
+        switch (language) {
+            case "EN": return clinic.nameEng || clinic.name;
+            case "RU": return clinic.nameRu || clinic.name;
+            case "DE": return clinic.nameAlm || clinic.name;
+            case "AR": return clinic.nameArab || clinic.name;
+            default: return clinic.name;
+        }
+    };
+
+    if (isLoading) return <p>Yüklənir...</p>;
     return (
         <div id={'category-servis-table'}>
            <div className={'category-servis-table-wrapper'}>
@@ -65,55 +133,68 @@ function CategoryTableServisNew() {
                </div>
 
                <div className="grid-body">
-                   {currentItems.map((item, index) => {
-                       const isOpen = openIndex === index; // true/false
-                       return (
-                           <div className="grid-row" key={index}>
-                               <div>
-                                   <input type="checkbox" />
-                               </div>
-                               <div>Xərçəng müalicəsi</div>
-
-                               {/* --- Təsvir --- */}
-                               <div className={`name ${isOpen ? "open" : ""}`}>
-                                   <p>
-                                       Bu xidmət müştərilərə [məqsəd] üçün nəzərdə tutulub.
-                                       Keyfiyyətli və etibarlı nəticə üçün peşəkar komanda tərəfindən həyata keçirilir.
-                                   </p>
-                                   <button
-                                       className="accordion-btn"
-                                       onClick={() => toggleAccordion(index)}
-                                   >
-                                       <img src={isOpen ? openIcon : closeIcon}/>
-                                   </button>
-                               </div>
-
-                               {/* --- Klinikalar --- */}
-                               <div className={`count ${isOpen ? "open" : ""}`}>
-                                   <p>
-                                       GlobalMed, Sağlam Ailə, GlobalMed, Sağlam Ailə,
-                                       GlobalMed, Sağlam Ailə, GlobalMed
-                                   </p>
-                                   <button
-                                       className="accordion-btn"
-                                       onClick={() => toggleAccordion(index)}
-                                   >
-                                       <img src={isOpen ? openIcon : closeIcon}/>
-                                   </button>
-                               </div>
-
-                               {/* --- Actions --- */}
-                               <div className="actions">
-                                   <div className="action edit" onClick={() => navigate('/admin/category/servis/edit/:id')}>
-                                       <img src={editIcon} />
+                   {currentItems.length > 0 ? (
+                       currentItems.map((item, index) => {
+                           const isOpen = openIndex === index;
+                           return (
+                               <div className="grid-row" key={item.id}>
+                                   {/* Checkbox */}
+                                   <div>
+                                       <input type="checkbox" />
                                    </div>
-                                   <div className="action trash" onClick={() => openDeleteModal(item)}>
-                                       <img src={delIcon} />
+
+                                   {/* Xidmət adı */}
+                                   <div>{getLocalizedName(item)}</div>
+
+                                   {/* Təsvir */}
+                                   <div className={`name ${isOpen ? "open" : ""}`}>
+                                       <p>{getLocalizedDescription(item)}</p>
+                                       <button
+                                           className="accordion-btn"
+                                           onClick={() => toggleAccordion(index)}
+                                       >
+                                           <img src={isOpen ? openIcon : closeIcon} />
+                                       </button>
+                                   </div>
+
+                                   {/* Klinikalar */}
+                                   <div className={`count ${isOpen ? "open" : ""}`}>
+                                       {item.clinics?.length > 0 ? (
+                                           <p>{item.clinics.map(c => getLocalizedClinicName(c)).join(", ")}</p>
+                                       ) : (
+                                           <p>-</p>
+                                       )}
+                                       <button
+                                           className="accordion-btn"
+                                           onClick={() => toggleAccordion(index)}
+                                       >
+                                           <img src={isOpen ? openIcon : closeIcon} />
+                                       </button>
+                                   </div>
+
+                                   {/* Actions */}
+                                   <div className="actions">
+                                       <div
+                                           className="action edit"
+                                           onClick={() => navigate(`/admin/category/servis/edit/${item.id}`)}
+                                       >
+                                           <img src={editIcon} />
+                                       </div>
+                                       <div
+                                           className="action trash"
+                                           onClick={() => openDeleteModal(item)}
+                                       >
+                                           <img src={delIcon} />
+                                       </div>
                                    </div>
                                </div>
-                           </div>
-                       );
-                   })}
+                           );
+                       })
+                   ) : (
+                       <div className="no-data">
+                           <p>Bu kateqoriyaya aid xidmət yoxdur.</p>
+                       </div>
+                   )}
                </div>
            </div>
             <Pagination
@@ -129,7 +210,9 @@ function CategoryTableServisNew() {
                         <h3>Servisi silmək istədiyinizə əminsiz?</h3>
                         <div className="modal-actions">
                             <button className="cancel" onClick={closeModal}>Ləğv et</button>
-                            <button className="confirm">Sil</button>
+                            <button className="confirm" onClick={handleDelete} disabled={isDeleting}>
+                                {isDeleting ? "Silinir..." : "Sil"}
+                            </button>
                         </div>
                     </div>
                 </div>

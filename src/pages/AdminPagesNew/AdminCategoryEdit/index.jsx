@@ -1,5 +1,5 @@
 import './index.scss'
-import {NavLink, useNavigate} from "react-router-dom";
+import {NavLink, useNavigate, useParams} from "react-router-dom";
 import rootIcon from '/src/assets/rootIcon.svg'
 import aze from '/src/assets/azerbaijan.svg'
 import rus from '/src/assets/russia.svg'
@@ -7,90 +7,102 @@ import usa from '/src/assets/unitedstates.svg'
 import ger from '/src/assets/germany.svg'
 import arb from '/src/assets/unitedarabemirates.svg'
 import cat1 from "../../../assets/Servis/cat1.svg";
-import {useState} from "react";
-import {usePostCategoryMutation} from "../../../services/userApi.jsx";
+import {useEffect, useState} from "react";
+import {useGetCategoryByIdQuery, usePostCategoryMutation, usePutCategoryMutation} from "../../../services/userApi.jsx";
 import showToast from "../../../components/ToastMessage.js";
-function CategoryAdd() {
-    const [activeIcon, setActiveIcon] = useState(null);
-    const [postCategory, { isLoading }] = usePostCategoryMutation()
+import {CATEGORY_IMAGES} from "../../../contants.js";
+function CategoryEdit() {
+    const { id } = useParams();
+    const { data: getCategoryById, isLoading: isFetching,refetch } = useGetCategoryByIdQuery(id);
+    const category = getCategoryById?.data;
     const navigate = useNavigate();
-    // 🔹 input state-lər (dillərə görə)
+    const [putCategory, { isLoading: isUpdating }] = usePutCategoryMutation();
+
+    // 🔹 form üçün state-lər
     const [inputs, setInputs] = useState({
         az: "",
         ru: "",
-        en: ""
+        en: "",
     });
-    // 🔹 input dəyişiklikləri üçün funksiya
+    const [activeIcon, setActiveIcon] = useState(null);
+
+    // 🔹 mövcud datanı inputlara doldur
+    useEffect(() => {
+        if (category) {
+            setInputs({
+                az: category.name || "",
+                ru: category.nameRu || "",
+                en: category.nameEng || "",
+            });
+        }
+    }, [category]);
+
+    // 🔹 input dəyişiklikləri
     const handleInputChange = (lang, value) => {
         setInputs(prev => ({ ...prev, [lang]: value }));
     };
 
-    // 🔹 ikon seçmək üçün nümunə array
-    const icons = [
-        cat1, cat1, cat1, cat1, cat1, cat1, cat1, cat1, cat1, cat1
-    ];
+    // 🔹 iconlar (placeholder, əslində burada sənin icon listin olacaq)
+    const icons = [cat1, cat1, cat1, cat1, cat1, cat1];
+
+    // 🔹 icon-u blob-a çevirmək üçün helper
     const getImageBlob = async (url) => {
         const response = await fetch(url);
         return await response.blob();
     };
-    // 🔹 POST sorğusu
-    const handleSubmit = async () => {
+    useEffect(() => {
+        refetch()
+    }, []);
+    // 🔹 PUT sorğusu (update)
+    const handleUpdate = async () => {
         if (!inputs.az.trim()) {
-            showToast("Azərbaycan dilində kateqoriya adı boş ola bilməz!",'warning');
+            showToast("Azərbaycan dilində kateqoriya adı boş ola bilməz!", 'warning');
             return;
         }
-        if (activeIcon === null) {
-            showToast("Zəhmət olmasa ikon seçin!",'warning');
-            return;
-        }
-
 
         try {
             const formData = new FormData();
+            formData.append("id", category.id);
             formData.append("name", inputs.az);
             formData.append("nameRu", inputs.ru);
             formData.append("nameEng", inputs.en);
-            const iconBlob = await getImageBlob(icons[activeIcon]);
-            formData.append("categoryImage", iconBlob, `icon_${activeIcon}.svg`);
-            await postCategory(formData).unwrap();
-            showToast("Kateqoriya uğurla əlavə olundu ✅",'success');
-            setInputs({ az: "", ru: "", en: "" });
-            setActiveIcon(null);
+
+            if (activeIcon !== null) {
+                const iconBlob = await getImageBlob(icons[activeIcon]);
+                formData.append("categoryImage", iconBlob, `icon_${activeIcon}.svg`);
+            } else {
+                formData.append("categoryImage", category.categoryImage);
+            }
+
+            await putCategory(formData).unwrap(); // ✅ sadəcə formData göndər
+            showToast("Kateqoriya uğurla yeniləndi ✅", 'success');
             navigate('/admin/category');
+            refetch()
         } catch (err) {
-            console.error("Xəta:", err);
-            showToast("Xəta baş verdi ❌",'error');
+            console.error("Xəta PUT:", err);
+            showToast("Xəta baş verdi ❌", 'error');
         }
     };
-    const arr = [
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
 
-    ]
+
+    if (isFetching) return <p>Yüklənir...</p>;
+
     return (
-        <div id={'category-add'}>
-            <div className={'category-add'}>
+        <div id={'category-edit'}>
+            <div className={'category-edit'}>
                 <div className={"root"}>
                     <h2>
                         <NavLink className="link" to="/admin/category">Kateqoriya</NavLink>
                         <img src={rootIcon} alt="" />
-                        Yeni kateqoriya yarat
+                        Kateqoriyanı redaktə et
                     </h2>
                 </div>
-                <div className={'category-add-head'}>
-                    <h1>Yeni kateqoriya yarat</h1>
-                    <p>Buradan kateqoriyaları idarə edə və yenilərini yarada bilərsiniz.</p>
+                <div className={'category-edit-head'}>
+                    <h1> Kateqoriyanı redaktə et</h1>
+                    <p>Buradan mövcud kateqoriyanın məlumatlarını dəyişə bilərsiniz.</p>
                 </div>
-                <div className={'category-add-main'}>
-                    <div className={'category-add-data'}>
+                <div className={'category-edit-main'}>
+                    <div className={'category-edit-data'}>
                         <div className={"dataDiv inputs"}>
                             <div className={'header'}>
                                 <h3>Kateqoriya adı</h3>
@@ -109,6 +121,7 @@ function CategoryAdd() {
                                         <img src={aze} alt="" />
                                     </div>
                                 </div>
+
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
                                         <input
@@ -121,6 +134,7 @@ function CategoryAdd() {
                                         <img src={rus} alt="" />
                                     </div>
                                 </div>
+
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
                                         <input
@@ -163,14 +177,21 @@ function CategoryAdd() {
                                         className={`iconDiv ${activeIcon === index ? 'active' : ''}`}
                                         onClick={() => setActiveIcon(index)}
                                     >
-                                        <img src={icon} />
+                                        <img src={icon} alt="category-icon" />
                                     </div>
                                 ))}
+
+                                {/* Mövcud backend şəkli göstərmək */}
+                                {activeIcon === null && category?.categoryImage && (
+                                    <div className="iconDiv active">
+                                        <img src={CATEGORY_IMAGES+ category.categoryImage} alt="current-icon" />
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
-                    <button onClick={handleSubmit} disabled={isLoading}>
-                        {isLoading ? "Yüklənir..." : "Yadda saxla"}
+                    <button onClick={handleUpdate} disabled={isUpdating}>
+                        {isUpdating ? "Yenilənir..." : "Yadda saxla"}
                     </button>
                 </div>
             </div>
@@ -178,4 +199,4 @@ function CategoryAdd() {
     );
 }
 
-export default CategoryAdd;
+export default CategoryEdit;

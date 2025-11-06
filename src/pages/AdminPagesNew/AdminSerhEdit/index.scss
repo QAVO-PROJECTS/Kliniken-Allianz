@@ -43,7 +43,8 @@
           width: 49%;
           border-radius: 5px;
           padding: 24px 36px;
-          height: 328px;
+          //height: 328px;
+          height: max-content;
           &.inputs{
             .header{
               margin-bottom: 16px;
@@ -215,6 +216,10 @@
         font-size: 14px;
         line-height: 21px;
         color: #fff;
+        &:disabled{
+          background-color: rgba(10, 64, 128, 0.47);
+          cursor: not-allowed;
+        }
       }
     }
   }

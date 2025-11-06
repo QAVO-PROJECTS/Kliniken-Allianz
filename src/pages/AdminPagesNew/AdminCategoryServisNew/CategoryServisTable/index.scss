@@ -7,7 +7,7 @@
 
   .grid-header, .grid-row {
     display: grid;
-    grid-template-columns: 60px .5fr 1fr 1fr 150px;
+    grid-template-columns: 60px .7fr 1fr .7fr 100px;
     align-items: center;
     padding: 12px 16px;
     gap: 12px;
@@ -25,7 +25,14 @@
   }
 
   .grid-body {
-
+    .no-data{
+      text-align: center;
+      font-size: 14px;
+      padding: 16px;
+      p{
+        margin: 0;
+      }
+    }
     .grid-row {
       border-bottom: 1px solid #ebebeb;
       transition: background 0.2s ease;
@@ -37,43 +44,68 @@
       &:hover {
         background: #fafafa;
       }
+
       .name,
       .count {
-        position: relative;
-        display: flex;
+        display: grid;
+        grid-template-columns: 1fr auto;
         align-items: flex-start;
         gap: 6px;
+        position: relative;
 
         p {
-          flex: 1;
           margin: 0;
           overflow: hidden;
           text-overflow: ellipsis;
           display: -webkit-box;
-          -webkit-line-clamp: 1; // yalnız 1 sətir
+          -webkit-line-clamp: 1;
           -webkit-box-orient: vertical;
           line-height: 1.4;
           max-height: 1.4em;
-          transition: all 0.3s ease;
+          transition: max-height 0.25s ease, -webkit-line-clamp 0.25s ease;
         }
 
+        // 🔹 Açıldıqda genişlənmə effekti
         &.open p {
           -webkit-line-clamp: unset;
-          max-height: 200px;
-          overflow: visible;
+          max-height: 6em; // 4–5 sətirə qədər göstər, tam daşımasın
+          overflow-y: auto;
+        }
+
+        // 🔹 Scroll görünüşü (mülayim)
+        &.open p::-webkit-scrollbar {
+          width: 3px;
+        }
+        &.open p::-webkit-scrollbar-thumb {
+          background: #bdbdbd;
+          border-radius: 10px;
         }
 
         .accordion-btn {
-          flex-shrink: 0;
           background: transparent;
           border: none;
           cursor: pointer;
-          font-size: 12px;
-          line-height: 1;
-          margin-left: 4px;
-          color: #666;
+          display: flex;
+          align-items: flex-start;
+          justify-content: center;
+          padding: 0;
+          margin-top: 2px; // ✅ sabit qalır, yazı ilə birlikdə
+          width: 16px;
+          height: 16px;
+
+          img {
+            width: 10px;
+            height: 10px;
+            transition: transform 0.2s ease;
+          }
+        }
+
+        // 🔹 Açıldıqda icon bir az fırlansın
+        &.open .accordion-btn img {
+          transform: rotate(180deg);
         }
       }
+
 
 
       &:last-child {
@@ -350,5 +382,13 @@
         }
       }
 
+  }
+}
+.no-data{
+  text-align: center;
+  font-size: 14px;
+  padding: 16px;
+  p{
+    margin: 0;
   }
 }

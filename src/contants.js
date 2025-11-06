@@ -8,3 +8,4 @@ export const DOCTOR_IMG_URL = 'https://api.kliniken-allianz.com/files/doctor_ima
 export const CERT_CLINIC_URL = 'https://api.kliniken-allianz.com/files/clinic_sertificates/'
 export const CERT_DOKTOR_URL = 'https://api.kliniken-allianz.com/files/doctor_sertificates/'
 export const OTEL_CARD_IMAGES = 'https://api.kliniken-allianz.com/files/otel_card_images/'
+export const VIEW_CARD_IMAGES = 'https://api.kliniken-allianz.com/files/view_card_images/'

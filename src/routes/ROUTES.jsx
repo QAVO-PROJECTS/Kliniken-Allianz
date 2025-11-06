@@ -45,6 +45,7 @@ import ClinicEdit from "../pages/AdminPagesNew/AdminClinicEdit/index.jsx";
 import AdminDoctorNew from "../pages/AdminPagesNew/AdminDoctorNew/index.jsx";
 import DoctorAdd from "../pages/AdminPagesNew/AdminDoctorAdd/index.jsx";
 import DoctorEdit from "../pages/AdminPagesNew/AdminDoctorEdit/index.jsx";
+import CategoryEdit from "../pages/AdminPagesNew/AdminCategoryEdit/index.jsx";
 
 
 const router = [
@@ -121,6 +122,10 @@ const router = [
             {
                 path: "/admin/category/add",
                 element: <CategoryAdd/>
+            },
+            {
+                path: "/admin/category/edit/:id",
+                element: <CategoryEdit/>
             },
             {
                 path: "/admin/category/servis/:id",

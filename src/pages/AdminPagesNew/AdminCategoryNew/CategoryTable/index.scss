@@ -51,6 +51,12 @@
         height: 30px;
         border-radius: 6px;
         border: 1px solid #D5D5D5;
+        overflow: hidden;
+        img{
+          width: 30px;
+          height: 30px;
+          object-fit: cover;
+        }
 
       }
       input[type="checkbox"] {

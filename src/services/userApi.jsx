@@ -125,7 +125,7 @@ export const userApi = createApi({
         }),
         getServiceById: builder.query({
             query: (id) => ({
-                url: `/Service/get-service-by-id/${id}`,
+                url: `/Service/get-service/${id}`,
             }),
         }),
         putService: builder.mutation({
@@ -191,6 +191,36 @@ export const userApi = createApi({
                 method: 'DELETE',
             }),
         }),
+        getAllCustomerView: builder.query({
+            query: () => ({
+                url: `/CustomerView/get-all-customer-views`,
+            }),
+        }),
+        getCustomerViewById: builder.query({
+            query: (id) => ({
+                url: `/CustomerView/get-customer-view-by-id/${id}`,
+            }),
+        }),
+        putCustomerView: builder.mutation({
+            query: (service) => ({
+                url: `/CustomerView/update-customer-view`,
+                method: 'PUT',
+                body: service,
+            }),
+        }),
+        postCustomerView: builder.mutation({
+            query: (data) => ({
+                url: `/CustomerView/create-customer-view`,
+                method: 'POST',
+                body: data,
+            }),
+        }),
+        deleteCustomerView: builder.mutation({
+            query: (id) => ({
+                url: `/CustomerView/delete-customer-view/${id}`,
+                method: 'DELETE',
+            }),
+        }),
     }),
 })
 export const {
@@ -229,4 +259,12 @@ export const {
     usePutOtelsMutation,
     useDeleteOtelsMutation,
     usePostOtelsMutation,
+    useLazyGetServiceByIdQuery,
+
+    useGetAllCustomerViewQuery,
+    useGetCustomerViewByIdQuery,
+    usePutCustomerViewMutation,
+    useDeleteCustomerViewMutation,
+    usePostCustomerViewMutation,
+
 } = userApi

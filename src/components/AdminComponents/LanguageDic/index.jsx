@@ -6,21 +6,19 @@ import rus from "/src/assets/russia.svg";
 import ger from '/src/assets/germany.svg'
 import usa from '/src/assets/unitedstates.svg';
 import arb from '/src/assets/unitedarabemirates.svg'
-function LanguageDiv() {
+function LanguageDiv({ selected, onChange }) {
     const [open, setOpen] = useState(false);
-    const [selected, setSelected] = useState('AZ');
     const languages = [
         { code: 'AZ', label: 'Azərbaycan', flag: aze },
         { code: 'EN', label: 'English', flag: usa },
         { code: 'RU', label: 'Русский', flag: rus },
-        { code: 'DE', label: 'Deutsch', flag: ger },
-        { code: 'AR', label: 'العربية', flag: arb },
+        // { code: 'DE', label: 'Deutsch', flag: ger },
+        // { code: 'AR', label: 'العربية', flag: arb },
     ];
 
     const handleSelect = (lang) => {
-        setSelected(lang.code);
+        onChange(lang.code); // parent state-ni dəyiş
         setOpen(false);
-        // burada i18next və ya başqa bir dil dəyişmə funksiyası çağırmaq olar
     };
 
     return (

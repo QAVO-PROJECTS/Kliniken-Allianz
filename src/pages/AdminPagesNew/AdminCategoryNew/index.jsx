@@ -2,7 +2,9 @@ import './index.scss'
 import LanguageDiv from "../../../components/AdminComponents/LanguageDic/index.jsx";
 import AddBtn from "../../../components/AdminComponents/AddBtn/index.jsx";
 import CategoryTableNew from "./CategoryTable/index.jsx";
+import {useState} from "react";
 function AdminCategoryNew() {
+    const [language, setLanguage] = useState("AZ");
     return (
         <div id={'admin-category'}>
             <div className={'admin-category'}>
@@ -12,11 +14,11 @@ function AdminCategoryNew() {
                         <p>Buradan kateqoriyaları idarə edə və yenilərini yarada bilərsiniz.</p>
                     </div>
                     <div className={'category-buttons'}>
-                        <LanguageDiv />
+                        <LanguageDiv selected={language} onChange={setLanguage}/>
                         <AddBtn nav={'/admin/category/add'}/>
                     </div>
                 </div>
-                <CategoryTableNew />
+                <CategoryTableNew  language={language}/>
             </div>
         </div>
     );

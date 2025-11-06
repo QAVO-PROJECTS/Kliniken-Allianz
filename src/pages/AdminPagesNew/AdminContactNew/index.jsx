@@ -3,7 +3,11 @@ import LanguageDiv from "../../../components/AdminComponents/LanguageDic/index.j
 import filterIcon from '/src/assets/filterIcon.svg'
 import ContactTableNew from "./ContactTable/index.jsx";
 import FilterDropdown from "../../../components/AdminComponents/FilterDiv/index.jsx";
+import {useState} from "react";
 function AdminContactNew() {
+    const [language, setLanguage] = useState("AZ");
+    const [selectedFilter, setSelectedFilter] = useState("Ümumi"); // 🔹 əlavə etdik
+
     return (
         <div id={'admin-contact'}>
             <div className={'admin-contact'}>
@@ -13,11 +17,14 @@ function AdminContactNew() {
                         <p>Müştəri mesajlarına baxın və cavabları izləyin</p>
                     </div>
                     <div className={'category-buttons'}>
-                        <LanguageDiv />
-                        <FilterDropdown />
+                        {/*<LanguageDiv selected={language} onChange={setLanguage} />*/}
+                        <FilterDropdown
+                            selected={selectedFilter}
+                            onChange={setSelectedFilter} // 🔹 filter dəyərini yuxarı qaldırdıq
+                        />
                     </div>
                 </div>
-                <ContactTableNew />
+                <ContactTableNew  language={language} filter={selectedFilter}/>
             </div>
         </div>
     );

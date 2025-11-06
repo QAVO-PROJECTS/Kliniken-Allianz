@@ -1,6 +1,6 @@
 import './index.scss'
 import Pagination from "../../../../components/UserComponents/Pagination/index.jsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import editIcon from '/src/assets/adminEditİcon.svg'
 import delIcon from '/src/assets/adminDelİcon.svg'
 import navIcon from '/src/assets/adminNavİcon.svg'
@@ -9,47 +9,61 @@ import cat1 from '/src/assets/Servis/cat1.svg'
 import editIconModal from '/src/assets/editIconModal.svg'
 import deleteImgModal from '/src/assets/deleteModalImg.png'
 import {useNavigate} from "react-router-dom";
-function CategoryTableNew() {
-    const arr = [
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
+import {
+    useDeleteCategoryMutation,
+    useGetAllCategoryQuery,
+    usePutCategoryMutation
+} from "../../../../services/userApi.jsx";
+import {CATEGORY_IMAGES} from "../../../../contants.js";
+import showToast from "../../../../components/ToastMessage.js";
+function CategoryTableNew({ language }) {
+    const {data:getAllCategory,refetch} = useGetAllCategoryQuery()
+    const categories = getAllCategory?.data
+    const [deleteCategory, { isLoading: isDeleting }] = useDeleteCategoryMutation()
 
-    ]
-    const [showEditModal, setShowEditModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 9;
-    const totalPages = Math.ceil(arr.length / itemsPerPage);
-    const [activeIcon, setActiveIcon] = useState(null);
+    const totalPages = Math.ceil(categories?.length / itemsPerPage);
+
     const startIndex = (currentPage - 1) * itemsPerPage;
-    const currentItems = arr.slice(startIndex, startIndex + itemsPerPage);
+    const currentItems = categories?.slice(startIndex, startIndex + itemsPerPage);
     const openEditModal = (item) => {
         setSelectedItem(item);
-        setShowEditModal(true);
+
     };
     const navigate =useNavigate();
     const openDeleteModal = (item) => {
         setSelectedItem(item);
         setShowDeleteModal(true);
     };
-
+    useEffect(() => {
+        refetch()
+    }, []);
     const closeModal = () => {
-        setShowEditModal(false);
         setShowDeleteModal(false);
         setSelectedItem(null);
+    };
+    const getLocalizedName = (item) => {
+        switch (language) {
+            case "EN": return item.nameEng || item.name;
+            case "RU": return item.nameRu || item.name;
+            case "DE": return item.nameAlm || item.name;
+            case "AR": return item.nameArab || item.name;
+            default: return item.name;
+        }
+    };
+    const handleDelete = async () => {
+        try {
+            await deleteCategory(selectedItem.id).unwrap();
+            showToast("Kateqoriya uğurla silindi ✅", "success");
+            closeModal();
+            refetch();
+        } catch (err) {
+            console.error("Silinmə xətası:", err);
+            showToast("Kateqoriyanı silmək mümkün olmadı ❌", "error");
+        }
     };
     return (
         <div id={'category-table'}>
@@ -65,26 +79,26 @@ function CategoryTableNew() {
                </div>
 
                <div className="grid-body">
-                   {currentItems.map((item, index) => (
+                   {currentItems?.map((item, index) => (
                        <div className="grid-row" key={index}>
                            <div>
                                <input type="checkbox" />
                            </div>
                            <div>
                                <div className="icon">
-                                   {item.icon}
+                                   <img src={CATEGORY_IMAGES + item.categoryImage}/>
                                </div>
                            </div>
-                           <div className="name">Xərçəng müalicəsi</div>
-                           <div className="count">3</div>
+                           <div className="name">{getLocalizedName(item)}</div>
+                           <div className="count">{item.services?.length}</div>
                            <div className="actions">
-                               <div className={'action edit'} onClick={() => openEditModal(item)}>
+                               <div className={'action edit'} onClick={() => navigate(`/admin/category/edit/${item.id}`)}>
                                    <img src={editIcon} />
                                </div>
                                <div className={'action trash'} onClick={() => openDeleteModal(item)}>
                                    <img src={delIcon} />
                                </div>
-                               <div className={'action navigate'} onClick={()=>navigate('/admin/category/servis/:id')}>
+                               <div className={'action navigate'} onClick={()=>navigate(`/admin/category/servis/${item.id}`)}>
                                    <img src={navIcon} />
                                </div>
                            </div>
@@ -97,34 +111,7 @@ function CategoryTableNew() {
                 totalPages={totalPages}
                 onPageChange={setCurrentPage}
             />
-            {showEditModal && (
-                <div className="modal-overlay" onClick={closeModal}>
-                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                        <h3>Düzəliş et</h3>
-                        <img src={closeIcon} className={'close-icon'} alt="" onClick={()=>closeModal()}/>
-                        <div className={'edit-form'}>
-                            <label>Kateqoriya adı</label>
-                            <div className={'editInput'}>
-                                <input type={'text'} placeholder={'Xərçəng müalicəsi'}/>
-                                <img src={editIconModal} className={'editIconModal'}/>
-                            </div>
-                            <label>İcon</label>
-                            <div className={'editCategory'}>
-                                {arr.map((item, index) => (
-                                    <div
-                                        key={index}
-                                         className={`iconDiv ${activeIcon === index ? 'active' : ''}`}
-                                         onClick={() => setActiveIcon(index)} // 🔹 kliklə seç
-                                    >
-                                        <img src={cat1}/>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                        <button className="submit-btn" onClick={closeModal}>Yadda saxla</button>
-                    </div>
-                </div>
-            )}
+
 
             {/* Delete Modal */}
             {showDeleteModal && (
@@ -134,7 +121,9 @@ function CategoryTableNew() {
                         <h3>Kateqoriyanı silmək istədiyinizə əminsiz?</h3>
                         <div className="modal-actions">
                             <button className="cancel" onClick={closeModal}>Ləğv et</button>
-                            <button className="confirm">Sil</button>
+                            <button className="confirm" onClick={handleDelete} disabled={isDeleting}>
+                                {isDeleting ? "Silinir..." : "Sil"}
+                            </button>
                         </div>
                     </div>
                 </div>

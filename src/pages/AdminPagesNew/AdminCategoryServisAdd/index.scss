@@ -33,7 +33,7 @@
     .category-servis-add-main{
       .category-servis-add-data{
         display: flex;
-        align-items: center;
+        //align-items: center;
         justify-content: center;
         gap: 16px;
         margin-bottom: 24px;
@@ -42,7 +42,7 @@
           width: 50%;
           border-radius: 5px;
           padding: 24px 36px;
-          height: 328px;
+          //height: 328px;
           &.inputs{
             .header{
               margin-bottom: 16px;
@@ -246,6 +246,10 @@
         font-size: 14px;
         line-height: 21px;
         color: #fff;
+        &:disabled{
+          background-color: #527fe9;
+          cursor: not-allowed;
+        }
       }
     }
   }

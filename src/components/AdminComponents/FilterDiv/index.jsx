@@ -2,9 +2,8 @@ import './index.scss';
 import { useState } from "react";
 import filterIcon from '/src/assets/filterIcon.svg';
 
-function FilterDropdown() {
+function FilterDropdown({ selected, onChange }) {
     const [open, setOpen] = useState(false);
-    const [selected, setSelected] = useState('Ümumi');
 
     const filters = [
         'Ümumi',
@@ -14,9 +13,8 @@ function FilterDropdown() {
     ];
 
     const handleSelect = (filter) => {
-        setSelected(filter);
+        onChange(filter); // 🔹 parent-ə göndər
         setOpen(false);
-        // buraya filtrə funksiyasını əlavə edə bilərsən
     };
 
     return (
