@@ -1,5 +1,5 @@
 import './index.scss'
-import {NavLink} from "react-router-dom";
+import {NavLink, useParams} from "react-router-dom";
 import rootIcon from '/src/assets/rootIcon.svg'
 import aze from '/src/assets/azerbaijan.svg'
 import rus from '/src/assets/russia.svg'
@@ -7,25 +7,118 @@ import usa from '/src/assets/unitedstates.svg'
 import ger from '/src/assets/germany.svg'
 import arb from '/src/assets/unitedarabemirates.svg'
 import uploadIcon from '/src/assets/uploadIcon.svg'
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import openIcon from '/src/assets/accordionOpen.svg'
 import closeIcon from '/src/assets/accordionClose.svg'
+import {
+    useGetAllDoctorsQuery,
+    useGetAllOtelsQuery,
+    useGetAllServiceQuery,
+    useGetClinicByIdQuery, usePutClinicMutation
+} from "../../../services/userApi.jsx";
+import {
+    CLINIC_CARD_IMAGES,
+    CLINIC_IMAGES,
+    CLINIC_SERT_IMAGES
+} from "../../../contants.js";
+
 function ClinicEdit() {
+    const {id} = useParams()
     const [selectedFile, setSelectedFile] = useState(null);
     const [isDragging, setIsDragging] = useState(false);
-    const [activeIcon, setActiveIcon] = useState([]);
+    const [editClinic, { isLoading }] = usePutClinicMutation();
+    const {data:getClinicById} = useGetClinicByIdQuery(id)
+    const clinic = getClinicById?.data
+    const {data:getAllService} = useGetAllServiceQuery()
+    const servis = getAllService?.data
+    const {data:getAllOtels} = useGetAllOtelsQuery()
+    const otels = getAllOtels?.data
+    const {data:getAllDoctors} = useGetAllDoctorsQuery()
+    const doctors = getAllDoctors?.data
+    // 🔹 Name inputları
+    const [nameAz, setNameAz] = useState("");
+    const [nameEn, setNameEn] = useState("");
+    const [nameRu, setNameRu] = useState("");
+    // const [nameAlm, setNameAlm] = useState("");
+    // const [nameArab, setNameArab] = useState("");
 
-    // 🔹 Ayrı state-lər
+    // 🔹 Description inputları
+    const [descAz, setDescAz] = useState("");
+    const [descEn, setDescEn] = useState("");
+    const [descRu, setDescRu] = useState("");
+    // const [descAlm, setDescAlm] = useState("");
+    // const [descArab, setDescArab] = useState("");
+
+
+    const [locationAz, setLocationAz] = useState("");
+    const [locationEn, setLocationEn] = useState("");
+    const [locationRu, setLocationRu] = useState("");
+    // 🔹 Checkbox-lar
+    const [selectedServices, setSelectedServices] = useState([]);
+    const [selectedDoctors, setSelectedDoctors] = useState([]);
+    const [selectedOtels, setSelectedOtels] = useState([]);
+
+    // 🔹 Şəkillər
+    const [mainImage, setMainImage] = useState(null);
+    const [oldMainImage, setOldMainImage] = useState(null);
+
     const [sertifikatFiles, setSertifikatFiles] = useState([]);
-    const [sertifikatOpen, setSertifikatOpen] = useState(false);
+    const [oldSertifikatFiles, setOldSertifikatFiles] = useState([]);
 
     const [galereyaFiles, setGalereyaFiles] = useState([]);
+    const [oldGalereyaFiles, setOldGalereyaFiles] = useState([]);
+
+    const [sertifikatOpen, setSertifikatOpen] = useState(false);
     const [galereyaOpen, setGalereyaOpen] = useState(false);
+    const [deleteClinicImages, setDeleteClinicImages] = useState([]);
+    const [deleteClinicSertificates, setDeleteClinicSertificates] = useState([]);
+    const [deleteDoctors, setDeleteDoctors] = useState([]);
+    const [deleteOtels, setDeleteOtels] = useState([]);
+    const [deleteServices, setDeleteServices] = useState([]);
+    const removeOldSertifikat = (fileName) => {
+        setOldSertifikatFiles(prev => prev.filter(f => f !== fileName));
+        setDeleteClinicSertificates(prev => [...prev, fileName]);
+    };
+
+    const removeOldGalereya = (fileName) => {
+        setOldGalereyaFiles(prev => prev.filter(f => f !== fileName));
+        setDeleteClinicImages(prev => [...prev, fileName]);
+    };
+
+    useEffect(() => {
+        if (clinic) {
+            setNameAz(clinic.name || "");
+            setNameEn(clinic.nameEng || "");
+            setNameRu(clinic.nameRu || "");
+            // setNameAlm(clinic.nameAlm || "");
+            // setNameArab(clinic.nameArab || "");
+
+            setDescAz(clinic.description || "");
+            setDescEn(clinic.descriptionEng || "");
+            setDescRu(clinic.descriptionRu || "");
+            // setDescAlm(clinic.descriptionAlm || "");
+            // setDescArab(clinic.descriptionArab || "");
+
+            setLocationAz(clinic.location || "");
+            setLocationEn(clinic.locationEng || "");
+            setLocationRu(clinic.locationRu || "");
+            // setLocAlm(clinic.locationAlm || "");
+            // setLocArab(clinic.locationArab || "");
+
+            setSelectedServices(clinic.services?.map(s => s.id) || []);
+            setSelectedDoctors(clinic.doctors?.map(d => d.id) || []);
+            setSelectedOtels(clinic.otels?.map(o => o.id) || []);
+
+            setOldMainImage(clinic.clinicCardImage ? `/uploads/${clinic.clinicCardImage}` : null);
+            setOldSertifikatFiles(clinic.clinicSertificates || []);
+            setOldGalereyaFiles(clinic.clinicImages || []);
+        }
+    }, [clinic]);
 
     // 🔹 Sertifikat yükləmə funksiyası
     const handleSertifikatChange = (e) => {
         const newFiles = Array.from(e.target.files);
-        const withPreview = newFiles.map((file) => ({
+        const withPreview = newFiles?.map((file) => ({
             file,
             preview: URL.createObjectURL(file),
         }));
@@ -35,7 +128,7 @@ function ClinicEdit() {
     // 🔹 Galereya yükləmə funksiyası
     const handleGalereyaChange = (e) => {
         const newFiles = Array.from(e.target.files);
-        const withPreview = newFiles.map((file) => ({
+        const withPreview = newFiles?.map((file) => ({
             file,
             preview: URL.createObjectURL(file),
         }));
@@ -59,6 +152,97 @@ function ClinicEdit() {
             updated.splice(index, 1);
             return updated;
         });
+    };
+    const toggleSelection = (id, selectedList, setList) => {
+        setList(prev =>
+            prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
+        );
+    };
+    const toggleSelectionWithDelete = (id, selectedList, setList, deleteList, setDeleteList, originalList) => {
+        setList(prev => {
+            if (prev.includes(id)) {
+                // user unchecked → silinənlərə əlavə et
+                if (originalList.includes(id)) setDeleteList(prevDel => [...prevDel, id]);
+                return prev.filter(x => x !== id);
+            } else {
+                // user yeniden seçti → silinənlərdən çıxart
+                setDeleteList(prevDel => prevDel.filter(x => x !== id));
+                return [...prev, id];
+            }
+        });
+    };
+// köməkçi funksiya — yalnız dəyəri dəyişəndə append et
+    const appendIfChanged = (formData, key, newVal, oldVal) => {
+        if (newVal !== oldVal && newVal !== undefined && newVal !== null && newVal !== "") {
+            formData.append(key, newVal);
+        }
+    };
+
+    const handleEdit = async () => {
+        if (!clinic) return;
+
+        const formData = new FormData();
+
+        formData.append("id", clinic.id);
+
+        // 🔹 yalnız dəyişən text sahələri
+        appendIfChanged(formData, "name", nameAz, clinic.name);
+        appendIfChanged(formData, "nameEng", nameEn, clinic.nameEng);
+        appendIfChanged(formData, "nameRu", nameRu, clinic.nameRu);
+
+        appendIfChanged(formData, "description", descAz, clinic.description);
+        appendIfChanged(formData, "descriptionEng", descEn, clinic.descriptionEng);
+        appendIfChanged(formData, "descriptionRu", descRu, clinic.descriptionRu);
+
+        appendIfChanged(formData, "location", locationAz, clinic.location);
+        appendIfChanged(formData, "locationEng", locationEn, clinic.locationEng);
+        appendIfChanged(formData, "locationRu", locationRu, clinic.locationRu);
+
+        // 🔹 yalnız yeni əsas şəkil seçilibsə
+        if (selectedFile) formData.append("clinicCardImage", selectedFile);
+
+        // 🔹 yalnız yeni yüklənənlər varsa
+        if (galereyaFiles.length > 0)
+            galereyaFiles.forEach(f => formData.append("clinicImages", f.file));
+        if (sertifikatFiles.length > 0)
+            sertifikatFiles.forEach(f => formData.append("clinicSertificates", f.file));
+
+        // 🔹 silinənlər
+        if (deleteClinicImages.length > 0)
+            deleteClinicImages.forEach(f => formData.append("deleteClinicImages", f));
+        if (deleteClinicSertificates.length > 0)
+            deleteClinicSertificates.forEach(f => formData.append("deleteClinicSertificates", f));
+        if (deleteServices.length > 0)
+            deleteServices.forEach(id => formData.append("deleteClinicServiceIds", id));
+        if (deleteDoctors.length > 0)
+            deleteDoctors.forEach(id => formData.append("deleteDoctorIds", id));
+        if (deleteOtels.length > 0)
+            deleteOtels.forEach(id => formData.append("deleteOtelIds", id));
+
+        // 🔹 əlavə olunan (yeni) checkbox seçimləri
+        const origServices = clinic.services?.map(s => s.id) || [];
+        const origDoctors = clinic.doctors?.map(d => d.id) || [];
+        const origOtels = clinic.otels?.map(o => o.id) || [];
+
+        selectedServices
+            .filter(id => !origServices.includes(id))
+            .forEach(id => formData.append("clinicServiceIds", id));
+
+        selectedDoctors
+            .filter(id => !origDoctors.includes(id))
+            .forEach(id => formData.append("doctorIds", id));
+
+        selectedOtels
+            .filter(id => !origOtels.includes(id))
+            .forEach(id => formData.append("otelIds", id));
+
+        try {
+            await editClinic(formData).unwrap();
+            alert("Yalnız dəyişən məlumatlar uğurla göndərildi ✅");
+        } catch (err) {
+            console.error("Error:", err);
+            alert("Xəta baş verdi ❌");
+        }
     };
 
     const arr = Array(10).fill({});
@@ -86,7 +270,7 @@ function ClinicEdit() {
                             <div className={'add-inputs'}>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
+                                    <input value={nameAz} onChange={(e)=>setNameAz(e.target.value)} placeholder="Ad (AZ)" />
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={aze} alt="" />
@@ -94,36 +278,35 @@ function ClinicEdit() {
                                 </div>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
-                                    </div>
+                                        <input value={nameRu} onChange={(e)=>setNameRu(e.target.value)} placeholder="Ad (RU)" />                                    </div>
                                     <div className={'langCountry'}>
                                         <img src={rus} alt="" />
                                     </div>
                                 </div>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
+                                        <input value={nameEn} onChange={(e)=>setNameEn(e.target.value)} placeholder="Ad (EN)" />
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={usa} alt="" />
                                     </div>
                                 </div>
-                                <div className={'add-data'}>
-                                    <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
-                                    </div>
-                                    <div className={'langCountry'}>
-                                        <img src={ger} alt="" />
-                                    </div>
-                                </div>
-                                <div className={'add-data'}>
-                                    <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
-                                    </div>
-                                    <div className={'langCountry'}>
-                                        <img src={arb} alt="" />
-                                    </div>
-                                </div>
+                                {/*<div className={'add-data'}>*/}
+                                {/*    <div className={'add-input'}>*/}
+                                {/*        <input placeholder={'Travmatologiya'}/>*/}
+                                {/*    </div>*/}
+                                {/*    <div className={'langCountry'}>*/}
+                                {/*        <img src={ger} alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
+                                {/*<div className={'add-data'}>*/}
+                                {/*    <div className={'add-input'}>*/}
+                                {/*        <input placeholder={'Travmatologiya'}/>*/}
+                                {/*    </div>*/}
+                                {/*    <div className={'langCountry'}>*/}
+                                {/*        <img src={arb} alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
                             </div>
                         </div>
                         <div className="dataDiv images">
@@ -148,6 +331,18 @@ function ClinicEdit() {
                                     <p>Faylı yükləmək üçün bu sahəyə klikləyin və ya sürükləyin</p>
                                 </label>
                             </div>
+                            {!selectedFile && oldMainImage && (
+                                <div className="uploadedFile">
+                                    <div className="fileInfo">
+                                        <img
+                                            src={`${CLINIC_CARD_IMAGES}${clinic.clinicCardImage}`}
+                                            alt="clinic-main"
+                                            className="previewImg"
+                                        />
+                                        <span>Mövcud şəkil</span>
+                                    </div>
+                                </div>
+                            )}
 
                             {selectedFile && (
                                 <div className="uploadedFile">
@@ -173,35 +368,35 @@ function ClinicEdit() {
                         </div>
                         <div className={'tours-desc-data'}>
                             <div className={'tours-desc-texts'}>
-                                <textarea placeholder={'Təsvir əlavə edin...'}/>
+                                <textarea value={descAz} onChange={(e)=>setDescAz(e.target.value)} placeholder="Təsvir (AZ)" />
                                 <div className={'langCountry'}>
                                     <img src={aze} alt=""/>
                                 </div>
                             </div>
                             <div className={'tours-desc-texts'}>
-                                <textarea  placeholder={'Təsvir əlavə edin...'}/>
+                                <textarea value={descRu} onChange={(e)=>setDescRu(e.target.value)} placeholder="Təsvir (RU)" />
                                 <div className={'langCountry'}>
                                     <img src={rus} alt=""/>
                                 </div>
                             </div>
                             <div className={'tours-desc-texts'}>
-                                <textarea  placeholder={'Təsvir əlavə edin...'}/>
+                                <textarea value={descEn} onChange={(e)=>setDescEn(e.target.value)} placeholder="Təsvir (EN)" />
                                 <div className={'langCountry'}>
                                     <img src={usa} alt=""/>
                                 </div>
                             </div>
-                            <div className={'tours-desc-texts'}>
-                                <textarea  placeholder={'Təsvir əlavə edin...'}/>
-                                <div className={'langCountry'}>
-                                    <img src={ger} alt=""/>
-                                </div>
-                            </div>
-                            <div className={'tours-desc-texts'}>
-                                <textarea  placeholder={'Təsvir əlavə edin...'}/>
-                                <div className={'langCountry'}>
-                                    <img src={arb} alt=""/>
-                                </div>
-                            </div>
+                            {/*<div className={'tours-desc-texts'}>*/}
+                            {/*    <textarea  placeholder={'Təsvir əlavə edin...'}/>*/}
+                            {/*    <div className={'langCountry'}>*/}
+                            {/*        <img src={ger} alt=""/>*/}
+                            {/*    </div>*/}
+                            {/*</div>*/}
+                            {/*<div className={'tours-desc-texts'}>*/}
+                            {/*    <textarea  placeholder={'Təsvir əlavə edin...'}/>*/}
+                            {/*    <div className={'langCountry'}>*/}
+                            {/*        <img src={arb} alt=""/>*/}
+                            {/*    </div>*/}
+                            {/*</div>*/}
                         </div>
                     </div>
                     <div className={'clinic-edit-data'}>
@@ -211,20 +406,22 @@ function ClinicEdit() {
                                 <p>Xidmətin əlaqəli olduğu klinikanı seçin.</p>
                             </div>
                             <div className={'addCategory'}>
-                                {arr.map((item, index) => (
-                                    <label key={index} className="checkboxItem">
+                                {servis?.map(item => (
+                                    <label key={item.id} className="checkboxItem">
                                         <input
                                             type="checkbox"
-                                            checked={activeIcon.includes(index)}
-                                            onChange={() => {
-                                                setActiveIcon((prev) =>
-                                                    prev.includes(index)
-                                                        ? prev.filter((i) => i !== index) // varsa sil
-                                                        : [...prev, index] // yoxdursa əlavə et
-                                                );
-                                            }}
+                                            checked={selectedServices.includes(item.id)}
+                                            onChange={() =>
+                                                toggleSelectionWithDelete(
+                                                    item.id,
+                                                    selectedServices, setSelectedServices,
+                                                    deleteServices, setDeleteServices,
+                                                    clinic.services?.map(s => s.id) || []
+                                                )
+                                            }
+
                                         />
-                                        <span>GlobalMed</span>
+                                        <span>{item.name}</span>
                                     </label>
                                 ))}
                             </div>
@@ -235,20 +432,21 @@ function ClinicEdit() {
                                 <p>Xidmətin əlaqəli olduğu doktorları seçin.</p>
                             </div>
                             <div className={'addCategory'}>
-                                {arr.map((item, index) => (
-                                    <label key={index} className="checkboxItem">
+                                {doctors?.map(item => (
+                                    <label key={item.id} className="checkboxItem">
                                         <input
                                             type="checkbox"
-                                            checked={activeIcon.includes(index)}
-                                            onChange={() => {
-                                                setActiveIcon((prev) =>
-                                                    prev.includes(index)
-                                                        ? prev.filter((i) => i !== index) // varsa sil
-                                                        : [...prev, index] // yoxdursa əlavə et
-                                                );
-                                            }}
+                                            checked={selectedDoctors.includes(item.id)}
+                                            onChange={() =>
+                                                toggleSelectionWithDelete(
+                                                    item.id,
+                                                    selectedDoctors, setSelectedDoctors,
+                                                    deleteDoctors, setDeleteDoctors,
+                                                    clinic.doctors?.map(d => d.id) || []
+                                                )
+                                            }
                                         />
-                                        <span>GlobalMed</span>
+                                        <span>{item.name}</span>
                                     </label>
                                 ))}
                             </div>
@@ -259,22 +457,77 @@ function ClinicEdit() {
                                 <p>Xidmətin əlaqəli olduğu otelleri seçin.</p>
                             </div>
                             <div className={'addCategory'}>
-                                {arr.map((item, index) => (
-                                    <label key={index} className="checkboxItem">
+                                {otels?.map(item => (
+                                    <label key={item.id} className="checkboxItem">
                                         <input
                                             type="checkbox"
-                                            checked={activeIcon.includes(index)}
-                                            onChange={() => {
-                                                setActiveIcon((prev) =>
-                                                    prev.includes(index)
-                                                        ? prev.filter((i) => i !== index) // varsa sil
-                                                        : [...prev, index] // yoxdursa əlavə et
-                                                );
-                                            }}
+                                            checked={selectedOtels.includes(item.id)}
+                                            onChange={() =>
+                                                toggleSelectionWithDelete(
+                                                    item.id,
+                                                    selectedOtels, setSelectedOtels,
+                                                    deleteOtels, setDeleteOtels,
+                                                    clinic.otels?.map(o => o.id) || []
+                                                )
+                                            }
                                         />
-                                        <span>GlobalMed</span>
+                                        <span>{item.name}</span>
                                     </label>
                                 ))}
+
+                            </div>
+                        </div>
+                        <div className={"dataDiv inputs"}>
+                            <div className={'header'}>
+                                <h3>Yerləşdiyi ölkənin adı</h3>
+                                <p>Otelin yerləşdiyi ölkəni dillərə əsasən daxil edin.</p>
+                            </div>
+                            <div className={'add-inputs'}>
+                                <div className={'add-data'}>
+                                    <div className={'add-input'}>
+                                        <input placeholder="Ölkə (AZ)" value={locationAz} onChange={(e) => setLocationAz(e.target.value)} />
+
+                                    </div>
+                                    <div className={'langCountry'}>
+                                        <img src={aze} alt="" />
+                                    </div>
+                                </div>
+
+                                <div className={'add-data'}>
+                                    <div className={'add-input'}>
+                                        <input placeholder="Ölkə (RU)" value={locationRu} onChange={(e) => setLocationRu(e.target.value)} />
+
+                                    </div>
+                                    <div className={'langCountry'}>
+                                        <img src={rus} alt="" />
+                                    </div>
+                                </div>
+
+                                <div className={'add-data'}>
+                                    <div className={'add-input'}>
+                                        <input placeholder="Ölkə (EN)" value={locationEn} onChange={(e) => setLocationEn(e.target.value)} />
+
+                                    </div>
+                                    <div className={'langCountry'}>
+                                        <img src={usa} alt="" />
+                                    </div>
+                                </div>
+                                {/*<div className={'add-data'}>*/}
+                                {/*    <div className={'add-input'}>*/}
+                                {/*        <input placeholder={'Travmatologiya'}/>*/}
+                                {/*    </div>*/}
+                                {/*    <div className={'langCountry'}>*/}
+                                {/*        <img src={ger} alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
+                                {/*<div className={'add-data'}>*/}
+                                {/*    <div className={'add-input'}>*/}
+                                {/*        <input placeholder={'Travmatologiya'}/>*/}
+                                {/*    </div>*/}
+                                {/*    <div className={'langCountry'}>*/}
+                                {/*        <img src={arb} alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
                             </div>
                         </div>
                         <div className="dataDiv images multi">
@@ -303,17 +556,36 @@ function ClinicEdit() {
                                 <img src={sertifikatOpen ? openIcon : closeIcon} alt="toggle" />
                             </div>
 
-                            {sertifikatOpen && sertifikatFiles.length > 0 && (
+
+                            {sertifikatOpen && (
                                 <div className="uploadedList">
-                                    {sertifikatFiles.map((item, index) => (
-                                        <div key={index} className="uploadedItem">
+                                    {/* 🔹 Köhnə şəkillər */}
+                                    {oldSertifikatFiles.map((f, i) => (
+                                        <div key={i} className="uploadedItem">
                                             <div className="fileLeft">
-                                                <img src={item.preview} alt="preview" className="filePreview" />
-                                                <span>{item.file.name}</span>
+                                                <img src={`${CLINIC_SERT_IMAGES}${f}`} alt="old" className="filePreview" />
+                                                <span>{f}</span>
                                             </div>
-                                            <button onClick={() => removeSertifikat(index)}>✕</button>
+                                            <button onClick={() => removeOldSertifikat(f)}>✕</button>
                                         </div>
                                     ))}
+
+
+                                    {/* 🔹 Yeni yüklənənlər */}
+                                    {sertifikatFiles?.length > 0 && (
+                                        <>
+                                            <h4 className="uploadedSubTitle">Yeni Sertifikatlar</h4>
+                                            {sertifikatFiles.map((item, index) => (
+                                                <div key={index} className="uploadedItem">
+                                                    <div className="fileLeft">
+                                                        <img src={item.preview} alt="preview" className="filePreview" />
+                                                        <span>{item.file.name}</span>
+                                                    </div>
+                                                    <button onClick={() => removeSertifikat(index)}>✕</button>
+                                                </div>
+                                            ))}
+                                        </>
+                                    )}
                                 </div>
                             )}
                         </div>
@@ -345,24 +617,48 @@ function ClinicEdit() {
                                 <img src={galereyaOpen ? openIcon : closeIcon} alt="toggle" />
                             </div>
 
-                            {galereyaOpen && galereyaFiles.length > 0 && (
+                            {galereyaOpen && (
                                 <div className="uploadedList">
-                                    {galereyaFiles.map((item, index) => (
-                                        <div key={index} className="uploadedItem">
+                                    {/* 🔹 Köhnə şəkillər */}
+                                    {oldGalereyaFiles.map((f, i) => (
+                                        <div key={i} className="uploadedItem">
                                             <div className="fileLeft">
-                                                <img src={item.preview} alt="preview" className="filePreview" />
-                                                <span>{item.file.name}</span>
+                                                <img src={`${CLINIC_IMAGES}${f}`} alt="old" className="filePreview" />
+                                                <span>{f}</span>
                                             </div>
-                                            <button onClick={() => removeGalereya(index)}>✕</button>
+                                            <button onClick={() => removeOldGalereya(f)}>✕</button>
                                         </div>
                                     ))}
+
+
+                                    {/* 🔹 Yeni yüklənənlər */}
+                                    {galereyaFiles?.length > 0 && (
+                                        <>
+                                            <h4 className="uploadedSubTitle">Yeni Galereya</h4>
+                                            {galereyaFiles.map((item, index) => (
+                                                <div key={index} className="uploadedItem">
+                                                    <div className="fileLeft">
+                                                        <img src={item.preview} alt="preview" className="filePreview" />
+                                                        <span>{item.file.name}</span>
+                                                    </div>
+                                                    <button onClick={() => removeGalereya(index)}>✕</button>
+                                                </div>
+                                            ))}
+                                        </>
+                                    )}
                                 </div>
                             )}
                         </div>
 
 
                     </div>
-                    <button className={'submitButton'}>Yadda saxla</button>
+                    <button
+                        className="submitButton"
+                        onClick={handleEdit}
+                        disabled={isLoading}
+                    >
+                        {isLoading ? "Yüklənir..." : "Yadda saxla"}
+                    </button>
                 </div>
             </div>
         </div>

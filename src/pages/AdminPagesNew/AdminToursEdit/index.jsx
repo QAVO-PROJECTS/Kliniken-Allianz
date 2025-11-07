@@ -1,5 +1,5 @@
 import './index.scss'
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate, useParams} from "react-router-dom";
 import rootIcon from '/src/assets/rootIcon.svg'
 import aze from '/src/assets/azerbaijan.svg'
 import rus from '/src/assets/russia.svg'
@@ -7,45 +7,83 @@ import usa from '/src/assets/unitedstates.svg'
 import ger from '/src/assets/germany.svg'
 import arb from '/src/assets/unitedarabemirates.svg'
 import uploadIcon from '/src/assets/uploadIcon.svg'
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import plusIcon from '/src/assets/plusIcon.svg'
 import openIcon from '/src/assets/accordionOpen.svg'
 import closeIcon from '/src/assets/accordionClose.svg'
+import {useGetToursByIdQuery, usePutToursMutation} from "../../../services/userApi.jsx";
+import showToast from "../../../components/ToastMessage.js";
+import {TOUR_CARD_IMG} from "../../../contants.js";
 function ToursEdit() {
-    const [activeIcon, setActiveIcon] = useState(null);
+    const { id } = useParams();
+    const navigate = useNavigate();
+
+    const { data: getToursById, refetch } = useGetToursByIdQuery(id);
+    const tour = getToursById?.data;
+
+    const [editTour, { isLoading }] = usePutToursMutation();
+
+    // 🔹 State-lər
     const [selectedFile, setSelectedFile] = useState(null);
     const [isDragging, setIsDragging] = useState(false);
 
+    const [nameAz, setNameAz] = useState("");
+    const [nameEn, setNameEn] = useState("");
+    const [nameRu, setNameRu] = useState("");
+    const [descAz, setDescAz] = useState("");
+    const [descEn, setDescEn] = useState("");
+    const [descRu, setDescRu] = useState("");
+
+    const [sections, setSections] = useState([
+        { id: 1, expanded: true, inputs: Array(3).fill("") },
+    ]);
+
+    const langs = [aze, rus, usa];
+
+    // 🔹 Data gələndə formu doldur
+    useEffect(() => {
+        if (tour) {
+            setNameAz(tour.name || "");
+            setNameEn(tour.nameEng || "");
+            setNameRu(tour.nameRu || "");
+            setDescAz(tour.description || "");
+            setDescEn(tour.descriptionEng || "");
+            setDescRu(tour.descriptionRu || "");
+
+            if (tour.services?.length) {
+                const newSections = tour.services.map((s, i) => ({
+                    id: i + 1,
+                    expanded: true,
+                    inputs: [
+                        s.name || "",
+                        s.nameRU || "",
+                        s.nameEN || "",
+                    ],
+                }));
+                setSections(newSections);
+            }
+        }
+    }, [tour]);
+
+    // 🔹 File funksiyaları
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) setSelectedFile(file);
     };
-
     const handleDragOver = (e) => {
         e.preventDefault();
         setIsDragging(true);
     };
-
-    const handleDragLeave = () => {
-        setIsDragging(false);
-    };
-
+    const handleDragLeave = () => setIsDragging(false);
     const handleDrop = (e) => {
         e.preventDefault();
         setIsDragging(false);
         const file = e.dataTransfer.files[0];
         if (file) setSelectedFile(file);
     };
+    const handleRemoveFile = () => setSelectedFile(null);
 
-    const handleRemoveFile = () => {
-        setSelectedFile(null);
-    };
-    const langs = [aze, rus, usa, ger, arb];
-    const [sections, setSections] = useState([
-        { id: 1, expanded: true, inputs: Array(5).fill("") },
-    ]);
-
-    // 🔹 Input dəyərlərini dəyiş
+    // 🔹 Təklifləri idarə et
     const handleInputChange = (sectionId, index, value) => {
         setSections((prev) =>
             prev.map((s) =>
@@ -59,7 +97,6 @@ function ToursEdit() {
         );
     };
 
-    // 🔹 Yeni bölmə əlavə et (yalnız əvvəlki doludursa)
     const handleAddSection = () => {
         const allFilled = sections[sections.length - 1].inputs.every(
             (x) => x.trim() !== ""
@@ -69,7 +106,7 @@ function ToursEdit() {
         const newSection = {
             id: sections.length + 1,
             expanded: true,
-            inputs: Array(5).fill(""),
+            inputs: Array(3).fill(""),
         };
 
         setSections((prev) =>
@@ -77,7 +114,6 @@ function ToursEdit() {
         );
     };
 
-    // 🔹 Bölməni bağla/aç
     const toggleSection = (id) => {
         setSections((prev) =>
             prev.map((s) =>
@@ -86,13 +122,48 @@ function ToursEdit() {
         );
     };
 
-    // 🔹 Bölməni sil
     const handleRemoveSection = (id) => {
         setSections((prev) => prev.filter((s) => s.id !== id));
     };
 
-    const allInputsFilled =
-        sections[sections.length - 1].inputs.every((x) => x.trim() !== "");
+    const allInputsFilled = sections[sections.length - 1].inputs.every(
+        (x) => x.trim() !== ""
+    );
+
+    // 🔹 PUT request
+    const handleSubmit = async () => {
+        const formData = new FormData();
+
+        formData.append("id", id);
+        formData.append("name", nameAz);
+        formData.append("nameEng", nameEn);
+        formData.append("nameRu", nameRu);
+        formData.append("description", descAz);
+        formData.append("descriptionEng", descEn);
+        formData.append("descriptionRu", descRu);
+
+        if (selectedFile) {
+            formData.append("cardImage", selectedFile);
+        }
+
+        const servicesArray = sections.map((s) => ({
+            name: s.inputs[0],
+            nameRU: s.inputs[1],
+            nameEN: s.inputs[2],
+        }));
+
+        formData.append("servicesJson", JSON.stringify(servicesArray));
+
+        try {
+            await editTour(formData).unwrap();
+            showToast("✅ Xidmət paketi uğurla yeniləndi!", "success");
+            navigate("/admin/tours");
+            refetch();
+        } catch (err) {
+            console.error("❌ Xəta:", err);
+            showToast("Xidmət paketi yenilənərkən xəta baş verdi!", "error");
+        }
+    };
     return (
         <div id={'tours-edit'}>
             <div className={'tours-edit'}>
@@ -117,7 +188,7 @@ function ToursEdit() {
                             <div className={'add-inputs'}>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
+                                        <input value={nameAz} onChange={(e) => setNameAz(e.target.value)} placeholder="Ad (AZ)" />
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={aze} alt="" />
@@ -125,7 +196,7 @@ function ToursEdit() {
                                 </div>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
+                                        <input value={nameRu} onChange={(e) => setNameRu(e.target.value)} placeholder="Ad (RU)" />
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={rus} alt="" />
@@ -133,28 +204,28 @@ function ToursEdit() {
                                 </div>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
+                                        <input value={nameEn} onChange={(e) => setNameEn(e.target.value)} placeholder="Ad (EN)" />
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={usa} alt="" />
                                     </div>
                                 </div>
-                                <div className={'add-data'}>
-                                    <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
-                                    </div>
-                                    <div className={'langCountry'}>
-                                        <img src={ger} alt="" />
-                                    </div>
-                                </div>
-                                <div className={'add-data'}>
-                                    <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
-                                    </div>
-                                    <div className={'langCountry'}>
-                                        <img src={arb} alt="" />
-                                    </div>
-                                </div>
+                                {/*<div className={'add-data'}>*/}
+                                {/*    <div className={'add-input'}>*/}
+                                {/*        <input placeholder={'Travmatologiya'}/>*/}
+                                {/*    </div>*/}
+                                {/*    <div className={'langCountry'}>*/}
+                                {/*        <img src={ger} alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
+                                {/*<div className={'add-data'}>*/}
+                                {/*    <div className={'add-input'}>*/}
+                                {/*        <input placeholder={'Travmatologiya'}/>*/}
+                                {/*    </div>*/}
+                                {/*    <div className={'langCountry'}>*/}
+                                {/*        <img src={arb} alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
                             </div>
                         </div>
                         <div className="dataDiv images">
@@ -184,19 +255,25 @@ function ToursEdit() {
                                 </label>
                             </div>
 
-                            {selectedFile && (
+                            {(selectedFile || tour?.cardImage) && (
                                 <div className="uploadedFile">
                                     <div className="fileInfo">
                                         <img
-                                            src={URL.createObjectURL(selectedFile)}
+                                            src={
+                                                selectedFile
+                                                    ? URL.createObjectURL(selectedFile)
+
+                                                        : `${TOUR_CARD_IMG}${tour.cardImage}`
+                                            }
                                             alt="preview"
                                             className="previewImg"
+                                            onError={(e) => { e.target.src = "/fallback-image.png"; }} // şəkil tapılmazsa fallback
                                         />
-                                        <span>{selectedFile.name}</span>
                                     </div>
-                                    <button onClick={handleRemoveFile}>✕</button>
+                                    {selectedFile && <button onClick={handleRemoveFile}>✕</button>}
                                 </div>
                             )}
+
                         </div>
 
 
@@ -208,35 +285,35 @@ function ToursEdit() {
                         </div>
                         <div className={'tours-desc-data'}>
                             <div className={'tours-desc-texts'}>
-                                <textarea placeholder={'Təsvir əlavə edin...'}/>
+                                <textarea value={descAz} onChange={(e) => setDescAz(e.target.value)} placeholder="Təsvir (AZ)" />
                                 <div className={'langCountry'}>
-                                    <img src={aze} alt=""/>
+                                    <img src={aze} alt="" />
                                 </div>
                             </div>
                             <div className={'tours-desc-texts'}>
-                                <textarea  placeholder={'Təsvir əlavə edin...'}/>
+                                <textarea value={descRu} onChange={(e) => setDescRu(e.target.value)} placeholder="Təsvir (RU)" />
                                 <div className={'langCountry'}>
-                                    <img src={rus} alt=""/>
+                                    <img src={rus} alt="" />
                                 </div>
                             </div>
                             <div className={'tours-desc-texts'}>
-                                <textarea  placeholder={'Təsvir əlavə edin...'}/>
+                                <textarea value={descEn} onChange={(e) => setDescEn(e.target.value)} placeholder="Təsvir (EN)" />
                                 <div className={'langCountry'}>
-                                    <img src={usa} alt=""/>
+                                    <img src={usa} alt="" />
                                 </div>
                             </div>
-                            <div className={'tours-desc-texts'}>
-                                <textarea  placeholder={'Təsvir əlavə edin...'}/>
-                                <div className={'langCountry'}>
-                                    <img src={ger} alt=""/>
-                                </div>
-                            </div>
-                            <div className={'tours-desc-texts'}>
-                                <textarea  placeholder={'Təsvir əlavə edin...'}/>
-                                <div className={'langCountry'}>
-                                    <img src={arb} alt=""/>
-                                </div>
-                            </div>
+                            {/*<div className={'tours-desc-texts'}>*/}
+                            {/*    <textarea  placeholder={'Təsvir əlavə edin...'}/>*/}
+                            {/*    <div className={'langCountry'}>*/}
+                            {/*        <img src={ger} alt=""/>*/}
+                            {/*    </div>*/}
+                            {/*</div>*/}
+                            {/*<div className={'tours-desc-texts'}>*/}
+                            {/*    <textarea  placeholder={'Təsvir əlavə edin...'}/>*/}
+                            {/*    <div className={'langCountry'}>*/}
+                            {/*        <img src={arb} alt=""/>*/}
+                            {/*    </div>*/}
+                            {/*</div>*/}
                         </div>
                     </div>
                     <div className="dataDiv3 inputs">

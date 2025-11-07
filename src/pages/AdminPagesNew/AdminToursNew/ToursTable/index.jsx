@@ -1,57 +1,58 @@
 import './index.scss'
 import Pagination from "../../../../components/UserComponents/Pagination/index.jsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import editIcon from '/src/assets/adminEditİcon.svg'
 import delIcon from '/src/assets/adminDelİcon.svg'
 import deleteImgModal from '/src/assets/deleteModalImg.png'
 import {useNavigate} from "react-router-dom";
 import closeIcon from '/src/assets/accordionClose.svg'
 import openIcon from '/src/assets/accordionOpen.svg'
-function ToursTableNew() {
-    const arr = [
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-    ]
-    const [showEditModal, setShowEditModal] = useState(false);
+import {useGetAllToursQuery} from "../../../../services/userApi.jsx";
+import {TOUR_CARD_IMG} from "../../../../contants.js";
+function ToursTableNew({language}) {
+    const {data:getAllTours,refetch} = useGetAllToursQuery();
+    const tours = getAllTours?.data
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 9;
-    const totalPages = Math.ceil(arr.length / itemsPerPage);
-    const [activeIcon, setActiveIcon] = useState(null);
+    const totalPages = Math.ceil(tours?.length / itemsPerPage);
     const startIndex = (currentPage - 1) * itemsPerPage;
-    const currentItems = arr.slice(startIndex, startIndex + itemsPerPage);
+    const currentItems = tours?.slice(startIndex, startIndex + itemsPerPage);
     const [openIndex, setOpenIndex] = useState(null);
-    const openEditModal = (item) => {
-        setSelectedItem(item);
-        setShowEditModal(true);
-    };
     const navigate =useNavigate();
     const openDeleteModal = (item) => {
         setSelectedItem(item);
         setShowDeleteModal(true);
     };
+    useEffect(() => {
+        refetch()
+    }, []);
+    const getLocalizedName = (item) => {
+        switch (language) {
+            case "EN": return item.nameEng && item.nameEng.trim() !== "" ? item.nameEng : item.name;
+            case "RU": return item.nameRu && item.nameRu.trim() !== "" ? item.nameRu : item.name;
+            case "DE": return item.nameAlm && item.nameAlm.trim() !== "" ? item.nameAlm : item.name;
+            case "AR": return item.nameArab && item.nameArab.trim() !== "" ? item.nameArab : item.name;
+            default: return item.name;
+        }
+    };
 
+    const getLocalizedDescription = (item) => {
+        switch (language) {
+            case "EN": return item.descriptionEng && item.descriptionEng.trim() !== "" ? item.descriptionEng : item.description;
+            case "RU": return item.descriptionRu && item.descriptionRu.trim() !== "" ? item.descriptionRu : item.description;
+            case "DE": return item.descriptionAlm && item.descriptionAlm.trim() !== "" ? item.descriptionAlm : item.description;
+            case "AR": return item.descriptionArab && item.descriptionArab.trim() !== "" ? item.descriptionArab : item.description;
+            default: return item.description;
+        }
+    };
     const closeModal = () => {
-        setShowEditModal(false);
         setShowDeleteModal(false);
         setSelectedItem(null);
     };
     const toggleAccordion = (index) => {
         setOpenIndex(openIndex === index ? null : index);
-        setIsOpen(true);
     };
     return (
         <div id={'tours-table'}>
@@ -66,7 +67,7 @@ function ToursTableNew() {
                </div>
 
                <div className="grid-body">
-                   {currentItems.map((item, index) => {
+                   {currentItems?.map((item, index) => {
                        const isOpen = openIndex === index; // true/false
                        return (
                            <div className="grid-row" key={index}>
@@ -74,41 +75,43 @@ function ToursTableNew() {
                                    <input type="checkbox" />
                                </div>
                                <div className="icon">
-                                   {item.icon}
+                                   <img
+                                       src={TOUR_CARD_IMG + item.cardImage}
+                                       alt={getLocalizedName(item)}
+                                   />
                                </div>
-                               <div>Xərçəng müalicəsi</div>
+                               <div>{getLocalizedName(item)}</div>
 
                                {/* --- Təsvir --- */}
-                               <div className={`name ${isOpen ? "open" : ""}`}>
+                               <div className={`count ${isOpen ? "open" : ""}`}>
                                    <p>
-                                       Bu xidmət müştərilərə [məqsəd] üçün nəzərdə tutulub.
-                                       Keyfiyyətli və etibarlı nəticə üçün peşəkar komanda tərəfindən həyata keçirilir.
+                                       {item.services && item.services.length > 0
+                                           ? item.services?.map(s => s.name).join(", ")
+                                           : "-"}
                                    </p>
                                    <button
                                        className="accordion-btn"
                                        onClick={() => toggleAccordion(index)}
                                    >
-                                       <img src={isOpen ? openIcon : closeIcon}/>
+                                       <img src={isOpen ? openIcon : closeIcon} alt="toggle" />
                                    </button>
                                </div>
 
-                               {/* --- Klinikalar --- */}
-                               <div className={`count ${isOpen ? "open" : ""}`}>
-                                   <p>
-                                       GlobalMed, Sağlam Ailə, GlobalMed, Sağlam Ailə,
-                                       GlobalMed, Sağlam Ailə, GlobalMed
-                                   </p>
+                               {/* --- Description --- */}
+                               <div className={`name ${isOpen ? "open" : ""}`}>
+                                   <p>{getLocalizedDescription(item) || "-"}</p>
                                    <button
                                        className="accordion-btn"
                                        onClick={() => toggleAccordion(index)}
                                    >
-                                       <img src={isOpen ? openIcon : closeIcon}/>
+                                       <img src={isOpen ? openIcon : closeIcon} alt="toggle" />
                                    </button>
+
                                </div>
 
                                {/* --- Actions --- */}
                                <div className="actions">
-                                   <div className="action edit" onClick={() => navigate('/admin/tours/edit/:id')}>
+                                   <div className="action edit" onClick={() => navigate(`/admin/tours/edit/${item.id}`)}>
                                        <img src={editIcon} />
                                    </div>
                                    <div className="action trash" onClick={() => openDeleteModal(item)}>

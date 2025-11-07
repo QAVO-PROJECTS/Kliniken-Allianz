@@ -221,6 +221,36 @@ export const userApi = createApi({
                 method: 'DELETE',
             }),
         }),
+        getAllTours: builder.query({
+            query: () => ({
+                url: `/Tours/get-all-tours`,
+            }),
+        }),
+        getToursById: builder.query({
+            query: (id) => ({
+                url: `/Tours/get-tour-by-id/${id}`,
+            }),
+        }),
+        putTours: builder.mutation({
+            query: (doctor) => ({
+                url: `/Tours/update-tour`,
+                method: 'PUT',
+                body: doctor,
+            }),
+        }),
+        postTours: builder.mutation({
+            query: (data) => ({
+                url: `/Tours/create-tour`,
+                method: 'POST',
+                body: data,
+            }),
+        }),
+        deleteTours: builder.mutation({
+            query: (id) => ({
+                url: `/Tours/delete-tour/${id}`,
+                method: 'DELETE',
+            }),
+        }),
     }),
 })
 export const {
@@ -266,5 +296,11 @@ export const {
     usePutCustomerViewMutation,
     useDeleteCustomerViewMutation,
     usePostCustomerViewMutation,
+
+    useGetAllToursQuery,
+    useGetToursByIdQuery,
+    usePutToursMutation,
+    useDeleteToursMutation,
+    usePostToursMutation,
 
 } = userApi

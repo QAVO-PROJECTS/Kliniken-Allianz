@@ -2,7 +2,10 @@ import './index.scss'
 import LanguageDiv from "../../../components/AdminComponents/LanguageDic/index.jsx";
 import AddBtn from "../../../components/AdminComponents/AddBtn/index.jsx";
 import CategoryTableNew from "./ClinicTable/index.jsx";
+import {useState} from "react";
 function AdminClinicNew() {
+    const [language, setLanguage] = useState("AZ");
+
     return (
         <div id={'admin-clinic'}>
             <div className={'admin-clinic'}>
@@ -12,11 +15,11 @@ function AdminClinicNew() {
                         <p>Buradan klinikaları idarə edə və yenilərini yarada bilərsiniz.</p>
                     </div>
                     <div className={'category-buttons'}>
-                        <LanguageDiv />
+                        <LanguageDiv selected={language} onChange={setLanguage}/>
                         <AddBtn nav={'/admin/clinic/add'}/>
                     </div>
                 </div>
-                <CategoryTableNew />
+                <CategoryTableNew language={language}/>
             </div>
         </div>
     );

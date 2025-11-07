@@ -1,5 +1,5 @@
 import './index.scss'
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import rootIcon from '/src/assets/rootIcon.svg'
 import aze from '/src/assets/azerbaijan.svg'
 import rus from '/src/assets/russia.svg'
@@ -10,17 +10,46 @@ import uploadIcon from '/src/assets/uploadIcon.svg'
 import {useState} from "react";
 import openIcon from '/src/assets/accordionOpen.svg'
 import closeIcon from '/src/assets/accordionClose.svg'
+import {
+    useGetAllDoctorsQuery,
+    useGetAllOtelsQuery,
+    useGetAllServiceQuery,
+    usePostClinicMutation
+} from "../../../services/userApi.jsx";
+import showToast from "../../../components/ToastMessage.js";
 function ClinicAdd() {
     const [selectedFile, setSelectedFile] = useState(null);
     const [isDragging, setIsDragging] = useState(false);
-    const [activeIcon, setActiveIcon] = useState([]);
-
+    const [postClinic, { isLoading }] = usePostClinicMutation();
+    const {data:getAllService} = useGetAllServiceQuery()
+    const servis = getAllService?.data
+    const {data:getAllOtels} = useGetAllOtelsQuery()
+    const otels = getAllOtels?.data
+    const {data:getAllDoctors} = useGetAllDoctorsQuery()
+    const doctors = getAllDoctors?.data
     // 🔹 Ayrı state-lər
+    const navigate = useNavigate();
     const [sertifikatFiles, setSertifikatFiles] = useState([]);
     const [sertifikatOpen, setSertifikatOpen] = useState(false);
 
     const [galereyaFiles, setGalereyaFiles] = useState([]);
     const [galereyaOpen, setGalereyaOpen] = useState(false);
+    const [nameAz, setNameAz] = useState("");
+    const [nameEn, setNameEn] = useState("");
+    const [nameRu, setNameRu] = useState("");
+
+    const [descAz, setDescAz] = useState("");
+    const [descEn, setDescEn] = useState("");
+    const [descRu, setDescRu] = useState("");
+
+    const [locationAz, setLocationAz] = useState("");
+    const [locationEn, setLocationEn] = useState("");
+    const [locationRu, setLocationRu] = useState("");
+
+// Checkbox seçilən elementlər
+    const [selectedServices, setSelectedServices] = useState([]);
+    const [selectedDoctors, setSelectedDoctors] = useState([]);
+    const [selectedOtels, setSelectedOtels] = useState([]);
 
     // 🔹 Sertifikat yükləmə funksiyası
     const handleSertifikatChange = (e) => {
@@ -60,8 +89,77 @@ function ClinicAdd() {
             return updated;
         });
     };
+    const toggleSelection = (id, selectedList, setList) => {
+        setList((prev) =>
+            prev.includes(id)
+                ? prev.filter((x) => x !== id)
+                : [...prev, id]
+        );
+    };
+    const handleSubmit = async () => {
+        if (!selectedFile) {
+            showToast("Zəhmət olmasa əsas şəkli əlavə edin.", "warning");
+            return;
+        }
 
-    const arr = Array(10).fill({});
+        const formData = new FormData();
+
+        // 🔹 Adlar
+        formData.append("name", nameAz);
+        formData.append("nameEng", nameEn);
+        formData.append("nameRu", nameRu);
+        // Əgər Alman və Ərəb də olacaqsa əlavə et:
+        // formData.append("NameAlm", nameDe);
+        // formData.append("NameArab", nameAr);
+
+        // 🔹 Təsvirlər
+        formData.append("description", descAz);
+        formData.append("descriptionEng", descEn);
+        formData.append("descriptionRu", descRu);
+
+        // 🔹 Məkan
+        formData.append("location", locationAz);
+        formData.append("locationEng", locationEn);
+        formData.append("locationRu", locationRu);
+
+        // 🔹 Əsas şəkil
+        formData.append("clinicCardImage", selectedFile);
+
+        // 🔹 Sertifikat şəkilləri
+        sertifikatFiles.forEach((item) => {
+            formData.append("clinicCertificates", item.file);
+        });
+
+        // 🔹 Qalereya şəkilləri
+        galereyaFiles.forEach((item) => {
+            formData.append("clinicImages", item.file);
+        });
+
+        // 🔹 Checkbox seçimləri (xidmət, doktor, otel)
+        selectedServices.forEach((id) => formData.append("clinicServiceIds", id));
+        selectedDoctors.forEach((id) => formData.append("doctorIds", id));
+        selectedOtels.forEach((id) => formData.append("otelIds", id));
+
+        try {
+            const res = await postClinic(formData).unwrap();
+            showToast("Klinika uğurla əlavə olundu ✅", "success");
+
+            // Reset form
+            setNameAz(""); setNameEn(""); setNameRu("");
+            setDescAz(""); setDescEn(""); setDescRu("");
+            setLocationAz(""); setLocationEn(""); setLocationRu("");
+            setSelectedFile(null);
+            setSertifikatFiles([]);
+            setGalereyaFiles([]);
+            setSelectedServices([]);
+            setSelectedDoctors([]);
+            setSelectedOtels([]);
+            navigate('/admin/clinic')
+        } catch (err) {
+            console.error("Xəta:", err);
+            showToast("Klinika əlavə olunarkən xəta baş verdi ❌", "error");
+        }
+    };
     return (
         <div id={'clinic-add'}>
             <div className={'clinic-add'}>
@@ -84,46 +182,42 @@ function ClinicAdd() {
                                 <p>Xidmətin sistemdə görünəcək adını daxil edin.</p>
                             </div>
                             <div className={'add-inputs'}>
-                                <div className={'add-data'}>
+                                <div className="add-data">
                                     <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
+                                    <input placeholder="Ad (AZ)" value={nameAz} onChange={(e) => setNameAz(e.target.value)} />
                                     </div>
-                                    <div className={'langCountry'}>
-                                        <img src={aze} alt="" />
-                                    </div>
+                                    <img src={aze} alt="" />
                                 </div>
-                                <div className={'add-data'}>
+                                <div className="add-data">
                                     <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
+
+                                    <input placeholder="Ad (RU)" value={nameRu} onChange={(e) => setNameRu(e.target.value)} />
                                     </div>
-                                    <div className={'langCountry'}>
-                                        <img src={rus} alt="" />
-                                    </div>
+                                    <img src={rus} alt="" />
                                 </div>
-                                <div className={'add-data'}>
+                                <div className="add-data">
                                     <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
+
+                                    <input placeholder="Ad (EN)" value={nameEn} onChange={(e) => setNameEn(e.target.value)} />
                                     </div>
-                                    <div className={'langCountry'}>
-                                        <img src={usa} alt="" />
-                                    </div>
+                                    <img src={usa} alt="" />
                                 </div>
-                                <div className={'add-data'}>
-                                    <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
-                                    </div>
-                                    <div className={'langCountry'}>
-                                        <img src={ger} alt="" />
-                                    </div>
-                                </div>
-                                <div className={'add-data'}>
-                                    <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
-                                    </div>
-                                    <div className={'langCountry'}>
-                                        <img src={arb} alt="" />
-                                    </div>
-                                </div>
+                                {/*<div className={'add-data'}>*/}
+                                {/*    <div className={'add-input'}>*/}
+                                {/*        <input placeholder={'Travmatologiya'}/>*/}
+                                {/*    </div>*/}
+                                {/*    <div className={'langCountry'}>*/}
+                                {/*        <img src={ger} alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
+                                {/*<div className={'add-data'}>*/}
+                                {/*    <div className={'add-input'}>*/}
+                                {/*        <input placeholder={'Travmatologiya'}/>*/}
+                                {/*    </div>*/}
+                                {/*    <div className={'langCountry'}>*/}
+                                {/*        <img src={arb} alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
                             </div>
                         </div>
                         <div className="dataDiv images">
@@ -173,35 +267,35 @@ function ClinicAdd() {
                         </div>
                         <div className={'tours-desc-data'}>
                             <div className={'tours-desc-texts'}>
-                                <textarea placeholder={'Təsvir əlavə edin...'}/>
+                                <textarea placeholder="Təsvir (AZ)" value={descAz} onChange={(e) => setDescAz(e.target.value)} />
                                 <div className={'langCountry'}>
                                     <img src={aze} alt=""/>
                                 </div>
                             </div>
                             <div className={'tours-desc-texts'}>
-                                <textarea  placeholder={'Təsvir əlavə edin...'}/>
+                                <textarea placeholder="Təsvir (RU)" value={descRu} onChange={(e) => setDescRu(e.target.value)} />
                                 <div className={'langCountry'}>
                                     <img src={rus} alt=""/>
                                 </div>
                             </div>
                             <div className={'tours-desc-texts'}>
-                                <textarea  placeholder={'Təsvir əlavə edin...'}/>
+                                <textarea placeholder="Təsvir (EN)" value={descEn} onChange={(e) => setDescEn(e.target.value)} />
                                 <div className={'langCountry'}>
                                     <img src={usa} alt=""/>
                                 </div>
                             </div>
-                            <div className={'tours-desc-texts'}>
-                                <textarea  placeholder={'Təsvir əlavə edin...'}/>
-                                <div className={'langCountry'}>
-                                    <img src={ger} alt=""/>
-                                </div>
-                            </div>
-                            <div className={'tours-desc-texts'}>
-                                <textarea  placeholder={'Təsvir əlavə edin...'}/>
-                                <div className={'langCountry'}>
-                                    <img src={arb} alt=""/>
-                                </div>
-                            </div>
+                            {/*<div className={'tours-desc-texts'}>*/}
+                            {/*    <textarea  placeholder={'Təsvir əlavə edin...'}/>*/}
+                            {/*    <div className={'langCountry'}>*/}
+                            {/*        <img src={ger} alt=""/>*/}
+                            {/*    </div>*/}
+                            {/*</div>*/}
+                            {/*<div className={'tours-desc-texts'}>*/}
+                            {/*    <textarea  placeholder={'Təsvir əlavə edin...'}/>*/}
+                            {/*    <div className={'langCountry'}>*/}
+                            {/*        <img src={arb} alt=""/>*/}
+                            {/*    </div>*/}
+                            {/*</div>*/}
                         </div>
                     </div>
                     <div className={'clinic-add-data'}>
@@ -211,20 +305,15 @@ function ClinicAdd() {
                                 <p>Xidmətin əlaqəli olduğu klinikanı seçin.</p>
                             </div>
                             <div className={'addCategory'}>
-                                {arr.map((item, index) => (
-                                    <label key={index} className="checkboxItem">
+                                {servis?.map((item, index) => (
+                                    <label key={item.id} className="checkboxItem">
                                         <input
                                             type="checkbox"
-                                            checked={activeIcon.includes(index)}
-                                            onChange={() => {
-                                                setActiveIcon((prev) =>
-                                                    prev.includes(index)
-                                                        ? prev.filter((i) => i !== index) // varsa sil
-                                                        : [...prev, index] // yoxdursa əlavə et
-                                                );
-                                            }}
+                                            checked={selectedServices.includes(item.id)}
+                                            onChange={() => toggleSelection(item.id, selectedServices, setSelectedServices)}
+
                                         />
-                                        <span>GlobalMed</span>
+                                        <span>{item.name}</span>
                                     </label>
                                 ))}
                             </div>
@@ -235,20 +324,15 @@ function ClinicAdd() {
                                 <p>Xidmətin əlaqəli olduğu doktorları seçin.</p>
                             </div>
                             <div className={'addCategory'}>
-                                {arr.map((item, index) => (
-                                    <label key={index} className="checkboxItem">
+                                {doctors?.map((item, index) => (
+                                    <label key={item.id} className="checkboxItem">
                                         <input
                                             type="checkbox"
-                                            checked={activeIcon.includes(index)}
-                                            onChange={() => {
-                                                setActiveIcon((prev) =>
-                                                    prev.includes(index)
-                                                        ? prev.filter((i) => i !== index) // varsa sil
-                                                        : [...prev, index] // yoxdursa əlavə et
-                                                );
-                                            }}
+                                            checked={selectedDoctors.includes(item.id)}
+                                            onChange={() => toggleSelection(item.id, selectedDoctors, setSelectedDoctors)}
+
                                         />
-                                        <span>GlobalMed</span>
+                                        <span>{item.name}</span>
                                     </label>
                                 ))}
                             </div>
@@ -259,22 +343,69 @@ function ClinicAdd() {
                                 <p>Xidmətin əlaqəli olduğu otelleri seçin.</p>
                             </div>
                             <div className={'addCategory'}>
-                                {arr.map((item, index) => (
-                                    <label key={index} className="checkboxItem">
+                                {otels?.map((item, index) => (
+                                    <label key={item.id} className="checkboxItem">
                                         <input
                                             type="checkbox"
-                                            checked={activeIcon.includes(index)}
-                                            onChange={() => {
-                                                setActiveIcon((prev) =>
-                                                    prev.includes(index)
-                                                        ? prev.filter((i) => i !== index) // varsa sil
-                                                        : [...prev, index] // yoxdursa əlavə et
-                                                );
-                                            }}
+                                            checked={selectedOtels.includes(item.id)}
+                                            onChange={() => toggleSelection(item.id, selectedOtels, setSelectedOtels)}
                                         />
-                                        <span>GlobalMed</span>
+                                        <span>{item.name}</span>
                                     </label>
                                 ))}
+                            </div>
+                        </div>
+                        <div className={"dataDiv inputs"}>
+                            <div className={'header'}>
+                                <h3>Yerləşdiyi ölkənin adı</h3>
+                                <p>Otelin yerləşdiyi ölkəni dillərə əsasən daxil edin.</p>
+                            </div>
+                            <div className={'add-inputs'}>
+                                <div className={'add-data'}>
+                                    <div className={'add-input'}>
+                                        <input placeholder="Ölkə (AZ)" value={locationAz} onChange={(e) => setLocationAz(e.target.value)} />
+
+                                    </div>
+                                    <div className={'langCountry'}>
+                                        <img src={aze} alt="" />
+                                    </div>
+                                </div>
+
+                                <div className={'add-data'}>
+                                    <div className={'add-input'}>
+                                        <input placeholder="Ölkə (RU)" value={locationRu} onChange={(e) => setLocationRu(e.target.value)} />
+
+                                    </div>
+                                    <div className={'langCountry'}>
+                                        <img src={rus} alt="" />
+                                    </div>
+                                </div>
+
+                                <div className={'add-data'}>
+                                    <div className={'add-input'}>
+                                        <input placeholder="Ölkə (EN)" value={locationEn} onChange={(e) => setLocationEn(e.target.value)} />
+
+                                    </div>
+                                    <div className={'langCountry'}>
+                                        <img src={usa} alt="" />
+                                    </div>
+                                </div>
+                                {/*<div className={'add-data'}>*/}
+                                {/*    <div className={'add-input'}>*/}
+                                {/*        <input placeholder={'Travmatologiya'}/>*/}
+                                {/*    </div>*/}
+                                {/*    <div className={'langCountry'}>*/}
+                                {/*        <img src={ger} alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
+                                {/*<div className={'add-data'}>*/}
+                                {/*    <div className={'add-input'}>*/}
+                                {/*        <input placeholder={'Travmatologiya'}/>*/}
+                                {/*    </div>*/}
+                                {/*    <div className={'langCountry'}>*/}
+                                {/*        <img src={arb} alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
                             </div>
                         </div>
                         <div className="dataDiv images multi">
@@ -362,7 +493,9 @@ function ClinicAdd() {
 
 
                     </div>
-                    <button className={'submitButton'}>Yadda saxla</button>
+                    <button className="submitButton" onClick={handleSubmit} disabled={isLoading}>
+                        {isLoading ? "Yüklənir..." : "Yadda saxla"}
+                    </button>
                 </div>
             </div>
         </div>

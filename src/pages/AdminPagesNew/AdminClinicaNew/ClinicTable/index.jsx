@@ -1,57 +1,72 @@
 import './index.scss'
 import Pagination from "../../../../components/UserComponents/Pagination/index.jsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import editIcon from '/src/assets/adminEditİcon.svg'
 import delIcon from '/src/assets/adminDelİcon.svg'
 import deleteImgModal from '/src/assets/deleteModalImg.png'
 import {useNavigate} from "react-router-dom";
 import closeIcon from '/src/assets/accordionClose.svg'
 import openIcon from '/src/assets/accordionOpen.svg'
-function ClinicTableNew() {
-    const arr = [
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-    ]
-    const [showEditModal, setShowEditModal] = useState(false);
-    const [showDeleteModal, setShowDeleteModal] = useState(false);
+import {useDeleteClinicMutation, useGetAllClinicQuery} from "../../../../services/userApi.jsx";
+import {CLINIC_CARD_IMAGES} from "../../../../contants.js";
+import showToast from "../../../../components/ToastMessage.js";
+function ClinicTableNew({language}) {
+    const {data:getAllClinic,refetch} = useGetAllClinicQuery()
+    const clinics = getAllClinic?.data
+    const [deleteClinic, { isLoading: isDeleting }] = useDeleteClinicMutation();    const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 9;
-    const totalPages = Math.ceil(arr.length / itemsPerPage);
-    const [activeIcon, setActiveIcon] = useState(null);
+    const totalPages = Math.ceil(clinics?.length / itemsPerPage);
     const startIndex = (currentPage - 1) * itemsPerPage;
-    const currentItems = arr.slice(startIndex, startIndex + itemsPerPage);
+    const currentItems = clinics?.slice(startIndex, startIndex + itemsPerPage);
     const [openIndex, setOpenIndex] = useState(null);
-    const openEditModal = (item) => {
-        setSelectedItem(item);
-        setShowEditModal(true);
-    };
     const navigate =useNavigate();
     const openDeleteModal = (item) => {
         setSelectedItem(item);
         setShowDeleteModal(true);
     };
-
+    useEffect(() => {
+        refetch()
+    }, []);
     const closeModal = () => {
-        setShowEditModal(false);
         setShowDeleteModal(false);
         setSelectedItem(null);
     };
     const toggleAccordion = (index) => {
         setOpenIndex(openIndex === index ? null : index);
-        setIsOpen(true);
+    };
+    const getLocalizedName = (item) => {
+        switch (language) {
+            case "EN": return item.nameEng?.trim() ? item.nameEng : item.name;
+            case "RU": return item.nameRu?.trim() ? item.nameRu : item.name;
+            case "DE": return item.nameAlm?.trim() ? item.nameAlm : item.name;
+            case "AR": return item.nameArab?.trim() ? item.nameArab : item.name;
+            default: return item.name;
+        }
+    };
+
+    const getLocalizedDescription = (item) => {
+        switch (language) {
+            case "EN": return item.descriptionEng?.trim() ? item.descriptionEng : item.description;
+            case "RU": return item.descriptionRu?.trim() ? item.descriptionRu : item.description;
+            case "DE": return item.descriptionAlm?.trim() ? item.descriptionAlm : item.description;
+            case "AR": return item.descriptionArab?.trim() ? item.descriptionArab : item.description;
+            default: return item.description;
+        }
+    };
+    const handleDelete = async () => {
+        if (!selectedItem) return;
+
+        try {
+            await deleteClinic(selectedItem.id).unwrap();
+            closeModal();
+            refetch();
+            showToast("✅ Klinika uğurla silindi!",'success');
+        } catch (err) {
+            console.error("Silinmə xətası:", err);
+            showToast("❌ Klinika silinərkən xəta baş verdi!",'error');
+        }
     };
     return (
         <div id={'clinic-table'}>
@@ -65,7 +80,7 @@ function ClinicTableNew() {
                </div>
 
                <div className="grid-body">
-                   {currentItems.map((item, index) => {
+                   {currentItems?.map((item, index) => {
                        const isOpen = openIndex === index; // true/false
                        return (
                            <div className="grid-row" key={index}>
@@ -73,29 +88,26 @@ function ClinicTableNew() {
                                    <input type="checkbox" />
                                </div>
                                <div className="icon">
-                                   {item.icon}
+                                   <img
+                                       src={CLINIC_CARD_IMAGES + item.clinicCardImage}
+                                       alt={getLocalizedName(item)}
+                                   />
                                </div>
-                               <div>Xərçəng müalicəsi</div>
-
-
-
+                               <div>{getLocalizedName(item)}</div>
                                {/* --- Klinikalar --- */}
                                <div className={`count ${isOpen ? "open" : ""}`}>
-                                   <p>
-                                       GlobalMed, Sağlam Ailə, GlobalMed, Sağlam Ailə,
-                                       GlobalMed, Sağlam Ailə, GlobalMed
-                                   </p>
+                                   <p>{getLocalizedDescription(item) || "-"}</p>
                                    <button
                                        className="accordion-btn"
                                        onClick={() => toggleAccordion(index)}
                                    >
-                                       <img src={isOpen ? openIcon : closeIcon}/>
+                                       <img src={isOpen ? openIcon : closeIcon} alt="toggle" />
                                    </button>
                                </div>
 
                                {/* --- Actions --- */}
                                <div className="actions">
-                                   <div className="action edit" onClick={() => navigate('/admin/clinic/edit/:id')}>
+                                   <div className="action edit" onClick={() => navigate(`/admin/clinic/edit/${item.id}`)}>
                                        <img src={editIcon} />
                                    </div>
                                    <div className="action trash" onClick={() => openDeleteModal(item)}>
@@ -120,7 +132,13 @@ function ClinicTableNew() {
                         <h3>Klinikanı silmək istədiyinizə əminsiz?</h3>
                         <div className="modal-actions">
                             <button className="cancel" onClick={closeModal}>Ləğv et</button>
-                            <button className="confirm">Sil</button>
+                            <button
+                                className="confirm"
+                                onClick={handleDelete}
+                                disabled={isDeleting}
+                            >
+                                {isDeleting ? "Silinir..." : "Sil"}
+                            </button>
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
 import './index.scss'
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import rootIcon from '/src/assets/rootIcon.svg'
 import aze from '/src/assets/azerbaijan.svg'
 import rus from '/src/assets/russia.svg'
@@ -11,10 +11,22 @@ import {useState} from "react";
 import plusIcon from '/src/assets/plusIcon.svg'
 import openIcon from '/src/assets/accordionOpen.svg'
 import closeIcon from '/src/assets/accordionClose.svg'
+import {usePostToursMutation} from "../../../services/userApi.jsx";
+import showToast from "../../../components/ToastMessage.js";
 function ToursAdd() {
-    const [activeIcon, setActiveIcon] = useState(null);
+    const [postTour,{isLoading}] = usePostToursMutation()
     const [selectedFile, setSelectedFile] = useState(null);
     const [isDragging, setIsDragging] = useState(false);
+    console.log(selectedFile);
+// 🔹 Form sahələri
+    const [nameAz, setNameAz] = useState("");
+    const [nameEn, setNameEn] = useState("");
+    const [nameRu, setNameRu] = useState("");
+    const [descAz, setDescAz] = useState("");
+    const [descEn, setDescEn] = useState("");
+    const [descRu, setDescRu] = useState("");
+const navigate = useNavigate();
+// 🔹 Yüklənmə vəziyyəti
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -40,9 +52,9 @@ function ToursAdd() {
     const handleRemoveFile = () => {
         setSelectedFile(null);
     };
-    const langs = [aze, rus, usa, ger, arb];
+    const langs = [aze, rus, usa];
     const [sections, setSections] = useState([
-        { id: 1, expanded: true, inputs: Array(5).fill("") },
+        { id: 1, expanded: true, inputs: Array(3).fill("") },
     ]);
 
     // 🔹 Input dəyərlərini dəyiş
@@ -69,7 +81,7 @@ function ToursAdd() {
         const newSection = {
             id: sections.length + 1,
             expanded: true,
-            inputs: Array(5).fill(""),
+            inputs: Array(3).fill(""),
         };
 
         setSections((prev) =>
@@ -93,6 +105,50 @@ function ToursAdd() {
 
     const allInputsFilled =
         sections[sections.length - 1].inputs.every((x) => x.trim() !== "");
+    const handleSubmit = async () => {
+        const formData = new FormData();
+
+        // 🔹 Əsas məlumatlar
+        formData.append("name", nameAz);
+        formData.append("nameEng", nameEn);
+        formData.append("nameRu", nameRu);
+        formData.append("description", descAz);
+        formData.append("descriptionEng", descEn);
+        formData.append("descriptionRu", descRu);
+
+        // 🔹 Şəkil
+        if (selectedFile) {
+            formData.append("cardImage", selectedFile);
+        }
+
+        // 🔹 Təkliflər (Services) – array of objects
+        const servicesArray = sections.map((section) => ({
+            name: section.inputs[0],
+            nameRU: section.inputs[1],
+            nameEN: section.inputs[2],
+        }));
+
+        // JSON string kimi əlavə et
+        formData.append("servicesJson", JSON.stringify(servicesArray));
+
+
+
+        try {
+            await postTour(formData).unwrap();
+            showToast("✅ Xidmət paketi uğurla əlavə olundu!", "success");
+
+            setNameAz(""); setNameEn(""); setNameRu("");
+            setDescAz(""); setDescEn(""); setDescRu("");
+            setSelectedFile(null);
+            setSections([{ id: 1, expanded: true, inputs: Array(3).fill("") }]);
+            navigate('/admin/tours')
+        } catch (err) {
+            console.error("❌ Xəta:", err);
+            showToast("Xidmət paketi əlavə edilərkən xəta baş verdi!", "error");
+        }
+    };
+
+
     return (
         <div id={'tours-add'}>
             <div className={'tours-add'}>
@@ -117,7 +173,7 @@ function ToursAdd() {
                             <div className={'add-inputs'}>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
+                                        <input value={nameAz} onChange={(e)=>setNameAz(e.target.value)} placeholder="Ad (AZ)" />
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={aze} alt="" />
@@ -125,7 +181,7 @@ function ToursAdd() {
                                 </div>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
+                                        <input value={nameRu} onChange={(e)=>setNameRu(e.target.value)} placeholder="Ad (RU)" />
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={rus} alt="" />
@@ -133,28 +189,28 @@ function ToursAdd() {
                                 </div>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
+                                        <input value={nameEn} onChange={(e)=>setNameEn(e.target.value)} placeholder="Ad (EN)" />
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={usa} alt="" />
                                     </div>
                                 </div>
-                                <div className={'add-data'}>
-                                    <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
-                                    </div>
-                                    <div className={'langCountry'}>
-                                        <img src={ger} alt="" />
-                                    </div>
-                                </div>
-                                <div className={'add-data'}>
-                                    <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
-                                    </div>
-                                    <div className={'langCountry'}>
-                                        <img src={arb} alt="" />
-                                    </div>
-                                </div>
+                                {/*<div className={'add-data'}>*/}
+                                {/*    <div className={'add-input'}>*/}
+                                {/*        <input placeholder={'Travmatologiya'}/>*/}
+                                {/*    </div>*/}
+                                {/*    <div className={'langCountry'}>*/}
+                                {/*        <img src={ger} alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
+                                {/*<div className={'add-data'}>*/}
+                                {/*    <div className={'add-input'}>*/}
+                                {/*        <input placeholder={'Travmatologiya'}/>*/}
+                                {/*    </div>*/}
+                                {/*    <div className={'langCountry'}>*/}
+                                {/*        <img src={arb} alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
                             </div>
                         </div>
                         <div className="dataDiv images">
@@ -208,35 +264,36 @@ function ToursAdd() {
                         </div>
                         <div className={'tours-desc-data'}>
                             <div className={'tours-desc-texts'}>
-                                <textarea placeholder={'Təsvir əlavə edin...'}/>
+                                <textarea value={descAz} onChange={(e)=>setDescAz(e.target.value)} placeholder="Təsvir (AZ)" />
                                 <div className={'langCountry'}>
                                     <img src={aze} alt=""/>
                                 </div>
                             </div>
                             <div className={'tours-desc-texts'}>
-                                <textarea  placeholder={'Təsvir əlavə edin...'}/>
+                                <textarea value={descRu} onChange={(e)=>setDescRu(e.target.value)} placeholder="Təsvir (RU)" />
                                 <div className={'langCountry'}>
                                     <img src={rus} alt=""/>
                                 </div>
                             </div>
                             <div className={'tours-desc-texts'}>
-                                <textarea  placeholder={'Təsvir əlavə edin...'}/>
+                                <textarea value={descEn} onChange={(e)=>setDescEn(e.target.value)} placeholder="Təsvir (EN)" />
+
                                 <div className={'langCountry'}>
                                     <img src={usa} alt=""/>
                                 </div>
                             </div>
-                            <div className={'tours-desc-texts'}>
-                                <textarea  placeholder={'Təsvir əlavə edin...'}/>
-                                <div className={'langCountry'}>
-                                    <img src={ger} alt=""/>
-                                </div>
-                            </div>
-                            <div className={'tours-desc-texts'}>
-                                <textarea  placeholder={'Təsvir əlavə edin...'}/>
-                                <div className={'langCountry'}>
-                                    <img src={arb} alt=""/>
-                                </div>
-                            </div>
+                            {/*<div className={'tours-desc-texts'}>*/}
+                            {/*    <textarea  placeholder={'Təsvir əlavə edin...'}/>*/}
+                            {/*    <div className={'langCountry'}>*/}
+                            {/*        <img src={ger} alt=""/>*/}
+                            {/*    </div>*/}
+                            {/*</div>*/}
+                            {/*<div className={'tours-desc-texts'}>*/}
+                            {/*    <textarea  placeholder={'Təsvir əlavə edin...'}/>*/}
+                            {/*    <div className={'langCountry'}>*/}
+                            {/*        <img src={arb} alt=""/>*/}
+                            {/*    </div>*/}
+                            {/*</div>*/}
                         </div>
                     </div>
                     <div className="dataDiv3 inputs">
@@ -272,7 +329,9 @@ function ToursAdd() {
                                                 <div key={index} className="add-data">
                                                     <div className="add-input">
                                                         <input
-                                                            placeholder="Travmatologiya"
+                                                            placeholder={
+                                                                index === 0 ? "Təklif (AZ)" : index === 1 ? "Təklif (RU)" : "Təklif (EN)"
+                                                            }
                                                             value={section.inputs[index]}
                                                             onChange={(e) =>
                                                                 handleInputChange(section.id, index, e.target.value)
@@ -284,6 +343,7 @@ function ToursAdd() {
                                                     </div>
                                                 </div>
                                             ))}
+
                                         </div>
                                     )}
                                 </div>
@@ -299,7 +359,14 @@ function ToursAdd() {
                             <img src={plusIcon} alt="plus" /> Əlavə et
                         </button>
                     </div>
-                    <button className={'submitButton'}>Yadda saxla</button>
+                    <button
+                        className="submitButton"
+                        onClick={handleSubmit}
+                        disabled={isLoading}
+                    >
+                        {isLoading ? "Yüklənir..." : "Yadda saxla"}
+                    </button>
+
                 </div>
             </div>
         </div>

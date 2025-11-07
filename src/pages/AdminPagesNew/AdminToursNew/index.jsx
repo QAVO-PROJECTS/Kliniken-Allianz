@@ -3,7 +3,10 @@ import LanguageDiv from "../../../components/AdminComponents/LanguageDic/index.j
 import AddBtn from "../../../components/AdminComponents/AddBtn/index.jsx";
 
 import CategoryTableServisNew from "./ToursTable/index.jsx";
+import {useState} from "react";
 function AdminToursNew() {
+    const [language, setLanguage] = useState("AZ");
+
     return (
         <div id={'admin-tours'}>
             <div className={'admin-tours'}>
@@ -14,11 +17,11 @@ function AdminToursNew() {
                         <p>Buradan həkimləri idarə edə və yenilərini yarada bilərsiniz.</p>
                     </div>
                     <div className={'category-buttons'}>
-                        <LanguageDiv />
+                        <LanguageDiv selected={language} onChange={setLanguage}/>
                         <AddBtn nav={'/admin/tours/add'}/>
                     </div>
                 </div>
-                <CategoryTableServisNew />
+                <CategoryTableServisNew language={language}/>
             </div>
         </div>
     );

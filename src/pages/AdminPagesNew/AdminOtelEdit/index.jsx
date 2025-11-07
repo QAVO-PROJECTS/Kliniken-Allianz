@@ -1,5 +1,5 @@
 import './index.scss'
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate, useParams} from "react-router-dom";
 import rootIcon from '/src/assets/rootIcon.svg'
 import aze from '/src/assets/azerbaijan.svg'
 import rus from '/src/assets/russia.svg'
@@ -10,17 +10,25 @@ import uploadIcon from '/src/assets/uploadIcon.svg'
 import linkIcon from '/src/assets/linkIcon.svg'
 import starEmpty from "/src/assets/doluUlduz.svg"; // boş ulduz
 import starFilled from "/src/assets/bosUlduz.svg";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {useGetOtelsByIdQuery, usePutOtelsMutation} from "../../../services/userApi.jsx";
+import showToast from "../../../components/ToastMessage.js";
+import {OTEL_CARD_IMAGES} from "../../../contants.js";
 function OtelEdit() {
-    const [activeIcon, setActiveIcon] = useState(null);
+    const {id} = useParams();
+    const navigate = useNavigate();
+    const {data:getOtelsById,isLoading,refetch} = useGetOtelsByIdQuery(id)
+    const otel = getOtelsById?.data
     const [selectedFile, setSelectedFile] = useState(null);
     const [isDragging, setIsDragging] = useState(false);
-
+    const [editOtel, { isLoading: isUpdating }] = usePutOtelsMutation();
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) setSelectedFile(file);
     };
-
+    useEffect(() => {
+        refetch()
+    }, []);
     const handleDragOver = (e) => {
         e.preventDefault();
         setIsDragging(true);
@@ -40,45 +48,66 @@ function OtelEdit() {
     const handleRemoveFile = () => {
         setSelectedFile(null);
     };
-    const [rating, setRating] = useState(null); // yalnız bir reytinq seçilə bilər
+    const [raiting, setRaiting] = useState(0);
     const [hotelLink, setHotelLink] = useState("");
+    const [name, setName] = useState("");
+    const [nameRu, setNameRu] = useState("");
+    const [nameEng, setNameEng] = useState("");
+    const [location, setLocation] = useState("");
+    const [locationRu, setLocationRu] = useState("");
+    const [locationEng, setLocationEng] = useState("");
 
-    // Reytinq dəyərləri (5 ulduz sistemi)
-    const ratings = [5, 4, 3, 2, 1];
-    const arr = [
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-    ]
+    // 🔹 Gələn datanı inputlara yaz
+    useEffect(() => {
+        if (otel) {
+            setName(otel.name || "");
+            setNameRu(otel.nameRu || "");
+            setNameEng(otel.nameEng || "");
+            setLocation(otel.location || "");
+            setLocationRu(otel.locationRu || "");
+            setLocationEng(otel.locationEng || "");
+            setHotelLink(otel.otelLink || "");
+            setRaiting(otel.raiting || 0);
+        }
+    }, [otel]);
+    // 🔹 Edit (PUT) funksiyası
+    const handleSubmit = async () => {
+        if (!name.trim() || !location.trim()) {
+            showToast("Zəhmət olmasa əsas sahələri doldurun.", 'warning');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append("id", id);
+        formData.append("name", name);
+        formData.append("nameRu", nameRu);
+        formData.append("nameEng", nameEng);
+        formData.append("location", location);
+        formData.append("locationRu", locationRu);
+        formData.append("locationEng", locationEng);
+
+        // 🔸 Əgər rating dəyişməyibsə backenddəki dəyəri göndər
+        const raitingToSend = raiting && raiting > 0 ? raiting : otel?.raiting || 0;
+        formData.append("raiting", Number(raitingToSend));
+
+        formData.append("otelLink", hotelLink);
+
+        // 🔸 Yeni şəkil varsa onu, yoxdursa mövcud şəkil adı qalsın
+        if (selectedFile) {
+            formData.append("cardImage", selectedFile);
+        }
+
+        try {
+            await editOtel(formData).unwrap();
+            showToast("Otel uğurla redaktə olundu ✅", 'success');
+            navigate("/admin/otel");
+        } catch (err) {
+            console.error("Xəta:", err);
+            showToast("Redaktə zamanı xəta baş verdi ❌", 'error');
+        }
+    };
+
+    if (isLoading) return <p>Yüklənir...</p>;
     return (
         <div id={'otel-edit'}>
             <div className={'otel-edit'}>
@@ -103,7 +132,7 @@ function OtelEdit() {
                             <div className={'add-inputs'}>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
+                                        <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Otel adı (AZ)" />
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={aze} alt="" />
@@ -111,7 +140,7 @@ function OtelEdit() {
                                 </div>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
+                                        <input value={nameRu} onChange={(e) => setNameRu(e.target.value)} placeholder="Otel adı (RU)" />
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={rus} alt="" />
@@ -119,28 +148,28 @@ function OtelEdit() {
                                 </div>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
+                                        <input value={nameEng} onChange={(e) => setNameEng(e.target.value)} placeholder="Otel adı (EN)" />
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={usa} alt="" />
                                     </div>
                                 </div>
-                                <div className={'add-data'}>
-                                    <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
-                                    </div>
-                                    <div className={'langCountry'}>
-                                        <img src={ger} alt="" />
-                                    </div>
-                                </div>
-                                <div className={'add-data'}>
-                                    <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
-                                    </div>
-                                    <div className={'langCountry'}>
-                                        <img src={arb} alt="" />
-                                    </div>
-                                </div>
+                                {/*<div className={'add-data'}>*/}
+                                {/*    <div className={'add-input'}>*/}
+                                {/*        <input placeholder={'Travmatologiya'}/>*/}
+                                {/*    </div>*/}
+                                {/*    <div className={'langCountry'}>*/}
+                                {/*        <img src={ger} alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
+                                {/*<div className={'add-data'}>*/}
+                                {/*    <div className={'add-input'}>*/}
+                                {/*        <input placeholder={'Travmatologiya'}/>*/}
+                                {/*    </div>*/}
+                                {/*    <div className={'langCountry'}>*/}
+                                {/*        <img src={arb} alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
                             </div>
                         </div>
                         <div className="dataDiv images">
@@ -170,15 +199,19 @@ function OtelEdit() {
                                 </label>
                             </div>
 
-                            {selectedFile && (
+                            {(selectedFile || otel?.cardImage) && (
                                 <div className="uploadedFile">
                                     <div className="fileInfo">
                                         <img
-                                            src={URL.createObjectURL(selectedFile)}
+                                            src={
+                                                selectedFile
+                                                    ? URL.createObjectURL(selectedFile)
+                                                    : OTEL_CARD_IMAGES + otel.cardImage
+                                            }
                                             alt="preview"
                                             className="previewImg"
                                         />
-                                        <span>{selectedFile.name}</span>
+                                        <span>{selectedFile ? selectedFile.name : otel.cardImage}</span>
                                     </div>
                                     <button onClick={handleRemoveFile}>✕</button>
                                 </div>
@@ -192,7 +225,7 @@ function OtelEdit() {
                             <div className={'add-inputs'}>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
+                                        <input value={location} onChange={(e) => setLocation(e.target.value)} placeholder="Ölkə (AZ)" />
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={aze} alt="" />
@@ -200,7 +233,7 @@ function OtelEdit() {
                                 </div>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
+                                        <input value={locationRu} onChange={(e) => setLocationRu(e.target.value)} placeholder="Ölkə (RU)" />
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={rus} alt="" />
@@ -208,28 +241,28 @@ function OtelEdit() {
                                 </div>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
+                                        <input value={locationEng} onChange={(e) => setLocationEng(e.target.value)} placeholder="Ölkə (EN)" />
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={usa} alt="" />
                                     </div>
                                 </div>
-                                <div className={'add-data'}>
-                                    <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
-                                    </div>
-                                    <div className={'langCountry'}>
-                                        <img src={ger} alt="" />
-                                    </div>
-                                </div>
-                                <div className={'add-data'}>
-                                    <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
-                                    </div>
-                                    <div className={'langCountry'}>
-                                        <img src={arb} alt="" />
-                                    </div>
-                                </div>
+                                {/*<div className={'add-data'}>*/}
+                                {/*    <div className={'add-input'}>*/}
+                                {/*        <input placeholder={'Travmatologiya'}/>*/}
+                                {/*    </div>*/}
+                                {/*    <div className={'langCountry'}>*/}
+                                {/*        <img src={ger} alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
+                                {/*<div className={'add-data'}>*/}
+                                {/*    <div className={'add-input'}>*/}
+                                {/*        <input placeholder={'Travmatologiya'}/>*/}
+                                {/*    </div>*/}
+                                {/*    <div className={'langCountry'}>*/}
+                                {/*        <img src={arb} alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
                             </div>
                         </div>
                         <div className="dataDiv2 inputs">
@@ -241,12 +274,13 @@ function OtelEdit() {
                                 </div>
 
                                 <div className="stars">
-                                    {ratings.map((value) => (
+                                    {[5, 4, 3, 2, 1].map((value) => (
                                         <label key={value} className="ratingOption">
                                             <input
                                                 type="checkbox"
-                                                checked={rating === value}
-                                                onChange={() => setRating(value)}
+                                                name="raiting"
+                                                checked={raiting === value}
+                                                onChange={() => setRaiting(value)}
                                             />
                                             <div className="starsRow">
                                                 {Array.from({ length: 5 }).map((_, i) => (
@@ -290,7 +324,13 @@ function OtelEdit() {
                             </div>
                         </div>
                     </div>
-                    <button className={'submitButton'}>Yadda saxla</button>
+                    <button
+                        className={'submitButton'}
+                        onClick={handleSubmit}
+                        disabled={isUpdating}
+                    >
+                        {isUpdating ? "Yenilənir..." : "Yadda saxla"}
+                    </button>
                 </div>
             </div>
         </div>

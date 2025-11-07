@@ -385,6 +385,10 @@
         font-size: 14px;
         line-height: 21px;
         color: #fff;
+        &:disabled{
+          background-color: #0C4281;
+          cursor: not-allowed;
+        }
       }
     }
   }

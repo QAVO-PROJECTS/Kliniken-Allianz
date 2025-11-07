@@ -1,42 +1,29 @@
 import './index.scss'
 import Pagination from "../../../../components/UserComponents/Pagination/index.jsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import editIcon from '/src/assets/adminEditİcon.svg'
 import delIcon from '/src/assets/adminDelİcon.svg'
 import deleteImgModal from '/src/assets/deleteModalImg.png'
 import {useNavigate} from "react-router-dom";
 import starDolu from '/src/assets/doluUlduz.svg'
-function OtelTableNew() {
-    const arr = [
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-    ]
-    const [showEditModal, setShowEditModal] = useState(false);
+import starBos from '/src/assets/bosUlduz.svg'
+import {useDeleteOtelsMutation, useGetAllOtelsQuery} from "../../../../services/userApi.jsx";
+import {OTEL_CARD_IMAGES} from "../../../../contants.js";
+import showToast from "../../../../components/ToastMessage.js";
+function OtelTableNew({language}) {
+    const {data:getAllOtels,refetch} = useGetAllOtelsQuery()
+    const otels = getAllOtels?.data
+
+    const [deleteOtel, { isLoading: isDeleting }] = useDeleteOtelsMutation()
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 9;
-    const totalPages = Math.ceil(arr.length / itemsPerPage);
-    const [activeIcon, setActiveIcon] = useState(null);
+    const totalPages = Math.ceil(otels?.length / itemsPerPage);
     const startIndex = (currentPage - 1) * itemsPerPage;
-    const currentItems = arr.slice(startIndex, startIndex + itemsPerPage);
-    const [openIndex, setOpenIndex] = useState(null);
-    const openEditModal = (item) => {
-        setSelectedItem(item);
-        setShowEditModal(true);
-    };
+    const currentItems = otels?.slice(startIndex, startIndex + itemsPerPage);
+
+
     const navigate =useNavigate();
     const openDeleteModal = (item) => {
         setSelectedItem(item);
@@ -44,13 +31,65 @@ function OtelTableNew() {
     };
 
     const closeModal = () => {
-        setShowEditModal(false);
+
         setShowDeleteModal(false);
         setSelectedItem(null);
     };
-    const toggleAccordion = (index) => {
-        setOpenIndex(openIndex === index ? null : index);
-        setIsOpen(true);
+    const handleDelete = async () => {
+        try {
+            await deleteOtel(selectedItem.id).unwrap();
+            showToast("Otel uğurla silindi ✅", "success");
+            closeModal();
+            refetch();
+        } catch (err) {
+            console.error("Silinmə xətası:", err);
+            showToast("Oteli silmək mümkün olmadı ❌", "error");
+        }
+    };
+    // 🔹 Ad (otel adı)
+    const getLocalizedName = (item) => {
+        switch (language) {
+            case "EN":
+                return item.nameEng && item.nameEng.trim() !== "" ? item.nameEng : item.name;
+            case "RU":
+                return item.nameRu && item.nameRu.trim() !== "" ? item.nameRu : item.name;
+            case "DE":
+                return item.nameAlm && item.nameAlm.trim() !== "" ? item.nameAlm : item.name;
+            case "AR":
+                return item.nameArab && item.nameArab.trim() !== "" ? item.nameArab : item.name;
+            default:
+                return item.name;
+        }
+    };
+
+// 🔹 Yerləşdiyi ölkə (location)
+    const getLocalizedLocation = (item) => {
+        switch (language) {
+            case "EN":
+                return item.locationEng && item.locationEng.trim() !== "" ? item.locationEng : item.location;
+            case "RU":
+                return item.locationRu && item.locationRu.trim() !== "" ? item.locationRu : item.location;
+            case "DE":
+                return item.locationAlm && item.locationAlm.trim() !== "" ? item.locationAlm : item.location;
+            case "AR":
+                return item.locationArab && item.locationArab.trim() !== "" ? item.locationArab : item.location;
+            default:
+                return item.location;
+        }
+    };
+    useEffect(() => {
+        refetch()
+    }, []);
+    const renderStars = (raiting) => {
+        const fullStars = Math.floor(raiting); // tam ulduz sayı
+        const hasHalf = raiting % 1 >= 0.5;    // yarım ulduz varsa
+        const totalStars = 5;
+
+        return Array.from({length: totalStars}, (_, i) => {
+            if (i < fullStars) return <img key={i} src={starDolu} alt="star" />;
+            else if (i === fullStars && hasHalf) return <img key={i} src={starDolu} alt="half" style={{opacity: 0.6}} />;
+            else return <img key={i} src={starBos} alt="empty" />;
+        });
     };
     return (
         <div id={'otel-table'}>
@@ -65,43 +104,36 @@ function OtelTableNew() {
                </div>
 
                <div className="grid-body">
-                   {currentItems.map((item, index) => {
-                       const isOpen = openIndex === index; // true/false
-                       return (
-                           <div className="grid-row" key={index}>
-                               <div>
-                                   <input type="checkbox" />
-                               </div>
-                               <div className="icon">
-                                   {item.icon}
-                               </div>
-                               <div>Xərçəng müalicəsi</div>
+                   {currentItems?.map((item, index) => (
+                       <div className="grid-row" key={item.id || index}>
+                           <div>
+                               <input type="checkbox" />
+                           </div>
+                           <div className="icon">
+                               <img
+                                   src={OTEL_CARD_IMAGES+item.cardImage}
+                                   alt={getLocalizedName(item, "name")}
 
-                               {/* --- Təsvir --- */}
-                               <div>
-                                   Almanya
-                               </div>
-                               <div>
-                                   <img src={starDolu}/>
-                                   <img src={starDolu}/>
-                                   <img src={starDolu}/>
-                                   <img src={starDolu}/>
-                                   <img src={starDolu}/>
-                               </div>
+                               />
+                           </div>
 
+                           <div>{getLocalizedName(item)}</div>
+                           <div>{getLocalizedLocation(item)}</div>
 
-                               {/* --- Actions --- */}
-                               <div className="actions">
-                                   <div className="action edit" onClick={() => navigate('/admin/otel/edit/:id')}>
-                                       <img src={editIcon} />
-                                   </div>
-                                   <div className="action trash" onClick={() => openDeleteModal(item)}>
-                                       <img src={delIcon} />
-                                   </div>
+                           <div className="stars">
+                               {renderStars(item.raiting || 0)}
+                           </div>
+
+                           <div className="actions">
+                               <div className="action edit" onClick={() => navigate(`/admin/otel/edit/${item.id}`)}>
+                                   <img src={editIcon}/>
+                               </div>
+                               <div className="action trash" onClick={() => openDeleteModal(item)}>
+                                   <img src={delIcon}/>
                                </div>
                            </div>
-                       );
-                   })}
+                       </div>
+                   ))}
                </div>
            </div>
             <Pagination
@@ -117,7 +149,9 @@ function OtelTableNew() {
                         <h3>Oteli silmək istədiyinizə əminsiz?</h3>
                         <div className="modal-actions">
                             <button className="cancel" onClick={closeModal}>Ləğv et</button>
-                            <button className="confirm">Sil</button>
+                            <button className="confirm" onClick={handleDelete} disabled={isDeleting}>
+                                {isDeleting ? "Silinir..." : "Sil"}
+                            </button>
                         </div>
                     </div>
                 </div>
