@@ -33,7 +33,7 @@ function ToursEdit() {
     const [descAz, setDescAz] = useState("");
     const [descEn, setDescEn] = useState("");
     const [descRu, setDescRu] = useState("");
-
+    const [oldImage, setOldImage] = useState(null);
     const [sections, setSections] = useState([
         { id: 1, expanded: true, inputs: Array(3).fill("") },
     ]);
@@ -46,22 +46,30 @@ function ToursEdit() {
             setNameAz(tour.name || "");
             setNameEn(tour.nameEng || "");
             setNameRu(tour.nameRu || "");
+            setNameAlm(tour.nameAlm || "");
+            setNameArab(tour.nameArab || "");
+
             setDescAz(tour.description || "");
             setDescEn(tour.descriptionEng || "");
             setDescRu(tour.descriptionRu || "");
+            setDescAlm(tour.descriptionAlm || "");
+            setDescArab(tour.descriptionArab || "");
 
-            if (tour.services?.length) {
-                const newSections = tour.services.map((s, i) => ({
-                    id: i + 1,
-                    expanded: true,
-                    inputs: [
-                        s.name || "",
-                        s.nameRU || "",
-                        s.nameEN || "",
-                    ],
-                }));
-                setSections(newSections);
-            }
+            setOldImage(tour.cardImage ? `${TOUR_CARD_IMAGES}${tour.cardImage.split("/").pop()}` : null);
+
+            // Servislər
+            const mappedServices = tour.services?.map((s, i) => ({
+                id: s.id || i + 1,
+                names: [
+                    s.name || "",
+                    s.nameEN || "",
+                    s.nameRU || "",
+                    s.nameAL || "",
+                    s.nameAR || ""
+                ],
+            })) || [];
+
+            setSections(mappedServices);
         }
     }, [tour]);
 
@@ -255,22 +263,24 @@ function ToursEdit() {
                                 </label>
                             </div>
 
-                            {(selectedFile || tour?.cardImage) && (
+                            {/* Köhnə şəkil */}
+                            {!selectedFile && oldImage && (
                                 <div className="uploadedFile">
                                     <div className="fileInfo">
-                                        <img
-                                            src={
-                                                selectedFile
-                                                    ? URL.createObjectURL(selectedFile)
-
-                                                        : `${TOUR_CARD_IMG}${tour.cardImage}`
-                                            }
-                                            alt="preview"
-                                            className="previewImg"
-                                            onError={(e) => { e.target.src = "/fallback-image.png"; }} // şəkil tapılmazsa fallback
-                                        />
+                                        <img src={oldImage} alt="old" className="previewImg" />
+                                        <span>Mövcud şəkil</span>
                                     </div>
-                                    {selectedFile && <button onClick={handleRemoveFile}>✕</button>}
+                                </div>
+                            )}
+
+                            {/* Yeni seçilən şəkil */}
+                            {selectedFile && (
+                                <div className="uploadedFile">
+                                    <div className="fileInfo">
+                                        <img src={URL.createObjectURL(selectedFile)} alt="preview" className="previewImg" />
+                                        <span>{selectedFile.name}</span>
+                                    </div>
+                                    <button onClick={() => setSelectedFile(null)}>✕</button>
                                 </div>
                             )}
 
