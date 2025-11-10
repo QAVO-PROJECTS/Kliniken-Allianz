@@ -1,5 +1,5 @@
 import './index.scss'
-import {NavLink, useParams} from "react-router-dom";
+import {NavLink, useNavigate, useParams} from "react-router-dom";
 import rootIcon from '/src/assets/rootIcon.svg'
 import aze from '/src/assets/azerbaijan.svg'
 import rus from '/src/assets/russia.svg'
@@ -21,13 +21,14 @@ import {
     CLINIC_IMAGES,
     CLINIC_SERT_IMAGES
 } from "../../../contants.js";
+import showToast from "../../../components/ToastMessage.js";
 
 function ClinicEdit() {
     const {id} = useParams()
     const [selectedFile, setSelectedFile] = useState(null);
     const [isDragging, setIsDragging] = useState(false);
     const [editClinic, { isLoading }] = usePutClinicMutation();
-    const {data:getClinicById} = useGetClinicByIdQuery(id)
+    const {data:getClinicById , refetch} = useGetClinicByIdQuery(id)
     const clinic = getClinicById?.data
     const {data:getAllService} = useGetAllServiceQuery()
     const servis = getAllService?.data
@@ -36,6 +37,7 @@ function ClinicEdit() {
     const {data:getAllDoctors} = useGetAllDoctorsQuery()
     const doctors = getAllDoctors?.data
     // 🔹 Name inputları
+    const navigate = useNavigate()
     const [nameAz, setNameAz] = useState("");
     const [nameEn, setNameEn] = useState("");
     const [nameRu, setNameRu] = useState("");
@@ -84,7 +86,9 @@ function ClinicEdit() {
         setOldGalereyaFiles(prev => prev.filter(f => f !== fileName));
         setDeleteClinicImages(prev => [...prev, fileName]);
     };
-
+    useEffect(() => {
+        refetch()
+    }, []);
     useEffect(() => {
         if (clinic) {
             setNameAz(clinic.name || "");
@@ -238,14 +242,15 @@ function ClinicEdit() {
 
         try {
             await editClinic(formData).unwrap();
-            alert("Yalnız dəyişən məlumatlar uğurla göndərildi ✅");
+            showToast("Yalnız dəyişən məlumatlar uğurla göndərildi ✅",'success');
+            refetch()
+            navigate('/admin/clinic')
         } catch (err) {
             console.error("Error:", err);
-            alert("Xəta baş verdi ❌");
+            showToast("Xəta baş verdi ❌",'error');
         }
     };
 
-    const arr = Array(10).fill({});
     return (
         <div id={'clinic-edit'}>
             <div className={'clinic-edit'}>

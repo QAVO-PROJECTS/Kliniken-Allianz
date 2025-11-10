@@ -13,7 +13,7 @@ import openIcon from '/src/assets/accordionOpen.svg'
 import closeIcon from '/src/assets/accordionClose.svg'
 import {useGetToursByIdQuery, usePutToursMutation} from "../../../services/userApi.jsx";
 import showToast from "../../../components/ToastMessage.js";
-import {TOUR_CARD_IMG} from "../../../contants.js";
+import {TOUR_CARD_IMG} from "/src/contants.js";
 function ToursEdit() {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -34,6 +34,8 @@ function ToursEdit() {
     const [descEn, setDescEn] = useState("");
     const [descRu, setDescRu] = useState("");
     const [oldImage, setOldImage] = useState(null);
+    const [deletedServiceIds, setDeletedServiceIds] = useState([]);
+
     const [sections, setSections] = useState([
         { id: 1, expanded: true, inputs: Array(3).fill("") },
     ]);
@@ -46,30 +48,35 @@ function ToursEdit() {
             setNameAz(tour.name || "");
             setNameEn(tour.nameEng || "");
             setNameRu(tour.nameRu || "");
-            setNameAlm(tour.nameAlm || "");
-            setNameArab(tour.nameArab || "");
+            // setNameAlm(tour.nameAlm || "");
+            // setNameArab(tour.nameArab || "");
 
             setDescAz(tour.description || "");
             setDescEn(tour.descriptionEng || "");
             setDescRu(tour.descriptionRu || "");
-            setDescAlm(tour.descriptionAlm || "");
-            setDescArab(tour.descriptionArab || "");
+            // setDescAlm(tour.descriptionAlm || "");
+            // setDescArab(tour.descriptionArab || "");
 
-            setOldImage(tour.cardImage ? `${TOUR_CARD_IMAGES}${tour.cardImage.split("/").pop()}` : null);
+            setOldImage(tour.cardImage ? `${TOUR_CARD_IMG}${tour.cardImage.split("/").pop()}` : null);
 
-            // Servislər
             const mappedServices = tour.services?.map((s, i) => ({
                 id: s.id || i + 1,
-                names: [
+                expanded: true,
+                serviceId: s.id || null, // 🟢 backend üçün lazım olan ID
+                inputs: [
                     s.name || "",
-                    s.nameEN || "",
                     s.nameRU || "",
-                    s.nameAL || "",
-                    s.nameAR || ""
+                    s.nameEN || "",
                 ],
             })) || [];
 
-            setSections(mappedServices);
+            setSections(
+                mappedServices.length > 0
+                    ? mappedServices
+                    : [{ id: 1, expanded: true, serviceId: null, inputs: Array(3).fill("") }]
+            );
+
+
         }
     }, [tour]);
 
@@ -106,7 +113,7 @@ function ToursEdit() {
     };
 
     const handleAddSection = () => {
-        const allFilled = sections[sections.length - 1].inputs.every(
+        const allFilled = sections[sections.length - 1].inputs?.every(
             (x) => x.trim() !== ""
         );
         if (!allFilled) return;
@@ -114,8 +121,10 @@ function ToursEdit() {
         const newSection = {
             id: sections.length + 1,
             expanded: true,
+            serviceId: null, // 🟢 yeni əlavə olunan təklif üçün boş id
             inputs: Array(3).fill(""),
         };
+
 
         setSections((prev) =>
             prev.map((s) => ({ ...s, expanded: false })).concat(newSection)
@@ -131,12 +140,21 @@ function ToursEdit() {
     };
 
     const handleRemoveSection = (id) => {
-        setSections((prev) => prev.filter((s) => s.id !== id));
+        setSections((prev) => {
+            const toRemove = prev.find((s) => s.id === id);
+            if (toRemove?.serviceId) {
+                // 🟥 Əgər bu service backend-də mövcuddursa, id-ni silinənlərə əlavə edirik
+                setDeletedServiceIds((prevDeleted) => [...prevDeleted, toRemove.serviceId]);
+            }
+            return prev.filter((s) => s.id !== id);
+        });
     };
 
-    const allInputsFilled = sections[sections.length - 1].inputs.every(
-        (x) => x.trim() !== ""
-    );
+
+    const allInputsFilled =
+        sections.length > 0 &&
+        sections[sections.length - 1]?.inputs?.every((x) => x.trim() !== "");
+
 
     // 🔹 PUT request
     const handleSubmit = async () => {
@@ -154,13 +172,22 @@ function ToursEdit() {
             formData.append("cardImage", selectedFile);
         }
 
-        const servicesArray = sections.map((s) => ({
-            name: s.inputs[0],
-            nameRU: s.inputs[1],
-            nameEN: s.inputs[2],
-        }));
+        const servicesArray = sections
+            .filter(s => s.inputs.some(x => x.trim() !== "")) // boşları göndərmirik
+            .map((s) => ({
+                id: s.serviceId, // varsa → update, yoxdursa → create
+                name: s.inputs[0],
+                nameRU: s.inputs[1],
+                nameEN: s.inputs[2],
+            }));
 
         formData.append("servicesJson", JSON.stringify(servicesArray));
+        // 🟥 Silinən təkliflərin id-lərini ayrı-ayrılıqda göndər
+        deletedServiceIds.forEach((id) => {
+            formData.append("deleteTourServiceIds", id);
+        });
+
+
 
         try {
             await editTour(formData).unwrap();
@@ -386,7 +413,14 @@ function ToursEdit() {
                             <img src={plusIcon} alt="plus" /> Əlavə et
                         </button>
                     </div>
-                    <button className={'submitButton'}>Yadda saxla</button>
+                    <button
+                        className="submitButton"
+                        onClick={handleSubmit}
+                        disabled={isLoading}
+                    >
+                        {isLoading ? "Yenilənir..." : "Yadda saxla"}
+                    </button>
+
                 </div>
             </div>
         </div>

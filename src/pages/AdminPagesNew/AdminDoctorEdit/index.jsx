@@ -1,5 +1,5 @@
 import './index.scss'
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate, useParams} from "react-router-dom";
 import rootIcon from '/src/assets/rootIcon.svg'
 import aze from '/src/assets/azerbaijan.svg'
 import rus from '/src/assets/russia.svg'
@@ -7,7 +7,7 @@ import usa from '/src/assets/unitedstates.svg'
 import ger from '/src/assets/germany.svg'
 import arb from '/src/assets/unitedarabemirates.svg'
 import uploadIcon from '/src/assets/uploadIcon.svg'
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import openIcon from '/src/assets/accordionOpen.svg'
 import closeIcon from '/src/assets/accordionClose.svg'
 import starEmpty from "../../../assets/doluUlduz.svg";
@@ -15,22 +15,40 @@ import starFilled from "../../../assets/bosUlduz.svg";
 import plusIcon from "../../../assets/plusIcon.svg";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
-
+import {useGetAllClinicQuery, useGetDoctorsByIdQuery, usePutDoctorsMutation} from "../../../services/userApi.jsx";
+import {DOCTOR_IMG_URL, CERT_CLINIC_URL, CERT_DOKTOR_URL} from "../../../contants.js";
+import showToast from "../../../components/ToastMessage.js";
 function DoctorEdit() {
-    const [selectedFile, setSelectedFile] = useState(null);
+    const {id} = useParams();
+    const navigate = useNavigate()
     const [isDragging, setIsDragging] = useState(false);
     const [activeIcon, setActiveIcon] = useState([]);
-
-    // 🔹 Ayrı state-lər
+    const {data:getAllClinic} = useGetAllClinicQuery()
+    const clinic = getAllClinic?.data
+    const {data:getDoctorsById,isFetching,refetch} = useGetDoctorsByIdQuery(id)
+    const doctor = getDoctorsById?.data
+    const [editDoctor, {isLoading}] = usePutDoctorsMutation();
+    const [nameAz, setNameAz] = useState("");
+    const [nameEn, setNameEn] = useState("");
+    const [nameRu, setNameRu] = useState("");
+    const [surNameAz, setSurNameAz] = useState("");
+    const [surNameEn, setSurNameEn] = useState("");
+    const [surNameRu, setSurNameRu] = useState("");
+    const [roleAz, setRoleAz] = useState("");
+    const [roleEn, setRoleEn] = useState("");
+    const [roleRu, setRoleRu] = useState("");
+    const [experience, setExperience] = useState("");
+    const [rating, setRating] = useState(0);    // 🔹 Ayrı state-lər
+    const [selectedFile, setSelectedFile] = useState(null);
     const [sertifikatFiles, setSertifikatFiles] = useState([]);
-    const [sertifikatOpen, setSertifikatOpen] = useState(false);
+    const [sertifikatOpen, setSertifikatOpen] = useState(true);
+    const [activeClinics, setActiveClinics] = useState([]);
 
-    const [rating, setRating] = useState(null); // yalnız bir reytinq seçilə bilər
 
     // 🔹 Sertifikat yükləmə funksiyası
     const handleSertifikatChange = (e) => {
         const newFiles = Array.from(e.target.files);
-        const withPreview = newFiles.map((file) => ({
+        const withPreview = newFiles?.map((file) => ({
             file,
             preview: URL.createObjectURL(file),
         }));
@@ -51,20 +69,71 @@ function DoctorEdit() {
 
 
     const ratings = [5, 4, 3, 2, 1];
-    const arr = Array(10).fill({});
-    const langs = [aze, rus, usa, ger, arb];
+    const langs = [aze, rus, usa];
     const [sections, setSections] = useState([
-        { id: 1, expanded: true, inputs: Array(5).fill("") },
+        { id: 1, expanded: true, inputs: Array(3).fill("") },
     ]);
+    useEffect(() => {
+        if (doctor) {
+            setNameAz(doctor.name || "");
+            setNameEn(doctor.nameEng || "");
+            setNameRu(doctor.nameRu || "");
+            setSurNameAz(doctor.surName || "");
+            setSurNameEn(doctor.surNameEng || "");
+            setSurNameRu(doctor.surNameRu || "");
+            setRoleAz(doctor.role || "");
+            setRoleEn(doctor.roleEng || "");
+            setRoleRu(doctor.roleRu || "");
+            setExperience(doctor.experience || "");
+            setRating(doctor.rate || 0);
 
+            // şəkil preview
+            if (doctor.doctorImage) {
+                setSelectedFile({ preview: DOCTOR_IMG_URL + doctor.doctorImage, isFromServer: true });
+            }
+
+            // sertifikat preview-ləri
+            if (doctor.doctorSertificates?.length) {
+                const certs = doctor.doctorSertificates?.map((f) => ({
+                    preview: CERT_DOKTOR_URL + f,
+                    isFromServer: true,
+                    fileName: f
+                }));
+                setSertifikatFiles(certs);
+            }
+
+            // klinikalar
+            if (doctor.clinics?.length) {
+                const ids = doctor.clinics?.map((c) => c.id);
+                setActiveClinics(ids);
+            }
+
+            // bio bölmələri
+            if (doctor.bio?.length) {
+                const bioSections = doctor.bio?.map((b) => ({
+                    id: b.id, // 🟩 burada backend bio id-sini saxlayırıq
+                    expanded: true,
+                    inputs: [
+                        b.name || "",
+                        b.nameEng || "",
+                        b.nameRu || "",
+                    ],
+                }));
+                setSections(bioSections);
+            }
+            else {
+                setSections([{ id: 1, expanded: true, inputs: Array(3).fill("") }]);
+            }
+        }
+    }, [doctor]);
     // 🔹 Input dəyərlərini dəyiş
     const handleInputChange = (sectionId, index, value) => {
         setSections((prev) =>
-            prev.map((s) =>
+            prev?.map((s) =>
                 s.id === sectionId
                     ? {
                         ...s,
-                        inputs: s.inputs.map((v, i) => (i === index ? value : v)),
+                        inputs: s.inputs?.map((v, i) => (i === index ? value : v)),
                     }
                     : s
             )
@@ -81,18 +150,18 @@ function DoctorEdit() {
         const newSection = {
             id: sections.length + 1,
             expanded: true,
-            inputs: Array(5).fill(""),
+            inputs: Array(3).fill(""),
         };
 
         setSections((prev) =>
-            prev.map((s) => ({ ...s, expanded: false })).concat(newSection)
+            prev?.map((s) => ({ ...s, expanded: false })).concat(newSection)
         );
     };
 
     // 🔹 Bölməni bağla/aç
     const toggleSection = (id) => {
         setSections((prev) =>
-            prev.map((s) =>
+            prev?.map((s) =>
                 s.id === id ? { ...s, expanded: !s.expanded } : s
             )
         );
@@ -105,6 +174,127 @@ function DoctorEdit() {
 
     const allInputsFilled =
         sections[sections.length - 1].inputs.every((x) => x.trim() !== "");
+    const handleSubmit = async () => {
+        try {
+            const formData = new FormData();
+
+            formData.append("id", id);
+            formData.append("name", nameAz);
+            formData.append("nameEng", nameEn);
+            formData.append("nameRu", nameRu);
+            formData.append("surName", surNameAz);
+            formData.append("surNameEng", surNameEn);
+            formData.append("surNameRu", surNameRu);
+            formData.append("role", roleAz);
+            formData.append("roleEng", roleEn);
+            formData.append("roleRu", roleRu);
+            formData.append("experience", experience);
+            formData.append("rate", rating);
+            formData.append('bornDate','')
+            // ✅ Bio dəyişikliklərini yoxla (yalnız dəyişən və yeni bio-lar getsin)
+            const existingBios = doctor?.bio || [];
+
+            const updatedBios = sections
+                ?.map((s) => {
+                    // Əgər bu bölmədə id varsa, backend-dən gəlmiş bio deməkdir
+                    const oldBio = existingBios.find((b) => b.id === s.id);
+
+                    // Əgər backend-də bu bio yoxdursa → yeni əlavədir
+                    if (!oldBio) {
+                        return {
+                            name: s.inputs[0],
+                            nameEng: s.inputs[1],
+                            nameRu: s.inputs[2],
+                        };
+                    }
+
+                    // Əgər bu bio var, amma dəyişib
+                    const changed =
+                        oldBio.name !== s.inputs[0] ||
+                        oldBio.nameEng !== s.inputs[1] ||
+                        oldBio.nameRu !== s.inputs[2];
+
+                    if (changed) {
+                        return {
+                            id: oldBio.id,
+                            name: s.inputs[0],
+                            nameEng: s.inputs[1],
+                            nameRu: s.inputs[2],
+
+                        };
+                    }
+
+                    // Eyni qalıbsa, göndərmə
+                    return null;
+                })
+                .filter(Boolean);
+
+            if (updatedBios.length > 0) {
+                formData.append("biosJson", JSON.stringify(updatedBios));
+            }
+
+
+
+            // ✅ Yeni şəkil varsa əlavə et
+            if (selectedFile && !selectedFile.isFromServer) {
+                formData.append("doctorImage", selectedFile);
+            }
+
+            // ✅ Yeni sertifikatlar
+            const newCertificates = sertifikatFiles.filter((f) => !f.isFromServer);
+            newCertificates.forEach((f) => formData.append("doctorSertificates", f.file));
+
+            // ✅ Silinmiş sertifikatlar
+            const deletedCertificates = doctor.doctorSertificates.filter(
+                (oldFile) => !sertifikatFiles.some((f) =>
+                    f.isFromServer && f.fileName === oldFile
+                )
+            );
+            deletedCertificates.forEach((f) =>
+                formData.append("deleteDoctorSertificates", f)
+            );
+
+            // ✅ Klinikalar (aktivlər və silinənlər)
+            const currentClinicIds = doctor.clinics?.map((c) => c.id);
+            const addedClinics = activeClinics.filter(
+                (id) => !currentClinicIds.includes(id)
+            );
+            const deletedClinics = currentClinicIds.filter(
+                (id) => !activeClinics.includes(id)
+            );
+
+            addedClinics.forEach((id) => formData.append("clinicIds", id));
+            deletedClinics.forEach((id) => formData.append("deleteClinicIds", id));
+
+            // ✅ Bio silinənləri tap
+            const existingBiosIds = doctor.bio || [];
+            const deletedBioIds = existingBiosIds
+                .filter(
+                    (b, idx) =>
+                        !sections[idx] ||
+                        (sections[idx] &&
+                            (!sections[idx].inputs[0] &&
+                                !sections[idx].inputs[1] &&
+                                !sections[idx].inputs[2]))
+                )
+                ?.map((b) => b.id);
+
+            deletedBioIds.forEach((id) => formData.append("deleteBioIds", id));
+
+            // ✅ PUT çağırışı
+            await editDoctor(formData).unwrap();
+            showToast("Həkim məlumatları uğurla yeniləndi ✅", "success");
+            navigate("/admin/doctors");
+            refetch()
+        } catch (err) {
+            console.error(err);
+            showToast("Dəyişiklik zamanı xəta baş verdi ❌", "error");
+        }
+    };
+    useEffect(() => {
+        refetch()
+    }, []);
+    if (isFetching) return <p className="loading">Yüklənir...</p>;
     return (
         <div id={'doctor-edit'}>
             <div className={'doctor-edit'}>
@@ -129,7 +319,7 @@ function DoctorEdit() {
                             <div className={'add-inputs'}>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
+                                        <input value={nameAz} onChange={(e)=>setNameAz(e.target.value)} placeholder="Azərbaycan"/>
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={aze} alt="" />
@@ -137,7 +327,7 @@ function DoctorEdit() {
                                 </div>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
+                                        <input value={nameRu} onChange={(e)=>setNameRu(e.target.value)} placeholder="Rus"/>
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={rus} alt="" />
@@ -145,28 +335,28 @@ function DoctorEdit() {
                                 </div>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
+                                        <input value={nameEn} onChange={(e)=>setNameEn(e.target.value)} placeholder="İngilis"/>
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={usa} alt="" />
                                     </div>
                                 </div>
-                                <div className={'add-data'}>
-                                    <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
-                                    </div>
-                                    <div className={'langCountry'}>
-                                        <img src={ger} alt="" />
-                                    </div>
-                                </div>
-                                <div className={'add-data'}>
-                                    <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
-                                    </div>
-                                    <div className={'langCountry'}>
-                                        <img src={arb} alt="" />
-                                    </div>
-                                </div>
+                                {/*<div className={'add-data'}>*/}
+                                {/*    <div className={'add-input'}>*/}
+                                {/*        <input placeholder={'Travmatologiya'}/>*/}
+                                {/*    </div>*/}
+                                {/*    <div className={'langCountry'}>*/}
+                                {/*        <img src={ger} alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
+                                {/*<div className={'add-data'}>*/}
+                                {/*    <div className={'add-input'}>*/}
+                                {/*        <input placeholder={'Travmatologiya'}/>*/}
+                                {/*    </div>*/}
+                                {/*    <div className={'langCountry'}>*/}
+                                {/*        <img src={arb} alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
                             </div>
                         </div>
                         <div className={"dataDiv inputs"}>
@@ -177,7 +367,7 @@ function DoctorEdit() {
                             <div className={'add-inputs'}>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
+                                        <input value={surNameAz} onChange={(e)=>setSurNameAz(e.target.value)} placeholder="Azərbaycan"/>
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={aze} alt="" />
@@ -185,7 +375,7 @@ function DoctorEdit() {
                                 </div>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
+                                        <input value={surNameRu} onChange={(e)=>setSurNameRu(e.target.value)} placeholder="Rus"/>
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={rus} alt="" />
@@ -193,28 +383,28 @@ function DoctorEdit() {
                                 </div>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
+                                        <input value={surNameEn} onChange={(e)=>setSurNameEn(e.target.value)} placeholder="İngilis"/>
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={usa} alt="" />
                                     </div>
                                 </div>
-                                <div className={'add-data'}>
-                                    <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
-                                    </div>
-                                    <div className={'langCountry'}>
-                                        <img src={ger} alt="" />
-                                    </div>
-                                </div>
-                                <div className={'add-data'}>
-                                    <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
-                                    </div>
-                                    <div className={'langCountry'}>
-                                        <img src={arb} alt="" />
-                                    </div>
-                                </div>
+                                {/*<div className={'add-data'}>*/}
+                                {/*    <div className={'add-input'}>*/}
+                                {/*        <input placeholder={'Travmatologiya'}/>*/}
+                                {/*    </div>*/}
+                                {/*    <div className={'langCountry'}>*/}
+                                {/*        <img src={ger} alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
+                                {/*<div className={'add-data'}>*/}
+                                {/*    <div className={'add-input'}>*/}
+                                {/*        <input placeholder={'Travmatologiya'}/>*/}
+                                {/*    </div>*/}
+                                {/*    <div className={'langCountry'}>*/}
+                                {/*        <img src={arb} alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
                             </div>
                         </div>
                         <div className={"dataDiv inputs"}>
@@ -225,7 +415,7 @@ function DoctorEdit() {
                             <div className={'add-inputs'}>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
+                                        <input value={roleAz} onChange={(e)=>setRoleAz(e.target.value)} placeholder="Azərbaycan"/>
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={aze} alt="" />
@@ -233,7 +423,7 @@ function DoctorEdit() {
                                 </div>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
+                                        <input value={roleRu} onChange={(e)=>setRoleRu(e.target.value)} placeholder="Rus"/>
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={rus} alt="" />
@@ -241,28 +431,28 @@ function DoctorEdit() {
                                 </div>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
+                                        <input value={roleEn} onChange={(e)=>setRoleEn(e.target.value)} placeholder="İngilis"/>
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={usa} alt="" />
                                     </div>
                                 </div>
-                                <div className={'add-data'}>
-                                    <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
-                                    </div>
-                                    <div className={'langCountry'}>
-                                        <img src={ger} alt="" />
-                                    </div>
-                                </div>
-                                <div className={'add-data'}>
-                                    <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
-                                    </div>
-                                    <div className={'langCountry'}>
-                                        <img src={arb} alt="" />
-                                    </div>
-                                </div>
+                                {/*<div className={'add-data'}>*/}
+                                {/*    <div className={'add-input'}>*/}
+                                {/*        <input placeholder={'Travmatologiya'}/>*/}
+                                {/*    </div>*/}
+                                {/*    <div className={'langCountry'}>*/}
+                                {/*        <img src={ger} alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
+                                {/*<div className={'add-data'}>*/}
+                                {/*    <div className={'add-input'}>*/}
+                                {/*        <input placeholder={'Travmatologiya'}/>*/}
+                                {/*    </div>*/}
+                                {/*    <div className={'langCountry'}>*/}
+                                {/*        <img src={arb} alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
                             </div>
                         </div>
                         <div className="dataDiv images">
@@ -288,15 +478,24 @@ function DoctorEdit() {
                                 </label>
                             </div>
 
+
                             {selectedFile && (
                                 <div className="uploadedFile">
                                     <div className="fileInfo">
                                         <img
-                                            src={URL.createObjectURL(selectedFile)}
+                                            src={
+                                                selectedFile.isFromServer
+                                                    ? selectedFile.preview
+                                                    : URL.createObjectURL(selectedFile)
+                                            }
                                             alt="preview"
                                             className="previewImg"
                                         />
-                                        <span>{selectedFile.name}</span>
+                                        <span>
+                                            {selectedFile.isFromServer
+                                                ? "Server şəkli"
+                                                : selectedFile.name}
+                                        </span>
                                     </div>
                                     <button onClick={() => setSelectedFile(null)}>✕</button>
                                 </div>
@@ -314,20 +513,20 @@ function DoctorEdit() {
                                 <p>Həkimin əlaqəli olduğu klinikaları seçin.</p>
                             </div>
                             <div className={'addCategory'}>
-                                {arr.map((item, index) => (
-                                    <label key={index} className="checkboxItem">
+                                {clinic?.map((item) => (
+                                    <label key={item.id} className="checkboxItem">
                                         <input
                                             type="checkbox"
-                                            checked={activeIcon.includes(index)}
+                                            checked={activeClinics.includes(item.id)}
                                             onChange={() => {
-                                                setActiveIcon((prev) =>
-                                                    prev.includes(index)
-                                                        ? prev.filter((i) => i !== index) // varsa sil
-                                                        : [...prev, index] // yoxdursa əlavə et
+                                                setActiveClinics((prev) =>
+                                                    prev.includes(item.id)
+                                                        ? prev.filter((i) => i !== item.id)
+                                                        : [...prev, item.id]
                                                 );
                                             }}
                                         />
-                                        <span>GlobalMed</span>
+                                        <span>{item.name}</span>
                                     </label>
                                 ))}
                             </div>
@@ -360,11 +559,11 @@ function DoctorEdit() {
 
                             {sertifikatOpen && sertifikatFiles.length > 0 && (
                                 <div className="uploadedList">
-                                    {sertifikatFiles.map((item, index) => (
+                                    {sertifikatFiles?.map((item, index) => (
                                         <div key={index} className="uploadedItem">
                                             <div className="fileLeft">
-                                                <img src={item.preview} alt="preview" className="filePreview" />
-                                                <span>{item.file.name}</span>
+                                                <img src={item.preview} alt="preview" className="filePreview"/>
+                                                <span>{item.isFromServer ? "Server faylı" : item.file.name}</span>
                                             </div>
                                             <button onClick={() => removeSertifikat(index)}>✕</button>
                                         </div>
@@ -380,7 +579,7 @@ function DoctorEdit() {
                             <div className={'add-inputs'}>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder={'5'}/>
+                                        <input value={experience} onChange={(e)=>setExperience(e.target.value)} placeholder="3 il"/>
                                     </div>
                                 </div>
 
@@ -395,7 +594,7 @@ function DoctorEdit() {
                                 </div>
 
                                 <div className="stars">
-                                    {ratings.map((value) => (
+                                    {ratings?.map((value) => (
                                         <label key={value} className="ratingOption">
                                             <input
                                                 type="checkbox"
@@ -403,7 +602,7 @@ function DoctorEdit() {
                                                 onChange={() => setRating(value)}
                                             />
                                             <div className="starsRow">
-                                                {Array.from({ length: 5 }).map((_, i) => (
+                                                {Array.from({ length: 5 })?.map((_, i) => (
                                                     <img
                                                         key={i}
                                                         src={i < value ? starEmpty : starFilled}
@@ -425,10 +624,10 @@ function DoctorEdit() {
                             </div>
 
                             <div className="offer-scroll">
-                                {sections.map((section) => (
+                                {sections?.map((section) => (
                                     <div key={section.id} className="offer-section">
                                         <div className="offer-header" onClick={() => toggleSection(section.id)}>
-                                            <span>Təklif #{section.id}</span>
+                                            <span>Bio #{section.id}</span>
                                             <div className="header-actions">
                                                 {sections.length > 1 && (
                                                     <button
@@ -447,21 +646,18 @@ function DoctorEdit() {
 
                                         {section.expanded && (
                                             <div className="add-inputs">
-                                                {langs.map((lang, index) => (
-                                                    <div key={index} className="add-data">
+                                                {[aze, rus, usa]?.map((lang, i) => (
+                                                    <div key={i} className="add-data">
                                                         <div className="add-input">
                                                             <ReactQuill
                                                                 theme="snow"
-                                                                value={section.inputs[index]}
-                                                                onChange={(val) =>
-                                                                    handleInputChange(section.id, index, val)
-                                                                }
+                                                                value={section.inputs[i]}
+                                                                onChange={(val) => handleInputChange(section.id, i, val)}
                                                                 className="custom-quill"
-                                                                placeholder="Buraya yaz..."
                                                             />
                                                         </div>
                                                         <div className="langCountry">
-                                                            <img src={lang} alt="lang" />
+                                                        <img src={lang} alt="lang"/>
                                                         </div>
                                                     </div>
                                                 ))}
@@ -483,7 +679,13 @@ function DoctorEdit() {
 
 
                     </div>
-                    <button className={'submitButton'}>Yadda saxla</button>
+                    <button
+                        className={`submitButton ${isLoading ? "loading" : ""}`}
+                        onClick={handleSubmit}
+                        disabled={isLoading}
+                    >
+                        {isLoading ? "Yadda saxlanılır..." : "Yadda saxla"}
+                    </button>
                 </div>
             </div>
         </div>

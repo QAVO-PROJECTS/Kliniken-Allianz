@@ -7,11 +7,13 @@ import deleteImgModal from '/src/assets/deleteModalImg.png'
 import {useNavigate} from "react-router-dom";
 import closeIcon from '/src/assets/accordionClose.svg'
 import openIcon from '/src/assets/accordionOpen.svg'
-import {useGetAllToursQuery} from "../../../../services/userApi.jsx";
+import {useDeleteToursMutation, useGetAllToursQuery} from "../../../../services/userApi.jsx";
 import {TOUR_CARD_IMG} from "../../../../contants.js";
+import showToast from "../../../../components/ToastMessage.js";
 function ToursTableNew({language}) {
     const {data:getAllTours,refetch} = useGetAllToursQuery();
     const tours = getAllTours?.data
+    const [deleteTour, { isLoading: isDeleting }] = useDeleteToursMutation();
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
@@ -54,6 +56,20 @@ function ToursTableNew({language}) {
     const toggleAccordion = (index) => {
         setOpenIndex(openIndex === index ? null : index);
     };
+    const handleDelete = async () => {
+        if (!selectedItem) return;
+        try {
+            await deleteTour(selectedItem.id).unwrap();
+            showToast("Tur uğurla silindi ✅", "success");
+            setShowDeleteModal(false);
+            setSelectedItem(null);
+            refetch();
+        } catch (error) {
+            console.error("Silinmə zamanı xəta:", error);
+            showToast("Xəta baş verdi. Zəhmət olmasa yenidən cəhd edin ❌", "error");
+        }
+    };
+
     return (
         <div id={'tours-table'}>
            <div className={'tours-table-wrapper'}>
@@ -136,7 +152,14 @@ function ToursTableNew({language}) {
                         <h3>Xidmət paketini silmək istədiyinizə əminsiz?</h3>
                         <div className="modal-actions">
                             <button className="cancel" onClick={closeModal}>Ləğv et</button>
-                            <button className="confirm">Sil</button>
+                            <button
+                                className="confirm"
+                                onClick={handleDelete}
+                                disabled={isDeleting}
+                            >
+                                {isDeleting ? "Silinir..." : "Sil"}
+                            </button>
+
                         </div>
                     </div>
                 </div>

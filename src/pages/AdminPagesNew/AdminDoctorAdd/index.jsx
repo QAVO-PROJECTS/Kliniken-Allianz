@@ -1,5 +1,5 @@
 import './index.scss'
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import rootIcon from '/src/assets/rootIcon.svg'
 import aze from '/src/assets/azerbaijan.svg'
 import rus from '/src/assets/russia.svg'
@@ -15,12 +15,31 @@ import starFilled from "../../../assets/bosUlduz.svg";
 import plusIcon from "../../../assets/plusIcon.svg";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
+import {useGetAllClinicQuery, usePostDoctorsMutation} from "../../../services/userApi.jsx";
+import showToast from "../../../components/ToastMessage.js";
 
 function DoctorAdd() {
     const [selectedFile, setSelectedFile] = useState(null);
     const [isDragging, setIsDragging] = useState(false);
     const [activeIcon, setActiveIcon] = useState([]);
+    const navigate = useNavigate()
+    const {data:getAllClinic} = useGetAllClinicQuery()
+    const clinic = getAllClinic?.data
+    const [postDoctor, {isLoading}] = usePostDoctorsMutation();
+    const [nameAz, setNameAz] = useState("");
+    const [nameEn, setNameEn] = useState("");
+    const [nameRu, setNameRu] = useState("");
 
+    const [surNameAz, setSurNameAz] = useState("");
+    const [surNameEn, setSurNameEn] = useState("");
+    const [surNameRu, setSurNameRu] = useState("");
+
+    const [roleAz, setRoleAz] = useState("");
+    const [roleEn, setRoleEn] = useState("");
+    const [roleRu, setRoleRu] = useState("");
+
+
+    const [experience, setExperience] = useState("");
     // 🔹 Ayrı state-lər
     const [sertifikatFiles, setSertifikatFiles] = useState([]);
     const [sertifikatOpen, setSertifikatOpen] = useState(false);
@@ -51,10 +70,10 @@ function DoctorAdd() {
 
 
     const ratings = [5, 4, 3, 2, 1];
-    const arr = Array(10).fill({});
-    const langs = [aze, rus, usa, ger, arb];
+
+    const langs = [aze, rus, usa];
     const [sections, setSections] = useState([
-        { id: 1, expanded: true, inputs: Array(5).fill("") },
+        { id: 1, expanded: true, inputs: Array(3).fill("") },
     ]);
 
     // 🔹 Input dəyərlərini dəyiş
@@ -81,7 +100,7 @@ function DoctorAdd() {
         const newSection = {
             id: sections.length + 1,
             expanded: true,
-            inputs: Array(5).fill(""),
+            inputs: Array(3).fill(""),
         };
 
         setSections((prev) =>
@@ -105,6 +124,56 @@ function DoctorAdd() {
 
     const allInputsFilled =
         sections[sections.length - 1].inputs.every((x) => x.trim() !== "");
+    const handleSubmit = async () => {
+        console.log('ss')
+        try {
+            const formData = new FormData();
+
+            formData.append("name", nameAz);
+            formData.append("nameEng", nameEn);
+            formData.append("nameRu", nameRu);
+
+            formData.append("surName", surNameAz);
+            formData.append("surNameEng", surNameEn);
+            formData.append("surNameRu", surNameRu);
+
+            formData.append("role", roleAz);
+            formData.append("roleEng", roleEn);
+            formData.append("roleRu", roleRu);
+
+            formData.append("rate", rating ?? 0);
+            formData.append("experience", experience || "0");
+
+            // Bio-ları JSON kimi yığırıq
+            const bioObjects = sections.map((s) => ({
+                name: s.inputs[0] || "",
+                nameEng: s.inputs[1] || "",
+                nameRu: s.inputs[2] || "",
+                nameAlm: null,
+                nameArab: null,
+            }));
+            formData.append("biosJson", JSON.stringify(bioObjects));
+
+            // Şəkil və sertifikat
+            if (selectedFile) formData.append("doctorImage", selectedFile);
+            sertifikatFiles.forEach((item) => {
+                formData.append("doctorSertificates", item.file);
+            });
+
+            // Klinika ID-ləri
+            const selectedClinicIds = clinic
+                .filter((_, i) => activeIcon.includes(i))
+                .map((c) => c.id);
+            selectedClinicIds.forEach((id) => formData.append("doctorClinicIds", id));
+
+            await postDoctor(formData).unwrap();
+            showToast("Həkim uğurla əlavə olundu!", "success");
+            navigate('/admin/doctors')
+        } catch (err) {
+            console.error(err);
+            showToast("Xəta baş verdi, yenidən cəhd edin!", "error");
+        }
+    };
     return (
         <div id={'doctor-add'}>
             <div className={'doctor-add'}>
@@ -129,7 +198,7 @@ function DoctorAdd() {
                             <div className={'add-inputs'}>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
+                                        <input placeholder="Azərbaycan dilində" value={nameAz} onChange={(e)=>setNameAz(e.target.value)}/>
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={aze} alt="" />
@@ -137,7 +206,7 @@ function DoctorAdd() {
                                 </div>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
+                                        <input placeholder="Rus dilində" value={nameRu} onChange={(e)=>setNameRu(e.target.value)}/>
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={rus} alt="" />
@@ -145,28 +214,28 @@ function DoctorAdd() {
                                 </div>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
+                                        <input placeholder="İngilis dilində" value={nameEn} onChange={(e)=>setNameEn(e.target.value)}/>
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={usa} alt="" />
                                     </div>
                                 </div>
-                                <div className={'add-data'}>
-                                    <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
-                                    </div>
-                                    <div className={'langCountry'}>
-                                        <img src={ger} alt="" />
-                                    </div>
-                                </div>
-                                <div className={'add-data'}>
-                                    <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
-                                    </div>
-                                    <div className={'langCountry'}>
-                                        <img src={arb} alt="" />
-                                    </div>
-                                </div>
+                                {/*<div className={'add-data'}>*/}
+                                {/*    <div className={'add-input'}>*/}
+                                {/*        <input placeholder={'Travmatologiya'}/>*/}
+                                {/*    </div>*/}
+                                {/*    <div className={'langCountry'}>*/}
+                                {/*        <img src={ger} alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
+                                {/*<div className={'add-data'}>*/}
+                                {/*    <div className={'add-input'}>*/}
+                                {/*        <input placeholder={'Travmatologiya'}/>*/}
+                                {/*    </div>*/}
+                                {/*    <div className={'langCountry'}>*/}
+                                {/*        <img src={arb} alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
                             </div>
                         </div>
                         <div className={"dataDiv inputs"}>
@@ -177,7 +246,7 @@ function DoctorAdd() {
                             <div className={'add-inputs'}>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
+                                        <input placeholder="Azərbaycan" value={surNameAz} onChange={(e)=>setSurNameAz(e.target.value)}/>
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={aze} alt="" />
@@ -185,7 +254,7 @@ function DoctorAdd() {
                                 </div>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
+                                        <input placeholder="Rus" value={surNameRu} onChange={(e)=>setSurNameRu(e.target.value)}/>
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={rus} alt="" />
@@ -193,28 +262,28 @@ function DoctorAdd() {
                                 </div>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
+                                        <input placeholder="İngilis" value={surNameEn} onChange={(e)=>setSurNameEn(e.target.value)}/>
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={usa} alt="" />
                                     </div>
                                 </div>
-                                <div className={'add-data'}>
-                                    <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
-                                    </div>
-                                    <div className={'langCountry'}>
-                                        <img src={ger} alt="" />
-                                    </div>
-                                </div>
-                                <div className={'add-data'}>
-                                    <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
-                                    </div>
-                                    <div className={'langCountry'}>
-                                        <img src={arb} alt="" />
-                                    </div>
-                                </div>
+                                {/*<div className={'add-data'}>*/}
+                                {/*    <div className={'add-input'}>*/}
+                                {/*        <input placeholder={'Travmatologiya'}/>*/}
+                                {/*    </div>*/}
+                                {/*    <div className={'langCountry'}>*/}
+                                {/*        <img src={ger} alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
+                                {/*<div className={'add-data'}>*/}
+                                {/*    <div className={'add-input'}>*/}
+                                {/*        <input placeholder={'Travmatologiya'}/>*/}
+                                {/*    </div>*/}
+                                {/*    <div className={'langCountry'}>*/}
+                                {/*        <img src={arb} alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
                             </div>
                         </div>
                         <div className={"dataDiv inputs"}>
@@ -225,7 +294,7 @@ function DoctorAdd() {
                             <div className={'add-inputs'}>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
+                                        <input placeholder="Azərbaycan" value={roleAz} onChange={(e)=>setRoleAz(e.target.value)}/>
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={aze} alt="" />
@@ -233,7 +302,7 @@ function DoctorAdd() {
                                 </div>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
+                                        <input placeholder="Rus" value={roleRu} onChange={(e)=>setRoleRu(e.target.value)}/>
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={rus} alt="" />
@@ -241,28 +310,28 @@ function DoctorAdd() {
                                 </div>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
+                                        <input placeholder="İngilis" value={roleEn} onChange={(e)=>setRoleEn(e.target.value)}/>
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={usa} alt="" />
                                     </div>
                                 </div>
-                                <div className={'add-data'}>
-                                    <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
-                                    </div>
-                                    <div className={'langCountry'}>
-                                        <img src={ger} alt="" />
-                                    </div>
-                                </div>
-                                <div className={'add-data'}>
-                                    <div className={'add-input'}>
-                                        <input placeholder={'Travmatologiya'}/>
-                                    </div>
-                                    <div className={'langCountry'}>
-                                        <img src={arb} alt="" />
-                                    </div>
-                                </div>
+                                {/*<div className={'add-data'}>*/}
+                                {/*    <div className={'add-input'}>*/}
+                                {/*        <input placeholder={'Travmatologiya'}/>*/}
+                                {/*    </div>*/}
+                                {/*    <div className={'langCountry'}>*/}
+                                {/*        <img src={ger} alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
+                                {/*<div className={'add-data'}>*/}
+                                {/*    <div className={'add-input'}>*/}
+                                {/*        <input placeholder={'Travmatologiya'}/>*/}
+                                {/*    </div>*/}
+                                {/*    <div className={'langCountry'}>*/}
+                                {/*        <img src={arb} alt="" />*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
                             </div>
                         </div>
                         <div className="dataDiv images">
@@ -314,7 +383,7 @@ function DoctorAdd() {
                                 <p>Həkimin əlaqəli olduğu klinikaları seçin.</p>
                             </div>
                             <div className={'addCategory'}>
-                                {arr.map((item, index) => (
+                                {clinic?.map((item, index) => (
                                     <label key={index} className="checkboxItem">
                                         <input
                                             type="checkbox"
@@ -327,7 +396,7 @@ function DoctorAdd() {
                                                 );
                                             }}
                                         />
-                                        <span>GlobalMed</span>
+                                        <span>{item.name}</span>
                                     </label>
                                 ))}
                             </div>
@@ -380,7 +449,8 @@ function DoctorAdd() {
                             <div className={'add-inputs'}>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder={'5'}/>
+                                        <input placeholder="Məs: 5" value={experience} onChange={(e)=>setExperience(e.target.value)} />
+
                                     </div>
                                 </div>
 
@@ -428,7 +498,7 @@ function DoctorAdd() {
                                 {sections.map((section) => (
                                     <div key={section.id} className="offer-section">
                                         <div className="offer-header" onClick={() => toggleSection(section.id)}>
-                                            <span>Təklif #{section.id}</span>
+                                            <span>Bio #{section.id}</span>
                                             <div className="header-actions">
                                                 {sections.length > 1 && (
                                                     <button
@@ -483,7 +553,13 @@ function DoctorAdd() {
 
 
                     </div>
-                    <button className={'submitButton'}>Yadda saxla</button>
+                    <button
+                        className={`submitButton ${isLoading ? "loading" : ""}`}
+                        onClick={handleSubmit}
+                        disabled={isLoading}
+                    >
+                        {isLoading ? "Yadda saxlanılır..." : "Yadda saxla"}
+                    </button>
                 </div>
             </div>
         </div>

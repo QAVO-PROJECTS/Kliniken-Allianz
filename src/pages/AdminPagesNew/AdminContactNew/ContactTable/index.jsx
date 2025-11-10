@@ -45,8 +45,8 @@ function ContactTableNew({language, filter}) {
                 </div>
 
                 <div className="grid-body">
-                    {currentItems.length > 0 ? (
-                        currentItems.map((item, index) => {
+                    {currentItems?.length > 0 ? (
+                        currentItems?.map((item, index) => {
                             const isOpen = openIndex === index;
                             return (
                                 <div className="grid-row" key={item.id}>
