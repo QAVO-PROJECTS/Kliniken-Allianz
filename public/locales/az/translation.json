@@ -354,5 +354,878 @@
         "description": "Sinqapur"
       }
     }
+  },
+  "adminPanel": {
+    "categoryPage": {
+      "title": "Kateqoriya",
+      "description": "Buradan kateqoriyaları idarə edə və yenilərini yarada bilərsiniz."
+    },
+    "categoryTable": {
+      "icon": "İcon",
+      "name": "Adı",
+      "serviceCount": "Xidmət sayı",
+      "actions": "Fəaliyyətlər",
+      "deleteConfirmTitle": "Kateqoriyanı silmək istədiyinizə əminsiz?",
+      "cancel": "Ləğv et",
+      "delete": "Sil",
+      "deleting": "Silinir...",
+      "deleteSuccess": "Kateqoriya uğurla silindi ✅",
+      "deleteError": "Kateqoriyanı silmək mümkün olmadı ❌"
+    },
+    "categoryAdd": {
+      "breadcrumb": {
+        "main": "Kateqoriya",
+        "sub": "Yeni kateqoriya yarat"
+      },
+      "title": "Yeni kateqoriya yarat",
+      "description": "Buradan kateqoriyaları idarə edə və yenilərini yarada bilərsiniz.",
+      "nameTitle": "Kateqoriya adı",
+      "nameDescription": "Kateqoriyanın sistemdə görünəcək adını daxil edin.",
+      "iconTitle": "Kateqoriyanızı fərqləndirin",
+      "iconDescription": "Bu ikon kateqoriyanızın görünüşünü müəyyən edəcək. Sadəcə birini seçin.",
+      "placeholders": {
+        "az": "Travmatologiya",
+        "ru": "Травматология",
+        "en": "Traumatology"
+      },
+      "buttons": {
+        "save": "Yadda saxla",
+        "loading": "Yüklənir..."
+      },
+      "toast": {
+        "emptyName": "Azərbaycan dilində kateqoriya adı boş ola bilməz!",
+        "noIcon": "Zəhmət olmasa ikon seçin!",
+        "success": "Kateqoriya uğurla əlavə olundu ✅",
+        "error": "Xəta baş verdi ❌"
+      }
+    },
+    "categoryEdit": {
+      "breadcrumb": {
+        "main": "Kateqoriya",
+        "sub": "Kateqoriyanı redaktə et"
+      },
+      "title": "Kateqoriyanı redaktə et",
+      "description": "Buradan mövcud kateqoriyanın məlumatlarını dəyişə bilərsiniz.",
+      "nameTitle": "Kateqoriya adı",
+      "nameDescription": "Kateqoriyanın sistemdə görünəcək adını daxil edin.",
+      "iconTitle": "Kateqoriyanızı fərqləndirin",
+      "iconDescription": "Bu ikon kateqoriyanızın görünüşünü müəyyən edəcək. Sadəcə birini seçin.",
+      "placeholders": {
+        "az": "Travmatologiya",
+        "ru": "Травматология",
+        "en": "Traumatology"
+      },
+      "buttons": {
+        "save": "Yadda saxla",
+        "updating": "Yenilənir..."
+      },
+      "toast": {
+        "emptyName": "Azərbaycan dilində kateqoriya adı boş ola bilməz!",
+        "success": "Kateqoriya uğurla yeniləndi ✅",
+        "error": "Xəta baş verdi ❌"
+      },
+      "loading": "Yüklənir..."
+    },
+    "categoryService": {
+        "main": "Kateqoriya",
+      "description": "Bu bölmədə kateqoriyanın ümumi məlumatlarını görə və ona yeni xidmətlər əlavə edə bilərsiniz."
+    },
+    "categoryServiceTable": {
+      "name": "Adı",
+      "description": "Təsvir",
+      "clinics": "Klinikalar",
+      "actions": "Fəaliyyətlər",
+      "noData": "Bu kateqoriyaya aid xidmət yoxdur.",
+      "deleteConfirmTitle": "Servisi silmək istədiyinizə əminsiz?",
+      "cancel": "Ləğv et",
+      "delete": "Sil",
+      "deleting": "Silinir...",
+      "loading": "Yüklənir...",
+      "toast": {
+        "notFound": "Xidmət tapılmadı ❌",
+        "deleteSuccess": "Xidmət uğurla silindi ✅",
+        "deleteError": "Xidməti silmək mümkün olmadı ❌"
+      }
+    },
+    "categoryServisAdd": {
+      "breadcrumb": {
+        "main": "Kateqoriya",
+        "sub": "Yenisini yarat"
+      },
+      "title": "Yeni xidmət yarat",
+      "description": "Buradan xidmətləri idarə edə və yenilərini yarada bilərsiniz.",
+      "nameTitle": "Xidmət adı",
+      "nameDescription": "Xidmətin sistemdə görünəcək adını daxil edin.",
+      "clinicTitle": "Klinika",
+      "clinicDescription": "Xidmətin əlaqəli olduğu klinikanı seçin.",
+      "noClinic": "Klinika tapılmadı.",
+      "descTitle": "Təsvir",
+      "descDescription": "Xidmətin qısa təsvirini yazın.",
+      "placeholders": {
+        "nameAz": "Travmatologiya",
+        "nameRu": "Травматология",
+        "nameEn": "Traumatology",
+        "descAz": "Təsvir əlavə edin...",
+        "descRu": "Добавьте описание...",
+        "descEn": "Add description..."
+      },
+      "buttons": {
+        "save": "Yadda saxla",
+        "loading": "Yüklənir..."
+      },
+      "toast": {
+        "emptyName": "Azərbaycan dilində xidmət adı boş ola bilməz!",
+        "noCategoryId": "Kateqoriya ID tapılmadı!",
+        "noClinic": "Ən azı bir klinika seçin!",
+        "success": "Xidmət uğurla əlavə olundu ✅",
+        "error": "Xidmət əlavə edilərkən xəta baş verdi ❌"
+      }
+    },
+    "categoryServiceEdit": {
+      "breadcrumb": {
+        "main": "Kateqoriya",
+        "sub": "Düzəliş et"
+      },
+      "title": "Xidmətə düzəliş et",
+      "description": "Buradan xidmətləri idarə edə və düzəliş edə bilərsiniz.",
+      "nameTitle": "Xidmət adı",
+      "nameDescription": "Xidmətin sistemdə görünəcək adını daxil edin.",
+      "clinicTitle": "Klinika",
+      "clinicDescription": "Xidmətin əlaqəli olduğu klinikanı seçin.",
+      "descTitle": "Təsvir",
+      "descDescription": "Xidmətin qısa təsvirini yazın.",
+      "placeholders": {
+        "nameAz": "Travmatologiya",
+        "nameRu": "Травматология",
+        "nameEn": "Traumatology",
+        "descAz": "Təsvir əlavə edin...",
+        "descRu": "Добавьте описание...",
+        "descEn": "Add description..."
+      },
+      "buttons": {
+        "save": "Yadda saxla",
+        "updating": "Yenilənir..."
+      },
+      "toast": {
+        "emptyName": "Azərbaycan dilində xidmət adı boş ola bilməz!",
+        "noCategoryId": "Kateqoriya ID tapılmadı!",
+        "success": "Xidmət uğurla yeniləndi ✅",
+        "error": "Xidmət yenilənərkən xəta baş verdi ❌"
+      },
+      "loading": "Yüklənir..."
+    },
+    "clinicPage": {
+      "title": "Klinika",
+      "description": "Buradan klinikaları idarə edə və yenilərini yarada bilərsiniz."
+    },
+    "clinicTable": {
+      "image": "Şəkil",
+      "name": "Adı",
+      "description": "Təsvir",
+      "actions": "Fəaliyyətlər",
+      "deleteConfirmTitle": "Klinikanı silmək istədiyinizə əminsiz?",
+      "cancel": "Ləğv et",
+      "delete": "Sil",
+      "deleting": "Silinir...",
+      "toast": {
+        "deleteSuccess": "✅ Klinika uğurla silindi!",
+        "deleteError": "❌ Klinika silinərkən xəta baş verdi!"
+      }
+    },
+    "clinicAdd": {
+      "breadcrumb": {
+        "main": "Klinika",
+        "sub": "Yeni klinika yarat"
+      },
+      "title": "Yeni klinika yarat",
+      "description": "Buradan klinikaları idarə edə və yenilərini yarada bilərsiniz.",
+      "nameTitle": "Klinika adı",
+      "nameDescription": "Xidmətin sistemdə görünəcək adını daxil edin.",
+      "imageTitle": "Klinika şəkil",
+      "imageDescription": "Klinikanı təmsil edəcək şəkil yükləyin.",
+      "uploadHint": "Faylı yükləmək üçün bu sahəyə klikləyin və ya sürükləyin",
+      "descTitle": "Təsvir",
+      "descDescription": "Paketin qısa təsvirini yazın.",
+      "servicesTitle": "Xidmətlər",
+      "servicesDescription": "Xidmətin əlaqəli olduğu klinikanı seçin.",
+      "doctorsTitle": "Doktor",
+      "doctorsDescription": "Xidmətin əlaqəli olduğu doktorları seçin.",
+      "hotelsTitle": "Oteller",
+      "hotelsDescription": "Xidmətin əlaqəli olduğu otelleri seçin.",
+      "locationTitle": "Yerləşdiyi ölkənin adı",
+      "locationDescription": "Otelin yerləşdiyi ölkəni dillərə əsasən daxil edin.",
+      "certificateTitle": "Sertifikat",
+      "certificateDescription": "Klinikanı təmsil edəcək sertifikatları yükləyin.",
+      "galleryTitle": "Galereya",
+      "galleryDescription": "Klinikanın mövcud şəkillərini yükləyin.",
+      "uploadedHeader": "Yüklənənlər",
+      "buttons": {
+        "save": "Yadda saxla",
+        "loading": "Yüklənir..."
+      },
+      "toast": {
+        "noMainImage": "Zəhmət olmasa əsas şəkli əlavə edin.",
+        "success": "Klinika uğurla əlavə olundu ✅",
+        "error": "Klinika əlavə olunarkən xəta baş verdi ❌"
+      },
+      "placeholders": {
+        "nameAz": "Ad (AZ)",
+        "nameRu": "Ad (RU)",
+        "nameEn": "Ad (EN)",
+        "descAz": "Təsvir (AZ)",
+        "descRu": "Təsvir (RU)",
+        "descEn": "Təsvir (EN)",
+        "locationAz": "Ölkə (AZ)",
+        "locationRu": "Ölkə (RU)",
+        "locationEn": "Ölkə (EN)"
+      }
+    },
+    "clinicEdit": {
+      "breadcrumb": {
+        "main": "Klinika",
+        "sub": "Klinikaya düzəliş edin"
+      },
+      "title": "Klinikaya düzəliş edin",
+      "description": "Buradan klinikaları idarə edə və düzəliş edə bilərsiniz.",
+      "nameTitle": "Klinika adı",
+      "nameDescription": "Xidmətin sistemdə görünəcək adını daxil edin.",
+      "imageTitle": "Klinika şəkil",
+      "imageDescription": "Klinikanı təmsil edəcək şəkil yükləyin.",
+      "uploadHint": "Faylı yükləmək üçün bu sahəyə klikləyin və ya sürükləyin",
+      "descTitle": "Təsvir",
+      "descDescription": "Paketin qısa təsvirini yazın.",
+      "servicesTitle": "Xidmətlər",
+      "servicesDescription": "Xidmətin əlaqəli olduğu klinikanı seçin.",
+      "doctorsTitle": "Doktor",
+      "doctorsDescription": "Xidmətin əlaqəli olduğu doktorları seçin.",
+      "hotelsTitle": "Oteller",
+      "hotelsDescription": "Xidmətin əlaqəli olduğu otelleri seçin.",
+      "locationTitle": "Yerləşdiyi ölkənin adı",
+      "locationDescription": "Otelin yerləşdiyi ölkəni dillərə əsasən daxil edin.",
+      "certificateTitle": "Sertifikat",
+      "certificateDescription": "Klinikanı təmsil edəcək sertifikatları yükləyin.",
+      "galleryTitle": "Galereya",
+      "galleryDescription": "Klinikanın mövcud şəkillərini yükləyin.",
+      "uploadedHeader": "Yüklənənlər",
+      "uploadedSubTitle": {
+        "newCertificates": "Yeni Sertifikatlar",
+        "newGallery": "Yeni Galereya"
+      },
+      "buttons": {
+        "save": "Yadda saxla",
+        "loading": "Yüklənir..."
+      },
+      "toast": {
+        "success": "Yalnız dəyişən məlumatlar uğurla göndərildi ✅",
+        "error": "Xəta baş verdi ❌"
+      },
+      "placeholders": {
+        "nameAz": "Ad (AZ)",
+        "nameRu": "Ad (RU)",
+        "nameEn": "Ad (EN)",
+        "descAz": "Təsvir (AZ)",
+        "descRu": "Təsvir (RU)",
+        "descEn": "Təsvir (EN)",
+        "locationAz": "Ölkə (AZ)",
+        "locationRu": "Ölkə (RU)",
+        "locationEn": "Ölkə (EN)"
+      }
+    },
+    "contactPage": {
+      "title": "Əlaqələr",
+      "description": "Müştəri mesajlarına baxın və cavabları izləyin",
+      "filters": {
+        "default": "Ümumi"
+      }
+    },
+    "contactTable": {
+      "headers": {
+        "name": "Adı",
+        "email": "Email",
+        "note": "Qeyd",
+        "tourName": "Turun adı",
+        "phone": "Nömrə"
+      },
+      "emptyMessage": "Əlaqə məlumatı tapılmadı."
+    },
+    "doctorPage": {
+      "title": "Həkim",
+      "description": "Buradan həkimləri idarə edə və yenilərini yarada bilərsiniz."
+    },
+    "doctorTable": {
+      "headers": {
+        "image": "Şəkil",
+        "name": "Adı",
+        "surname": "Soyadı",
+        "role": "Vəzifə",
+        "experience": "Təcrübə",
+        "description": "Təsvir",
+        "actions": "Fəaliyyətlər"
+      },
+      "loading": "Yüklənir...",
+      "noData": "Həkim tapılmadı",
+      "notAssigned": "Təyin olunmayıb",
+      "deleteConfirm": "Həkimi silmək istədiyinizə əminsiniz?",
+      "cancel": "Ləğv et",
+      "delete": "Sil",
+      "deleting": "Silinir...",
+      "toast": {
+        "deleteSuccess": "Həkim uğurla silindi ✅",
+        "deleteError": "Silinmə zamanı xəta baş verdi ❌"
+      }
+    },
+    "doctorAdd": {
+      "breadcrumb": {
+        "root": "Həkim",
+        "current": "Yeni həkim yarat"
+      },
+      "title": "Yeni həkim yarat",
+      "description": "Buradan həkimləri idarə edə və yenilərini yarada bilərsiniz.",
+      "sections": {
+        "name": {
+          "title": "Həkim adı",
+          "desc": "Həkimin sistemdə görünəcək adını daxil edin."
+        },
+        "surname": {
+          "title": "Həkim soyadı",
+          "desc": "Həkimin sistemdə görünəcək soyadını daxil edin."
+        },
+        "role": {
+          "title": "Vəzifə",
+          "desc": "Həkimin sistemdə görünəcək vəzifə adını daxil edin."
+        },
+        "image": {
+          "title": "Həkim şəkil",
+          "desc": "Həkimi təmsil edəcək şəkil yükləyin.",
+          "uploadText": "Faylı yükləmək üçün bu sahəyə klikləyin və ya sürükləyin"
+        },
+        "clinic": {
+          "title": "Klinika",
+          "desc": "Həkimin əlaqəli olduğu klinikaları seçin."
+        },
+        "certificate": {
+          "title": "Sertifikat",
+          "desc": "Həkimi təmsil edəcək sertifikatları yükləyin.",
+          "uploaded": "Yüklənənlər"
+        },
+        "experience": {
+          "title": "Təcrübə müddəti",
+          "desc": "Həkimin sistemdə görünəcək təcrübə müddətini daxil edin.",
+          "placeholder": "Məs: 5"
+        },
+        "rating": {
+          "title": "Reytinqi",
+          "desc": "Həkim üçün reytinq dəyəri təyin edin."
+        },
+        "bio": {
+          "title": "Bio",
+          "desc": "Həkimin sistemdə görünəcək bioqrafiyasını daxil edin.",
+          "section": "Bio bölməsi #",
+          "placeholder": "Buraya yaz...",
+          "addButton": "Əlavə et"
+        }
+      },
+      "placeholders": {
+        "nameAz": "Ad (AZ)",
+        "nameRu": "Ad (RU)",
+        "nameEn": "Ad (EN)",
+        "surnameAz": "Soyad (AZ)",
+        "surnameRu": "Soyad (RU)",
+        "surnameEn": "Soyad (EN)",
+        "roleAz": "Vəzifə (AZ)",
+        "roleRu": "Vəzifə (RU)",
+        "roleEn": "Vəzifə (EN)"
+      },
+      "buttons": {
+        "save": "Yadda saxla",
+        "loading": "Yadda saxlanılır...",
+        "addBio": "Yeni bio əlavə et"
+      },
+      "uploadHint": "Faylı yükləmək üçün bu sahəyə klikləyin və ya sürükləyin",
+      "toast": {
+        "success": "Həkim uğurla əlavə olundu ✅",
+        "error": "Xəta baş verdi, yenidən cəhd edin ❌"
+      }
+    },
+
+    "doctorEdit": {
+      "breadcrumb": {
+        "root": "Həkim",
+        "current": "Həkimə düzəliş edin"
+      },
+      "title": "Həkimə düzəliş edin",
+      "description": "Buradan həkimləri idarə edə və düzəliş edə bilərsiniz.",
+      "sections": {
+        "name": {
+          "title": "Həkim adı",
+          "desc": "Həkimin sistemdə görünəcək adını daxil edin."
+        },
+        "surname": {
+          "title": "Həkim soyadı",
+          "desc": "Xidmətin sistemdə görünəcək soyadını daxil edin."
+        },
+        "role": {
+          "title": "Vəzifə",
+          "desc": "Həkimin sistemdə görünəcək vəzifə adını daxil edin."
+        },
+        "image": {
+          "title": "Həkim şəkil",
+          "desc": "Həkimi təmsil edəcək şəkil yükləyin.",
+          "uploadText": "Faylı yükləmək üçün bu sahəyə klikləyin və ya sürükləyin"
+        },
+        "clinic": {
+          "title": "Klinika",
+          "desc": "Həkimin əlaqəli olduğu klinikaları seçin."
+        },
+        "certificate": {
+          "title": "Sertifikat",
+          "desc": "Həkimi təmsil edəcək sertifikatları yükləyin.",
+          "uploaded": "Yüklənənlər"
+        },
+        "experience": {
+          "title": "Təcrübə müddəti",
+          "desc": "Həkimin sistemdə görünəcək təcrübə müddətini daxil edin.",
+          "placeholder": "3 il"
+        },
+        "rating": {
+          "title": "Reytinqi",
+          "desc": "Həkim üçün reytinq dəyəri təyin edin."
+        },
+        "bio": {
+          "title": "Bio",
+          "desc": "Həkimin sistemdə görünəcək bioqrafiyasını daxil edin.",
+          "placeholder": "Buraya yaz...",
+          "addButton": "Əlavə et"
+        }
+      },
+      "buttons": {
+        "save": "Yadda saxla",
+        "saving": "Yadda saxlanılır..."
+      },
+      "toast": {
+        "success": "Həkim məlumatları uğurla yeniləndi ✅",
+        "error": "Dəyişiklik zamanı xəta baş verdi ❌"
+      },
+      "loading": "Yüklənir..."
+    },
+    "hotelPage": {
+      "title": "Otel",
+      "description": "Buradan otelləri idarə edə və yenilərini yarada bilərsiniz."
+    },
+    "hotelTable": {
+      "headers": {
+        "image": "Şəkil",
+        "name": "Adı",
+        "location": "Yerləşdiyi ölkə",
+        "rating": "Reytinq",
+        "actions": "Fəaliyyətlər"
+      },
+      "modal": {
+        "confirmDelete": "Oteli silmək istədiyinizə əminsiz?",
+        "cancel": "Ləğv et",
+        "delete": "Sil",
+        "deleting": "Silinir..."
+      },
+      "toast": {
+        "deleteSuccess": "Otel uğurla silindi ✅",
+        "deleteError": "Oteli silmək mümkün olmadı ❌"
+      }
+    },
+    "hotelAdd": {
+      "breadcrumb": {
+        "root": "Otel",
+        "current": "Yeni otel yarat"
+      },
+      "title": "Yeni otel yarat",
+      "description": "Buradan otelləri idarə edə və yenilərini yarada bilərsiniz.",
+      "sections": {
+        "name": {
+          "title": "Otel adı",
+          "desc": "Otelin sistemdə görünəcək adını daxil edin.",
+          "placeholders": {
+            "az": "Otel adı (AZ)",
+            "ru": "Otel adı (RU)",
+            "en": "Otel adı (EN)"
+          }
+        },
+        "image": {
+          "title": "Otel şəkil",
+          "desc": "Otelin sistemdə görünəcək şəklini yükləyin.",
+          "uploadText": "Faylı yükləmək üçün bu sahəyə klikləyin və ya sürükləyin"
+        },
+        "country": {
+          "title": "Yerləşdiyi ölkənin adı",
+          "desc": "Otelin yerləşdiyi ölkəni dillərə əsasən daxil edin.",
+          "placeholders": {
+            "az": "Ölkə (AZ)",
+            "ru": "Ölkə (RU)",
+            "en": "Ölkə (EN)"
+          }
+        },
+        "rating": {
+          "title": "Reytinqi",
+          "desc": "Otel üçün reytinq dəyəri təyin edin."
+        },
+        "link": {
+          "title": "Otel link",
+          "desc": "Otelə keçid etmək üçün otel linkini daxil edin.",
+          "placeholder": "https://www.fairmonthotels.com/baku/"
+        }
+      },
+      "buttons": {
+        "save": "Yadda saxla",
+        "saving": "Yüklənir..."
+      },
+      "toast": {
+        "success": "Otel uğurla əlavə olundu!",
+        "error": "Otel əlavə olunarkən xəta baş verdi!",
+        "warning": "Zəhmət olmasa bütün sahələri doldurun."
+      }
+    },
+    "hotelEdit": {
+      "breadcrumb": {
+        "root": "Otel",
+        "current": "Otelə düzəliş edin"
+      },
+      "title": "Otelə düzəliş edin",
+      "description": "Buradan otelləri idarə edə və düzəliş edə bilərsiz.",
+      "sections": {
+        "name": {
+          "title": "Otel adı",
+          "desc": "Otelin sistemdə görünəcək adını daxil edin.",
+          "placeholders": {
+            "az": "Otel adı (AZ)",
+            "ru": "Otel adı (RU)",
+            "en": "Otel adı (EN)"
+          }
+        },
+        "image": {
+          "title": "Otel şəkil",
+          "desc": "Otelin sistemdə görünəcək şəklini yükləyin.",
+          "uploadText": "Faylı yükləmək üçün bu sahəyə klikləyin və ya sürükləyin"
+        },
+        "country": {
+          "title": "Yerləşdiyi ölkənin adı",
+          "desc": "Otelin yerləşdiyi ölkəni dillərə əsasən daxil edin.",
+          "placeholders": {
+            "az": "Ölkə (AZ)",
+            "ru": "Ölkə (RU)",
+            "en": "Ölkə (EN)"
+          }
+        },
+        "rating": {
+          "title": "Reytinqi",
+          "desc": "Otel üçün reytinq dəyəri təyin edin."
+        },
+        "link": {
+          "title": "Otel link",
+          "desc": "Otelə keçid etmək üçün otel linkini daxil edin.",
+          "placeholder": "https://www.fairmonthotels.com/baku/"
+        }
+      },
+      "buttons": {
+        "save": "Yadda saxla",
+        "saving": "Yenilənir..."
+      },
+      "toast": {
+        "success": "Otel uğurla redaktə olundu ✅",
+        "error": "Redaktə zamanı xəta baş verdi ❌",
+        "warning": "Zəhmət olmasa əsas sahələri doldurun."
+      }
+    },
+    "commentPage": {
+      "header": {
+        "title": "Şərh",
+        "description": "Buradan şərhləri idarə edə və yenilərini yarada bilərsiniz."
+      },
+      "buttons": {
+        "addNew": "Yeni şərh əlavə et"
+      }
+    },
+    "commentTable": {
+      "table": {
+        "headers": {
+          "image": "Şəkil",
+          "author": "Şərh yazan",
+          "country": "Yazıldığı ölkə",
+          "description": "Təsvir",
+          "actions": "Fəaliyyətlər"
+        },
+        "noData": "Şərh tapılmadı.",
+        "deleteConfirm": "Şərhi silmək istədiyinizə əminsiz?",
+        "loading": "Yüklənir..."
+      },
+      "modal": {
+        "cancel": "Ləğv et",
+        "confirm": "Sil",
+        "deleting": "Silinir..."
+      },
+      "toast": {
+        "success": "Şərh uğurla silindi ✅",
+        "error": "Şərh silinərkən xəta baş verdi ❌"
+      }
+    },
+    "commentAdd": {
+      "breadcrumb": {
+        "root": "Şərh",
+        "current": "Yeni şərh yarat"
+      },
+      "title": "Yeni şərh yarat",
+      "description": "Buradan şərhləri idarə edə və yenilərini yarada bilərsiniz.",
+      "sections": {
+        "author": {
+          "title": "Şərh yazan",
+          "desc": "Şərh yazanın sistemdə görünəcək adını daxil edin.",
+          "placeholder": "Məsələn: Anar Məmmədov"
+        },
+        "country": {
+          "title": "Şərhin yazıldığı ölkənin adı",
+          "desc": "Rəyin hansı ölkədən yazıldığını göstərin.",
+          "placeholder": "Məsələn: Azərbaycan"
+        },
+        "image": {
+          "title": "Şəkil",
+          "desc": "Şərh yazan şəxsin profil şəklini yükləyin.",
+          "uploadText": "Faylı yükləmək üçün klikləyin və ya sürükləyin"
+        },
+        "description": {
+          "title": "Təsvir",
+          "desc": "Şərh mətni daxil edin.",
+          "placeholders": {
+            "az": "Məsələn: Xidmət çox yaxşı idi!",
+            "ru": "Например: Все было отлично!",
+            "en": "Example: Everything was great!"
+          }
+        }
+      },
+      "buttons": {
+        "save": "Yadda saxla",
+        "saving": "Yüklənir..."
+      },
+      "toast": {
+        "success": "Şərh uğurla əlavə olundu ✅",
+        "error": "Şərh əlavə edilərkən xəta baş verdi ❌",
+        "warning": "Azərbaycan dilində sahələr boş ola bilməz!"
+      }
+    },
+    "commentEdit": {
+      "breadcrumb": {
+        "root": "Şərh",
+        "current": "Şərhə düzəliş et"
+      },
+      "title": "Şərhə düzəliş et",
+      "description": "Buradan şərhləri idarə edə və düzəliş edə bilərsiniz.",
+      "sections": {
+        "author": {
+          "title": "Şərh yazan",
+          "desc": "Şərh yazanın sistemdə görünəcək adını daxil edin.",
+          "placeholder": "Ad daxil edin"
+        },
+        "country": {
+          "title": "Şərhin yazıldığı ölkənin adı",
+          "desc": "Rəyin hansı ölkədən yazıldığını göstərin.",
+          "placeholder": "Məsələn: Azərbaycan"
+        },
+        "image": {
+          "title": "Şəkil",
+          "desc": "Şərh yazan şəxsin profil şəklini yükləyin.",
+          "uploadText": "Faylı yükləmək üçün klikləyin və ya sürükləyin"
+        },
+        "description": {
+          "title": "Təsvir",
+          "desc": "Şərh mətni daxil edin.",
+          "placeholders": {
+            "az": "Təsvir (AZ)",
+            "ru": "Описание (RU)",
+            "en": "Description (EN)"
+          }
+        }
+      },
+      "buttons": {
+        "save": "Yadda saxla",
+        "saving": "Yenilənir..."
+      },
+      "toast": {
+        "success": "Şərh uğurla yeniləndi ✅",
+        "error": "Yeniləmə zamanı xəta baş verdi ❌",
+        "warning": "Bütün əsas sahələr doldurulmalıdır!"
+      },
+      "loading": "Yüklənir..."
+    },
+    "toursPage": {
+      "header": {
+        "title": "Xidmət paketi",
+        "description": "Buradan həkimləri idarə edə və yenilərini yarada bilərsiniz."
+      },
+      "buttons": {
+        "addNew": "Yeni xidmət paketi əlavə et"
+      }
+    },
+    "toursAdd": {
+      "breadcrumb": {
+        "root": "Xidmət paketi",
+        "current": "Yeni xidmət paketi yarat"
+      },
+      "title": "Yeni xidmət paketi yarat",
+      "description": "Buradan xidmət paketlərini idarə edə və yenilərini yarada bilərsiniz.",
+      "sections": {
+        "name": {
+          "title": "Xidmət paket adı",
+          "desc": "Xidmətin sistemdə görünəcək adını daxil edin.",
+          "placeholders": {
+            "az": "Ad (AZ)",
+            "ru": "Ad (RU)",
+            "en": "Ad (EN)"
+          }
+        },
+        "image": {
+          "title": "Xidmət şəkil",
+          "desc": "Paketin sistemdə görünəcək şəklini yükləyin.",
+          "uploadText": "Faylı yükləmək üçün bu sahəyə klikləyin və ya sürükləyin"
+        },
+        "description": {
+          "title": "Təsvir",
+          "desc": "Paketin qısa təsvirini yazın.",
+          "placeholders": {
+            "az": "Təsvir (AZ)",
+            "ru": "Təsvir (RU)",
+            "en": "Təsvir (EN)"
+          }
+        },
+        "offers": {
+          "title": "Təklif",
+          "desc": "Paketə daxil olan təklifləri daxil edin.",
+          "placeholders": {
+            "az": "Təklif (AZ)",
+            "ru": "Təklif (RU)",
+            "en": "Təklif (EN)"
+          },
+          "addBtn": "Əlavə et",
+          "sectionTitle": "Təklif #",
+          "removeBtn": "Sil"
+        }
+      },
+      "buttons": {
+        "save": "Yadda saxla",
+        "saving": "Yüklənir..."
+      },
+      "toast": {
+        "success": "✅ Xidmət paketi uğurla əlavə olundu!",
+        "error": "Xidmət paketi əlavə edilərkən xəta baş verdi!"
+      }
+    },
+    "toursEdit": {
+      "breadcrumb": {
+        "root": "Xidmət paketi",
+        "current": "Xidmət paketinə düzəliş edin"
+      },
+      "title": "Xidmət paketinə düzəliş edin",
+      "description": "Buradan xidmət paketlərini idarə edə və düzəliş edə bilərsiniz.",
+      "sections": {
+        "name": {
+          "title": "Xidmət paket adı",
+          "desc": "Xidmətin sistemdə görünəcək adını daxil edin.",
+          "placeholders": {
+            "az": "Ad (AZ)",
+            "ru": "Ad (RU)",
+            "en": "Ad (EN)"
+          }
+        },
+        "image": {
+          "title": "Xidmət şəkil",
+          "desc": "Paketin sistemdə görünəcək şəklini yükləyin.",
+          "uploadText": "Faylı yükləmək üçün bu sahəyə klikləyin və ya sürükləyin",
+          "oldImage": "Mövcud şəkil"
+        },
+        "description": {
+          "title": "Təsvir",
+          "desc": "Paketin qısa təsvirini yazın.",
+          "placeholders": {
+            "az": "Təsvir (AZ)",
+            "ru": "Təsvir (RU)",
+            "en": "Təsvir (EN)"
+          }
+        },
+        "offers": {
+          "title": "Təklif",
+          "desc": "Paketə daxil olan təklifləri daxil edin.",
+          "placeholders": {
+            "az": "Travmatologiya",
+            "ru": "Travматология",
+            "en": "Traumatology"
+          },
+          "addBtn": "Əlavə et",
+          "sectionTitle": "Təklif #",
+          "removeBtn": "Sil"
+        }
+      },
+      "buttons": {
+        "save": "Yadda saxla",
+        "saving": "Yenilənir..."
+      },
+      "toast": {
+        "success": "✅ Xidmət paketi uğurla yeniləndi!",
+        "error": "Xidmət paketi yenilənərkən xəta baş verdi!"
+      }
+    },
+    "toursTable": {
+      "title": "Xidmət paketləri",
+      "description": "Buradan bütün xidmət paketlərini görə, redaktə edə və silə bilərsiniz.",
+      "headers": {
+        "checkbox": "",
+        "image": "Şəkil",
+        "name": "Adı",
+        "offer": "Təklif",
+        "description": "Təsvir",
+        "actions": "Fəaliyyətlər"
+      },
+      "actions": {
+        "edit": "Düzəliş et",
+        "delete": "Sil"
+      },
+      "modal": {
+        "title": "Xidmət paketini silmək istədiyinizə əminsiz?",
+        "cancel": "Ləğv et",
+        "confirm": "Sil",
+        "deleting": "Silinir..."
+      },
+      "toast": {
+        "deleteSuccess": "Tur uğurla silindi ✅",
+        "deleteError": "Xəta baş verdi. Zəhmət olmasa yenidən cəhd edin ❌"
+      },
+      "pagination": {
+        "next": "Növbəti",
+        "prev": "Əvvəlki"
+      }
+    },
+
+    "leftBar": {
+      "menu": {
+        "category": "Kateqoriya",
+        "clinic": "Klinika",
+        "doctor": "Həkim",
+        "tours": "Xidmət paketi",
+        "hotel": "Otel",
+        "comment": "Şərh",
+        "contact": "Əlaqələr"
+      },
+      "buttons": {
+        "logout": "Çıxış edin"
+      }
+    },
+    "addBtn": {
+      "text": "Yenisini yarat",
+      "tooltip": "Yeni element əlavə et"
+    },
+    "filterDropdown": {
+      "label": "Filter",
+      "options": {
+        "all": "Ümumi",
+        "clinic": "Klinik",
+        "service": "Xidmət",
+        "tour": "Tur"
+      }
+    }
+
   }
 }

@@ -11,7 +11,9 @@ import {useEffect, useState} from "react";
 import {useGetCustomerViewByIdQuery, usePutCustomerViewMutation} from "../../../services/userApi.jsx";
 import {VIEW_CARD_IMAGES} from "../../../contants.js";
 import showToast from "../../../components/ToastMessage.js";
+import {useTranslation} from "react-i18next";
 function SerhEdit() {
+    const { t } = useTranslation();
     const {id} = useParams();
     const { data: getCustomerViewById, isLoading } = useGetCustomerViewByIdQuery(id);
     const view = getCustomerViewById?.data;
@@ -58,7 +60,7 @@ function SerhEdit() {
         setSelectedFile(null);
     }; const handleSubmit = async () => {
         if (!name.trim() || !country.trim() || !descAz.trim()) {
-            showToast("Bütün əsas sahələr doldurulmalıdır!", "warning");
+            showToast(t("adminPanel.commentEdit.toast.warning"), "warning");
             return;
         }
 
@@ -77,34 +79,34 @@ function SerhEdit() {
             }
 
             await editView(formData).unwrap();
-            showToast("Şərh uğurla yeniləndi ✅", "success");
+            showToast(t("adminPanel.commentEdit.toast.success"), "success");
             navigate("/admin/serh");
         } catch (err) {
             console.error("PUT error:", err);
-            showToast("Yeniləmə zamanı xəta baş verdi ❌", "error");
+            showToast(t("adminPanel.commentEdit.toast.error"), "error");
         }
     };
-    if (isLoading) return <p>Yüklənir...</p>;
+    if (isLoading) return <p>{t("adminPanel.commentEdit.loading")}</p>;
     return (
         <div id={'serh-edit'}>
             <div className={'serh-edit'}>
                 <div className={"root"}>
                     <h2>
-                        <NavLink className="link" to="/admin/serh">Şərh</NavLink>
+                        <NavLink className="link" to="/admin/serh"> {t("adminPanel.commentEdit.breadcrumb.root")}</NavLink>
                         <img src={rootIcon} alt="" />
-                        Şərhə düzəliş et
+                        {t("adminPanel.commentEdit.breadcrumb.current")}
                     </h2>
                 </div>
                 <div className={'serh-edit-head'}>
-                    <h1>Şərhə düzəliş et</h1>
-                    <p>Buradan şərhləri idarə edə və düzəliş edə bilərsiniz</p>
+                    <h1>{t("adminPanel.commentEdit.title")}</h1>
+                    <p>{t("adminPanel.commentEdit.description")}</p>
                 </div>
                 <div className={'serh-edit-main'}>
                     <div className={'serh-edit-data'}>
                         <div className={"dataDiv inputs"}>
                             <div className={'header'}>
-                                <h3>Şərh yazan</h3>
-                                <p>Şərh yazanın sistemdə görünəcək adını daxil edin.</p>
+                                <h3>{t("adminPanel.commentEdit.sections.author.title")}</h3>
+                                <p>{t("adminPanel.commentEdit.sections.author.desc")}</p>
                             </div>
                             <div className={'add-inputs'}>
                                 <div className={'add-data'}>
@@ -112,7 +114,7 @@ function SerhEdit() {
                                         <input
                                             value={name}
                                             onChange={(e) => setName(e.target.value)}
-                                            placeholder={'Ad daxil edin'}
+                                            placeholder={t("adminPanel.commentEdit.sections.author.placeholder")}
                                         />
                                     </div>
                                     {/*<div className={'langCountry'}>*/}
@@ -155,8 +157,8 @@ function SerhEdit() {
                         </div>
                         <div className={"dataDiv inputs"}>
                             <div className={'header'}>
-                                <h3>Şərhin yazıldığı ölkənin adı</h3>
-                                <p>Rəyin hansı ölkədən yazıldığını göstərin.</p>
+                                <h3>{t("adminPanel.commentEdit.sections.country.title")}</h3>
+                                <p>{t("adminPanel.commentEdit.sections.country.desc")}</p>
                             </div>
                             <div className={'add-inputs'}>
                                 <div className={'add-data'}>
@@ -164,7 +166,7 @@ function SerhEdit() {
                                         <input
                                             value={country}
                                             onChange={(e) => setCountry(e.target.value)}
-                                            placeholder={'Məsələn: Azərbaycan'}
+                                            placeholder={t("adminPanel.commentEdit.sections.country.placeholder")}
                                         />
                                     </div>
                                     {/*<div className={'langCountry'}>*/}
@@ -207,8 +209,8 @@ function SerhEdit() {
                         </div>
                         <div className="dataDiv images">
                             <div className="header">
-                                <h3>Şəkil</h3>
-                                <p>Şərh yazan şəxsin profil şəklini yükləyin.</p>
+                                <h3>{t("adminPanel.commentEdit.sections.image.title")}</h3>
+                                <p>{t("adminPanel.commentEdit.sections.image.desc")}</p>
                             </div>
 
                             <div
@@ -226,7 +228,7 @@ function SerhEdit() {
                                 />
                                 <label htmlFor="fileInput" className="uploadArea">
                                     <img src={uploadIcon} alt="upload" />
-                                    <p>Faylı yükləmək üçün klikləyin və ya sürükləyin</p>
+                                    <p>{t("adminPanel.commentEdit.sections.image.uploadText")}</p>
                                 </label>
                             </div>
 
@@ -250,8 +252,8 @@ function SerhEdit() {
                         </div>
                         <div className={"dataDiv inputs"}>
                             <div className={'header'}>
-                                <h3>Təsvir</h3>
-                                <p>Şərh mətni daxil edin.</p>
+                                <h3>{t("adminPanel.commentEdit.sections.description.title")}</h3>
+                                <p>{t("adminPanel.commentEdit.sections.description.desc")}</p>
                             </div>
                             <div className={'add-inputs'}>
                                 <div className={'add-data'}>
@@ -259,7 +261,7 @@ function SerhEdit() {
                                         <input
                                             value={descAz}
                                             onChange={(e) => setDescAz(e.target.value)}
-                                            placeholder={'Təsvir (AZ)'}
+                                            placeholder={t(`adminPanel.commentEdit.sections.description.placeholders.az`)}
                                         />
                                     </div>
                                     <div className={'langCountry'}>
@@ -271,7 +273,7 @@ function SerhEdit() {
                                         <input
                                             value={descRu}
                                             onChange={(e) => setDescRu(e.target.value)}
-                                            placeholder={'Описание (RU)'}
+                                            placeholder={t(`adminPanel.commentEdit.sections.description.placeholders.ru`)}
                                         />
                                     </div>
                                     <div className={'langCountry'}>
@@ -283,7 +285,7 @@ function SerhEdit() {
                                         <input
                                             value={descEn}
                                             onChange={(e) => setDescEn(e.target.value)}
-                                            placeholder={'Description (EN)'}
+                                            placeholder={t(`adminPanel.commentEdit.sections.description.placeholders.en`)}
                                         />
                                     </div>
                                     <div className={'langCountry'}>
@@ -315,7 +317,9 @@ function SerhEdit() {
                         onClick={handleSubmit}
                         disabled={isUpdating}
                     >
-                        {isUpdating ? "Yenilənir..." : "Yadda saxla"}
+                        {isUpdating
+                            ? t("adminPanel.commentEdit.buttons.saving")
+                            : t("adminPanel.commentEdit.buttons.save")}
                     </button>
                 </div>
             </div>

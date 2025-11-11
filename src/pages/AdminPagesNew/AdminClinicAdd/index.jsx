@@ -17,15 +17,18 @@ import {
     usePostClinicMutation
 } from "../../../services/userApi.jsx";
 import showToast from "../../../components/ToastMessage.js";
+import {useTranslation} from "react-i18next";
+
 function ClinicAdd() {
+    const {t} = useTranslation();
     const [selectedFile, setSelectedFile] = useState(null);
     const [isDragging, setIsDragging] = useState(false);
-    const [postClinic, { isLoading }] = usePostClinicMutation();
-    const {data:getAllService} = useGetAllServiceQuery()
+    const [postClinic, {isLoading}] = usePostClinicMutation();
+    const {data: getAllService} = useGetAllServiceQuery()
     const servis = getAllService?.data
-    const {data:getAllOtels} = useGetAllOtelsQuery()
+    const {data: getAllOtels} = useGetAllOtelsQuery()
     const otels = getAllOtels?.data
-    const {data:getAllDoctors} = useGetAllDoctorsQuery()
+    const {data: getAllDoctors} = useGetAllDoctorsQuery()
     const doctors = getAllDoctors?.data
     // 🔹 Ayrı state-lər
     const navigate = useNavigate();
@@ -98,7 +101,7 @@ function ClinicAdd() {
     };
     const handleSubmit = async () => {
         if (!selectedFile) {
-            showToast("Zəhmət olmasa əsas şəkli əlavə edin.", "warning");
+            showToast(t("adminPanel.clinicAdd.toast.noMainImage"), "warning");
             return;
         }
 
@@ -142,12 +145,18 @@ function ClinicAdd() {
 
         try {
             const res = await postClinic(formData).unwrap();
-            showToast("Klinika uğurla əlavə olundu ✅", "success");
+            showToast(t("adminPanel.clinicAdd.toast.success"), "success");
 
             // Reset form
-            setNameAz(""); setNameEn(""); setNameRu("");
-            setDescAz(""); setDescEn(""); setDescRu("");
-            setLocationAz(""); setLocationEn(""); setLocationRu("");
+            setNameAz("");
+            setNameEn("");
+            setNameRu("");
+            setDescAz("");
+            setDescEn("");
+            setDescRu("");
+            setLocationAz("");
+            setLocationEn("");
+            setLocationRu("");
             setSelectedFile(null);
             setSertifikatFiles([]);
             setGalereyaFiles([]);
@@ -157,7 +166,7 @@ function ClinicAdd() {
             navigate('/admin/clinic')
         } catch (err) {
             console.error("Xəta:", err);
-            showToast("Klinika əlavə olunarkən xəta baş verdi ❌", "error");
+            showToast(t("adminPanel.clinicAdd.toast.error"), "error");
         }
     };
     return (
@@ -165,42 +174,46 @@ function ClinicAdd() {
             <div className={'clinic-add'}>
                 <div className={"root"}>
                     <h2>
-                        <NavLink className="link" to="/admin/clinic">Klinika</NavLink>
-                        <img src={rootIcon} alt="" />
-                        Yeni klinika yarat
+                        <NavLink className="link"
+                                 to="/admin/clinic"> {t("adminPanel.clinicAdd.breadcrumb.main")}</NavLink>
+                        <img src={rootIcon} alt=""/>
+                        {t("adminPanel.clinicAdd.breadcrumb.sub")}
                     </h2>
                 </div>
                 <div className={'clinic-add-head'}>
-                    <h1>Yeni klinika yarat</h1>
-                    <p>Buradan klinikaları idarə edə və yenilərini yarada bilərsiniz.</p>
+                    <h1>{t("adminPanel.clinicAdd.title")}</h1>
+                    <p>{t("adminPanel.clinicAdd.description")}</p>
                 </div>
                 <div className={'clinic-add-main'}>
                     <div className={'clinic-add-data'}>
                         <div className={"dataDiv inputs"}>
                             <div className={'header'}>
-                                <h3>Klinika adı</h3>
-                                <p>Xidmətin sistemdə görünəcək adını daxil edin.</p>
+                                <h3>{t("adminPanel.clinicAdd.nameTitle")}</h3>
+                                <p>{t("adminPanel.clinicAdd.nameDescription")}</p>
                             </div>
                             <div className={'add-inputs'}>
                                 <div className="add-data">
                                     <div className={'add-input'}>
-                                    <input placeholder="Ad (AZ)" value={nameAz} onChange={(e) => setNameAz(e.target.value)} />
+                                        <input placeholder={t("adminPanel.clinicAdd.placeholders.nameAz")}
+                                               value={nameAz} onChange={(e) => setNameAz(e.target.value)}/>
                                     </div>
-                                    <img src={aze} alt="" />
+                                    <img src={aze} alt=""/>
                                 </div>
                                 <div className="add-data">
                                     <div className={'add-input'}>
 
-                                    <input placeholder="Ad (RU)" value={nameRu} onChange={(e) => setNameRu(e.target.value)} />
+                                        <input placeholder={t("adminPanel.clinicAdd.placeholders.nameRu")}
+                                               value={nameRu} onChange={(e) => setNameRu(e.target.value)}/>
                                     </div>
-                                    <img src={rus} alt="" />
+                                    <img src={rus} alt=""/>
                                 </div>
                                 <div className="add-data">
                                     <div className={'add-input'}>
 
-                                    <input placeholder="Ad (EN)" value={nameEn} onChange={(e) => setNameEn(e.target.value)} />
+                                        <input placeholder={t("adminPanel.clinicAdd.placeholders.nameEn")}
+                                               value={nameEn} onChange={(e) => setNameEn(e.target.value)}/>
                                     </div>
-                                    <img src={usa} alt="" />
+                                    <img src={usa} alt=""/>
                                 </div>
                                 {/*<div className={'add-data'}>*/}
                                 {/*    <div className={'add-input'}>*/}
@@ -222,12 +235,15 @@ function ClinicAdd() {
                         </div>
                         <div className="dataDiv images">
                             <div className="header">
-                                <h3>Klinika şəkil</h3>
-                                <p>Klinikanı təmsil edəcək şəkil yükləyin.</p>
+                                <h3>{t("adminPanel.clinicAdd.imageTitle")}</h3>
+                                <p>{t("adminPanel.clinicAdd.imageDescription")}</p>
                             </div>
                             <div
                                 className={`uploadBox ${isDragging ? "dragging" : ""}`}
-                                onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
+                                onDragOver={(e) => {
+                                    e.preventDefault();
+                                    setIsDragging(true);
+                                }}
                                 onDragLeave={() => setIsDragging(false)}
                             >
                                 <input
@@ -235,11 +251,11 @@ function ClinicAdd() {
                                     id="clinicImage"
                                     accept="image/*"
                                     onChange={(e) => setSelectedFile(e.target.files[0])}
-                                    style={{ display: "none" }}
+                                    style={{display: "none"}}
                                 />
                                 <label htmlFor="clinicImage" className="uploadArea">
-                                    <img src={uploadIcon} alt="upload" />
-                                    <p>Faylı yükləmək üçün bu sahəyə klikləyin və ya sürükləyin</p>
+                                    <img src={uploadIcon} alt="upload"/>
+                                    <p>{t("adminPanel.clinicAdd.uploadHint")}</p>
                                 </label>
                             </div>
 
@@ -262,24 +278,27 @@ function ClinicAdd() {
                     </div>
                     <div className={'tours-desc'}>
                         <div className={'header'}>
-                            <h3>Təsvir</h3>
-                            <p>Paketin qısa təsvirini yazın.</p>
+                            <h3>{t("adminPanel.clinicAdd.descTitle")}</h3>
+                            <p>{t("adminPanel.clinicAdd.descDescription")}</p>
                         </div>
                         <div className={'tours-desc-data'}>
                             <div className={'tours-desc-texts'}>
-                                <textarea placeholder="Təsvir (AZ)" value={descAz} onChange={(e) => setDescAz(e.target.value)} />
+                                <textarea placeholder={t("adminPanel.clinicAdd.placeholders.descAz")} value={descAz}
+                                          onChange={(e) => setDescAz(e.target.value)}/>
                                 <div className={'langCountry'}>
                                     <img src={aze} alt=""/>
                                 </div>
                             </div>
                             <div className={'tours-desc-texts'}>
-                                <textarea placeholder="Təsvir (RU)" value={descRu} onChange={(e) => setDescRu(e.target.value)} />
+                                <textarea placeholder={t("adminPanel.clinicAdd.placeholders.descRu")} value={descRu}
+                                          onChange={(e) => setDescRu(e.target.value)}/>
                                 <div className={'langCountry'}>
                                     <img src={rus} alt=""/>
                                 </div>
                             </div>
                             <div className={'tours-desc-texts'}>
-                                <textarea placeholder="Təsvir (EN)" value={descEn} onChange={(e) => setDescEn(e.target.value)} />
+                                <textarea placeholder={t("adminPanel.clinicAdd.placeholders.descEn")} value={descEn}
+                                          onChange={(e) => setDescEn(e.target.value)}/>
                                 <div className={'langCountry'}>
                                     <img src={usa} alt=""/>
                                 </div>
@@ -301,8 +320,8 @@ function ClinicAdd() {
                     <div className={'clinic-add-data'}>
                         <div className={"dataDiv images2"}>
                             <div className={'header'}>
-                                <h3>Xidmətlər</h3>
-                                <p>Xidmətin əlaqəli olduğu klinikanı seçin.</p>
+                                <h3>{t("adminPanel.clinicAdd.servicesTitle")}</h3>
+                                <p>{t("adminPanel.clinicAdd.servicesDescription")}</p>
                             </div>
                             <div className={'addCategory'}>
                                 {servis?.map((item, index) => (
@@ -320,8 +339,8 @@ function ClinicAdd() {
                         </div>
                         <div className={"dataDiv images2"}>
                             <div className={'header'}>
-                                <h3>Doktor</h3>
-                                <p>Xidmətin əlaqəli olduğu doktorları seçin.</p>
+                                <h3>{t("adminPanel.clinicAdd.doctorsTitle")}</h3>
+                                <p>{t("adminPanel.clinicAdd.doctorsDescription")}</p>
                             </div>
                             <div className={'addCategory'}>
                                 {doctors?.map((item, index) => (
@@ -339,8 +358,8 @@ function ClinicAdd() {
                         </div>
                         <div className={"dataDiv images2"}>
                             <div className={'header'}>
-                                <h3>Oteller</h3>
-                                <p>Xidmətin əlaqəli olduğu otelleri seçin.</p>
+                                <h3>{t("adminPanel.clinicAdd.hotelsTitle")}</h3>
+                                <p>{t("adminPanel.clinicAdd.hotelsDescription")}</p>
                             </div>
                             <div className={'addCategory'}>
                                 {otels?.map((item, index) => (
@@ -357,37 +376,40 @@ function ClinicAdd() {
                         </div>
                         <div className={"dataDiv inputs"}>
                             <div className={'header'}>
-                                <h3>Yerləşdiyi ölkənin adı</h3>
-                                <p>Otelin yerləşdiyi ölkəni dillərə əsasən daxil edin.</p>
+                                <h3>{t("adminPanel.clinicAdd.locationTitle")}</h3>
+                                <p>{t("adminPanel.clinicAdd.locationDescription")}</p>
                             </div>
                             <div className={'add-inputs'}>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder="Ölkə (AZ)" value={locationAz} onChange={(e) => setLocationAz(e.target.value)} />
+                                        <input placeholder={t("adminPanel.clinicAdd.placeholders.locationAz")}
+                                               value={locationAz} onChange={(e) => setLocationAz(e.target.value)}/>
 
                                     </div>
                                     <div className={'langCountry'}>
-                                        <img src={aze} alt="" />
+                                        <img src={aze} alt=""/>
                                     </div>
                                 </div>
 
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder="Ölkə (RU)" value={locationRu} onChange={(e) => setLocationRu(e.target.value)} />
+                                        <input placeholder={t("adminPanel.clinicAdd.placeholders.locationRu")}
+                                               value={locationRu} onChange={(e) => setLocationRu(e.target.value)}/>
 
                                     </div>
                                     <div className={'langCountry'}>
-                                        <img src={rus} alt="" />
+                                        <img src={rus} alt=""/>
                                     </div>
                                 </div>
 
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder="Ölkə (EN)" value={locationEn} onChange={(e) => setLocationEn(e.target.value)} />
+                                        <input placeholder={t("adminPanel.clinicAdd.placeholders.locationEn")}
+                                               value={locationEn} onChange={(e) => setLocationEn(e.target.value)}/>
 
                                     </div>
                                     <div className={'langCountry'}>
-                                        <img src={usa} alt="" />
+                                        <img src={usa} alt=""/>
                                     </div>
                                 </div>
                                 {/*<div className={'add-data'}>*/}
@@ -410,8 +432,8 @@ function ClinicAdd() {
                         </div>
                         <div className="dataDiv images multi">
                             <div className="header">
-                                <h3>Sertifikat</h3>
-                                <p>Klinikanı təmsil edəcək sertifikatları yükləyin.</p>
+                                <h3>{t("adminPanel.clinicAdd.certificateTitle")}</h3>
+                                <p>{t("adminPanel.clinicAdd.certificateDescription")}</p>
                             </div>
 
                             <div className="uploadBox">
@@ -421,17 +443,17 @@ function ClinicAdd() {
                                     accept="image/*"
                                     multiple
                                     onChange={handleSertifikatChange}
-                                    style={{ display: "none" }}
+                                    style={{display: "none"}}
                                 />
                                 <label htmlFor="sertifikat-fileInput" className="uploadArea">
-                                    <img src={uploadIcon} alt="upload" />
-                                    <p>Faylı yükləmək üçün bu sahəyə klikləyin və ya sürükləyin</p>
+                                    <img src={uploadIcon} alt="upload"/>
+                                    <p>{t("adminPanel.clinicAdd.uploadHint")}</p>
                                 </label>
                             </div>
 
                             <div className="uploadedHeader" onClick={() => setSertifikatOpen((p) => !p)}>
-                                <span>Yüklənənlər</span>
-                                <img src={sertifikatOpen ? openIcon : closeIcon} alt="toggle" />
+                                <span>{t("adminPanel.clinicAdd.uploadedHeader")}</span>
+                                <img src={sertifikatOpen ? openIcon : closeIcon} alt="toggle"/>
                             </div>
 
                             {sertifikatOpen && sertifikatFiles.length > 0 && (
@@ -439,7 +461,7 @@ function ClinicAdd() {
                                     {sertifikatFiles.map((item, index) => (
                                         <div key={index} className="uploadedItem">
                                             <div className="fileLeft">
-                                                <img src={item.preview} alt="preview" className="filePreview" />
+                                                <img src={item.preview} alt="preview" className="filePreview"/>
                                                 <span>{item.file.name}</span>
                                             </div>
                                             <button onClick={() => removeSertifikat(index)}>✕</button>
@@ -452,8 +474,8 @@ function ClinicAdd() {
                         {/* 🖼 Galereya */}
                         <div className="dataDiv images multi">
                             <div className="header">
-                                <h3>Galereya</h3>
-                                <p>Klinikanın mövcud şəkillərini yükləyin.</p>
+                                <h3>{t("adminPanel.clinicAdd.galleryTitle")}</h3>
+                                <p>{t("adminPanel.clinicAdd.galleryDescription")}</p>
                             </div>
 
                             <div className="uploadBox">
@@ -463,17 +485,17 @@ function ClinicAdd() {
                                     accept="image/*"
                                     multiple
                                     onChange={handleGalereyaChange}
-                                    style={{ display: "none" }}
+                                    style={{display: "none"}}
                                 />
                                 <label htmlFor="galereya-fileInput" className="uploadArea">
-                                    <img src={uploadIcon} alt="upload" />
-                                    <p>Faylı yükləmək üçün bu sahəyə klikləyin və ya sürükləyin</p>
+                                    <img src={uploadIcon} alt="upload"/>
+                                    <p>{t("adminPanel.clinicAdd.uploadHint")}</p>
                                 </label>
                             </div>
 
                             <div className="uploadedHeader" onClick={() => setGalereyaOpen((p) => !p)}>
-                                <span>Yüklənənlər</span>
-                                <img src={galereyaOpen ? openIcon : closeIcon} alt="toggle" />
+                                <span>{t("adminPanel.clinicAdd.uploadedHeader")}</span>
+                                <img src={galereyaOpen ? openIcon : closeIcon} alt="toggle"/>
                             </div>
 
                             {galereyaOpen && galereyaFiles.length > 0 && (
@@ -481,7 +503,7 @@ function ClinicAdd() {
                                     {galereyaFiles.map((item, index) => (
                                         <div key={index} className="uploadedItem">
                                             <div className="fileLeft">
-                                                <img src={item.preview} alt="preview" className="filePreview" />
+                                                <img src={item.preview} alt="preview" className="filePreview"/>
                                                 <span>{item.file.name}</span>
                                             </div>
                                             <button onClick={() => removeGalereya(index)}>✕</button>
@@ -494,7 +516,7 @@ function ClinicAdd() {
 
                     </div>
                     <button className="submitButton" onClick={handleSubmit} disabled={isLoading}>
-                        {isLoading ? "Yüklənir..." : "Yadda saxla"}
+                        {isLoading ? t("adminPanel.clinicAdd.buttons.loading") : t("adminPanel.clinicAdd.buttons.save")}
                     </button>
                 </div>
             </div>

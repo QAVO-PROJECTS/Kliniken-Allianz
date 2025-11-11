@@ -1,19 +1,21 @@
 import './index.scss';
 import { useState } from "react";
 import filterIcon from '/src/assets/filterIcon.svg';
+import { useTranslation } from "react-i18next";
 
 function FilterDropdown({ selected, onChange }) {
     const [open, setOpen] = useState(false);
+    const { t } = useTranslation();
 
     const filters = [
-        'Ümumi',
-        'Klinik',
-        'Xidmət',
-        'Tur'
+        { key: "all", label: t("adminPanel.filterDropdown.options.all") },
+        { key: "clinic", label: t("adminPanel.filterDropdown.options.clinic") },
+        { key: "service", label: t("adminPanel.filterDropdown.options.service") },
+        { key: "tour", label: t("adminPanel.filterDropdown.options.tour") },
     ];
 
-    const handleSelect = (filter) => {
-        onChange(filter); // 🔹 parent-ə göndər
+    const handleSelect = (filterKey) => {
+        onChange(filterKey);
         setOpen(false);
     };
 
@@ -21,18 +23,18 @@ function FilterDropdown({ selected, onChange }) {
         <div className="filterDropdown">
             <div className="filterTrigger" onClick={() => setOpen(!open)}>
                 <img src={filterIcon} alt="filter" />
-                <span>Filter</span>
+                <span>{t("adminPanel.filterDropdown.label")}</span>
             </div>
 
             {open && (
                 <div className="filterMenu">
-                    {filters.map(item => (
+                    {filters.map(({ key, label }) => (
                         <div
-                            key={item}
-                            className={`filterOption ${selected === item ? "active" : ""}`}
-                            onClick={() => handleSelect(item)}
+                            key={key}
+                            className={`filterOption ${selected === key ? "active" : ""}`}
+                            onClick={() => handleSelect(key)}
                         >
-                            {item}
+                            {label}
                         </div>
                     ))}
                 </div>

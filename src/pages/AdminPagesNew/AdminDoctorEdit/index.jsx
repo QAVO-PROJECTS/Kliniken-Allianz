@@ -18,7 +18,9 @@ import "react-quill-new/dist/quill.snow.css";
 import {useGetAllClinicQuery, useGetDoctorsByIdQuery, usePutDoctorsMutation} from "../../../services/userApi.jsx";
 import {DOCTOR_IMG_URL, CERT_CLINIC_URL, CERT_DOKTOR_URL} from "../../../contants.js";
 import showToast from "../../../components/ToastMessage.js";
+import {useTranslation} from "react-i18next";
 function DoctorEdit() {
+    const { t } = useTranslation();
     const {id} = useParams();
     const navigate = useNavigate()
     const [isDragging, setIsDragging] = useState(false);
@@ -283,12 +285,12 @@ function DoctorEdit() {
 
             // ✅ PUT çağırışı
             await editDoctor(formData).unwrap();
-            showToast("Həkim məlumatları uğurla yeniləndi ✅", "success");
+            showToast(t("adminPanel.doctorEdit.toast.success"), "success");
             navigate("/admin/doctors");
             refetch()
         } catch (err) {
             console.error(err);
-            showToast("Dəyişiklik zamanı xəta baş verdi ❌", "error");
+            showToast(t("adminPanel.doctorEdit.toast.error"), "error");
         }
     };
     useEffect(() => {
@@ -300,21 +302,23 @@ function DoctorEdit() {
             <div className={'doctor-edit'}>
                 <div className={"root"}>
                     <h2>
-                        <NavLink className="link" to="/admin/doctors">Həkim</NavLink>
+                        <NavLink className="link" to="/admin/doctors"> {t("adminPanel.doctorEdit.breadcrumb.root")}</NavLink>
                         <img src={rootIcon} alt="" />
-                        Həkimə düzəliş edin
+                        {t("adminPanel.doctorEdit.breadcrumb.current")}
                     </h2>
                 </div>
                 <div className={'doctor-edit-head'}>
-                    <h1>Həkimə düzəliş edin</h1>
-                    <p>Buradan həkimləri idarə edə və düzəliş edə bilərsiniz.</p>
+                    <h1>{t("adminPanel.doctorEdit.title")}</h1>
+                    <p>{t("adminPanel.doctorEdit.description")}</p>
+
                 </div>
                 <div className={'doctor-edit-main'}>
                     <div className={'doctor-edit-data'}>
                         <div className={"dataDiv inputs"}>
                             <div className={'header'}>
-                                <h3>Həkim adı</h3>
-                                <p>Həkimin sistemdə görünəcək adını daxil edin.</p>
+                                <h3>{t("adminPanel.doctorEdit.sections.name.title")}</h3>
+                                <p>{t("adminPanel.doctorEdit.sections.name.desc")}</p>
+
                             </div>
                             <div className={'add-inputs'}>
                                 <div className={'add-data'}>
@@ -361,8 +365,8 @@ function DoctorEdit() {
                         </div>
                         <div className={"dataDiv inputs"}>
                             <div className={'header'}>
-                                <h3>Həkim soyadı</h3>
-                                <p>Xidmətin sistemdə görünəcək soyadını daxil edin.</p>
+                                <h3>{t("adminPanel.doctorEdit.sections.surname.title")}</h3>
+                                <p>{t("adminPanel.doctorEdit.sections.surname.desc")}</p>
                             </div>
                             <div className={'add-inputs'}>
                                 <div className={'add-data'}>
@@ -409,8 +413,8 @@ function DoctorEdit() {
                         </div>
                         <div className={"dataDiv inputs"}>
                             <div className={'header'}>
-                                <h3>Vəzifə</h3>
-                                <p>Həkimin sistemdə görünəcək vəzifə adını daxil edin.</p>
+                                <h3>{t("adminPanel.doctorEdit.sections.role.title")}</h3>
+                                <p>{t("adminPanel.doctorEdit.sections.role.desc")}</p>
                             </div>
                             <div className={'add-inputs'}>
                                 <div className={'add-data'}>
@@ -457,8 +461,8 @@ function DoctorEdit() {
                         </div>
                         <div className="dataDiv images">
                             <div className="header">
-                                <h3>Həkim şəkil</h3>
-                                <p>Həkimi təmsil edəcək şəkil yükləyin.</p>
+                                <h3>{t("adminPanel.doctorEdit.sections.image.title")}</h3>
+                                <p>{t("adminPanel.doctorEdit.sections.image.desc")}</p>
                             </div>
                             <div
                                 className={`uploadBox ${isDragging ? "dragging" : ""}`}
@@ -474,7 +478,7 @@ function DoctorEdit() {
                                 />
                                 <label htmlFor="clinicImage" className="uploadArea">
                                     <img src={uploadIcon} alt="upload" />
-                                    <p>Faylı yükləmək üçün bu sahəyə klikləyin və ya sürükləyin</p>
+                                    <p>{t("adminPanel.doctorEdit.sections.image.uploadText")}</p>
                                 </label>
                             </div>
 
@@ -509,8 +513,8 @@ function DoctorEdit() {
 
                         <div className={"dataDiv images2"}>
                             <div className={'header'}>
-                                <h3>Klinika</h3>
-                                <p>Həkimin əlaqəli olduğu klinikaları seçin.</p>
+                                <h3>{t("adminPanel.doctorEdit.sections.clinic.title")}</h3>
+                                <p>{t("adminPanel.doctorEdit.sections.clinic.desc")}</p>
                             </div>
                             <div className={'addCategory'}>
                                 {clinic?.map((item) => (
@@ -533,8 +537,8 @@ function DoctorEdit() {
                         </div>
                         <div className="dataDiv images multi">
                             <div className="header">
-                                <h3>Sertifikat</h3>
-                                <p>Həkimi təmsil edəcək sertifikatları yükləyin.</p>
+                                <h3>{t("adminPanel.doctorEdit.sections.certificate.title")}</h3>
+                                <p>{t("adminPanel.doctorEdit.sections.certificate.desc")}</p>
                             </div>
 
                             <div className="uploadBox">
@@ -548,12 +552,12 @@ function DoctorEdit() {
                                 />
                                 <label htmlFor="sertifikat-fileInput" className="uploadArea">
                                     <img src={uploadIcon} alt="upload" />
-                                    <p>Faylı yükləmək üçün bu sahəyə klikləyin və ya sürükləyin</p>
+                                    <p>{t("adminPanel.doctorEdit.sections.image.uploadText")}</p>
                                 </label>
                             </div>
 
                             <div className="uploadedHeader" onClick={() => setSertifikatOpen((p) => !p)}>
-                                <span>Yüklənənlər</span>
+                                <span>{t("adminPanel.doctorEdit.sections.certificate.uploaded")}</span>
                                 <img src={sertifikatOpen ? openIcon : closeIcon} alt="toggle" />
                             </div>
 
@@ -573,8 +577,8 @@ function DoctorEdit() {
                         </div>
                         <div className={"dataDiv3 inputs"}>
                             <div className={'header'}>
-                                <h3>Təcrübə müddəti</h3>
-                                <p>Həkimin sistemdə görünəcək təcrübə müddətini daxil edin.</p>
+                                <h3>{t("adminPanel.doctorEdit.sections.experience.title")}</h3>
+                                <p>{t("adminPanel.doctorEdit.sections.experience.desc")}</p>
                             </div>
                             <div className={'add-inputs'}>
                                 <div className={'add-data'}>
@@ -589,8 +593,8 @@ function DoctorEdit() {
                             {/* 🔹 Reytinq bölməsi */}
                             <div className="reyting">
                                 <div className="header">
-                                    <h3>Reytinqi</h3>
-                                    <p>Həkim üçün reytinq dəyəri təyin edin.</p>
+                                    <h3>{t("adminPanel.doctorEdit.sections.rating.title")}</h3>
+                                    <p>{t("adminPanel.doctorEdit.sections.rating.desc")}</p>
                                 </div>
 
                                 <div className="stars">
@@ -619,15 +623,15 @@ function DoctorEdit() {
                         </div>
                         <div className="dataDiv4 inputs quill-section">
                             <div className="header">
-                                <h3>Bio</h3>
-                                <p>Həkimin sistemdə görünəcək bioqrafiyasını daxil edin.</p>
+                                <h3>{t("adminPanel.doctorEdit.sections.bio.title")}</h3>
+                                <p>{t("adminPanel.doctorEdit.sections.bio.desc")}</p>
                             </div>
 
                             <div className="offer-scroll">
                                 {sections?.map((section) => (
                                     <div key={section.id} className="offer-section">
                                         <div className="offer-header" onClick={() => toggleSection(section.id)}>
-                                            <span>Bio #{section.id}</span>
+                                            <span>{t("adminPanel.doctorAdd.sections.bio.section")} #{section.id}</span>
                                             <div className="header-actions">
                                                 {sections.length > 1 && (
                                                     <button
@@ -672,7 +676,7 @@ function DoctorEdit() {
                                 onClick={handleAddSection}
                                 disabled={!allInputsFilled}
                             >
-                                <img src={plusIcon} alt="plus" /> Əlavə et
+                                <img src={plusIcon} alt="plus" /> {t("adminPanel.doctorAdd.sections.bio.addButton")}
                             </button>
                         </div>
 
@@ -684,7 +688,9 @@ function DoctorEdit() {
                         onClick={handleSubmit}
                         disabled={isLoading}
                     >
-                        {isLoading ? "Yadda saxlanılır..." : "Yadda saxla"}
+                        {isLoading
+                            ? t("adminPanel.doctorAdd.buttons.loading")
+                            : t("adminPanel.doctorAdd.buttons.save")}
                     </button>
                 </div>
             </div>

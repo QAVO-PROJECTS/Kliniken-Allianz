@@ -11,7 +11,9 @@ import {useEffect, useState} from "react";
 import {useGetCategoryByIdQuery, usePostCategoryMutation, usePutCategoryMutation} from "../../../services/userApi.jsx";
 import showToast from "../../../components/ToastMessage.js";
 import {CATEGORY_IMAGES} from "../../../contants.js";
+import {useTranslation} from "react-i18next";
 function CategoryEdit() {
+    const { t } = useTranslation();
     const { id } = useParams();
     const { data: getCategoryById, isLoading: isFetching,refetch } = useGetCategoryByIdQuery(id);
     const category = getCategoryById?.data;
@@ -56,7 +58,7 @@ function CategoryEdit() {
     // 🔹 PUT sorğusu (update)
     const handleUpdate = async () => {
         if (!inputs.az.trim()) {
-            showToast("Azərbaycan dilində kateqoriya adı boş ola bilməz!", 'warning');
+            showToast(t("adminPanel.categoryEdit.toast.emptyName"), "warning");
             return;
         }
 
@@ -75,38 +77,38 @@ function CategoryEdit() {
             }
 
             await putCategory(formData).unwrap(); // ✅ sadəcə formData göndər
-            showToast("Kateqoriya uğurla yeniləndi ✅", 'success');
+            showToast(t("adminPanel.categoryEdit.toast.success"), "success");
             navigate('/admin/category');
             refetch()
         } catch (err) {
             console.error("Xəta PUT:", err);
-            showToast("Xəta baş verdi ❌", 'error');
+            showToast(t("adminPanel.categoryEdit.toast.error"), "error");
         }
     };
 
 
-    if (isFetching) return <p>Yüklənir...</p>;
+    if (isFetching) return <p>{t("adminPanel.categoryEdit.loading")}</p>;
 
     return (
         <div id={'category-edit'}>
             <div className={'category-edit'}>
                 <div className={"root"}>
                     <h2>
-                        <NavLink className="link" to="/admin/category">Kateqoriya</NavLink>
+                        <NavLink className="link" to="/admin/category">{t("adminPanel.categoryEdit.breadcrumb.main")}</NavLink>
                         <img src={rootIcon} alt="" />
-                        Kateqoriyanı redaktə et
+                        {t("adminPanel.categoryEdit.breadcrumb.sub")}
                     </h2>
                 </div>
                 <div className={'category-edit-head'}>
-                    <h1> Kateqoriyanı redaktə et</h1>
-                    <p>Buradan mövcud kateqoriyanın məlumatlarını dəyişə bilərsiniz.</p>
+                    <h1>{t("adminPanel.categoryEdit.title")}</h1>
+                    <p>{t("adminPanel.categoryEdit.description")}</p>
                 </div>
                 <div className={'category-edit-main'}>
                     <div className={'category-edit-data'}>
                         <div className={"dataDiv inputs"}>
                             <div className={'header'}>
-                                <h3>Kateqoriya adı</h3>
-                                <p>Kateqoriyanın sistemdə görünəcək adını daxil edin.</p>
+                                <h3>{t("adminPanel.categoryEdit.nameTitle")}</h3>
+                                <p>{t("adminPanel.categoryEdit.nameDescription")}</p>
                             </div>
                             <div className={'add-inputs'}>
                                 <div className={'add-data'}>
@@ -114,7 +116,7 @@ function CategoryEdit() {
                                         <input
                                             value={inputs.az}
                                             onChange={e => handleInputChange("az", e.target.value)}
-                                            placeholder={'Travmatologiya'}
+                                            placeholder={t("adminPanel.categoryEdit.placeholders.az")}
                                         />
                                     </div>
                                     <div className={'langCountry'}>
@@ -127,7 +129,7 @@ function CategoryEdit() {
                                         <input
                                             value={inputs.ru}
                                             onChange={e => handleInputChange("ru", e.target.value)}
-                                            placeholder={'Травматология'}
+                                            placeholder={t("adminPanel.categoryEdit.placeholders.ru")}
                                         />
                                     </div>
                                     <div className={'langCountry'}>
@@ -140,7 +142,7 @@ function CategoryEdit() {
                                         <input
                                             value={inputs.en}
                                             onChange={e => handleInputChange("en", e.target.value)}
-                                            placeholder={'Traumatology'}
+                                            placeholder={t("adminPanel.categoryEdit.placeholders.en")}
                                         />
                                     </div>
                                     <div className={'langCountry'}>
@@ -167,8 +169,8 @@ function CategoryEdit() {
                         </div>
                         <div className={"dataDiv images"}>
                             <div className={'header'}>
-                                <h3>Kateqoriyanızı fərqləndirin</h3>
-                                <p>Bu ikon kateqoriyanızın görünüşünü müəyyən edəcək. Sadəcə birini seçin.</p>
+                                <h3>{t("adminPanel.categoryEdit.iconTitle")}</h3>
+                                <p>{t("adminPanel.categoryEdit.iconDescription")}</p>
                             </div>
                             <div className={'addCategory'}>
                                 {icons.map((icon, index) => (
@@ -191,7 +193,9 @@ function CategoryEdit() {
                         </div>
                     </div>
                     <button onClick={handleUpdate} disabled={isUpdating}>
-                        {isUpdating ? "Yenilənir..." : "Yadda saxla"}
+                        {isUpdating
+                            ? t("adminPanel.categoryEdit.buttons.updating")
+                            : t("adminPanel.categoryEdit.buttons.save")}
                     </button>
                 </div>
             </div>

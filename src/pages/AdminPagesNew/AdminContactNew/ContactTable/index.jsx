@@ -8,8 +8,10 @@ import {useNavigate} from "react-router-dom";
 import closeIcon from '/src/assets/accordionClose.svg'
 import openIcon from '/src/assets/accordionOpen.svg'
 import {useGetAllContactQuery} from "../../../../services/userApi.jsx";
+import {useTranslation} from "react-i18next";
 
 function ContactTableNew({language, filter}) {
+    const { t } = useTranslation();
     const {data:getAllContact} = useGetAllContactQuery()
     const contacts = getAllContact?.data
     const filteredContacts = useMemo(() => {
@@ -37,11 +39,11 @@ function ContactTableNew({language, filter}) {
             <div className={'contact-table-wrapper'}>
                 <div className="grid-header">
                     <div></div>
-                    <div>Adı</div>
-                    <div>Email</div>
-                    <div>Qeyd</div>
-                    <div>Turun adı</div>
-                    <div>Nömrə</div>
+                    <div>{t("adminPanel.contactTable.headers.name")}</div>
+                    <div>{t("adminPanel.contactTable.headers.email")}</div>
+                    <div>{t("adminPanel.contactTable.headers.note")}</div>
+                    <div>{t("adminPanel.contactTable.headers.tourName")}</div>
+                    <div>{t("adminPanel.contactTable.headers.phone")}</div>
                 </div>
 
                 <div className="grid-body">
@@ -86,7 +88,7 @@ function ContactTableNew({language, filter}) {
                         })
                     ) : (
                         <div className="no-data">
-                            <p>Əlaqə məlumatı tapılmadı.</p>
+                            <p>{t("adminPanel.contactTable.emptyMessage")}</p>
                         </div>
                     )}
                 </div>

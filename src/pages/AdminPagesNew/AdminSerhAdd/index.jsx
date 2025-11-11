@@ -10,7 +10,9 @@ import uploadIcon from '/src/assets/uploadIcon.svg'
 import {useState} from "react";
 import {usePostCustomerViewMutation} from "../../../services/userApi.jsx";
 import showToast from "../../../components/ToastMessage.js";
+import {useTranslation} from "react-i18next";
 function SerhAdd() {
+    const { t } = useTranslation();
     const [selectedFile, setSelectedFile] = useState(null);
     const [isDragging, setIsDragging] = useState(false);
     const navigate = useNavigate();
@@ -46,7 +48,7 @@ function SerhAdd() {
     // 🔹 POST sorğusu
     const handleSubmit = async () => {
         if (!names.az.trim() || !comments.az.trim() || !countries.az.trim()) {
-            showToast("Azərbaycan dilində sahələr boş ola bilməz!", "warning");
+            showToast(t("adminPanel.commentAdd.toast.warning"), "warning");
             return;
         }
 
@@ -75,11 +77,11 @@ function SerhAdd() {
             formData.append("rating", 5);
 
             await postSerh(formData).unwrap();
-            showToast("Şərh uğurla əlavə olundu ✅", "success");
+            showToast(t("adminPanel.commentAdd.toast.success"), "success");
             navigate("/admin/serh");
         } catch (err) {
             console.error("POST error:", err);
-            showToast("Şərh əlavə edilərkən xəta baş verdi ❌", "error");
+            showToast(t("adminPanel.commentAdd.toast.error"), "error");
         }
     };
 
@@ -89,21 +91,21 @@ function SerhAdd() {
             <div className={'serh-add'}>
                 <div className={"root"}>
                     <h2>
-                        <NavLink className="link" to="/admin/serh">Şərh</NavLink>
+                        <NavLink className="link" to="/admin/serh">{t("adminPanel.commentAdd.breadcrumb.root")}</NavLink>
                         <img src={rootIcon} alt="" />
-                        Yeni şərh yarat
+                        {t("adminPanel.commentAdd.breadcrumb.current")}
                     </h2>
                 </div>
                 <div className={'serh-add-head'}>
-                    <h1>Yeni şərh yarat</h1>
-                    <p>Buradan şərhləri idarə edə və yenilərini yarada bilərsiniz.</p>
+                    <h1>{t("adminPanel.commentAdd.title")}</h1>
+                    <p>{t("adminPanel.commentAdd.description")}</p>
                 </div>
                 <div className={'serh-add-main'}>
                     <div className={'serh-add-data'}>
                         <div className={"dataDiv inputs"}>
                             <div className={'header'}>
-                                <h3>Şərh yazan</h3>
-                                <p>Şərh yazanın sistemdə görünəcək adını daxil edin.</p>
+                                <h3>{t("adminPanel.commentAdd.sections.author.title")}</h3>
+                                <p>{t("adminPanel.commentAdd.sections.author.desc")}</p>
                             </div>
                             <div className={'add-inputs'}>
                                 <div className={'add-data'}>
@@ -111,7 +113,7 @@ function SerhAdd() {
                                         <input
                                             value={names.az}
                                             onChange={e => handleInputChange(setNames, "az", e.target.value)}
-                                            placeholder={'Məsələn: Anar Məmmədov'}
+                                            placeholder={t("adminPanel.commentAdd.sections.author.placeholder")}
                                         />
                                     </div>
                                     {/*<div className={'langCountry'}>*/}
@@ -162,8 +164,8 @@ function SerhAdd() {
                         </div>
                         <div className={"dataDiv inputs"}>
                             <div className={'header'}>
-                                <h3>Şərhin yazıldığı ölkənin adı</h3>
-                                <p>Rəyin hansı ölkədən yazıldığını göstərin.</p>
+                                <h3>{t("adminPanel.commentAdd.sections.country.title")}</h3>
+                                <p>{t("adminPanel.commentAdd.sections.country.desc")}</p>
                             </div>
                             <div className={'add-inputs'}>
                                 <div className={'add-data'}>
@@ -171,7 +173,7 @@ function SerhAdd() {
                                         <input
                                             value={countries.az}
                                             onChange={e => handleInputChange(setCountries, "az", e.target.value)}
-                                            placeholder={'Məsələn: Azərbaycan'}
+                                            placeholder={t("adminPanel.commentAdd.sections.country.placeholder")}
                                         />
                                     </div>
                                     {/*<div className={'langCountry'}>*/}
@@ -222,8 +224,8 @@ function SerhAdd() {
                         </div>
                         <div className="dataDiv images">
                             <div className="header">
-                                <h3>Şəkil</h3>
-                                <p>Şərh yazan şəxsin profil şəklini yükləyin.</p>
+                                <h3>{t("adminPanel.commentAdd.sections.image.title")}</h3>
+                                <p>{t("adminPanel.commentAdd.sections.image.desc")}</p>
                             </div>
 
                             <div
@@ -241,9 +243,7 @@ function SerhAdd() {
                                 />
                                 <label htmlFor="fileInput" className="uploadArea">
                                     <img src={uploadIcon} alt="upload" />
-                                    <p>
-                                        Faylı yükləmək üçün klikləyin və ya sürükləyin
-                                    </p>
+                                    <p>{t("adminPanel.commentAdd.sections.image.uploadText")}</p>
                                 </label>
                             </div>
 
@@ -263,8 +263,8 @@ function SerhAdd() {
                         </div>
                         <div className={"dataDiv inputs"}>
                             <div className={'header'}>
-                                <h3>Təsvir</h3>
-                                <p>Şərh mətni daxil edin.</p>
+                                <h3>{t("adminPanel.commentAdd.sections.description.title")}</h3>
+                                <p>{t("adminPanel.commentAdd.sections.description.desc")}</p>
                             </div>
                             <div className={'add-inputs'}>
                                 <div className={'add-data'}>
@@ -272,7 +272,7 @@ function SerhAdd() {
                                         <input
                                             value={comments.az}
                                             onChange={e => handleInputChange(setComments, "az", e.target.value)}
-                                            placeholder={'Məsələn: Xidmət çox yaxşı idi!'}
+                                            placeholder={t(`adminPanel.commentAdd.sections.description.placeholders.az`)}
                                         />
                                     </div>
                                     <div className={'langCountry'}>
@@ -284,7 +284,7 @@ function SerhAdd() {
                                         <input
                                             value={comments.ru}
                                             onChange={e => handleInputChange(setComments, "ru", e.target.value)}
-                                            placeholder={'Например: Все было отлично!'}
+                                            placeholder={t(`adminPanel.commentAdd.sections.description.placeholders.ru`)}
                                         />
                                     </div>
                                     <div className={'langCountry'}>
@@ -296,7 +296,7 @@ function SerhAdd() {
                                         <input
                                             value={comments.en}
                                             onChange={e => handleInputChange(setComments, "en", e.target.value)}
-                                            placeholder={'Example: Everything was great!'}
+                                            placeholder={t(`adminPanel.commentAdd.sections.description.placeholders.en`)}
                                         />
                                     </div>
                                     <div className={'langCountry'}>
@@ -328,7 +328,9 @@ function SerhAdd() {
                         onClick={handleSubmit}
                         disabled={isLoading}
                     >
-                        {isLoading ? "Yüklənir..." : "Yadda saxla"}
+                        {isLoading
+                            ? t("adminPanel.commentAdd.buttons.saving")
+                            : t("adminPanel.commentAdd.buttons.save")}
                     </button>
                 </div>
             </div>

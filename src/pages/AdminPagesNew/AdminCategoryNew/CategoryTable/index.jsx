@@ -16,7 +16,9 @@ import {
 } from "../../../../services/userApi.jsx";
 import {CATEGORY_IMAGES} from "../../../../contants.js";
 import showToast from "../../../../components/ToastMessage.js";
+import {useTranslation} from "react-i18next";
 function CategoryTableNew({ language }) {
+    const { t } = useTranslation();
     const {data:getAllCategory,refetch} = useGetAllCategoryQuery()
     const categories = getAllCategory?.data
     const [deleteCategory, { isLoading: isDeleting }] = useDeleteCategoryMutation()
@@ -57,12 +59,12 @@ function CategoryTableNew({ language }) {
     const handleDelete = async () => {
         try {
             await deleteCategory(selectedItem.id).unwrap();
-            showToast("Kateqoriya uğurla silindi ✅", "success");
+            showToast(t("adminPanel.categoryTable.deleteSuccess"), "success");
             closeModal();
             refetch();
         } catch (err) {
             console.error("Silinmə xətası:", err);
-            showToast("Kateqoriyanı silmək mümkün olmadı ❌", "error");
+            showToast(t("adminPanel.categoryTable.deleteError"), "error");
         }
     };
     return (
@@ -70,12 +72,12 @@ function CategoryTableNew({ language }) {
            <div className={'category-table-wrapper'}>
                <div className="grid-header">
                    <div></div>
-                   <div>İcon</div>
-                   <div>Adı</div>
+                   <div>{t("adminPanel.categoryTable.icon")}</div>
+                   <div>{t("adminPanel.categoryTable.name")}</div>
                    <div style={{
                        textAlign: 'center',
-                   }}>Xidmət sayı</div>
-                   <div>Fəaliyyətlər</div>
+                   }}>   {t("adminPanel.categoryTable.serviceCount")}</div>
+                   <div>{t("adminPanel.categoryTable.actions")}</div>
                </div>
 
                <div className="grid-body">
@@ -118,11 +120,13 @@ function CategoryTableNew({ language }) {
                 <div className="modal-overlay" onClick={closeModal}>
                     <div className="delete-modal-content" onClick={(e) => e.stopPropagation()}>
                        <img src={deleteImgModal} className={'deleteImg'}/>
-                        <h3>Kateqoriyanı silmək istədiyinizə əminsiz?</h3>
+                        <h3>{t("adminPanel.categoryTable.deleteConfirmTitle")}</h3>
                         <div className="modal-actions">
-                            <button className="cancel" onClick={closeModal}>Ləğv et</button>
+                            <button className="cancel" onClick={closeModal}> {t("adminPanel.categoryTable.cancel")}</button>
                             <button className="confirm" onClick={handleDelete} disabled={isDeleting}>
-                                {isDeleting ? "Silinir..." : "Sil"}
+                                {isDeleting
+                                    ? t("adminPanel.categoryTable.deleting")
+                                    : t("adminPanel.categoryTable.delete")}
                             </button>
                         </div>
                     </div>

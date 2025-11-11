@@ -17,8 +17,10 @@ import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
 import {useGetAllClinicQuery, usePostDoctorsMutation} from "../../../services/userApi.jsx";
 import showToast from "../../../components/ToastMessage.js";
+import {useTranslation} from "react-i18next";
 
 function DoctorAdd() {
+    const { t } = useTranslation();
     const [selectedFile, setSelectedFile] = useState(null);
     const [isDragging, setIsDragging] = useState(false);
     const [activeIcon, setActiveIcon] = useState([]);
@@ -167,11 +169,11 @@ function DoctorAdd() {
             selectedClinicIds.forEach((id) => formData.append("doctorClinicIds", id));
 
             await postDoctor(formData).unwrap();
-            showToast("Həkim uğurla əlavə olundu!", "success");
+            showToast(t("adminPanel.doctorAdd.toast.success"), "success");
             navigate('/admin/doctors')
         } catch (err) {
             console.error(err);
-            showToast("Xəta baş verdi, yenidən cəhd edin!", "error");
+            showToast(t("adminPanel.doctorAdd.toast.error"), "error");
         }
     };
     return (
@@ -179,26 +181,26 @@ function DoctorAdd() {
             <div className={'doctor-add'}>
                 <div className={"root"}>
                     <h2>
-                        <NavLink className="link" to="/admin/doctors">Həkim</NavLink>
+                        <NavLink className="link" to="/admin/doctors"> {t("adminPanel.doctorAdd.breadcrumb.root")}</NavLink>
                         <img src={rootIcon} alt="" />
-                        Yeni həkim yarat
+                        {t("adminPanel.doctorAdd.breadcrumb.current")}
                     </h2>
                 </div>
                 <div className={'doctor-add-head'}>
-                    <h1>Yeni həkim yarat</h1>
-                    <p>Buradan həkimləri idarə edə və yenilərini yarada bilərsiniz.</p>
+                    <h1>{t("adminPanel.doctorAdd.title")}</h1>
+                    <p>{t("adminPanel.doctorAdd.description")}</p>
                 </div>
                 <div className={'doctor-add-main'}>
                     <div className={'doctor-add-data'}>
                         <div className={"dataDiv inputs"}>
                             <div className={'header'}>
-                                <h3>Həkim adı</h3>
-                                <p>Həkimin sistemdə görünəcək adını daxil edin.</p>
+                                <h3>{t("adminPanel.doctorAdd.sections.name.title")}</h3>
+                                <p>{t("adminPanel.doctorAdd.sections.name.desc")}</p>
                             </div>
                             <div className={'add-inputs'}>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder="Azərbaycan dilində" value={nameAz} onChange={(e)=>setNameAz(e.target.value)}/>
+                                        <input placeholder={t("adminPanel.doctorAdd.placeholders.nameAz")} value={nameAz} onChange={(e)=>setNameAz(e.target.value)}/>
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={aze} alt="" />
@@ -206,7 +208,7 @@ function DoctorAdd() {
                                 </div>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder="Rus dilində" value={nameRu} onChange={(e)=>setNameRu(e.target.value)}/>
+                                        <input placeholder={t("adminPanel.doctorAdd.placeholders.nameRu")} value={nameRu} onChange={(e)=>setNameRu(e.target.value)}/>
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={rus} alt="" />
@@ -214,7 +216,7 @@ function DoctorAdd() {
                                 </div>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder="İngilis dilində" value={nameEn} onChange={(e)=>setNameEn(e.target.value)}/>
+                                        <input placeholder={t("adminPanel.doctorAdd.placeholders.nameEn")} value={nameEn} onChange={(e)=>setNameEn(e.target.value)}/>
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={usa} alt="" />
@@ -240,13 +242,13 @@ function DoctorAdd() {
                         </div>
                         <div className={"dataDiv inputs"}>
                             <div className={'header'}>
-                                <h3>Həkim soyadı</h3>
-                                <p>Xidmətin sistemdə görünəcək soyadını daxil edin.</p>
+                                <h3>{t("adminPanel.doctorAdd.sections.surname.title")}</h3>
+                                <p>{t("adminPanel.doctorAdd.sections.surname.desc")}</p>
                             </div>
                             <div className={'add-inputs'}>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder="Azərbaycan" value={surNameAz} onChange={(e)=>setSurNameAz(e.target.value)}/>
+                                        <input placeholder={t("adminPanel.doctorAdd.placeholders.surnameAz")} value={surNameAz} onChange={(e)=>setSurNameAz(e.target.value)}/>
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={aze} alt="" />
@@ -254,7 +256,7 @@ function DoctorAdd() {
                                 </div>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder="Rus" value={surNameRu} onChange={(e)=>setSurNameRu(e.target.value)}/>
+                                        <input placeholder={t("adminPanel.doctorAdd.placeholders.surnameRu")} value={surNameRu} onChange={(e)=>setSurNameRu(e.target.value)}/>
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={rus} alt="" />
@@ -262,7 +264,7 @@ function DoctorAdd() {
                                 </div>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder="İngilis" value={surNameEn} onChange={(e)=>setSurNameEn(e.target.value)}/>
+                                        <input placeholder={t("adminPanel.doctorAdd.placeholders.surnameEn")} value={surNameEn} onChange={(e)=>setSurNameEn(e.target.value)}/>
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={usa} alt="" />
@@ -288,13 +290,14 @@ function DoctorAdd() {
                         </div>
                         <div className={"dataDiv inputs"}>
                             <div className={'header'}>
-                                <h3>Vəzifə</h3>
-                                <p>Həkimin sistemdə görünəcək vəzifə adını daxil edin.</p>
+                                <h3>{t("adminPanel.doctorAdd.sections.role.title")}</h3>
+                                <p>{t("adminPanel.doctorAdd.sections.role.desc")}</p>
+
                             </div>
                             <div className={'add-inputs'}>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder="Azərbaycan" value={roleAz} onChange={(e)=>setRoleAz(e.target.value)}/>
+                                        <input placeholder={t("adminPanel.doctorAdd.placeholders.roleAz")} value={roleAz} onChange={(e)=>setRoleAz(e.target.value)}/>
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={aze} alt="" />
@@ -302,7 +305,7 @@ function DoctorAdd() {
                                 </div>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder="Rus" value={roleRu} onChange={(e)=>setRoleRu(e.target.value)}/>
+                                        <input placeholder={t("adminPanel.doctorAdd.placeholders.roleRu")} value={roleRu} onChange={(e)=>setRoleRu(e.target.value)}/>
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={rus} alt="" />
@@ -310,7 +313,7 @@ function DoctorAdd() {
                                 </div>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder="İngilis" value={roleEn} onChange={(e)=>setRoleEn(e.target.value)}/>
+                                        <input placeholder={t("adminPanel.doctorAdd.placeholders.roleEn")} value={roleEn} onChange={(e)=>setRoleEn(e.target.value)}/>
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={usa} alt="" />
@@ -336,8 +339,8 @@ function DoctorAdd() {
                         </div>
                         <div className="dataDiv images">
                             <div className="header">
-                                <h3>Həkim şəkil</h3>
-                                <p>Həkimi təmsil edəcək şəkil yükləyin.</p>
+                                <h3>{t("adminPanel.doctorAdd.sections.image.title")}</h3>
+                                <p>{t("adminPanel.doctorAdd.sections.image.desc")}</p>
                             </div>
                             <div
                                 className={`uploadBox ${isDragging ? "dragging" : ""}`}
@@ -353,7 +356,7 @@ function DoctorAdd() {
                                 />
                                 <label htmlFor="clinicImage" className="uploadArea">
                                     <img src={uploadIcon} alt="upload" />
-                                    <p>Faylı yükləmək üçün bu sahəyə klikləyin və ya sürükləyin</p>
+                                    <p>{t("adminPanel.doctorAdd.sections.image.uploadText")}</p>
                                 </label>
                             </div>
 
@@ -379,8 +382,9 @@ function DoctorAdd() {
 
                         <div className={"dataDiv images2"}>
                             <div className={'header'}>
-                                <h3>Klinika</h3>
-                                <p>Həkimin əlaqəli olduğu klinikaları seçin.</p>
+                                <h3>{t("adminPanel.doctorAdd.sections.clinic.title")}</h3>
+                                <p>{t("adminPanel.doctorAdd.sections.clinic.desc")}</p>
+
                             </div>
                             <div className={'addCategory'}>
                                 {clinic?.map((item, index) => (
@@ -403,8 +407,8 @@ function DoctorAdd() {
                         </div>
                         <div className="dataDiv images multi">
                             <div className="header">
-                                <h3>Sertifikat</h3>
-                                <p>Həkimi təmsil edəcək sertifikatları yükləyin.</p>
+                                <h3>{t("adminPanel.doctorAdd.sections.certificate.title")}</h3>
+                                <p>{t("adminPanel.doctorAdd.sections.certificate.desc")}</p>
                             </div>
 
                             <div className="uploadBox">
@@ -418,12 +422,12 @@ function DoctorAdd() {
                                 />
                                 <label htmlFor="sertifikat-fileInput" className="uploadArea">
                                     <img src={uploadIcon} alt="upload" />
-                                    <p>Faylı yükləmək üçün bu sahəyə klikləyin və ya sürükləyin</p>
+                                    <p>{t("adminPanel.doctorAdd.uploadHint")}</p>
                                 </label>
                             </div>
 
                             <div className="uploadedHeader" onClick={() => setSertifikatOpen((p) => !p)}>
-                                <span>Yüklənənlər</span>
+                                <span>{t("adminPanel.doctorAdd.sections.certificate.uploaded")}</span>
                                 <img src={sertifikatOpen ? openIcon : closeIcon} alt="toggle" />
                             </div>
 
@@ -443,14 +447,13 @@ function DoctorAdd() {
                         </div>
                         <div className={"dataDiv3 inputs"}>
                             <div className={'header'}>
-                                <h3>Təcrübə müddəti</h3>
-                                <p>Həkimin sistemdə görünəcək təcrübə müddətini daxil edin.</p>
+                                <h3>{t("adminPanel.doctorAdd.sections.experience.title")}</h3>
+                                <p>{t("adminPanel.doctorAdd.sections.experience.desc")}</p>
                             </div>
                             <div className={'add-inputs'}>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input placeholder="Məs: 5" value={experience} onChange={(e)=>setExperience(e.target.value)} />
-
+                                        <input placeholder= {t("adminPanel.doctorAdd.sections.experience.placeholder")} value={experience} onChange={(e)=>setExperience(e.target.value)} />
                                     </div>
                                 </div>
 
@@ -460,8 +463,9 @@ function DoctorAdd() {
                             {/* 🔹 Reytinq bölməsi */}
                             <div className="reyting">
                                 <div className="header">
-                                    <h3>Reytinqi</h3>
-                                    <p>Həkim üçün reytinq dəyəri təyin edin.</p>
+                                    <h3>{t("adminPanel.doctorAdd.sections.rating.title")}</h3>
+                                    <p>{t("adminPanel.doctorAdd.sections.rating.desc")}</p>
+
                                 </div>
 
                                 <div className="stars">
@@ -490,15 +494,15 @@ function DoctorAdd() {
                         </div>
                         <div className="dataDiv4 inputs quill-section">
                             <div className="header">
-                                <h3>Bio</h3>
-                                <p>Həkimin sistemdə görünəcək bioqrafiyasını daxil edin.</p>
+                                <h3>{t("adminPanel.doctorAdd.sections.bio.title")}</h3>
+                                <p>{t("adminPanel.doctorAdd.sections.bio.desc")}</p>
                             </div>
 
                             <div className="offer-scroll">
                                 {sections.map((section) => (
                                     <div key={section.id} className="offer-section">
                                         <div className="offer-header" onClick={() => toggleSection(section.id)}>
-                                            <span>Bio #{section.id}</span>
+                                            <span>{t("adminPanel.doctorAdd.sections.bio.section")} #{section.id}</span>
                                             <div className="header-actions">
                                                 {sections.length > 1 && (
                                                     <button
@@ -527,7 +531,7 @@ function DoctorAdd() {
                                                                     handleInputChange(section.id, index, val)
                                                                 }
                                                                 className="custom-quill"
-                                                                placeholder="Buraya yaz..."
+                                                                placeholder={t("adminPanel.doctorAdd.sections.bio.placeholder")}
                                                             />
                                                         </div>
                                                         <div className="langCountry">
@@ -546,7 +550,7 @@ function DoctorAdd() {
                                 onClick={handleAddSection}
                                 disabled={!allInputsFilled}
                             >
-                                <img src={plusIcon} alt="plus" /> Əlavə et
+                                <img src={plusIcon} alt="plus" /> {t("adminPanel.doctorAdd.sections.bio.addButton")}
                             </button>
                         </div>
 
@@ -558,8 +562,11 @@ function DoctorAdd() {
                         onClick={handleSubmit}
                         disabled={isLoading}
                     >
-                        {isLoading ? "Yadda saxlanılır..." : "Yadda saxla"}
+                        {isLoading
+                            ? t("adminPanel.doctorAdd.buttons.loading")
+                            : t("adminPanel.doctorAdd.buttons.save")}
                     </button>
+
                 </div>
             </div>
         </div>

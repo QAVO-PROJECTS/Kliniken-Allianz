@@ -9,18 +9,19 @@ import serhIcon from '/src/assets/leftBarIcon/serhIcon.svg'
 import contactIcon from '/src/assets/leftBarIcon/contactIcon.svg'
 import selectedIcon from '/src/assets/adminSelected.svg'
 import logoutIcon from '/src/assets/logoutIcon.svg'
+import {useTranslation} from "react-i18next";
 
 function AdminLeftBar() {
     const location = useLocation();
-
+    const { t } = useTranslation();
     const menuItems = [
-        { path: "/admin/category", icon: categoryIcon, label: "Kateqoriya" },
-        { path: "/admin/clinic", icon: clinicIcon, label: "Klinika" },
-        { path: "/admin/doctors", icon: doctorIcon, label: "Həkim" },
-        { path: "/admin/tours", icon: turIcon, label: "Xidmət paketi" },
-        { path: "/admin/otel", icon: hotelIcon, label: "Otel" },
-        { path: "/admin/serh", icon: serhIcon, label: "Şərh" },
-        { path: "/admin/contact", icon: contactIcon, label: "Əlaqələr" },
+        { path: "/admin/category", icon: categoryIcon, label: t("adminPanel.leftBar.menu.category") },
+        { path: "/admin/clinic", icon: clinicIcon, label: t("adminPanel.leftBar.menu.clinic") },
+        { path: "/admin/doctors", icon: doctorIcon, label: t("adminPanel.leftBar.menu.doctor") },
+        { path: "/admin/tours", icon: turIcon, label: t("adminPanel.leftBar.menu.tours") },
+        { path: "/admin/otel", icon: hotelIcon, label: t("adminPanel.leftBar.menu.hotel") },
+        { path: "/admin/serh", icon: serhIcon, label: t("adminPanel.leftBar.menu.comment") },
+        { path: "/admin/contact", icon: contactIcon, label: t("adminPanel.leftBar.menu.contact") },
     ];
 
     return (
@@ -44,7 +45,7 @@ function AdminLeftBar() {
 
             <button className="logout">
                 <img src={logoutIcon} alt="" />
-                Çıxış edin
+                {t("adminPanel.leftBar.buttons.logout")}
             </button>
         </section>
     );

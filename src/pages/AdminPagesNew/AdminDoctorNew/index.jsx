@@ -3,15 +3,17 @@ import LanguageDiv from "../../../components/AdminComponents/LanguageDic/index.j
 import AddBtn from "../../../components/AdminComponents/AddBtn/index.jsx";
 import CategoryTableNew from "./DoctorTable/index.jsx";
 import {useState} from "react";
+import {useTranslation} from "react-i18next";
 function AdminDoctorNew() {
+    const { t } = useTranslation();
     const [language, setLanguage] = useState("AZ");
     return (
         <div id={'admin-doctor'}>
             <div className={'admin-doctor'}>
                 <div className={'category-head'}>
                     <div className={'category-header'}>
-                        <h4>Həkim</h4>
-                        <p>Buradan həkimləri idarə edə və yenilərini yarada bilərsiniz.</p>
+                        <h4>{t("adminPanel.doctorPage.title")}</h4>
+                        <p>{t("adminPanel.doctorPage.description")}</p>
                     </div>
                     <div className={'category-buttons'}>
                         <LanguageDiv selected={language} onChange={setLanguage}/>

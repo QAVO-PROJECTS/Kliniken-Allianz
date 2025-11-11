@@ -11,8 +11,10 @@ import cat1 from "../../../assets/Servis/cat1.svg";
 import {useState} from "react";
 import {useGetAllClinicQuery, useGetCategoryByIdQuery, usePostServiceMutation} from "../../../services/userApi.jsx";
 import showToast from "../../../components/ToastMessage.js";
+import {useTranslation} from "react-i18next";
 
 function CategoryServisAdd() {
+    const { t } = useTranslation();
     const {id} = useParams();
     const navigate = useNavigate();
     const { data: getCategoryById } = useGetCategoryByIdQuery(id);
@@ -47,17 +49,17 @@ function CategoryServisAdd() {
     // 🔹 POST sorğusu
     const handleSubmit = async () => {
         if (!inputs.az.trim()) {
-            showToast("Azərbaycan dilində xidmət adı boş ola bilməz!", "warning");
+            showToast(t("adminPanel.categoryServisAdd.toast.emptyName"), "warning");
             return;
         }
 
         if (!id) {
-            showToast("Kateqoriya ID tapılmadı!", "error");
+            showToast(t("adminPanel.categoryServisAdd.toast.noCategoryId"), "error");
             return;
         }
 
         if (selectedClinics.length === 0) {
-            showToast("Ən azı bir klinika seçin!", "warning");
+            showToast(t("adminPanel.categoryServisAdd.toast.noClinic"), "warning");
             return;
         }
 
@@ -77,7 +79,7 @@ function CategoryServisAdd() {
             });
 
             await postServis(formData).unwrap();
-            showToast("Xidmət uğurla əlavə olundu ✅", "success");
+            showToast(t("adminPanel.categoryServisAdd.toast.success"), "success");
 
             // reset
             setInputs({ az: "", ru: "", en: "" });
@@ -86,7 +88,7 @@ function CategoryServisAdd() {
             navigate(`/admin/category/servis/${id}`)
         } catch (err) {
             console.error("Xəta:", err);
-            showToast("Xidmət əlavə edilərkən xəta baş verdi ❌", "error");
+            showToast(t("adminPanel.categoryServisAdd.toast.error"), "error");
         }
     };
 
@@ -104,23 +106,23 @@ function CategoryServisAdd() {
             <div className={'category-servis-add'}>
                 <div className={"root"}>
                     <h2>
-                        <NavLink className="link" to="/admin/category">Kateqoriya</NavLink>
+                        <NavLink className="link" to="/admin/category">{t("adminPanel.categoryServisAdd.breadcrumb.main")}</NavLink>
                         <img src={rootIcongri} alt=""/>
                         <NavLink className="link" to={`/admin/category/servis/${id}`}>{category?.name || "Kateqoriya"}</NavLink>
                         <img src={rootIcon} alt=""/>
-                        Yenisini yarat
+                        {t("adminPanel.categoryServisAdd.breadcrumb.sub")}
                     </h2>
                 </div>
                 <div className={'category-servis-add-head'}>
-                    <h1>Yeni xidmət yarat</h1>
-                    <p>Buradan xidmətləri idarə edə və yenilərini yarada bilərsiniz.</p>
+                    <h1>{t("adminPanel.categoryServisAdd.title")}</h1>
+                    <p>{t("adminPanel.categoryServisAdd.description")}</p>
                 </div>
                 <div className={'category-servis-add-main'}>
                     <div className={'category-servis-add-data'}>
                         <div className={"dataDiv inputs"}>
                             <div className={'header'}>
-                                <h3>Xidmət adı</h3>
-                                <p>Xidmətin sistemdə görünəcək adını daxil edin.</p>
+                                <h3>{t("adminPanel.categoryServisAdd.nameTitle")}</h3>
+                                <p>{t("adminPanel.categoryServisAdd.nameDescription")}</p>
                             </div>
                             <div className={'add-inputs'}>
                                 <div className={'add-data'}>
@@ -128,7 +130,7 @@ function CategoryServisAdd() {
                                         <input
                                             value={inputs.az}
                                             onChange={e => handleInputChange("az", e.target.value)}
-                                            placeholder={'Travmatologiya'}
+                                            placeholder={t("adminPanel.categoryServisAdd.placeholders.nameAz")}
                                         />
                                     </div>
                                     <div className={'langCountry'}>
@@ -141,7 +143,7 @@ function CategoryServisAdd() {
                                         <input
                                             value={inputs.ru}
                                             onChange={e => handleInputChange("ru", e.target.value)}
-                                            placeholder={'Травматология'}
+                                            placeholder={t("adminPanel.categoryServisAdd.placeholders.nameRu")}
                                         />
                                     </div>
                                     <div className={'langCountry'}>
@@ -154,7 +156,7 @@ function CategoryServisAdd() {
                                         <input
                                             value={inputs.en}
                                             onChange={e => handleInputChange("en", e.target.value)}
-                                            placeholder={'Traumatology'}
+                                            placeholder={t("adminPanel.categoryServisAdd.placeholders.nameEn")}
                                         />
                                     </div>
                                     <div className={'langCountry'}>
@@ -181,8 +183,8 @@ function CategoryServisAdd() {
                         </div>
                         <div className={"dataDiv images"}>
                             <div className={'header'}>
-                                <h3>Klinika</h3>
-                                <p>Xidmətin əlaqəli olduğu klinikanı seçin.</p>
+                                <h3>{t("adminPanel.categoryServisAdd.clinicTitle")}</h3>
+                                <p>{t("adminPanel.categoryServisAdd.clinicDescription")}</p>
                             </div>
                             <div className={'addCategory'}>
                                 {clinics?.length > 0 ? (
@@ -197,22 +199,22 @@ function CategoryServisAdd() {
                                         </label>
                                     ))
                                 ) : (
-                                    <p>Klinika tapılmadı.</p>
+                                    <p>{t("adminPanel.categoryServisAdd.noClinic")}</p>
                                 )}
                             </div>
                         </div>
                     </div>
                     <div className={'category-servis-desc'}>
                         <div className={'header'}>
-                            <h3>Təsvir</h3>
-                            <p>Xidmətin qısa təsvirini yazın.</p>
+                            <h3>{t("adminPanel.categoryServisAdd.descTitle")}</h3>
+                            <p>{t("adminPanel.categoryServisAdd.descDescription")}</p>
                         </div>
                         <div className={'category-servis-desc-data'}>
                             <div className={'category-servis-desc-texts'}>
                                 <textarea
                                     value={descriptions.az}
                                     onChange={e => handleDescriptionChange("az", e.target.value)}
-                                    placeholder={'Təsvir əlavə edin...'}
+                                    placeholder={t("adminPanel.categoryServisAdd.placeholders.descAz")}
                                 />
                                 <div className={'langCountry'}>
                                     <img src={aze} alt="" />
@@ -223,7 +225,7 @@ function CategoryServisAdd() {
                                 <textarea
                                     value={descriptions.ru}
                                     onChange={e => handleDescriptionChange("ru", e.target.value)}
-                                    placeholder={'Добавьте описание...'}
+                                    placeholder={t("adminPanel.categoryServisAdd.placeholders.descRu")}
                                 />
                                 <div className={'langCountry'}>
                                     <img src={rus} alt="" />
@@ -234,7 +236,7 @@ function CategoryServisAdd() {
                                 <textarea
                                     value={descriptions.en}
                                     onChange={e => handleDescriptionChange("en", e.target.value)}
-                                    placeholder={'Add description...'}
+                                    placeholder={t("adminPanel.categoryServisAdd.placeholders.descEn")}
                                 />
                                 <div className={'langCountry'}>
                                     <img src={usa} alt="" />
@@ -255,7 +257,9 @@ function CategoryServisAdd() {
                         </div>
                     </div>
                     <button onClick={handleSubmit} disabled={isLoading}>
-                        {isLoading ? "Yüklənir..." : "Yadda saxla"}
+                        {isLoading
+                            ? t("adminPanel.categoryServisAdd.buttons.loading")
+                            : t("adminPanel.categoryServisAdd.buttons.save")}
                     </button>
                 </div>
             </div>

@@ -10,7 +10,9 @@ import openIcon from '/src/assets/accordionOpen.svg'
 import {useDeleteClinicMutation, useGetAllClinicQuery} from "../../../../services/userApi.jsx";
 import {CLINIC_CARD_IMAGES} from "../../../../contants.js";
 import showToast from "../../../../components/ToastMessage.js";
+import {useTranslation} from "react-i18next";
 function ClinicTableNew({language}) {
+    const { t } = useTranslation();
     const {data:getAllClinic,refetch} = useGetAllClinicQuery()
     const clinics = getAllClinic?.data
     const [deleteClinic, { isLoading: isDeleting }] = useDeleteClinicMutation();    const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -62,10 +64,10 @@ function ClinicTableNew({language}) {
             await deleteClinic(selectedItem.id).unwrap();
             closeModal();
             refetch();
-            showToast("✅ Klinika uğurla silindi!",'success');
+            showToast(t("adminPanel.clinicTable.toast.deleteSuccess"), 'success');
         } catch (err) {
             console.error("Silinmə xətası:", err);
-            showToast("❌ Klinika silinərkən xəta baş verdi!",'error');
+            showToast(t("adminPanel.clinicTable.toast.deleteError"), 'error');
         }
     };
     return (
@@ -73,10 +75,10 @@ function ClinicTableNew({language}) {
            <div className={'clinic-table-wrapper'}>
                <div className="grid-header">
                    <div></div>
-                   <div>Şəkil</div>
-                   <div>Adı</div>
-                   <div>Təsvir</div>
-                   <div>Fəaliyyətlər</div>
+                   <div>{t("adminPanel.clinicTable.image")}</div>
+                   <div>{t("adminPanel.clinicTable.name")}</div>
+                   <div>{t("adminPanel.clinicTable.description")}</div>
+                   <div>{t("adminPanel.clinicTable.actions")}</div>
                </div>
 
                <div className="grid-body">
@@ -129,15 +131,17 @@ function ClinicTableNew({language}) {
                 <div className="modal-overlay" onClick={closeModal}>
                     <div className="delete-modal-content" onClick={(e) => e.stopPropagation()}>
                        <img src={deleteImgModal} className={'deleteImg'}/>
-                        <h3>Klinikanı silmək istədiyinizə əminsiz?</h3>
+                        <h3>{t("adminPanel.clinicTable.deleteConfirmTitle")}</h3>
                         <div className="modal-actions">
-                            <button className="cancel" onClick={closeModal}>Ləğv et</button>
+                            <button className="cancel" onClick={closeModal}> {t("adminPanel.clinicTable.cancel")}</button>
                             <button
                                 className="confirm"
                                 onClick={handleDelete}
                                 disabled={isDeleting}
                             >
-                                {isDeleting ? "Silinir..." : "Sil"}
+                                {isDeleting
+                                    ? t("adminPanel.clinicTable.deleting")
+                                    : t("adminPanel.clinicTable.delete")}
                             </button>
                         </div>
                     </div>

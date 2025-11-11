@@ -10,8 +10,10 @@ import openIcon from '/src/assets/accordionOpen.svg'
 import {useDeleteDoctorsMutation, useGetAllDoctorsQuery} from "../../../../services/userApi.jsx";
 import {DOCTOR_IMG_URL} from "../../../../contants.js";
 import showToast from "../../../../components/ToastMessage.js";
+import {useTranslation} from "react-i18next";
 
 function DoctorTableNew({language}) {
+    const { t } = useTranslation();
     const {data: getAllDoctors, refetch, isFetching} = useGetAllDoctorsQuery();
     const doctors = getAllDoctors?.data || [];
 
@@ -55,12 +57,12 @@ function DoctorTableNew({language}) {
         if (!selectedDoctor) return;
         try {
             await deleteDoctor(selectedDoctor.id).unwrap();
-            showToast("Həkim uğurla silindi ✅", "success");
+            showToast(t("adminPanel.doctorTable.toast.success"), "success");
             closeModal();
             refetch();
         } catch (err) {
             console.error(err);
-            showToast("Silinmə zamanı xəta baş verdi ❌", "error");
+            showToast(t("adminPanel.doctorTable.toast.error"), "error");
         }
     };
     // 🔹 Ad (doctor name)
@@ -115,13 +117,13 @@ function DoctorTableNew({language}) {
             <div className="doctor-table-wrapper">
                 <div className="grid-header">
                     <div></div>
-                    <div>Şəkil</div>
-                    <div>Adı</div>
-                    <div>Soyadı</div>
-                    <div>Vəzifə</div>
-                    <div style={{textAlign: "center"}}>Təcrübə</div>
-                    <div>Təsvir</div>
-                    <div>Fəaliyyətlər</div>
+                    <div>{t("adminPanel.doctorTable.headers.image")}</div>
+                    <div>{t("adminPanel.doctorTable.headers.name")}</div>
+                    <div>{t("adminPanel.doctorTable.headers.surname")}</div>
+                    <div>{t("adminPanel.doctorTable.headers.role")}</div>
+                    <div style={{ textAlign: "center" }}>{t("adminPanel.doctorTable.headers.experience")}</div>
+                    <div>{t("adminPanel.doctorTable.headers.description")}</div>
+                    <div>{t("adminPanel.doctorTable.headers.actions")}</div>
                 </div>
 
                 <div className="grid-body">
@@ -202,19 +204,21 @@ function DoctorTableNew({language}) {
                         <img src={deleteImgModal} className="deleteImg" />
                         <h3>
                             {selectedDoctor
-                                ? `${selectedDoctor.name} adlı həkimi silmək istədiyinizə əminsiniz?`
-                                : "Həkimi silmək istədiyinizə əminsiniz?"}
+                                ? t("adminPanel.doctorTable.modal.confirmWithName", { name: selectedDoctor.name })
+                                : t("adminPanel.doctorTable.modal.confirm")}
                         </h3>
                         <div className="modal-actions">
                             <button className="cancel" onClick={closeModal}>
-                                Ləğv et
+                                {t("adminPanel.doctorTable.modal.cancel")}
                             </button>
                             <button
                                 className="confirm"
                                 onClick={handleDelete}
                                 disabled={isDeleting}
                             >
-                                {isDeleting ? "Silinir..." : "Sil"}
+                                {isDeleting
+                                    ? t("adminPanel.doctorTable.modal.deleting")
+                                    : t("adminPanel.doctorTable.modal.delete")}
                             </button>
                         </div>
                     </div>

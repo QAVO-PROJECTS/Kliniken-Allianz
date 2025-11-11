@@ -6,7 +6,9 @@ import rootIcon from "../../../assets/rootIcon.svg";
 import CategoryTableServisNew from "./CategoryServisTable/index.jsx";
 import {useGetCategoryByIdQuery} from "../../../services/userApi.jsx";
 import {useMemo, useState} from "react";
+import {useTranslation} from "react-i18next";
 function AdminCategoryServisNew() {
+    const { t } = useTranslation();
     const {id} = useParams();
     const {data:getCategoryById} = useGetCategoryByIdQuery(id)
     const category = getCategoryById?.data
@@ -27,7 +29,7 @@ function AdminCategoryServisNew() {
             <div className={'admin-category'}>
                 <div className={"root"}>
                     <h2>
-                        <NavLink className="link" to="/admin/category">Kateqoriya</NavLink>
+                        <NavLink className="link" to="/admin/category">{t("adminPanel.categoryService.main")}</NavLink>
                         <img src={rootIcon} alt="" />
                         {localizedCategoryName}
                     </h2>
@@ -35,7 +37,7 @@ function AdminCategoryServisNew() {
                 <div className={'category-head'}>
                     <div className={'category-header'}>
                         <h4>{localizedCategoryName}</h4>
-                        <p>Bu bölmədə kateqoriyanın ümumi məlumatlarını görə və ona yeni xidmətlər əlavə edə bilərsiniz.</p>
+                        <p>{t("adminPanel.categoryService.description")}</p>
                     </div>
                     <div className={'category-buttons'}>
                         <LanguageDiv selected={language} onChange={setLanguage}/>

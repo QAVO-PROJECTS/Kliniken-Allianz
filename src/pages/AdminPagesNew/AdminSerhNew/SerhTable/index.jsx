@@ -10,7 +10,9 @@ import openIcon from '/src/assets/accordionOpen.svg'
 import {useDeleteCustomerViewMutation, useGetAllCustomerViewQuery} from "../../../../services/userApi.jsx";
 import {VIEW_CARD_IMAGES} from "../../../../contants.js";
 import showToast from "../../../../components/ToastMessage.js";
+import {useTranslation} from "react-i18next";
 function SerhTableNew({language}) {
+    const { t } = useTranslation();
     const {data:getAllCustomerView,isLoading,refetch } = useGetAllCustomerViewQuery()
     const views = getAllCustomerView?.data
     const [selectedId, setSelectedId] = useState(null);
@@ -56,26 +58,26 @@ function SerhTableNew({language}) {
 
         try {
             await deleteSerh(selectedId).unwrap();
-            showToast("Şərh uğurla silindi ✅", "success");
+            showToast(t("adminPanel.commentTable.toast.success"), "success");
             closeModal();
             refetch();
         } catch (err) {
             console.error("Delete error:", err);
-            showToast("Şərh silinərkən xəta baş verdi ❌", "error");
+            showToast(t("adminPanel.commentTable.toast.error"), "error");
         }
     };
-    if (isLoading) return <p>Yüklənir...</p>;
+    if (isLoading) return <p>{t("adminPanel.commentTable.table.loading")}</p>;
 
     return (
         <div id={'serh-table'}>
            <div className={'serh-table-wrapper'}>
                <div className="grid-header">
                    <div></div>
-                   <div>Şəkil</div>
-                   <div>Şərh yazan</div>
-                   <div>Yazıldığı ölkə</div>
-                   <div>Təsvir</div>
-                   <div>Fəaliyyətlər</div>
+                   <div>{t("adminPanel.commentTable.table.headers.image")}</div>
+                   <div>{t("adminPanel.commentTable.table.headers.author")}</div>
+                   <div>{t("adminPanel.commentTable.table.headers.country")}</div>
+                   <div>{t("adminPanel.commentTable.table.headers.description")}</div>
+                   <div>{t("adminPanel.commentTable.table.headers.actions")}</div>
                </div>
 
                <div className="grid-body">
@@ -139,7 +141,7 @@ function SerhTableNew({language}) {
                        })
                    ) : (
                        <div className="no-data">
-                           <p>Şərh tapılmadı.</p>
+                           <p>{t("adminPanel.commentTable.table.noData")}</p>
                        </div>
                    )}
                </div>
@@ -154,15 +156,19 @@ function SerhTableNew({language}) {
                 <div className="modal-overlay" onClick={closeModal}>
                     <div className="delete-modal-content" onClick={(e) => e.stopPropagation()}>
                        <img src={deleteImgModal} className={'deleteImg'}/>
-                        <h3>Şərhi silmək istədiyinizə əminsiz?</h3>
+                        <h3>{t("adminPanel.commentTable.table.deleteConfirm")}</h3>
                         <div className="modal-actions">
-                            <button className="cancel" onClick={closeModal}>Ləğv et</button>
+                            <button className="cancel" onClick={closeModal}>
+                                {t("adminPanel.commentTable.modal.cancel")}
+                            </button>
                             <button
                                 className="confirm"
                                 onClick={handleDelete}
                                 disabled={isDeleting}
                             >
-                                {isDeleting ? "Silinir..." : "Sil"}
+                                {isDeleting
+                                    ? t("adminPanel.commentTable.modal.deleting")
+                                    : t("adminPanel.commentTable.modal.confirm")}
                             </button>
                         </div>
                     </div>

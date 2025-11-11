@@ -14,7 +14,9 @@ import {useEffect, useState} from "react";
 import {useGetOtelsByIdQuery, usePutOtelsMutation} from "../../../services/userApi.jsx";
 import showToast from "../../../components/ToastMessage.js";
 import {OTEL_CARD_IMAGES} from "../../../contants.js";
+import {useTranslation} from "react-i18next";
 function OtelEdit() {
+    const { t } = useTranslation();
     const {id} = useParams();
     const navigate = useNavigate();
     const {data:getOtelsById,isLoading,refetch} = useGetOtelsByIdQuery(id)
@@ -73,7 +75,7 @@ function OtelEdit() {
     // 🔹 Edit (PUT) funksiyası
     const handleSubmit = async () => {
         if (!name.trim() || !location.trim()) {
-            showToast("Zəhmət olmasa əsas sahələri doldurun.", 'warning');
+            showToast(t("adminPanel.hotelEdit.toast.warning"), "warning");
             return;
         }
 
@@ -99,11 +101,11 @@ function OtelEdit() {
 
         try {
             await editOtel(formData).unwrap();
-            showToast("Otel uğurla redaktə olundu ✅", 'success');
+            showToast(t("adminPanel.hotelEdit.toast.success"), "success");
             navigate("/admin/otel");
         } catch (err) {
             console.error("Xəta:", err);
-            showToast("Redaktə zamanı xəta baş verdi ❌", 'error');
+            showToast(t("adminPanel.hotelEdit.toast.error"), "error");
         }
     };
 
@@ -113,26 +115,26 @@ function OtelEdit() {
             <div className={'otel-edit'}>
                 <div className={"root"}>
                     <h2>
-                        <NavLink className="link" to="/admin/otel">Otel</NavLink>
+                        <NavLink className="link" to="/admin/otel">   {t("adminPanel.hotelEdit.breadcrumb.root")}</NavLink>
                         <img src={rootIcon} alt="" />
-                        Otelə düzəliş edin
+                        {t("adminPanel.hotelEdit.breadcrumb.current")}
                     </h2>
                 </div>
                 <div className={'otel-edit-head'}>
-                    <h1>Otelə düzəliş edin</h1>
-                    <p>Buradan otelləri idarə edə və düzəliş edə bilərsiz.</p>
+                    <h1>{t("adminPanel.hotelEdit.title")}</h1>
+                    <p>{t("adminPanel.hotelEdit.description")}</p>
                 </div>
                 <div className={'otel-edit-main'}>
                     <div className={'otel-edit-data'}>
                         <div className={"dataDiv inputs"}>
                             <div className={'header'}>
-                                <h3>Otel adı</h3>
-                                <p>Otelin sistemdə görünəcək adını daxil edin.</p>
+                                <h3>{t("adminPanel.hotelEdit.sections.name.title")}</h3>
+                                <p>{t("adminPanel.hotelEdit.sections.name.desc")}</p>
                             </div>
                             <div className={'add-inputs'}>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Otel adı (AZ)" />
+                                        <input value={name} onChange={(e) => setName(e.target.value)} placeholder={t(`adminPanel.hotelEdit.sections.name.placeholders.az`)} />
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={aze} alt="" />
@@ -140,7 +142,7 @@ function OtelEdit() {
                                 </div>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input value={nameRu} onChange={(e) => setNameRu(e.target.value)} placeholder="Otel adı (RU)" />
+                                        <input value={nameRu} onChange={(e) => setNameRu(e.target.value)} placeholder={t(`adminPanel.hotelEdit.sections.name.placeholders.ru`)} />
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={rus} alt="" />
@@ -148,7 +150,7 @@ function OtelEdit() {
                                 </div>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input value={nameEng} onChange={(e) => setNameEng(e.target.value)} placeholder="Otel adı (EN)" />
+                                        <input value={nameEng} onChange={(e) => setNameEng(e.target.value)} placeholder={t(`adminPanel.hotelEdit.sections.name.placeholders.en`)} />
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={usa} alt="" />
@@ -174,8 +176,8 @@ function OtelEdit() {
                         </div>
                         <div className="dataDiv images">
                             <div className="header">
-                                <h3>Otel şəkil</h3>
-                                <p>Otelin sistemdə görünəcək şəklini yükləyin.</p>
+                                <h3>{t("adminPanel.hotelEdit.sections.image.title")}</h3>
+                                <p>{t("adminPanel.hotelEdit.sections.image.desc")}</p>
                             </div>
 
                             <div
@@ -193,9 +195,7 @@ function OtelEdit() {
                                 />
                                 <label htmlFor="fileInput" className="uploadArea">
                                     <img src={uploadIcon} alt="upload" />
-                                    <p>
-                                        Faylı yükləmək üçün bu sahəyə klikləyin <br /> və ya sürükləyin
-                                    </p>
+                                    <p>{t("adminPanel.hotelEdit.sections.image.uploadText")}</p>
                                 </label>
                             </div>
 
@@ -219,13 +219,13 @@ function OtelEdit() {
                         </div>
                         <div className={"dataDiv inputs"}>
                             <div className={'header'}>
-                                <h3>Yerləşdiyi ölkənin adı</h3>
-                                <p>Otelin yerləşdiyi ölkəni dillərə əsasən daxil edin.</p>
+                                <h3>{t("adminPanel.hotelEdit.sections.country.title")}</h3>
+                                <p>{t("adminPanel.hotelEdit.sections.country.desc")}</p>
                             </div>
                             <div className={'add-inputs'}>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input value={location} onChange={(e) => setLocation(e.target.value)} placeholder="Ölkə (AZ)" />
+                                        <input value={location} onChange={(e) => setLocation(e.target.value)} placeholder={t(`adminPanel.hotelEdit.sections.country.placeholders.az`)} />
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={aze} alt="" />
@@ -233,7 +233,7 @@ function OtelEdit() {
                                 </div>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input value={locationRu} onChange={(e) => setLocationRu(e.target.value)} placeholder="Ölkə (RU)" />
+                                        <input value={locationRu} onChange={(e) => setLocationRu(e.target.value)} placeholder={t(`adminPanel.hotelEdit.sections.country.placeholders.ru`)} />
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={rus} alt="" />
@@ -241,7 +241,7 @@ function OtelEdit() {
                                 </div>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input value={locationEng} onChange={(e) => setLocationEng(e.target.value)} placeholder="Ölkə (EN)" />
+                                        <input value={locationEng} onChange={(e) => setLocationEng(e.target.value)} placeholder={t(`adminPanel.hotelEdit.sections.country.placeholders.en`)} />
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={usa} alt="" />
@@ -269,8 +269,8 @@ function OtelEdit() {
                             {/* 🔹 Reytinq bölməsi */}
                             <div className="reyting">
                                 <div className="header">
-                                    <h3>Reytinqi</h3>
-                                    <p>Otel üçün reytinq dəyəri təyin edin.</p>
+                                    <h3>{t("adminPanel.hotelEdit.sections.rating.title")}</h3>
+                                    <p>{t("adminPanel.hotelEdit.sections.rating.desc")}</p>
                                 </div>
 
                                 <div className="stars">
@@ -300,14 +300,14 @@ function OtelEdit() {
                             {/* 🔹 Otel link bölməsi */}
                             <div className="linkDiv">
                                 <div className="header">
-                                    <h3>Otel link</h3>
-                                    <p>Otelə keçid etmək üçün otel linkini daxil edin.</p>
+                                    <h3>{t("adminPanel.hotelEdit.sections.link.title")}</h3>
+                                    <p>{t("adminPanel.hotelEdit.sections.link.desc")}</p>
                                 </div>
                                 <div className="linkInputWrapper">
                                     <img src={linkIcon} alt="link" className="linkIcon" />
                                     <input
                                         type="text"
-                                        placeholder="https://www.fairmonthotels.com/baku/"
+                                        placeholder={t("adminPanel.hotelEdit.sections.link.placeholder")}
                                         value={hotelLink}
                                         onChange={(e) => setHotelLink(e.target.value)}
                                     />
@@ -329,7 +329,9 @@ function OtelEdit() {
                         onClick={handleSubmit}
                         disabled={isUpdating}
                     >
-                        {isUpdating ? "Yenilənir..." : "Yadda saxla"}
+                        {isUpdating
+                            ? t("adminPanel.hotelEdit.buttons.saving")
+                            : t("adminPanel.hotelEdit.buttons.save")}
                     </button>
                 </div>
             </div>

@@ -13,7 +13,9 @@ import openIcon from '/src/assets/accordionOpen.svg'
 import closeIcon from '/src/assets/accordionClose.svg'
 import {usePostToursMutation} from "../../../services/userApi.jsx";
 import showToast from "../../../components/ToastMessage.js";
+import {useTranslation} from "react-i18next";
 function ToursAdd() {
+    const { t } = useTranslation();
     const [postTour,{isLoading}] = usePostToursMutation()
     const [selectedFile, setSelectedFile] = useState(null);
     const [isDragging, setIsDragging] = useState(false);
@@ -135,7 +137,7 @@ const navigate = useNavigate();
 
         try {
             await postTour(formData).unwrap();
-            showToast("✅ Xidmət paketi uğurla əlavə olundu!", "success");
+            showToast(t("adminPanel.toursAdd.toast.success"), "success");
 
             setNameAz(""); setNameEn(""); setNameRu("");
             setDescAz(""); setDescEn(""); setDescRu("");
@@ -154,26 +156,26 @@ const navigate = useNavigate();
             <div className={'tours-add'}>
                 <div className={"root"}>
                     <h2>
-                        <NavLink className="link" to="/admin/tours">Xidmət paketi</NavLink>
+                        <NavLink className="link" to="/admin/tours">{t("adminPanel.toursAdd.breadcrumb.root")}</NavLink>
                         <img src={rootIcon} alt="" />
-                        Yeni xidmət paketi yarat
+                        {t("adminPanel.toursAdd.breadcrumb.current")}
                     </h2>
                 </div>
                 <div className={'tours-add-head'}>
-                    <h1>Yeni xidmət paketi yarat</h1>
-                    <p>Buradan xidmət paketlərini idarə edə və yenilərini yarada bilərsiniz.</p>
+                    <h1>{t("adminPanel.toursAdd.title")}</h1>
+                    <p>{t("adminPanel.toursAdd.description")}</p>
                 </div>
                 <div className={'tours-add-main'}>
                     <div className={'tours-add-data'}>
                         <div className={"dataDiv inputs"}>
                             <div className={'header'}>
-                                <h3>Xidmət paket adı</h3>
-                                <p>Xidmətin sistemdə görünəcək adını daxil edin.</p>
+                                <h3>{t("adminPanel.toursAdd.sections.name.title")}</h3>
+                                <p>{t("adminPanel.toursAdd.sections.name.desc")}</p>
                             </div>
                             <div className={'add-inputs'}>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input value={nameAz} onChange={(e)=>setNameAz(e.target.value)} placeholder="Ad (AZ)" />
+                                        <input value={nameAz} onChange={(e)=>setNameAz(e.target.value)} placeholder={t(`adminPanel.toursAdd.sections.name.placeholders.az`)} />
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={aze} alt="" />
@@ -181,7 +183,7 @@ const navigate = useNavigate();
                                 </div>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input value={nameRu} onChange={(e)=>setNameRu(e.target.value)} placeholder="Ad (RU)" />
+                                        <input value={nameRu} onChange={(e)=>setNameRu(e.target.value)} placeholder={t(`adminPanel.toursAdd.sections.name.placeholders.ru`)} />
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={rus} alt="" />
@@ -189,7 +191,7 @@ const navigate = useNavigate();
                                 </div>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input value={nameEn} onChange={(e)=>setNameEn(e.target.value)} placeholder="Ad (EN)" />
+                                        <input value={nameEn} onChange={(e)=>setNameEn(e.target.value)} placeholder={t(`adminPanel.toursAdd.sections.name.placeholders.en`)} />
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={usa} alt="" />
@@ -215,8 +217,8 @@ const navigate = useNavigate();
                         </div>
                         <div className="dataDiv images">
                             <div className="header">
-                                <h3>Xidmət şəkil</h3>
-                                <p>Paketin sistemdə görünəcək şəklini yükləyin.</p>
+                                <h3>{t("adminPanel.toursAdd.sections.image.title")}</h3>
+                                <p>{t("adminPanel.toursAdd.sections.image.desc")}</p>
                             </div>
 
                             <div
@@ -234,9 +236,7 @@ const navigate = useNavigate();
                                 />
                                 <label htmlFor="fileInput" className="uploadArea">
                                     <img src={uploadIcon} alt="upload" />
-                                    <p>
-                                        Faylı yükləmək üçün bu sahəyə klikləyin <br /> və ya sürükləyin
-                                    </p>
+                                    <p>{t("adminPanel.toursAdd.sections.image.uploadText")}</p>
                                 </label>
                             </div>
 
@@ -259,24 +259,24 @@ const navigate = useNavigate();
                     </div>
                     <div className={'tours-desc'}>
                         <div className={'header'}>
-                            <h3>Təsvir</h3>
-                            <p>Paketin qısa təsvirini yazın.</p>
+                            <h3>{t("adminPanel.toursAdd.sections.description.title")}</h3>
+                            <p>{t("adminPanel.toursAdd.sections.description.desc")}</p>
                         </div>
                         <div className={'tours-desc-data'}>
                             <div className={'tours-desc-texts'}>
-                                <textarea value={descAz} onChange={(e)=>setDescAz(e.target.value)} placeholder="Təsvir (AZ)" />
+                                <textarea value={descAz} onChange={(e)=>setDescAz(e.target.value)} placeholder={t(`adminPanel.toursAdd.sections.description.placeholders.az`)} />
                                 <div className={'langCountry'}>
                                     <img src={aze} alt=""/>
                                 </div>
                             </div>
                             <div className={'tours-desc-texts'}>
-                                <textarea value={descRu} onChange={(e)=>setDescRu(e.target.value)} placeholder="Təsvir (RU)" />
+                                <textarea value={descRu} onChange={(e)=>setDescRu(e.target.value)} placeholder={t(`adminPanel.toursAdd.sections.description.placeholders.ru`)} />
                                 <div className={'langCountry'}>
                                     <img src={rus} alt=""/>
                                 </div>
                             </div>
                             <div className={'tours-desc-texts'}>
-                                <textarea value={descEn} onChange={(e)=>setDescEn(e.target.value)} placeholder="Təsvir (EN)" />
+                                <textarea value={descEn} onChange={(e)=>setDescEn(e.target.value)} placeholder={t(`adminPanel.toursAdd.sections.description.placeholders.en`)} />
 
                                 <div className={'langCountry'}>
                                     <img src={usa} alt=""/>
@@ -298,15 +298,15 @@ const navigate = useNavigate();
                     </div>
                     <div className="dataDiv3 inputs">
                         <div className="header">
-                            <h3>Təklif</h3>
-                            <p>Paketə daxil olan təklifləri daxil edin.</p>
+                            <h3>{t("adminPanel.toursAdd.sections.offers.title")}</h3>
+                            <p>{t("adminPanel.toursAdd.sections.offers.desc")}</p>
                         </div>
 
                         <div className={'offer-scroll'}>
                             {sections.map((section) => (
                                 <div key={section.id} className="offer-section">
                                     <div className="offer-header" onClick={() => toggleSection(section.id)}>
-                                        <span>Təklif #{section.id}</span>
+                                        <span>{`${t("adminPanel.toursAdd.sections.offers.sectionTitle")}${section.id}`}</span>
                                         <div className="header-actions">
                                             {sections.length > 1 && (
                                                 <button
@@ -356,7 +356,7 @@ const navigate = useNavigate();
                             onClick={handleAddSection}
                             disabled={!allInputsFilled}
                         >
-                            <img src={plusIcon} alt="plus" /> Əlavə et
+                            <img src={plusIcon} alt="plus" /> {t("adminPanel.toursAdd.sections.offers.addBtn")}
                         </button>
                     </div>
                     <button
@@ -364,7 +364,9 @@ const navigate = useNavigate();
                         onClick={handleSubmit}
                         disabled={isLoading}
                     >
-                        {isLoading ? "Yüklənir..." : "Yadda saxla"}
+                        {isLoading
+                            ? t("adminPanel.toursAdd.buttons.saving")
+                            : t("adminPanel.toursAdd.buttons.save")}
                     </button>
 
                 </div>

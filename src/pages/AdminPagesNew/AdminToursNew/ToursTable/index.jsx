@@ -10,7 +10,9 @@ import openIcon from '/src/assets/accordionOpen.svg'
 import {useDeleteToursMutation, useGetAllToursQuery} from "../../../../services/userApi.jsx";
 import {TOUR_CARD_IMG} from "../../../../contants.js";
 import showToast from "../../../../components/ToastMessage.js";
+import {useTranslation} from "react-i18next";
 function ToursTableNew({language}) {
+    const { t } = useTranslation();
     const {data:getAllTours,refetch} = useGetAllToursQuery();
     const tours = getAllTours?.data
     const [deleteTour, { isLoading: isDeleting }] = useDeleteToursMutation();
@@ -60,13 +62,13 @@ function ToursTableNew({language}) {
         if (!selectedItem) return;
         try {
             await deleteTour(selectedItem.id).unwrap();
-            showToast("Tur uğurla silindi ✅", "success");
+            showToast(t("adminPanel.toursTable.toast.deleteSuccess"), "success");
             setShowDeleteModal(false);
             setSelectedItem(null);
             refetch();
         } catch (error) {
             console.error("Silinmə zamanı xəta:", error);
-            showToast("Xəta baş verdi. Zəhmət olmasa yenidən cəhd edin ❌", "error");
+            showToast(t("adminPanel.toursTable.toast.deleteError"), "error");
         }
     };
 
@@ -75,11 +77,11 @@ function ToursTableNew({language}) {
            <div className={'tours-table-wrapper'}>
                <div className="grid-header">
                    <div></div>
-                   <div>Şəkil</div>
-                   <div>Adı</div>
-                   <div>Təklif</div>
-                   <div>Təsvir</div>
-                   <div>Fəaliyyətlər</div>
+                   <div>{t("adminPanel.toursTable.headers.image")}</div>
+                   <div>{t("adminPanel.toursTable.headers.name")}</div>
+                   <div>{t("adminPanel.toursTable.headers.offer")}</div>
+                   <div>{t("adminPanel.toursTable.headers.description")}</div>
+                   <div>{t("adminPanel.toursTable.headers.actions")}</div>
                </div>
 
                <div className="grid-body">
@@ -149,15 +151,17 @@ function ToursTableNew({language}) {
                 <div className="modal-overlay" onClick={closeModal}>
                     <div className="delete-modal-content" onClick={(e) => e.stopPropagation()}>
                        <img src={deleteImgModal} className={'deleteImg'}/>
-                        <h3>Xidmət paketini silmək istədiyinizə əminsiz?</h3>
+                        <h3>{t("adminPanel.toursTable.modal.title")}</h3>
                         <div className="modal-actions">
-                            <button className="cancel" onClick={closeModal}>Ləğv et</button>
+                            <button className="cancel" onClick={closeModal}>{t("adminPanel.toursTable.modal.cancel")}</button>
                             <button
                                 className="confirm"
                                 onClick={handleDelete}
                                 disabled={isDeleting}
                             >
-                                {isDeleting ? "Silinir..." : "Sil"}
+                                {isDeleting
+                                    ? t("adminPanel.toursTable.modal.deleting")
+                                    : t("adminPanel.toursTable.modal.confirm")}
                             </button>
 
                         </div>

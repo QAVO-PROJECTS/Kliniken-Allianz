@@ -10,7 +10,9 @@ import cat1 from "../../../assets/Servis/cat1.svg";
 import {useState} from "react";
 import {usePostCategoryMutation} from "../../../services/userApi.jsx";
 import showToast from "../../../components/ToastMessage.js";
+import {useTranslation} from "react-i18next";
 function CategoryAdd() {
+    const { t } = useTranslation();
     const [activeIcon, setActiveIcon] = useState(null);
     const [postCategory, { isLoading }] = usePostCategoryMutation()
     const navigate = useNavigate();
@@ -36,11 +38,11 @@ function CategoryAdd() {
     // 🔹 POST sorğusu
     const handleSubmit = async () => {
         if (!inputs.az.trim()) {
-            showToast("Azərbaycan dilində kateqoriya adı boş ola bilməz!",'warning');
+            showToast(t("adminPanel.categoryAdd.toast.emptyName"), "warning");
             return;
         }
         if (activeIcon === null) {
-            showToast("Zəhmət olmasa ikon seçin!",'warning');
+            showToast(t("adminPanel.categoryAdd.toast.noIcon"), "warning");
             return;
         }
 
@@ -53,48 +55,35 @@ function CategoryAdd() {
             const iconBlob = await getImageBlob(icons[activeIcon]);
             formData.append("categoryImage", iconBlob, `icon_${activeIcon}.svg`);
             await postCategory(formData).unwrap();
-            showToast("Kateqoriya uğurla əlavə olundu ✅",'success');
+            showToast(t("adminPanel.categoryAdd.toast.success"), "success");
             setInputs({ az: "", ru: "", en: "" });
             setActiveIcon(null);
             navigate('/admin/category');
         } catch (err) {
             console.error("Xəta:", err);
-            showToast("Xəta baş verdi ❌",'error');
+            showToast(t("adminPanel.categoryAdd.toast.error"), "error");
         }
     };
-    const arr = [
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-
-    ]
     return (
         <div id={'category-add'}>
             <div className={'category-add'}>
                 <div className={"root"}>
                     <h2>
-                        <NavLink className="link" to="/admin/category">Kateqoriya</NavLink>
+                        <NavLink className="link" to="/admin/category">{t("adminPanel.categoryAdd.breadcrumb.main")}</NavLink>
                         <img src={rootIcon} alt="" />
-                        Yeni kateqoriya yarat
+                        {t("adminPanel.categoryAdd.breadcrumb.sub")}
                     </h2>
                 </div>
                 <div className={'category-add-head'}>
-                    <h1>Yeni kateqoriya yarat</h1>
-                    <p>Buradan kateqoriyaları idarə edə və yenilərini yarada bilərsiniz.</p>
+                    <h1>{t("adminPanel.categoryAdd.title")}</h1>
+                    <p>{t("adminPanel.categoryAdd.description")}</p>
                 </div>
                 <div className={'category-add-main'}>
                     <div className={'category-add-data'}>
                         <div className={"dataDiv inputs"}>
                             <div className={'header'}>
-                                <h3>Kateqoriya adı</h3>
-                                <p>Kateqoriyanın sistemdə görünəcək adını daxil edin.</p>
+                                <h3>{t("adminPanel.categoryAdd.nameTitle")}</h3>
+                                <p>{t("adminPanel.categoryAdd.nameDescription")}</p>
                             </div>
                             <div className={'add-inputs'}>
                                 <div className={'add-data'}>
@@ -102,7 +91,7 @@ function CategoryAdd() {
                                         <input
                                             value={inputs.az}
                                             onChange={e => handleInputChange("az", e.target.value)}
-                                            placeholder={'Travmatologiya'}
+                                            placeholder={t("adminPanel.categoryAdd.placeholders.az")}
                                         />
                                     </div>
                                     <div className={'langCountry'}>
@@ -114,7 +103,7 @@ function CategoryAdd() {
                                         <input
                                             value={inputs.ru}
                                             onChange={e => handleInputChange("ru", e.target.value)}
-                                            placeholder={'Травматология'}
+                                            placeholder={t("adminPanel.categoryAdd.placeholders.ru")}
                                         />
                                     </div>
                                     <div className={'langCountry'}>
@@ -126,7 +115,7 @@ function CategoryAdd() {
                                         <input
                                             value={inputs.en}
                                             onChange={e => handleInputChange("en", e.target.value)}
-                                            placeholder={'Traumatology'}
+                                            placeholder={t("adminPanel.categoryAdd.placeholders.en")}
                                         />
                                     </div>
                                     <div className={'langCountry'}>
@@ -153,8 +142,8 @@ function CategoryAdd() {
                         </div>
                         <div className={"dataDiv images"}>
                             <div className={'header'}>
-                                <h3>Kateqoriyanızı fərqləndirin</h3>
-                                <p>Bu ikon kateqoriyanızın görünüşünü müəyyən edəcək. Sadəcə birini seçin.</p>
+                                <h3>{t("adminPanel.categoryAdd.iconTitle")}</h3>
+                                <p>{t("adminPanel.categoryAdd.iconDescription")}</p>
                             </div>
                             <div className={'addCategory'}>
                                 {icons.map((icon, index) => (
@@ -170,7 +159,9 @@ function CategoryAdd() {
                         </div>
                     </div>
                     <button onClick={handleSubmit} disabled={isLoading}>
-                        {isLoading ? "Yüklənir..." : "Yadda saxla"}
+                        {isLoading
+                            ? t("adminPanel.categoryAdd.buttons.loading")
+                            : t("adminPanel.categoryAdd.buttons.save")}
                     </button>
                 </div>
             </div>

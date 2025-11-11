@@ -10,7 +10,9 @@ import starBos from '/src/assets/bosUlduz.svg'
 import {useDeleteOtelsMutation, useGetAllOtelsQuery} from "../../../../services/userApi.jsx";
 import {OTEL_CARD_IMAGES} from "../../../../contants.js";
 import showToast from "../../../../components/ToastMessage.js";
+import {useTranslation} from "react-i18next";
 function OtelTableNew({language}) {
+    const { t } = useTranslation();
     const {data:getAllOtels,refetch} = useGetAllOtelsQuery()
     const otels = getAllOtels?.data
 
@@ -38,12 +40,12 @@ function OtelTableNew({language}) {
     const handleDelete = async () => {
         try {
             await deleteOtel(selectedItem.id).unwrap();
-            showToast("Otel uğurla silindi ✅", "success");
+            showToast(t("adminPanel.hotelTable.toast.deleteSuccess"), "success");
             closeModal();
             refetch();
         } catch (err) {
             console.error("Silinmə xətası:", err);
-            showToast("Oteli silmək mümkün olmadı ❌", "error");
+            showToast(t("adminPanel.hotelTable.toast.deleteError"), "error");
         }
     };
     // 🔹 Ad (otel adı)
@@ -96,11 +98,11 @@ function OtelTableNew({language}) {
            <div className={'otel-table-wrapper'}>
                <div className="grid-header">
                    <div></div>
-                   <div>Şəkil</div>
-                   <div>Adı</div>
-                   <div>Yerləşdiyi ölkə</div>
-                   <div>Reytinq</div>
-                   <div>Fəaliyyətlər</div>
+                   <div>{t("adminPanel.hotelTable.headers.image")}</div>
+                   <div>{t("adminPanel.hotelTable.headers.name")}</div>
+                   <div>{t("adminPanel.hotelTable.headers.location")}</div>
+                   <div>{t("adminPanel.hotelTable.headers.rating")}</div>
+                   <div>{t("adminPanel.hotelTable.headers.actions")}</div>
                </div>
 
                <div className="grid-body">
@@ -146,11 +148,11 @@ function OtelTableNew({language}) {
                 <div className="modal-overlay" onClick={closeModal}>
                     <div className="delete-modal-content" onClick={(e) => e.stopPropagation()}>
                        <img src={deleteImgModal} className={'deleteImg'}/>
-                        <h3>Oteli silmək istədiyinizə əminsiz?</h3>
+                        <h3>{t("adminPanel.hotelTable.modal.confirmDelete")}</h3>
                         <div className="modal-actions">
-                            <button className="cancel" onClick={closeModal}>Ləğv et</button>
+                            <button className="cancel" onClick={closeModal}>{t("adminPanel.hotelTable.modal.cancel")}</button>
                             <button className="confirm" onClick={handleDelete} disabled={isDeleting}>
-                                {isDeleting ? "Silinir..." : "Sil"}
+                                {isDeleting ? t("adminPanel.hotelTable.modal.deleting") : t("adminPanel.hotelTable.modal.delete")}
                             </button>
                         </div>
                     </div>

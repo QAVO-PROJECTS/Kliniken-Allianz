@@ -13,7 +13,9 @@ import starFilled from "/src/assets/bosUlduz.svg";
 import {useState} from "react";
 import {usePostOtelsMutation} from "../../../services/userApi.jsx";
 import showToast from "../../../components/ToastMessage.js";
+import {useTranslation} from "react-i18next";
 function OtelAdd() {
+    const { t } = useTranslation();
     const [postOtel, { isLoading }] = usePostOtelsMutation();
     const [selectedFile, setSelectedFile] = useState(null);
     const [isDragging, setIsDragging] = useState(false);
@@ -63,7 +65,7 @@ const navigate = useNavigate();
 
         // 🔹 Boş sahə yoxlaması
         if (!selectedFile || selectedStars === 0 || !hotelNames.az.trim()) {
-            showToast("Zəhmət olmasa bütün sahələri doldurun.", 'warning');
+            showToast(t("adminPanel.hotelAdd.toast.warning"), "warning");
             return;
         }
 
@@ -81,7 +83,7 @@ const navigate = useNavigate();
         try {
             const response = await postOtel(formData).unwrap();
             console.log("Otel əlavə olundu:", response);
-            showToast("Otel uğurla əlavə olundu!", 'success');
+            showToast(t("adminPanel.hotelAdd.toast.success"), "success");
             // 🔹 Form reset
             setHotelNames({ az: "", ru: "", en: "" });
             setCountryNames({ az: "", ru: "", en: "" });
@@ -91,7 +93,7 @@ const navigate = useNavigate();
             navigate('/admin/otel')
         } catch (err) {
             console.error("Xəta:", err);
-            showToast("Otel əlavə olunarkən xəta baş verdi!", 'error');
+            showToast(t("adminPanel.hotelAdd.toast.error"), "error");
         }
     };
 
@@ -100,27 +102,27 @@ const navigate = useNavigate();
             <div className={'otel-add'}>
                 <div className={"root"}>
                     <h2>
-                        <NavLink className="link" to="/admin/otel">Otel</NavLink>
+                        <NavLink className="link" to="/admin/otel">{t("adminPanel.hotelAdd.breadcrumb.root")}</NavLink>
                         <img src={rootIcon} alt="" />
-                        Yeni otel yarat
+                        {t("adminPanel.hotelAdd.breadcrumb.current")}
                     </h2>
                 </div>
                 <div className={'otel-add-head'}>
-                    <h1>Yeni otel yarat</h1>
-                    <p>Buradan otelləri idarə edə və yenilərini yarada bilərsiniz.</p>
+                    <h1>{t("adminPanel.hotelAdd.title")}</h1>
+                    <p>{t("adminPanel.hotelAdd.description")}</p>
                 </div>
                 <div className={'otel-add-main'}>
                     <div className={'otel-add-data'}>
                         <div className={"dataDiv inputs"}>
                             <div className={'header'}>
-                                <h3>Otel adı</h3>
-                                <p>Otelin sistemdə görünəcək adını daxil edin.</p>
+                                <h3>{t("adminPanel.hotelAdd.sections.name.title")}</h3>
+                                <p>{t("adminPanel.hotelAdd.sections.name.desc")}</p>
                             </div>
                             <div className={'add-inputs'}>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
                                         <input
-                                            placeholder="Otel adı (AZ)"
+                                            placeholder={t(`adminPanel.hotelAdd.sections.name.placeholders.az`)}
                                             value={hotelNames.az}
                                             onChange={(e) =>
                                                 setHotelNames((prev) => ({ ...prev, az: e.target.value }))
@@ -135,7 +137,7 @@ const navigate = useNavigate();
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
                                         <input
-                                            placeholder="Otel adı (RU)"
+                                            placeholder={t(`adminPanel.hotelAdd.sections.name.placeholders.ru`)}
                                             value={hotelNames.ru}
                                             onChange={(e) =>
                                                 setHotelNames((prev) => ({ ...prev, ru: e.target.value }))
@@ -150,7 +152,7 @@ const navigate = useNavigate();
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
                                         <input
-                                            placeholder="Otel adı (EN)"
+                                            placeholder={t(`adminPanel.hotelAdd.sections.name.placeholders.en`)}
                                             value={hotelNames.en}
                                             onChange={(e) =>
                                                 setHotelNames((prev) => ({ ...prev, en: e.target.value }))
@@ -181,8 +183,8 @@ const navigate = useNavigate();
                         </div>
                         <div className="dataDiv images">
                             <div className="header">
-                                <h3>Otel şəkil</h3>
-                                <p>Otelin sistemdə görünəcək şəklini yükləyin.</p>
+                                <h3>{t("adminPanel.hotelAdd.sections.image.title")}</h3>
+                                <p>{t("adminPanel.hotelAdd.sections.image.desc")}</p>
                             </div>
 
                             <div
@@ -200,9 +202,7 @@ const navigate = useNavigate();
                                 />
                                 <label htmlFor="fileInput" className="uploadArea">
                                     <img src={uploadIcon} alt="upload" />
-                                    <p>
-                                        Faylı yükləmək üçün bu sahəyə klikləyin <br /> və ya sürükləyin
-                                    </p>
+                                    <p>{t("adminPanel.hotelAdd.sections.image.uploadText")}</p>
                                 </label>
                             </div>
 
@@ -222,14 +222,14 @@ const navigate = useNavigate();
                         </div>
                         <div className={"dataDiv inputs"}>
                             <div className={'header'}>
-                                <h3>Yerləşdiyi ölkənin adı</h3>
-                                <p>Otelin yerləşdiyi ölkəni dillərə əsasən daxil edin.</p>
+                                <h3>{t("adminPanel.hotelAdd.sections.country.title")}</h3>
+                                <p>{t("adminPanel.hotelAdd.sections.country.desc")}</p>
                             </div>
                             <div className={'add-inputs'}>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
                                         <input
-                                            placeholder="Ölkə (AZ)"
+                                            placeholder={t(`adminPanel.hotelAdd.sections.country.placeholders.az`)}
                                             value={countryNames.az}
                                             onChange={(e) =>
                                                 setCountryNames((prev) => ({ ...prev, az: e.target.value }))
@@ -244,7 +244,7 @@ const navigate = useNavigate();
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
                                         <input
-                                            placeholder="Ölkə (RU)"
+                                            placeholder={t(`adminPanel.hotelAdd.sections.country.placeholders.ru`)}
                                             value={countryNames.ru}
                                             onChange={(e) =>
                                                 setCountryNames((prev) => ({ ...prev, ru: e.target.value }))
@@ -259,7 +259,7 @@ const navigate = useNavigate();
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
                                         <input
-                                            placeholder="Ölkə (EN)"
+                                            placeholder={t(`adminPanel.hotelAdd.sections.country.placeholders.en`)}
                                             value={countryNames.en}
                                             onChange={(e) =>
                                                 setCountryNames((prev) => ({ ...prev, en: e.target.value }))
@@ -292,8 +292,8 @@ const navigate = useNavigate();
                             {/* 🔹 Reytinq bölməsi */}
                             <div className="reyting">
                                 <div className="header">
-                                    <h3>Reytinqi</h3>
-                                    <p>Otel üçün reytinq dəyəri təyin edin.</p>
+                                    <h3>{t("adminPanel.hotelAdd.sections.rating.title")}</h3>
+                                    <p>{t("adminPanel.hotelAdd.sections.rating.desc")}</p>
                                 </div>
 
                                 <div className="stars">
@@ -322,8 +322,8 @@ const navigate = useNavigate();
                             {/* 🔹 Otel link bölməsi */}
                             <div className="linkDiv">
                                 <div className="header">
-                                    <h3>Otel link</h3>
-                                    <p>Otelə keçid etmək üçün otel linkini daxil edin.</p>
+                                    <h3>{t("adminPanel.hotelAdd.sections.link.title")}</h3>
+                                    <p>{t("adminPanel.hotelAdd.sections.link.desc")}</p>
                                 </div>
                                 <div className="linkInputWrapper">
                                     <img src={linkIcon} alt="link" className="linkIcon" />
@@ -351,7 +351,9 @@ const navigate = useNavigate();
                         onClick={handleSubmit}
                         disabled={isLoading}
                     >
-                        {isLoading ? "Yüklənir..." : "Yadda saxla"}
+                        {isLoading
+                            ? t("adminPanel.hotelAdd.buttons.saving")
+                            : t("adminPanel.hotelAdd.buttons.save")}
                     </button>
                 </div>
             </div>

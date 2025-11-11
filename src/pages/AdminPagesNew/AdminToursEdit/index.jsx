@@ -14,7 +14,9 @@ import closeIcon from '/src/assets/accordionClose.svg'
 import {useGetToursByIdQuery, usePutToursMutation} from "../../../services/userApi.jsx";
 import showToast from "../../../components/ToastMessage.js";
 import {TOUR_CARD_IMG} from "/src/contants.js";
+import {useTranslation} from "react-i18next";
 function ToursEdit() {
+    const { t } = useTranslation();
     const { id } = useParams();
     const navigate = useNavigate();
 
@@ -191,12 +193,12 @@ function ToursEdit() {
 
         try {
             await editTour(formData).unwrap();
-            showToast("✅ Xidmət paketi uğurla yeniləndi!", "success");
+            showToast(t("adminPanel.toursEdit.toast.success"), "success");
             navigate("/admin/tours");
             refetch();
         } catch (err) {
             console.error("❌ Xəta:", err);
-            showToast("Xidmət paketi yenilənərkən xəta baş verdi!", "error");
+            showToast(t("adminPanel.toursEdit.toast.error"), "error");
         }
     };
     return (
@@ -204,26 +206,26 @@ function ToursEdit() {
             <div className={'tours-edit'}>
                 <div className={"root"}>
                     <h2>
-                        <NavLink className="link" to="/admin/tours">Xidmət paketi</NavLink>
+                        <NavLink className="link" to="/admin/tours">  {t("adminPanel.toursEdit.breadcrumb.root")}</NavLink>
                         <img src={rootIcon} alt="" />
-                        Xidmət paketinə düzəliş edin
+                        {t("adminPanel.toursEdit.breadcrumb.current")}
                     </h2>
                 </div>
                 <div className={'tours-edit-head'}>
-                    <h1>Xidmət paketinə düzəliş edin</h1>
-                    <p>Buradan xidmət paketlərini idarə edə və düzəliş edə bilərsiniz.</p>
+                    <h1>{t("adminPanel.toursEdit.title")}</h1>
+                    <p>{t("adminPanel.toursEdit.description")}</p>
                 </div>
                 <div className={'tours-edit-main'}>
                     <div className={'tours-edit-data'}>
                         <div className={"dataDiv inputs"}>
                             <div className={'header'}>
-                                <h3>Xidmət paket adı</h3>
-                                <p>Xidmətin sistemdə görünəcək adını daxil edin.</p>
+                                <h3>{t("adminPanel.toursEdit.sections.name.title")}</h3>
+                                <p>{t("adminPanel.toursEdit.sections.name.desc")}</p>
                             </div>
                             <div className={'add-inputs'}>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input value={nameAz} onChange={(e) => setNameAz(e.target.value)} placeholder="Ad (AZ)" />
+                                        <input value={nameAz} onChange={(e) => setNameAz(e.target.value)} placeholder={t(`adminPanel.toursEdit.sections.name.placeholders.az`)} />
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={aze} alt="" />
@@ -231,7 +233,7 @@ function ToursEdit() {
                                 </div>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input value={nameRu} onChange={(e) => setNameRu(e.target.value)} placeholder="Ad (RU)" />
+                                        <input value={nameRu} onChange={(e) => setNameRu(e.target.value)} placeholder={t(`adminPanel.toursEdit.sections.name.placeholders.ru`)} />
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={rus} alt="" />
@@ -239,7 +241,7 @@ function ToursEdit() {
                                 </div>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input value={nameEn} onChange={(e) => setNameEn(e.target.value)} placeholder="Ad (EN)" />
+                                        <input value={nameEn} onChange={(e) => setNameEn(e.target.value)} placeholder={t(`adminPanel.toursEdit.sections.name.placeholders.en`)} />
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={usa} alt="" />
@@ -265,8 +267,8 @@ function ToursEdit() {
                         </div>
                         <div className="dataDiv images">
                             <div className="header">
-                                <h3>Xidmət şəkil</h3>
-                                <p>Paketin sistemdə görünəcək şəklini yükləyin.</p>
+                                <h3>{t("adminPanel.toursEdit.sections.image.title")}</h3>
+                                <p>{t("adminPanel.toursEdit.sections.image.desc")}</p>
                             </div>
 
                             <div
@@ -284,9 +286,7 @@ function ToursEdit() {
                                 />
                                 <label htmlFor="fileInput" className="uploadArea">
                                     <img src={uploadIcon} alt="upload" />
-                                    <p>
-                                        Faylı yükləmək üçün bu sahəyə klikləyin <br /> və ya sürükləyin
-                                    </p>
+                                    <p>{t("adminPanel.toursEdit.sections.image.uploadText")}</p>
                                 </label>
                             </div>
 
@@ -295,7 +295,7 @@ function ToursEdit() {
                                 <div className="uploadedFile">
                                     <div className="fileInfo">
                                         <img src={oldImage} alt="old" className="previewImg" />
-                                        <span>Mövcud şəkil</span>
+                                        <span>{t("adminPanel.toursEdit.sections.image.oldImage")}</span>
                                     </div>
                                 </div>
                             )}
@@ -317,24 +317,24 @@ function ToursEdit() {
                     </div>
                     <div className={'tours-desc'}>
                         <div className={'header'}>
-                            <h3>Təsvir</h3>
-                            <p>Paketin qısa təsvirini yazın.</p>
+                            <h3>{t("adminPanel.toursEdit.sections.description.title")}</h3>
+                            <p>{t("adminPanel.toursEdit.sections.description.desc")}</p>
                         </div>
                         <div className={'tours-desc-data'}>
                             <div className={'tours-desc-texts'}>
-                                <textarea value={descAz} onChange={(e) => setDescAz(e.target.value)} placeholder="Təsvir (AZ)" />
+                                <textarea value={descAz} onChange={(e) => setDescAz(e.target.value)}  placeholder={t(`adminPanel.toursEdit.sections.description.placeholders.az`)} />
                                 <div className={'langCountry'}>
                                     <img src={aze} alt="" />
                                 </div>
                             </div>
                             <div className={'tours-desc-texts'}>
-                                <textarea value={descRu} onChange={(e) => setDescRu(e.target.value)} placeholder="Təsvir (RU)" />
+                                <textarea value={descRu} onChange={(e) => setDescRu(e.target.value)}  placeholder={t(`adminPanel.toursEdit.sections.description.placeholders.ru`)} />
                                 <div className={'langCountry'}>
                                     <img src={rus} alt="" />
                                 </div>
                             </div>
                             <div className={'tours-desc-texts'}>
-                                <textarea value={descEn} onChange={(e) => setDescEn(e.target.value)} placeholder="Təsvir (EN)" />
+                                <textarea value={descEn} onChange={(e) => setDescEn(e.target.value)}  placeholder={t(`adminPanel.toursEdit.sections.description.placeholders.en`)} />
                                 <div className={'langCountry'}>
                                     <img src={usa} alt="" />
                                 </div>
@@ -355,15 +355,15 @@ function ToursEdit() {
                     </div>
                     <div className="dataDiv3 inputs">
                         <div className="header">
-                            <h3>Təklif</h3>
-                            <p>Paketə daxil olan təklifləri daxil edin.</p>
+                            <h3>{t("adminPanel.toursEdit.sections.offers.title")}</h3>
+                            <p>{t("adminPanel.toursEdit.sections.offers.desc")}</p>
                         </div>
 
                         <div className={'offer-scroll'}>
                             {sections.map((section) => (
                                 <div key={section.id} className="offer-section">
                                     <div className="offer-header" onClick={() => toggleSection(section.id)}>
-                                        <span>Təklif #{section.id}</span>
+                                        <span>{`${t("adminPanel.toursEdit.sections.offers.sectionTitle")}${section.id}`}</span>
                                         <div className="header-actions">
                                             {sections.length > 1 && (
                                                 <button
@@ -410,7 +410,7 @@ function ToursEdit() {
                             onClick={handleAddSection}
                             disabled={!allInputsFilled}
                         >
-                            <img src={plusIcon} alt="plus" /> Əlavə et
+                            <img src={plusIcon} alt="plus" /> {t("adminPanel.toursEdit.sections.offers.addBtn")}
                         </button>
                     </div>
                     <button
@@ -418,7 +418,9 @@ function ToursEdit() {
                         onClick={handleSubmit}
                         disabled={isLoading}
                     >
-                        {isLoading ? "Yenilənir..." : "Yadda saxla"}
+                        {isLoading
+                            ? t("adminPanel.toursEdit.buttons.saving")
+                            : t("adminPanel.toursEdit.buttons.save")}
                     </button>
 
                 </div>

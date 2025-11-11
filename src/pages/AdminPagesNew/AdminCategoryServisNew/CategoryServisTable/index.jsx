@@ -13,7 +13,9 @@ import {
      useLazyGetServiceByIdQuery
 } from "../../../../services/userApi.jsx";
 import showToast from "../../../../components/ToastMessage.js";
+import {useTranslation} from "react-i18next";
 function CategoryTableServisNew({language}) {
+    const { t } = useTranslation();
     const {id} = useParams();
     const {data:getCategoryById, isLoading ,refetch} = useGetCategoryByIdQuery(id)
     const category = getCategoryById?.data
@@ -96,18 +98,18 @@ function CategoryTableServisNew({language}) {
     };
     const handleDelete = async () => {
         if (!selectedItem?.id) {
-            showToast("Xidmət tapılmadı ❌", "error");
+            showToast(t("adminPanel.categoryServiceTable.toast.notFound"), "error");
             return;
         }
 
         try {
             await deleteService(selectedItem.id).unwrap();
-            showToast("Xidmət uğurla silindi ✅", "success");
+            showToast(t("adminPanel.categoryServiceTable.toast.success"), "success");
             closeModal();
             refetch();
         } catch (err) {
             console.error("Silinmə xətası:", err);
-            showToast("Xidməti silmək mümkün olmadı ❌", "error");
+            showToast(t("adminPanel.categoryServiceTable.toast.error"), "error");
         }
     };
     const getLocalizedClinicName = (clinic) => {
@@ -120,16 +122,16 @@ function CategoryTableServisNew({language}) {
         }
     };
 
-    if (isLoading) return <p>Yüklənir...</p>;
+    if (isLoading) return <p>{t("adminPanel.categoryServiceTable.loading")}</p>;
     return (
         <div id={'category-servis-table'}>
            <div className={'category-servis-table-wrapper'}>
                <div className="grid-header">
                    <div></div>
-                   <div>Adı</div>
-                   <div>Təsvir</div>
-                   <div>Klinikalar</div>
-                   <div>Fəaliyyətlər</div>
+                   <div>{t("adminPanel.categoryServiceTable.name")}</div>
+                   <div>{t("adminPanel.categoryServiceTable.description")}</div>
+                   <div>{t("adminPanel.categoryServiceTable.clinics")}</div>
+                   <div>{t("adminPanel.categoryServiceTable.actions")}</div>
                </div>
 
                <div className="grid-body">
@@ -192,7 +194,7 @@ function CategoryTableServisNew({language}) {
                        })
                    ) : (
                        <div className="no-data">
-                           <p>Bu kateqoriyaya aid xidmət yoxdur.</p>
+                           <p>{t("adminPanel.categoryServiceTable.noData")}</p>
                        </div>
                    )}
                </div>
@@ -207,11 +209,13 @@ function CategoryTableServisNew({language}) {
                 <div className="modal-overlay" onClick={closeModal}>
                     <div className="delete-modal-content" onClick={(e) => e.stopPropagation()}>
                        <img src={deleteImgModal} className={'deleteImg'}/>
-                        <h3>Servisi silmək istədiyinizə əminsiz?</h3>
+                        <h3>{t("adminPanel.categoryServiceTable.deleteConfirmTitle")}</h3>
                         <div className="modal-actions">
-                            <button className="cancel" onClick={closeModal}>Ləğv et</button>
+                            <button className="cancel" onClick={closeModal}>{t("adminPanel.categoryServiceTable.cancel")}</button>
                             <button className="confirm" onClick={handleDelete} disabled={isDeleting}>
-                                {isDeleting ? "Silinir..." : "Sil"}
+                                {isDeleting
+                                    ? t("adminPanel.categoryServiceTable.deleting")
+                                    : t("adminPanel.categoryServiceTable.delete")}
                             </button>
                         </div>
                     </div>
