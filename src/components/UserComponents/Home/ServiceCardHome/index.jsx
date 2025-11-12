@@ -1,7 +1,7 @@
 import './index.scss';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import {CATEGORY_IMAGES} from "../../../../contants.js";
+import {CATEGORY_IMAGES, SERVICE_CARD_IMAGES, SERVICE_IMAGES} from "../../../../contants.js";
 
 function HomeServiceCard({ name, desc, icon,id }) {
     const { t } = useTranslation();
@@ -11,8 +11,8 @@ function HomeServiceCard({ name, desc, icon,id }) {
         <div className={'col-15 col-md-30 col-sm-30 col-xs-30'} style={{ padding: '8px' }} onClick={() => navigate(`/category/${id}`)}>
             <div id={'homeServCard'}>
                 <div className={'icons'}>
-                    {/*<img src={CATEGORY_IMAGES + icon} alt={t('homeServiceCard.iconAlt', { name })} />*/}
-                    <img src={icon} alt={t('homeServiceCard.iconAlt', { name })} />
+                    <img src={CATEGORY_IMAGES + icon} alt={t('homeServiceCard.iconAlt', { name })} />
+                    {/*<img src={icon} alt={t('homeServiceCard.iconAlt', { name })} />*/}
                 </div>
                 <h4>{name}</h4>
                 <p>{desc}</p>

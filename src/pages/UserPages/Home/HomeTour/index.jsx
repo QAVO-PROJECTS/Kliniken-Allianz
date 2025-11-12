@@ -3,7 +3,7 @@ import HotelCard from '../../../../components/UserComponents/Home/HotelCard/inde
 import { useRef, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import {useGetAllOtelsQuery} from "../../../../services/userApi.jsx";
+import {useGetAllOtelsQuery, useGetAllToursQuery} from "../../../../services/userApi.jsx";
 import TourCard from "../../../../components/UserComponents/TourCard/index.jsx";
 
 function HomeTour() {
@@ -15,7 +15,7 @@ function HomeTour() {
     const startPos = useRef(0);
     const currentTranslate = useRef(0);
     const prevTranslate = useRef(0);
-const {data:getAllOtels} = useGetAllOtelsQuery()
+const {data:getAllOtels} = useGetAllToursQuery()
     const cardss = getAllOtels?.data
 
     const maxIndex = cardss?.length - visibleCards;
@@ -35,67 +35,67 @@ const {data:getAllOtels} = useGetAllOtelsQuery()
     }, []);
 
     useEffect(() => {
-        const newMaxIndex = cardss?.length - visibleCards;
+        const newMaxIndex = Math.max(cardss?.length - visibleCards, 0);
         if (currentIndex > newMaxIndex) {
             setCurrentIndex(newMaxIndex);
-            sliderRef.current.style.transform = `translateX(-${newMaxIndex * (100 / visibleCards)}%)`;
-            currentTranslate.current = -newMaxIndex * (100 / visibleCards);
-            prevTranslate.current = currentTranslate.current;
+            const translate = -newMaxIndex * (100 / visibleCards);
+            if (sliderRef.current) {
+                sliderRef.current.style.transform = `translateX(${translate}%)`;
+                currentTranslate.current = translate;
+                prevTranslate.current = translate;
+            }
         }
-    }, [visibleCards, currentIndex]);
+    }, [visibleCards, cardss?.length]);
 
+    // 🔹 pagination klik
     const handleBulletClick = (index) => {
-        if (index <= maxIndex) {
-            setCurrentIndex(index);
-            sliderRef.current.style.transform = `translateX(-${index * (100 / visibleCards)}%)`;
-            prevTranslate.current = -index * (100 / visibleCards);
-        }
+        if (!sliderRef.current) return;
+        setCurrentIndex(index);
+        const translate = -index * (100 / visibleCards);
+        sliderRef.current.style.transition = 'transform 0.3s ease-in-out';
+        sliderRef.current.style.transform = `translateX(${translate}%)`;
+        prevTranslate.current = translate;
+        currentTranslate.current = translate;
     };
 
-    const getPositionX = (event) => {
-        return event.type.includes('mouse')
-            ? event.pageX
-            : event.touches[0].clientX;
-    };
+    // 🔹 Drag funksiyaları
+    const getPositionX = (event) =>
+        event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
 
     const startDragging = (event) => {
         isDragging.current = true;
         startPos.current = getPositionX(event);
-        sliderRef.current.style.transition = 'none';
+        if (sliderRef.current) sliderRef.current.style.transition = 'none';
     };
 
     const stopDragging = () => {
         if (!isDragging.current) return;
         isDragging.current = false;
-        sliderRef.current.style.transition = 'transform 0.3s ease-in-out';
+        if (!sliderRef.current) return;
 
+        sliderRef.current.style.transition = 'transform 0.3s ease-in-out';
         const movedBy = currentTranslate.current - prevTranslate.current;
         let newIndex = currentIndex;
 
-        if (movedBy < -10 && currentIndex < maxIndex) {
-            newIndex += 1;
-        } else if (movedBy > 10 && currentIndex > 0) {
-            newIndex -= 1;
-        }
+        if (movedBy < -10 && currentIndex < maxIndex) newIndex += 1;
+        else if (movedBy > 10 && currentIndex > 0) newIndex -= 1;
 
         setCurrentIndex(newIndex);
-        currentTranslate.current = -newIndex * (100 / visibleCards);
-        prevTranslate.current = currentTranslate.current;
-        sliderRef.current.style.transform = `translateX(${currentTranslate.current}%)`;
+        const translate = -newIndex * (100 / visibleCards);
+        sliderRef.current.style.transform = `translateX(${translate}%)`;
+        currentTranslate.current = translate;
+        prevTranslate.current = translate;
     };
 
     const drag = (event) => {
-        if (!isDragging.current) return;
+        if (!isDragging.current || !sliderRef.current) return;
         const currentPosition = getPositionX(event);
         const movedBy = currentPosition - startPos.current;
-
         const sliderWidth = sliderRef.current.offsetWidth / visibleCards;
         const movePercentage = (movedBy / sliderWidth) * (100 / visibleCards);
-
         currentTranslate.current = prevTranslate.current + movePercentage;
         sliderRef.current.style.transform = `translateX(${currentTranslate.current}%)`;
     };
-
     return (
         <div id="home-tour">
             <div className="container">
@@ -117,10 +117,7 @@ const {data:getAllOtels} = useGetAllOtelsQuery()
                         {cardss?.map((item) => (
                             <TourCard
                                 id={item.id}
-                                name={item.name}
-                                desc={item.location}
-                                img={item.cardImage}
-                                imgAlt={t('homeHotel.cardImgAlt', { name: item.name })}
+                               item={item}
                             />
                         ))}
                     </div>

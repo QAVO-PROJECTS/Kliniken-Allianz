@@ -58,10 +58,13 @@ function Footer() {
                                     <h3>{t('footer.links')}</h3>
                                     <ul>
                                         <li><Link to="/">{t('navbar.home')}</Link></li>
-                                        <li><Link to="/" onClick={() => {
+                                        <li><Link to="/tours" onClick={() => {
                                             handleScrollServices();
-                                        }}>{t('navbar.services')}</Link></li>
-                                        <li><Link to="/"  onClick={() => {
+                                        }}>Turlar</Link></li>
+                                        <li><Link to="/doctors" onClick={() => {
+                                            handleScrollServices();
+                                        }}>Həkimlər</Link></li>
+                                        <li><Link to="/clinics"  onClick={() => {
                                             handleScrollClinic();
                                         }}>{t('navbar.clinics')}</Link></li>
                                         <li><Link to="/contact">{t('navbar.contact')}</Link></li>

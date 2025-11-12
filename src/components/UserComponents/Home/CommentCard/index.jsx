@@ -1,8 +1,9 @@
-import image from "/src/assets/icons/1.svg";
+import  image from "/src/assets/icons/1.svg";
 import { HiOutlineArrowLeft, HiOutlineArrowRight } from "react-icons/hi";
 import { useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import "./index.scss";
+import {VIEW_CARD_IMAGES} from "../../../../contants.js";
 
 function CommentCard({ currentIndex, setCurrentIndex, fakeComments }) {
     const { t } = useTranslation();
@@ -15,7 +16,7 @@ function CommentCard({ currentIndex, setCurrentIndex, fakeComments }) {
     };
 
     const handleNext = () => {
-        if (currentIndex < fakeComments.length - 1) {
+        if (currentIndex < fakeComments?.length - 1) {
             setCurrentIndex(currentIndex + 1);
         }
     };
@@ -30,19 +31,19 @@ function CommentCard({ currentIndex, setCurrentIndex, fakeComments }) {
     return (
         <div className="comment-card-container">
             <div className="comment-card-slider" ref={sliderRef}>
-                {fakeComments.map((comment, index) => (
+                {fakeComments?.map((comment, index) => (
                     <div className="comment-card" key={index}>
                         <div className="quote-icon">
                             <img src={image} alt="quote icon" />
                         </div>
-                        <p>{t(`translation.comments.${index}.text`)}</p>
+                        <p>{comment.reviewTextEng}</p>
                         <div className="comment-author">
                             <div className="text">
                                 <div className="image">
-                                    <img src={comment.image} alt="author" />
+                                    <img src={VIEW_CARD_IMAGES+comment.profilImage} alt="author" />
                                 </div>
                                 <div style={{ display: "flex", flexDirection: "column", alignItems: "start" }}>
-                                    <h6 className="name">{comment.name}</h6>
+                                    <h6 className="name">{comment.customerName}</h6>
                                     <span className="country">{comment.country}</span>
                                 </div>
                             </div>
@@ -63,7 +64,7 @@ function CommentCard({ currentIndex, setCurrentIndex, fakeComments }) {
                 <button
                     className="next"
                     onClick={handleNext}
-                    disabled={currentIndex === fakeComments.length - 1}
+                    disabled={currentIndex === fakeComments?.length - 1}
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" width="21" height="22" viewBox="0 0 21 22" fill="none">
                         <path d="M16.059 11.3093L11.684 15.6843C11.6018 15.7665 11.4904 15.8126 11.3742 15.8126C11.258 15.8126 11.1466 15.7665 11.0645 15.6843C10.9823 15.6022 10.9362 15.4908 10.9362 15.3746C10.9362 15.2584 10.9823 15.147 11.0645 15.0648L14.6931 11.4371L5.24922 11.4371C5.13319 11.4371 5.02191 11.391 4.93986 11.3089C4.85781 11.2269 4.81172 11.1156 4.81172 10.9996C4.81172 10.8835 4.85781 10.7723 4.93986 10.6902C5.02191 10.6082 5.13319 10.5621 5.24922 10.5621L14.6931 10.5621L11.0645 6.93433C10.9823 6.85218 10.9362 6.74075 10.9362 6.62458C10.9362 6.5084 10.9823 6.39698 11.0645 6.31483C11.1466 6.23268 11.258 6.18652 11.3742 6.18652C11.4904 6.18652 11.6018 6.23268 11.684 6.31483L16.059 10.6898C16.0997 10.7305 16.132 10.7787 16.1541 10.8319C16.1761 10.885 16.1875 10.942 16.1875 10.9996C16.1875 11.0571 16.1761 11.1141 16.1541 11.1673C16.132 11.2204 16.0997 11.2687 16.059 11.3093Z" fill="#003778"/>

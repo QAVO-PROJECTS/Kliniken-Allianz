@@ -7,6 +7,7 @@ import image from "/src/assets/ServiceDetailCard.png"
 import {useGetAllClinicQuery} from "../../../../services/userApi.jsx";
 import ClinicCard from "../../../../components/UserComponents/ClinicCard/index.jsx";
 import {useMediaQuery} from "react-responsive";
+import {useNavigate} from "react-router-dom";
 
 function HomeClinic() {
     const { t, i18n } = useTranslation();
@@ -20,6 +21,7 @@ function HomeClinic() {
     const {data:getAllClinic} = useGetAllClinicQuery()
     const cardss = getAllClinic?.data || [];
 const isMobile = useMediaQuery({maxWidth:768})
+    const navigate = useNavigate();
     // Dil bazlı metin seçimi
     const getLocalizedText = (item, field) => {
         switch (i18n.language) {
@@ -137,7 +139,7 @@ const isMobile = useMediaQuery({maxWidth:768})
                         <div className="content">
                             <h2>Etibar Edilən Sağlamlıq Mərkəzləri</h2>
                             <p>Kliniken Allianz yalnız beynəlxalq standartlara cavab verən, müasir və etibarlı klinikalarla əməkdaşlıq edir.</p>
-                            {isMobile ? ('') : (<button className={'headBtn'}><span>Daha çox</span></button>)}
+                            {isMobile ? ('') : (<button className={'headBtn'} onClick={()=>navigate('/clinics')}><span>Daha çox</span></button>)}
                         </div>
                     </div>
                     <div className={'col-35 col-md-60 col-sm-60 col-xs-60'}>
@@ -156,10 +158,7 @@ const isMobile = useMediaQuery({maxWidth:768})
                                     <ClinicCard
                                         key={index}
                                         id={item.id}
-                                        name={"Universitätsklinikum"}
-                                        desc={"Frankfurt, Almaniya"}
-                                        img={image}
-                                        imgAlt={t('homeClinic.cardImgAlt', { name: getLocalizedText(item, 'name') })}
+                                        item={item}
                                     />
                                 ))}
                             </div>

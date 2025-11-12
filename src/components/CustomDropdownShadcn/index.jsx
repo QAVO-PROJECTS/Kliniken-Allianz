@@ -1,69 +1,81 @@
 import React from "react";
-import { Menu, Dropdown, Space } from "antd";
+import { Menu, Dropdown } from "antd";
 import { DownOutlined } from "@ant-design/icons";
-import "./index.scss"
-import icon from '/src/assets/icon1.png'
-import rightIcon from "/src/assets/rigthIcon.svg"
-const cancerSubMenu = (
-    <Menu
-        items={[
-            { key: "1", label: "Süd vəzi xərçəngi" },
-            { key: "2", label: "Ağciyər xərçəngi" },
-            { key: "3", label: "Qalın bağırsaq xərçəngi" },
-            { key: "4", label: "Mədə xərçəngi" },
-            { key: "5", label: "Qaraciyər xərçəngi" },
-            { key: "6", label: "Prostat xərçəngi" },
-            { key: "7", label: "Dəri xərçəngi" },
-            { key: "8", label: "Baş və boyun xərçəngi" },
-            { key: "9", label: "Yumurtalıq və uşaqlıq xərçəngi" },
-            { key: "10", label: "Qan və limfa sistemi" },
-        ]}
-    />
-);
+import "./index.scss";
+import rightIcon from "/src/assets/rigthIcon.svg";
+import { useGetAllCategoryQuery } from "../../services/userApi.jsx";
+import {CATEGORY_IMAGES} from "../../contants.js";
 
-const mainMenu = (
-    <Menu
-        items={[
-            {
-                key: "cancer",
-                label: (
-                    <Dropdown overlay={cancerSubMenu} placement="rightTop" trigger={["hover"]}>
-                        <div style={{
+export default function CategoriesMenuAntd() {
+    const { data: getAllCategory } = useGetAllCategoryQuery();
+    const categories = getAllCategory?.data || [];
+
+    const mainMenu = (
+        <Menu
+            items={categories.map((category) => {
+                const hasServices = category.services && category.services.length > 0;
+
+                const content = (
+                    <div
+                        style={{
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "space-between",
-                            gap:"60px"
-                        }}>
-                            <div style={{
+                            gap: "40px",
+                            minWidth: "230px",
+                        }}
+                    >
+                        <div
+                            style={{
                                 display: "flex",
                                 alignItems: "center",
-                                justifyContent: "space-between",
-                                gap:"12px"
-                            }}>
-                                <img src={icon} alt="" style={{
-                                    width:"20px",
-                                    height:"20px",
-                                }}/>
-                                <a href="#" onClick={(e) => e.preventDefault()}>
-                                    Xərçəng müalicəsi
-                                </a>
-                            </div>
-                            <img src={rightIcon} alt="" />
+                                gap: "12px",
+                            }}
+                        >
+                            {category.categoryImage && (
+                                <img
+                                    src={CATEGORY_IMAGES+category.categoryImage}
+                                    alt={category.name}
+                                    style={{
+                                        width: "22px",
+                                        height: "22px",
+                                        borderRadius: "4px",
+                                        objectFit: "cover",
+                                    }}
+                                />
+                            )}
+                            <span>{category.name}</span>
                         </div>
-                    </Dropdown>
-                ),
+                        {hasServices && <img src={rightIcon} alt=">" />}
+                    </div>
+                );
 
-            },
-            { key: "2", label: "Ginekologiya" },
-            { key: "3", label: "Kardiologiya" },
-            { key: "4", label: "Ortopediya" },
-            { key: "5", label: "Pediatriya" },
-            { key: "6", label: "Stomatologiya" },
-        ]}
-    />
-);
+                return {
+                    key: category.id,
+                    label: hasServices ? (
+                        <Dropdown
+                            overlay={
+                                <Menu
+                                    items={category.services.map((service) => ({
+                                        key: service.id,
+                                        label: service.name,
+                                    }))}
+                                />
+                            }
+                            placement="rightTop"
+                            trigger={["hover"]}
+                        >
+                            {/* 🧩 burada yalnız *bir* element var, səhv çıxmayacaq */}
+                            <div>{content}</div>
+                        </Dropdown>
+                    ) : (
+                        <div>{content}</div>
+                    ),
+                };
+            })}
+        />
+    );
 
-export default function CategoriesMenuAntd() {
     return (
         <Dropdown overlay={mainMenu} trigger={["hover"]}>
             <a
@@ -72,6 +84,7 @@ export default function CategoriesMenuAntd() {
                     color: "#5f5f5f",
                     fontWeight: 500,
                     fontSize: "16px",
+                    margin: "0 20px",
                 }}
             >
                 Kateqoriyalar

@@ -4,19 +4,15 @@ import CommentCard from '../../../../components/UserComponents/Home/CommentCard/
 import back from '/src/assets/CommentBack.png';
 import image1 from "/src/assets/commentCardImage.jpg";
 import { useState } from "react";
+import {useGetAllCustomerViewQuery} from "../../../../services/userApi.jsx";
+import {VIEW_CARD_IMAGES} from "../../../../contants.js";
 
 function HomeComment() {
     const { t } = useTranslation();
     const [currentIndex, setCurrentIndex] = useState(0);
+const {data:getAllCustomerView} = useGetAllCustomerViewQuery()
+    const fakeComments = getAllCustomerView?.data
 
-    const fakeComments = [
-        { name: "John Doe", country: "USA", image: image1 },
-        { name: "Jane Smith", country: "Canada", image: image1 },
-        { name: "Ali Yılmaz", country: "Turkey", image: image1 },
-        { name: "Emma Brown", country: "UK", image: image1 },
-        { name: "Carlos Rivera", country: "Spain", image: image1 },
-        { name: "Maria Petrova", country: "Russia", image: image1 },
-    ];
 
     // Rastgele konumlandırma için fonksiyon
     const getRandomPosition = (existingPositions) => {
@@ -61,7 +57,7 @@ function HomeComment() {
 
     // Tüm thumbnail'lar için konumları hesapla
     const positions = [];
-    fakeComments.forEach(() => {
+    fakeComments?.forEach(() => {
         const pos = getRandomPosition(positions);
         positions.push(pos);
     });
@@ -87,7 +83,7 @@ function HomeComment() {
                 />
                 <div className="homeComment">
                     <div className="profile-thumbnails">
-                        {fakeComments.map((comment, index) => {
+                        {fakeComments?.map((comment, index) => {
                             const position = positions[index] || { left: 0, top: 0 };
                             return (
                                 <div
@@ -101,7 +97,7 @@ function HomeComment() {
                                     }}
                                 >
                                     <img
-                                        src={comment.image}
+                                        src={VIEW_CARD_IMAGES+comment.profilImage}
                                         alt={`${comment.name}'s profile`}
                                         style={{
                                             width: '50px',

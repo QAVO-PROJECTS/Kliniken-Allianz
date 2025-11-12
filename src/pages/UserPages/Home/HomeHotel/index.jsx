@@ -21,45 +21,8 @@ function HomeHotel() {
     const prevTranslate = useRef(0);
 const {data:getAllOtels} = useGetAllOtelsQuery()
     const cardss = getAllOtels?.data
-    const cards = [
-        {
-            name: t('homeHotel.cards.ritzCarlton.name'),
-            description: t('homeHotel.cards.ritzCarlton.description'),
-            imageUrl: image,
-            location: 'Almaniya'
-        },
-        {
-            name: t('homeHotel.cards.westinGrand.name'),
-            description: t('homeHotel.cards.westinGrand.description'),
-            imageUrl: image2,
-            location: 'Almaniya'
-        },
-        {
-            name: t('homeHotel.cards.crownePlaza.name'),
-            description: t('homeHotel.cards.crownePlaza.description'),
-            imageUrl: image3,
-            location: 'Almaniya'
-        },
-        {
-            name: t('homeHotel.cards.siamKempinski.name'),
-            description: t('homeHotel.cards.siamKempinski.description'),
-            imageUrl: image4,
-            location: 'Almaniya'
-        },
-        {
-            name: t('homeHotel.cards.raffles.name'),
-            description: t('homeHotel.cards.raffles.description'),
-            imageUrl: image5,
-            location: 'Almaniya'
-        },
-        {
-            name: t('homeHotel.cards.mandarinOriental.name'),
-            description: t('homeHotel.cards.mandarinOriental.description'),
-            imageUrl: image6,
-            location: 'Almaniya'
-        },
-    ];
-    const maxIndex = cards.length - visibleCards;
+
+    const maxIndex = cardss?.length - visibleCards;
 
     useEffect(() => {
         const updateVisibleCards = () => {
@@ -76,7 +39,7 @@ const {data:getAllOtels} = useGetAllOtelsQuery()
     }, []);
 
     useEffect(() => {
-        const newMaxIndex = cards.length - visibleCards;
+        const newMaxIndex = cardss?.length - visibleCards;
         if (currentIndex > newMaxIndex) {
             setCurrentIndex(newMaxIndex);
             sliderRef.current.style.transform = `translateX(-${newMaxIndex * (100 / visibleCards)}%)`;
@@ -155,13 +118,10 @@ const {data:getAllOtels} = useGetAllOtelsQuery()
                     onTouchMove={drag}
                 >
                     <div className="slider-card row" ref={sliderRef}>
-                        {cards?.map((item) => (
+                        {cardss?.map((item) => (
                             <HotelCard
                                 id={item.id}
-                                name={item.name}
-                                desc={item.location}
-                                img={item.imageUrl}
-                                imgAlt={t('homeHotel.cardImgAlt', { name: item.name })}
+                               item={item}
                             />
                         ))}
                     </div>

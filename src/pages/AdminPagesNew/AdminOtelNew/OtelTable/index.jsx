@@ -113,7 +113,7 @@ function OtelTableNew({language}) {
                            </div>
                            <div className="icon">
                                <img
-                                   src={OTEL_CARD_IMAGES+item.cardImage}
+                                   src={OTEL_CARD_IMAGES+item?.cardImage}
                                    alt={getLocalizedName(item, "name")}
 
                                />

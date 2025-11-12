@@ -1,17 +1,19 @@
-import img1 from '/src/assets/dSamer.png'
 import "./index.scss"
 import {useNavigate} from "react-router-dom";
-function TourCard({ name, desc, img, imgAlt, icon, iconAlt,id }) {
+import {TOUR_CARD_IMG} from "../../../contants.js";
+function TourCard({item}) {
     const navigate = useNavigate();
+    console.log(item);
+
     return (
-        <div className={"col-12 col-md-30 col-sm-30 col-xs-30"} style={{padding:'8px'}} onClick={()=>navigate(`/tours/${id}`)}>
+        <div className={"col-12 col-md-30 col-sm-30 col-xs-30"} style={{padding:'8px'}} onClick={()=>navigate(`/tours/${item?.id}`)}>
         <div id={"tour-card"}>
             <div className={'image'}>
-                <img src={img1} alt={name} />
+                <img src={TOUR_CARD_IMG+item?.cardImage} alt={item?.name} />
             </div>
             <div className={"content"}>
                 <h5>
-                    Almanya full paket
+                    {item?.name}
                 </h5>
                 <div className={'offers'}>
                     <div className={'offer'}>

@@ -94,7 +94,7 @@ function ToursTableNew({language}) {
                                </div>
                                <div className="icon">
                                    <img
-                                       src={TOUR_CARD_IMG + item.cardImage}
+                                       src={TOUR_CARD_IMG + item?.cardImage}
                                        alt={getLocalizedName(item)}
                                    />
                                </div>

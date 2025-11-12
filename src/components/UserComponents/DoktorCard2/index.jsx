@@ -2,21 +2,21 @@ import "./index.scss"
 import {FaArrowRightLong} from "react-icons/fa6";
 import {useNavigate} from "react-router-dom";
 import {DOCTOR_IMG_URL} from "/src/contants.js";
-function DoktorCard2({id,name,img,desc}) {
-    console.log(img)
+function DoktorCard2({item}) {
     const navigate = useNavigate();
+
     return (
-        <div className={"col-20 col-md-30 col-sm-30 col-xs-30"} onClick={()=>navigate(`/doktor/${id}`)}>
+        <div className={"col-20 col-md-30 col-sm-30 col-xs-30"} onClick={()=>navigate(`/doktor/${item.id}`)}>
             <div id={"doktorCard2"}>
                 <div className={"image"}>
-                    {/*<img src={DOCTOR_IMG_URL+img}/>*/}
-                    <img src={img}/>
+                    <img src={DOCTOR_IMG_URL+item.doctorImage}/>
+                    {/*<img src={img}/>*/}
                 </div>
                 <div className={"content"}>
-                    <h5>{name}</h5>
-                    <p>{desc}</p>
+                    <h5>{item.name} {item.surName}</h5>
+                    <p>{item.experience} il təcrübə</p>
                     <div className={"position"}>
-                        Dermetology
+                        {item.role}
                     </div>
                 </div>
                 <div className={'svg'}>
@@ -27,7 +27,7 @@ function DoktorCard2({id,name,img,desc}) {
                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="11" viewBox="0 0 12 11" fill="none">
                             <path d="M4.94623 0.5135C5.2309 -0.171167 6.19957 -0.171167 6.4849 0.5135L7.6469 3.30683L10.6629 3.54883C11.4016 3.60817 11.7016 4.53017 11.1382 5.01217L8.84023 6.98083L9.54223 9.92417C9.71423 10.6448 8.93023 11.2148 8.29757 10.8288L5.71557 9.2515L3.13357 10.8288C2.50023 11.2155 1.71623 10.6448 1.88823 9.92417L2.59023 6.98083L0.292235 5.01217C-0.270432 4.53017 0.0289013 3.60817 0.768235 3.54883L3.78423 3.30683L4.94623 0.5135Z" fill="#FE9754"/>
                         </svg>
-                        4.3
+                        {item.rate}
                     </div>
                 </div>
 
