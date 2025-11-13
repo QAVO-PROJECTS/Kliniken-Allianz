@@ -5,8 +5,9 @@ import { useTranslation } from 'react-i18next';
 import {useGetAllOtelsQuery} from "../../../services/userApi.jsx";
 import HotelCard from "../../../components/UserComponents/Home/HotelCard/index.jsx";
 import image from "../../../assets/ServiceDetailCard.png";
+import {CLINIC_CARD_IMAGES} from "../../../contants.js";
 
-function ClinicHotel() {
+function ClinicHotel({ otels }) {
     const { t } = useTranslation();
     const [currentIndex, setCurrentIndex] = useState(0);
     const [visibleCards, setVisibleCards] = useState(4);
@@ -15,8 +16,9 @@ function ClinicHotel() {
     const startPos = useRef(0);
     const currentTranslate = useRef(0);
     const prevTranslate = useRef(0);
-const {data:getAllOtels} = useGetAllOtelsQuery()
-    const cards = getAllOtels?.data
+
+    const cards = otels || [];
+
     const maxIndex = cards?.length - visibleCards;
 
     useEffect(() => {
@@ -116,12 +118,10 @@ const {data:getAllOtels} = useGetAllOtelsQuery()
                         {cards?.map((item) => (
                             <HotelCard
                                 key={item.id}
-                                id={item.id}
-                                name={"Universitätsklinikum"}
-                                desc={"Frankfurt, Almaniya"}
-                                img={image}
-                                imgAlt={t('homeClinic.cardImgAlt')}
+                                item={item}
                             />
+
+
                         ))}
                     </div>
                 </div>

@@ -6,7 +6,6 @@ import {CATEGORY_IMAGES, SERVICE_CARD_IMAGES, SERVICE_IMAGES} from "../../../../
 function HomeServiceCard({ name, desc, icon,id }) {
     const { t } = useTranslation();
     const navigate = useNavigate();
-    console.log(id)
     return (
         <div className={'col-15 col-md-30 col-sm-30 col-xs-30'} style={{ padding: '8px' }} onClick={() => navigate(`/category/${id}`)}>
             <div id={'homeServCard'}>

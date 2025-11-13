@@ -26,7 +26,7 @@ function AdminNavbar() {
                                 <img src={profileSvg} className="profileIcon"/>
                             </div>
                             <div className={'contentProfil'}>
-                                <h5>Səbinə Heydərova</h5>
+                                <h5>Admin</h5>
                                 <p>Admin</p>
                             </div>
                         </div>

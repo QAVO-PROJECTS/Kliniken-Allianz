@@ -1,5 +1,5 @@
 import './index.scss'
-import { NavLink, useLocation } from "react-router-dom";
+import {NavLink, useLocation, useNavigate} from "react-router-dom";
 import categoryIcon from '/src/assets/leftBarIcon/categoryIcon.svg'
 import clinicIcon from '/src/assets/leftBarIcon/clinicIcon.svg'
 import doctorIcon from '/src/assets/leftBarIcon/doctorIcon.svg'
@@ -14,6 +14,7 @@ import {useTranslation} from "react-i18next";
 function AdminLeftBar() {
     const location = useLocation();
     const { t } = useTranslation();
+    const navigate = useNavigate();
     const menuItems = [
         { path: "/admin/category", icon: categoryIcon, label: t("adminPanel.leftBar.menu.category") },
         { path: "/admin/clinic", icon: clinicIcon, label: t("adminPanel.leftBar.menu.clinic") },
@@ -23,7 +24,20 @@ function AdminLeftBar() {
         { path: "/admin/serh", icon: serhIcon, label: t("adminPanel.leftBar.menu.comment") },
         { path: "/admin/contact", icon: contactIcon, label: t("adminPanel.leftBar.menu.contact") },
     ];
+    const handleLogout = () => {
+        // Bütün cookieləri sil
+        document.cookie.split(";").forEach(cookie => {
+            const name = cookie.split("=")[0].trim();
+            document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+        });
 
+        // Əlavə olaraq localStorage / sessionStorage təmizlənməsi (əgər istifadə olunursa)
+        localStorage.clear();
+        sessionStorage.clear();
+
+        // Login səhifəsinə yönləndir
+        navigate("/");
+    };
     return (
         <section id="adminLeftBar">
             <div style={{ width: '100%' }}>
@@ -43,7 +57,7 @@ function AdminLeftBar() {
                 })}
             </div>
 
-            <button className="logout">
+            <button className="logout" onClick={handleLogout}>
                 <img src={logoutIcon} alt="" />
                 {t("adminPanel.leftBar.buttons.logout")}
             </button>

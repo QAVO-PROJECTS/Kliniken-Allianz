@@ -17,7 +17,7 @@ import dimage4 from "/src/assets/dSamer.png";
 import dimage5 from "/src/assets/doktor5.jpg";
 import dimage6 from "/src/assets/doktor6.jpg";
 import {useGetClinicByIdQuery} from "../../../services/userApi.jsx";
-import {CLINIC_CARD_IMAGES, CLINIC_IMAGES} from "../../../contants.js";
+import {CERT_CLINIC_URL, CLINIC_CARD_IMAGES, CLINIC_IMAGES} from "../../../contants.js";
 import {useTranslation} from "react-i18next";
 import HomeServiceCard from "../../../components/UserComponents/Home/ServiceCardHome/index.jsx";
 import banner from "../../../assets/AboutBanner.png";
@@ -85,20 +85,16 @@ const {data:getClinicById} = useGetClinicByIdQuery(id)
     };
 
 
-    const services = [
-        {},
-        {},
-        {},
-        {},
-    ]
-    const serviceCards = services.map((item, i) => (
+    const serviceCards = clinic?.services?.map((item) => (
         <HomeServiceCard
+            key={item.id}
             id={item.id}
-            name={"Xərçəng müalicəsi"}
-            desc={"Həyat keyfiyyətinizi yüksəltmək üçün ən yeni xərçəng müalicə üsulları."}
-            icon={cardIcon}
+            name={getLocalizedText(item, "name")}
+            desc={getLocalizedText(item, "description")}
+            icon={item.categoryImage} // istəsən item.categoryImage də qoya bilərsən
         />
     ));
+
     const displayedServiceCards = showAllServices
         ? serviceCards
         : serviceCards?.slice(0, 4);
@@ -185,7 +181,7 @@ const doctors = [
                     <p>
                         <Link to="/">Ana səhifə</Link>
                         <div className="dot"/>
-                        <Link to={`/clinics/${clinic?.id}`}>GlobalMed Klinikası</Link>
+                        <Link to={`/clinics/${clinic?.id}`}>{getLocalizedText(clinic, "name")}</Link>
                     </p>
                 </div>
 
@@ -193,10 +189,9 @@ const doctors = [
                 <div className="row first-section">
                     <div className="col-35 col-md-60 col-sm-60 col-xs-60">
                         <div className="content">
-                            <h3>GlobalMed Klinikası</h3>
-                            <p>
-                                GlobalMed Klinikası Almaniyada yerləşən, geniş tibbi xidmət sahələr və ən son texnologiyalarla təchiz olunmuş aparıcı sağlamlıq mərkəzlərindən biridir. Klinikada kardiologiya, onkologiya, ortopediya, estetik və digər sahələr üzrə müalicə və diaqnostika xidmətləri təqdim olunur.
-                            </p>
+                            <h3>{getLocalizedText(clinic, "name")}</h3>
+                            <p>{getLocalizedText(clinic, "description")}</p>
+
                             <div className={"icons"}>
                                 <div className={"icon1"}>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="149" height="72" viewBox="0 0 149 72"
@@ -227,7 +222,8 @@ const doctors = [
                     <div className="col-25 col-md-60 col-sm-60 col-xs-60">
                         <div className="image">
                             {/*<img src={CLINIC_CARD_IMAGES+clinic?.clinicCardImage} alt="GlobalMed Klinikası"/>*/}
-                            <img src={img2} alt="GlobalMed Klinikası"/>
+                            <img src={CLINIC_CARD_IMAGES + clinic?.clinicCardImage} alt={getLocalizedText(clinic, "name")} />
+
                         </div>
                     </div>
                 </div>
@@ -246,14 +242,13 @@ const doctors = [
                         {/*        data-aos-delay={idx * 100}*/}
                         {/*    />*/}
                         {/*))}*/}
-                        {sertifikats.map((card, idx) => (
+                        {clinic?.clinicSertificates?.map((img, idx) => (
                             <CardCertificate
+                                key={idx}
                                 index={idx}
-                                image={sertifikat}
-                                number={idx+1}
+                                image={CERT_CLINIC_URL + img}
+                                number={idx + 1}
                                 text="Sertifikat"
-                                data-aos="zoom-in"
-                                data-aos-delay={idx * 100}
                             />
                         ))}
                     </div>
@@ -308,9 +303,16 @@ const doctors = [
                         marginBottom: '50px',
                     }}>
                         <div className="slider-card row" ref={sliderRef}>
-                            {cards.map((item) => (
-                                <DoktorCard id={item?.id} name={item.name} desc={item.role} img={item.imageUrl} />
+                            {clinic?.doctors?.map((doc) => (
+                                <DoktorCard
+                                    key={doc.id}
+                                    id={doc.id}
+                                    name={getLocalizedText(doc, "name")}
+                                    desc={getLocalizedText(doc, "description")}
+                                    img={CLINIC_IMAGES + doc.doctorImage}
+                                />
                             ))}
+
                         </div>
                     </div>
                     <div style={{textAlign: 'center'}}>
@@ -328,11 +330,12 @@ const doctors = [
                     <div className="gallery">
                         <div className="gallery-slider-wrapper">
                             <div className="gallery-slider" ref={gallerySliderRef}>
-                                {galleryImages.map((img, idx) => (
+                                {clinic?.clinicImages?.map((img, idx) => (
                                     <div className="gallery-slide" key={idx}>
-                                        <img src={img} alt={`Gallery ${idx + 1}`}/>
+                                        <img src={CLINIC_IMAGES + img} alt={`Clinic image ${idx+1}`} />
                                     </div>
                                 ))}
+
                             </div>
                             <button
                                 className="gallery-prev"
@@ -366,7 +369,7 @@ const doctors = [
                         </div>
                     </div>
                 </div>
-                <ClinicHotel/>
+                <ClinicHotel otels={clinic?.otels}/>
                 {/* Contact Section */}
                 <div className="contact">
                     <div className="row form-section">
