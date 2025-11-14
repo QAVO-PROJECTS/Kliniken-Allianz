@@ -100,8 +100,8 @@ const {data:getAllOtels} = useGetAllToursQuery()
         <div id="home-tour">
             <div className="container">
                 <div className="head">
-                    <h2>Tibbi Tur Paketləri</h2>
-                    <p>Müalicə, yerləşmə və transfer daxil tam tibbi tur paketləri.</p>
+                    <h2>{t("homeTour.title")}</h2>
+                    <p>{t("homeTour.description")}</p>
                 </div>
                 <div
                     className="slider-wrapper"

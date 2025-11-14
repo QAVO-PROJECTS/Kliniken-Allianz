@@ -35,16 +35,16 @@ function ClinicsDoctor() {
             <div className="container">
                 <div className="clinics-doctor-page">
                     <div className="head">
-                        <h1>Həkimlər</h1>
+                        <h1>{t("adminPanel.clinicsDoctor.title")}</h1>
                         <p data-aos="fade-up" data-aos-delay="100">
-                            <Link to="/">GlobalMed klinika</Link>
+                            <Link to="/">{t("adminPanel.clinicsDoctor.breadcrumb.clinic")}</Link>
                             <div className="dot"></div>
-                            <Link to="/clinics-doctor">Həkimlər</Link>
+                            <Link to="/clinics-doctor">{t("adminPanel.clinicsDoctor.breadcrumb.doctors")}</Link>
                         </p>
                     </div>
                     <div className={'headers'}>
-                        <h2>GlobalMed-in Peşəkar Komandası</h2>
-                        <p>Müxtəlif sahələr üzrə ixtisaslaşmış həkimlərdən özünüzə uyğun olanı seçin</p>
+                        <h2>{t("adminPanel.clinicsDoctor.teamTitle")}</h2>
+                        <p>{t("adminPanel.clinicsDoctor.teamDesc")}</p>
                     </div>
                     <div className={'cards'}>
                         <div className={'row'}>

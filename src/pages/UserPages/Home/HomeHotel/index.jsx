@@ -104,8 +104,8 @@ const {data:getAllOtels} = useGetAllOtelsQuery()
         <div id="home-hotel">
             <div className="container">
                 <div className="head">
-                    <h2>Klinikalara Yaxın Otel Seçimləri</h2>
-                    <p>Sizin rahatlığınız üçün seçilmiş, beynəlxalq standartlara uyğun otellər.</p>
+                    <h2>{t("homeHotel.title")}</h2>
+                    <p>{t("homeHotel.desc")}</p>
                 </div>
                 <div
                     className="slider-wrapper"

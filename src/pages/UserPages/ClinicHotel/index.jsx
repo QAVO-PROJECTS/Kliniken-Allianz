@@ -102,7 +102,7 @@ function ClinicHotel({ otels }) {
             <div className="container">
                 <div className="headd">
                     <h2>{t('homeHotel.title')}</h2>
-                    <p>Sizin rahatlığınız üçün seçilmiş, beynəlxalq standartlara uyğun otellər.</p>
+                    <p>{t("homeHotel.subtitle")}</p>
                 </div>
                 <div
                     className="slider-wrapper"

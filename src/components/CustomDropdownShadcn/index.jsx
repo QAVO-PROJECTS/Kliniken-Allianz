@@ -5,11 +5,12 @@ import "./index.scss";
 import rightIcon from "/src/assets/rigthIcon.svg";
 import { useGetAllCategoryQuery } from "../../services/userApi.jsx";
 import {CATEGORY_IMAGES} from "../../contants.js";
+import {useTranslation} from "react-i18next";
 
 export default function CategoriesMenuAntd() {
     const { data: getAllCategory } = useGetAllCategoryQuery();
     const categories = getAllCategory?.data || [];
-
+    const {t} = useTranslation();
     const mainMenu = (
         <Menu
             items={categories.map((category) => {
@@ -87,7 +88,7 @@ export default function CategoriesMenuAntd() {
                     margin: "0 20px",
                 }}
             >
-                Kateqoriyalar
+                {t("categoriesMenu.title")}
             </a>
         </Dropdown>
     );

@@ -177,9 +177,9 @@ const doctors = [
             <div className="container">
                 {/* Breadcrumb */}
                 <div className="head" data-aos="fade-up" data-aos-delay="100">
-                    <h1>Klinika</h1>
+                    <h1>{getLocalizedText(clinic, "name")}</h1>
                     <p>
-                        <Link to="/">Ana səhifə</Link>
+                        <Link to="/">{t("contact.breadcrumb.home")}</Link>
                         <div className="dot"/>
                         <Link to={`/clinics/${clinic?.id}`}>{getLocalizedText(clinic, "name")}</Link>
                     </p>
@@ -230,7 +230,7 @@ const doctors = [
 
                 {/* Second Section: Certificates */}
                 <div className="second-section">
-                    <h2>Sertifikatlar</h2>
+                    <h2>{t("clinicDetail.certificates.title")}</h2>
                     <div className="row">
                         {/*{clinic?.clinicSertificates?.map((card, idx) => (*/}
                         {/*    <CardCertificate*/}
@@ -272,15 +272,16 @@ const doctors = [
                 {/* Third Section: Services */}
                 <div className="third-section">
                     <div className="header">
-                        <h2>Xəstəxananın Təklif Etdiyi Tibbi Xidmətlər</h2>
-                        <p>Sizin ehtiyaclarınıza uyğun tibbi xidmət sahələrini kəşf edin.</p>
+                        <h2>{t("clinicDetail.services.title")}</h2>
+                        <p>{t("clinicDetail.services.description")}</p>
                     </div>
                     <div className="row" style={{marginBottom: 50}}>
                         {displayedServiceCards}
                     </div>
                     <div style={{textAlign: 'center'}}>
                         <button className={"clinicDetailThird"} onClick={() => setShowAllServices(!showAllServices)}>
-                            Hamısına bax <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+                            {t("clinicDetail.services.button")}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
                             <path d="M23.5291 8.03068L20.5291 11.0307C20.3884 11.1714 20.1975 11.2505 19.9985 11.2505C19.7995 11.2505 19.6086 11.1714 19.4679 11.0307C19.3271 10.8899 19.2481 10.6991 19.2481 10.5001C19.2481 10.301 19.3271 10.1102 19.4679 9.96943L21.1882 8.25005H19.9985C16.3732 8.25005 15.6307 10.0313 14.6904 12.2888C13.7219 14.6138 12.6232 17.2501 7.99849 17.2501H7.90474C7.72219 17.957 7.28807 18.5732 6.68373 18.983C6.0794 19.3928 5.34635 19.5681 4.62199 19.4761C3.89763 19.3841 3.23169 19.0311 2.749 18.4832C2.2663 17.9353 2 17.2302 2 16.5001C2 15.7699 2.2663 15.0648 2.749 14.5169C3.23169 13.969 3.89763 13.616 4.62199 13.524C5.34635 13.432 6.0794 13.6073 6.68373 14.0171C7.28807 14.4269 7.72219 15.0431 7.90474 15.7501H7.99849C11.6238 15.7501 12.3663 13.9688 13.3066 11.7113C14.2797 9.3863 15.3738 6.75005 19.9985 6.75005H21.1882L19.4679 5.03068C19.3271 4.88995 19.2481 4.69907 19.2481 4.50005C19.2481 4.30103 19.3271 4.11016 19.4679 3.96943C19.6086 3.8287 19.7995 3.74963 19.9985 3.74963C20.1975 3.74963 20.3884 3.8287 20.5291 3.96943L23.5291 6.96943C23.5988 7.03908 23.6542 7.1218 23.6919 7.21285C23.7297 7.30389 23.7491 7.40149 23.7491 7.50005C23.7491 7.59861 23.7297 7.69621 23.6919 7.78726C23.6542 7.8783 23.5988 7.96102 23.5291 8.03068Z" fill="#424242"/>
                         </svg>
                         </button>
@@ -291,11 +292,9 @@ const doctors = [
                 <div className="fourth-section">
                     <div className="header">
                         <div>
-                            <h2>GlobalMed-in Peşəkar Komandası</h2>
-                            <p>
-                                Müxtəlif sahələr üzrə ixtisaslaşmış mütəxəssislərimiz yüksək tibbi bilik və praktiki
-                                təcrübəyə malikdir.
-                            </p>
+                            <h2>{t("clinicDetail.doctors.title")}</h2>
+                            <p>{t("clinicDetail.doctors.subtitle")}</p>
+
                         </div>
 
                     </div>
@@ -317,7 +316,8 @@ const doctors = [
                     </div>
                     <div style={{textAlign: 'center'}}>
                         <button className={"clinicDetailThird"} onClick={() => setShowAllServices(!showAllServices)}>
-                            Hamısına bax <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+                            {t("clinicDetail.services.button")}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
                             <path d="M23.5291 8.03068L20.5291 11.0307C20.3884 11.1714 20.1975 11.2505 19.9985 11.2505C19.7995 11.2505 19.6086 11.1714 19.4679 11.0307C19.3271 10.8899 19.2481 10.6991 19.2481 10.5001C19.2481 10.301 19.3271 10.1102 19.4679 9.96943L21.1882 8.25005H19.9985C16.3732 8.25005 15.6307 10.0313 14.6904 12.2888C13.7219 14.6138 12.6232 17.2501 7.99849 17.2501H7.90474C7.72219 17.957 7.28807 18.5732 6.68373 18.983C6.0794 19.3928 5.34635 19.5681 4.62199 19.4761C3.89763 19.3841 3.23169 19.0311 2.749 18.4832C2.2663 17.9353 2 17.2302 2 16.5001C2 15.7699 2.2663 15.0648 2.749 14.5169C3.23169 13.969 3.89763 13.616 4.62199 13.524C5.34635 13.432 6.0794 13.6073 6.68373 14.0171C7.28807 14.4269 7.72219 15.0431 7.90474 15.7501H7.99849C11.6238 15.7501 12.3663 13.9688 13.3066 11.7113C14.2797 9.3863 15.3738 6.75005 19.9985 6.75005H21.1882L19.4679 5.03068C19.3271 4.88995 19.2481 4.69907 19.2481 4.50005C19.2481 4.30103 19.3271 4.11016 19.4679 3.96943C19.6086 3.8287 19.7995 3.74963 19.9985 3.74963C20.1975 3.74963 20.3884 3.8287 20.5291 3.96943L23.5291 6.96943C23.5988 7.03908 23.6542 7.1218 23.6919 7.21285C23.7297 7.30389 23.7491 7.40149 23.7491 7.50005C23.7491 7.59861 23.7297 7.69621 23.6919 7.78726C23.6542 7.8783 23.5988 7.96102 23.5291 8.03068Z" fill="#424242"/>
                         </svg>
                         </button>
@@ -326,7 +326,7 @@ const doctors = [
 
                 {/* Fifth Section: Gallery */}
                 <div className="fifth-section">
-                    <h2>Image gallery</h2>
+                    <h2>{t("clinicDetail.gallery.title")}</h2>
                     <div className="gallery">
                         <div className="gallery-slider-wrapper">
                             <div className="gallery-slider" ref={gallerySliderRef}>
@@ -377,16 +377,16 @@ const doctors = [
                             <div className="form" data-aos="fade-right">
                                 <div className="form-head">
                                     <hr/>
-                                    <h2>Formu dolduraraq bizimlə əlaqə saxlayın</h2>
+                                    <h2>{t("contact.form.title")}</h2>
                                 </div>
                                 <div className="form-body">
                                     <form onSubmit={() => { /* handle submission */
                                     }}>
                                         <div className="row">
                                             <div className="col-30 col-md-60 col-sm-60 col-xs-60">
-                                                <label>Ad</label>
+                                                <label>{t("contact.form.labels.name")}</label>
                                                 <input
-                                                    placeholder="Adınızı daxil edin"
+                                                    placeholder={t("contact.form.placeholders.name")}
                                                     value={name}
                                                     onChange={(e) => setFirstName(e.target.value)}
                                                     maxLength={50}
@@ -395,9 +395,9 @@ const doctors = [
                                                 {errors.name && <span className="error-message">{errors.name}</span>}
                                             </div>
                                             <div className="col-30 col-md-60 col-sm-60 col-xs-60">
-                                                <label>Soyad</label>
+                                                <label>{t("contact.form.labels.surname")}</label>
                                                 <input
-                                                    placeholder="Soyadınızı daxil edin"
+                                                    placeholder={t("contact.form.placeholders.surname")}
                                                     value={surname}
                                                     onChange={(e) => setLastName(e.target.value)}
                                                     maxLength={50}
@@ -408,10 +408,10 @@ const doctors = [
                                                 )}
                                             </div>
                                             <div className="col-60">
-                                                <label>Email</label>
+                                                <label>{t("contact.form.labels.email")}</label>
                                                 <input
                                                     type="email"
-                                                    placeholder="example@gmail.com"
+                                                    placeholder={t("contact.form.placeholders.email")}
                                                     value={email}
                                                     onChange={(e) => setEmail(e.target.value)}
                                                     maxLength={100}
@@ -420,10 +420,10 @@ const doctors = [
                                                 {errors.email && <span className="error-message">{errors.email}</span>}
                                             </div>
                                             <div className="col-60">
-                                                <label>Nömrə</label>
+                                                <label>{t("contact.form.labels.phone")}</label>
                                                 <input
                                                     type="tel"
-                                                    placeholder="+994 99 999 99 99"
+                                                    placeholder={t("contact.form.placeholders.phone")}
                                                     value={phoneNumber}
                                                     onChange={(e) => setPhone(e.target.value)}
                                                     maxLength={20}
@@ -434,20 +434,21 @@ const doctors = [
                                                 )}
                                             </div>
                                             <div className="col-60">
-                                                <label>Qeyd</label>
+                                                <label>{t("contact.form.labels.description")}</label>
                                                 <textarea
                                                     rows={5}
                                                     value={description}
                                                     onChange={(e) => setNote(e.target.value)}
                                                     maxLength={700}
                                                     required
+                                                    placeholder={t("contact.form.placeholders.description")}
                                                 />
                                                 {errors.description && (
                                                     <span className="error-message">{errors.description}</span>
                                                 )}
                                             </div>
                                             <div className="col-60">
-                                                <button type="submit">Göndər</button>
+                                                <button type="submit">{t("contact.form.button")}</button>
                                             </div>
                                         </div>
                                     </form>

@@ -57,13 +57,12 @@ function Footer() {
                                 <div className="services">
                                     <h3>{t('footer.links')}</h3>
                                     <ul>
-                                        <li><Link to="/">{t('navbar.home')}</Link></li>
                                         <li><Link to="/tours" onClick={() => {
                                             handleScrollServices();
-                                        }}>Turlar</Link></li>
+                                        }}>{t('navbar.tours')}</Link></li>
                                         <li><Link to="/doctors" onClick={() => {
                                             handleScrollServices();
-                                        }}>Həkimlər</Link></li>
+                                        }}>{t('navbar.doctors')}</Link></li>
                                         <li><Link to="/clinics"  onClick={() => {
                                             handleScrollClinic();
                                         }}>{t('navbar.clinics')}</Link></li>

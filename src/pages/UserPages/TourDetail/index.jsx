@@ -86,7 +86,7 @@ function TourDetail() {
                     <p data-aos="fade-up" data-aos-delay="100">
                         <Link to="/">{t("contact.breadcrumb.home")}</Link>
                         <div className="dot dot1"></div>
-                        <Link to="/tours">Tibbi Tur Paketləri</Link>
+                        <Link to="/tours">{t(".tours")}</Link>
                         <div className="dot dot2"></div>
                         <Link to={`/tours/${tour?.id}`}>{tour?.name}</Link>
                     </p>
@@ -122,7 +122,7 @@ function TourDetail() {
                                     );
                                 })}
                             </div>
-                            <button>Müraciət et</button>
+                            <button>{t("tourDetail.applyButton")}</button>
                         </div>
                     </div>
                     <div className={'col-30 col-md-60 col-sm-60 col-xs-60 order1'}>
@@ -158,7 +158,7 @@ function TourDetail() {
                             <div className="form">
                                 <div className="form-head">
 
-                                    <h2>{t("categoryDetail.contact.form.title")}</h2>
+                                    <h2>{t("contact.form.title")}</h2>
                                 </div>
                                 <div className="form-body">
                                     <form onSubmit={handleSubmit}> {/* onSubmit'i handleSubmit ile bağladım */}
@@ -168,7 +168,7 @@ function TourDetail() {
                                             <div className="col-29" style={{ padding: "12px 0" }}>
                                                 <input
                                                     type="text"
-                                                    placeholder="Ad"
+                                                    placeholder={t("contact.form.placeholders.name")}
                                                     value={name}
                                                     onChange={(e) => setName(e.target.value)}
 
@@ -178,7 +178,7 @@ function TourDetail() {
                                             <div className="col-29" style={{ padding: "12px 0" }}>
                                                 <input
                                                     type="text"
-                                                    placeholder="Soyad"
+                                                    placeholder={t("contact.form.placeholders.surname")}
                                                     value={surname}
                                                     onChange={(e) => setSurname(e.target.value)}
                                                 />
@@ -187,7 +187,7 @@ function TourDetail() {
                                             <div className="col-60" style={{ padding: "12px 0" }}>
                                                 <input
                                                     type="email"
-                                                    placeholder="Email"
+                                                    placeholder={t("contact.form.placeholders.email")}
                                                     value={email}
                                                     onChange={(e) => setEmail(e.target.value)}
                                                 />
@@ -196,7 +196,7 @@ function TourDetail() {
                                             <div className="col-60" style={{ padding: "12px 0" }}>
                                                 <input
                                                     type="text"
-                                                    placeholder="Telefon"
+                                                    placeholder={t("contact.form.placeholders.phone")}
                                                     value={phoneNumber}
                                                     onChange={(e) => setPhoneNumber(e.target.value)}
                                                 />
@@ -205,7 +205,7 @@ function TourDetail() {
                                             <div className="col-60" style={{ padding: "12px 0" }}>
                                                 <textarea
                                                     rows={5}
-                                                    placeholder="Qeyd"
+                                                    placeholder={t("contact.form.placeholders.description")}
                                                     value={description}
                                                     onChange={(e) => setDescription(e.target.value)}
                                                 />
@@ -213,7 +213,7 @@ function TourDetail() {
                                             </div>
                                             <div className="col-60" style={{ padding: "12px 0" }}>
                                                 <button type="submit">
-                                                    {t("categoryDetail.contact.form.button")}
+                                                    {t("contact.form.button")}
                                                 </button>
                                             </div>
                                         </div>

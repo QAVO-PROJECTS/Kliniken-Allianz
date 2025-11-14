@@ -163,7 +163,7 @@ function Navbar() {
                                 setMenuOpen(false)
                             }
                         >
-                            Həkimlər
+                            {t("navbar.doctors")}
                         </Link>
                         <Link
                             to="/tours"
@@ -172,7 +172,7 @@ function Navbar() {
                                 setMenuOpen(false)
                             }
                         >
-                            Turlar
+                            {t("navbar.tours")}
                         </Link>
                         <Link
                             to="/about"

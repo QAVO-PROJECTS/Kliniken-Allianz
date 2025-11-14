@@ -1,15 +1,21 @@
 {
   "navbar": {
-    "home": "Ana səhifə",
-    "services": "Kateqoriyalar",
     "clinics": "Klinikalar",
+    "doctors": "Həkimlər",
+    "tours": "Turlar",
     "about": "Haqqımızda",
     "contact": "Əlaqə",
+    "categories": "Kateqoriyalar",
+    "search": "Axtarış",
     "languages": {
       "az": "Azərbaycan",
       "en": "İngilis",
       "ru": "Rus"
     }
+  },
+  "categoriesMenu": {
+    "title": "Kateqoriyalar",
+    "allCategories": "Bütün kateqoriyalar"
   },
   "footer": {
     "logoAlt": "Kliniken Allianz Loqosu",
@@ -69,39 +75,14 @@
   "homeClinic": {
     "title": "Etibar Edilən Sağlamlıq Mərkəzləri",
     "description": "Kliniken Allianz yalnız beynəlxalq standartlara cavab verən, müasir və etibarlı klinikalarla əməkdaşlıq edir.",
-    "prevButton": "Əvvəlki Slayd",
-    "nextButton": "Növbəti Slayd",
-    "slideAriaLabel": "{slideNumber}-ci slayda keç",
-    "cardImgAlt": "{name} Şəkli",
-    "cards": {
-      "universitatsklinikum": {
-        "name": "Universitätsklinikum",
-        "description": "Frankfurt, Almaniya"
-      },
-      "cleveland": {
-        "name": "Cleveland Clinic",
-        "description": "ABŞ"
-      },
-      "anadolu": {
-        "name": "GlobalMed",
-        "description": "Türkiyə"
-      },
-      "bumrungrad": {
-        "name": "Bumrungrad",
-        "description": "Tailand"
-      },
-      "hospitalUniversitario": {
-        "name": "Hospital Universitario",
-        "description": "Madrid, İspaniya"
-      },
-      "singapore": {
-        "name": "Singapore Hospital",
-        "description": "Sinqapur"
-      }
-    }
+    "moreButton": "Daha çox",
+    "slideAriaLabel": "Slayd {{slideNumber}}",
+    "prevButton": "Əvvəlki slayd",
+    "nextButton": "Növbəti slayd"
   },
   "homeHotel": {
     "title": "Klinikalara Yaxın Otel Seçimləri",
+    "desc": "Sizin rahatlığınız üçün seçilmiş, beynəlxalq standartlara uyğun otellər.",
     "slideAriaLabel": "{slideNumber}-ci slayda keç",
     "cardImgAlt": "{name} Şəkli",
     "cards": {
@@ -180,6 +161,12 @@
       }
     }
   },
+  "homeTour": {
+    "title": "Tibbi Tur Paketləri",
+    "description": "Müalicə, yerləşmə və transfer daxil tam tibbi tur paketləri.",
+    "slideAriaLabel": "{slideNumber}-ci slayda keç",
+    "cardImgAlt": "{name} Şəkli"
+  },
   "translation": {
     "comments": [
       {
@@ -203,39 +190,35 @@
     ]
   },
   "aboutUs": {
-    "title": "Haqqımızda",
+    "pageTitle": "Haqqımızda",
     "breadcrumb": {
       "home": "Ana səhifə",
-      "about": "Haqqımızda"
+      "about": "Layihələrimiz"
     },
     "section1": {
       "title": "Hər Addımda Sizinlə: Yüksək Keyfiyyətli Tibbi Xidmətlər",
-      "description": "Aviasiya biletlərindən viza dəstəyinə qədər hər detala diqqət yetirərək, sağlamlıq yolculuğunuzu asan və təhlükəsiz bir şəkildə reallaşdırırıq. Bizimlə olan hər addımınızda sizi etibarlı və peşəkar bir xidmət gözləyir.",
-      "contactButton": "Bizimlə əlaqəyə keç"
+      "desc": "Aviasiya biletlərindən viza dəstəyinə qədər hər detala diqqət yetirərək, sağlamlıq yolculuğunuzu asan və təhlükəsiz bir şəkildə reallaşdırırıq. Bizimlə olan hər addımınızda sizi etibarlı və peşəkar bir xidmət gözləyir.",
+      "button": "Bizimlə əlaqəyə keç"
     },
     "section2": {
       "title": "Niyə Kliniken Allianz?",
-      "description": "Kliniken Allianz olaraq, sağlamlıq turizmi sahəsində fərqli ölkələrdəki ən yaxşı tibbi müəssisələrlə əməkdaşlıq edirik.",
+      "desc": "Kliniken Allianz olaraq, sağlamlıq turizmi sahəsində fərqli ölkələrdəki ən yaxşı tibbi müəssisələrlə əməkdaşlıq edirik.",
       "cards": {
         "consultation": {
-          "title": "Peşəkar Tibbi Konsultasiya",
-          "description": "Müxtəlif ölkələrdə tanınmış klinikalar və yüksək ixtisaslı həkimlərlə birbaşa əlaqə imkanı."
+          "title": "Pulsuz Konsultasiya"
         },
         "partnership": {
-          "title": "Beynəlxalq Klinikalarla Əməkdaşlıq",
-          "description": "Ölkələrin aparıcı tibb mərkəzləri ilə rəsmi tərəfdaşlıq."
+          "title": "Xarici Klinikalarla Əməkdaşlıq"
         },
         "travel": {
-          "title": "Rahat və Təhlükəsiz Səyahət",
-          "description": "Aviabilet, transfer, otel, tərcüməçi və digər bütün ehtiyacların tam təşkili."
+          "title": "Səyahət və Transfer Dəstəyi"
         },
         "pricing": {
-          "title": "Şəffaf Qiymət və Rəsmi Sənədləşmə",
-          "description": "Bütün xidmətlər rəsmi şəkildə, gizli xərclər olmadan təklif olunur."
+          "title": "Şəffaf Qiymətləndirmə"
         }
       }
     },
-    "bannerAlt": "Haqqımızda Banneri"
+    "bannerAlt": "Haqqımızda banner"
   },
   "contact": {
     "title": "Əlaqə",
@@ -245,7 +228,7 @@
     },
     "main": {
       "title": "Kömək etməyə hazırıq",
-      "description": "Tibbi turizmlə bağlı bütün suallarınız üçün bizimlə rahatlıqla əlaqə saxlaya bilərsiniz. Mütəxəssis komandamız sizə uyğun həll yollarını təqdim edəcək."
+      "desc": "Tibbi turizmlə bağlı bütün suallarınız üçün bizimlə rahatlıqla əlaqə saxlaya bilərsiniz. Mütəxəssis komandamız sizə uyğun həll yollarını təqdim edəcək."
     },
     "contactCard": {
       "mobile": {
@@ -290,70 +273,136 @@
     "bannerAlt": "Əlaqə Banneri"
   },
   "categoryDetail": {
+    "pageTitle": "Xidmət",
     "breadcrumb": {
-      "home": "Ana səhifə",
-      "category": "Kateqoriyalar"
+      "home": "Ana səhifə"
     },
     "firstSection": {
-      "title": "Ürək-Damar Cərrahiyyəsi",
-      "description": "Ürək və damar xəstəlikləri dünya üzrə ən geniş yayılmış sağlamlıq problemlərindəndir. Kliniken Allianz olaraq, bu sahədə ixtisaslaşmış, beynəlxalq təcrübəyə malik həkimlər və yüksək texnologiyalı klinikalarla əməkdaşlıq edirik.",
-      "button": "Müraciət et",
-      "bannerAlt": "Kateqoriya Banneri"
+      "bannerAlt": "Kateqoriya banneri"
     },
     "secondSection": {
-      "title": "Cleveland Clinic",
-      "description": "Cleveland Clinic, qabaqcıl texnologiyalar və peşəkar həkim heyəti ilə ürək-damar xəstəliklərinin müalicəsində dünya səviyyəli xidmətlər təqdim edən, etibarlı və tanınmış bir tibbi mərkəzdir.",
-      "imageAlt": "Cleveland Clinic Şəkli",
       "button": "Hamısına bax"
     },
-    "thirdSection": {
-      "title": "Johns Hopkins Medicine",
-      "description": "Johns Hopkins, dünya miqyasında tanınmış tibbi tədqiqat və müalicə mərkəzidir. Ürək-damar xəstəlikləri və cərrahiyyəsi sahəsində qabaqcıl müalicə metodları tətbiq edir.",
-      "imageAlt": "Johns Hopkins Şəkli",
+    "form": {
+      "title": "Əlaqə Formu",
+      "errors": {
+        "nameRequired": "Ad tələb olunur",
+        "surnameRequired": "Soyad tələb olunur",
+        "emailRequired": "Email tələb olunur",
+        "emailInvalid": "Email düzgün formatda deyil",
+        "phoneRequired": "Telefon nömrəsi tələb olunur",
+        "descriptionRequired": "Qeyd sahəsi boş ola bilməz"
+      },
+      "button": "Göndər",
+      "success": "Mesajınız uğurla göndərildi!",
+      "error": "Mesaj göndərilərkən xəta baş verdi!",
+      "imageAlt": "Əlaqə şəkli"
+    }
+  },
+  "clinicDetail": {
+    "breadcrumb": {
+      "home": "Ana səhifə",
+      "clinic": "Klinika"
+    },
+    "firstSection": {
+      "title": "Klinika",
+      "bannerAlt": "Klinika Banneri"
+    },
+    "certificates": {
+      "title": "Sertifikatlar",
+      "itemText": "Sertifikat"
+    },
+    "services": {
+      "title": "Xəstəxananın Təklif Etdiyi Tibbi Xidmətlər",
+      "description": "Sizin ehtiyaclarınıza uyğun tibbi xidmət sahələrini kəşf edin.",
       "button": "Hamısına bax"
+    },
+    "doctors": {
+      "title": "Peşəkar Komanda",
+      "description": "Müxtəlif sahələr üzrə ixtisaslaşmış mütəxəssislərimiz yüksək tibbi bilik və praktiki təcrübəyə malikdir.",
+      "button": "Hamısına bax"
+    },
+    "gallery": {
+      "title": "Image gallery",
+      "prevAria": "Əvvəlki şəkil",
+      "nextAria": "Növbəti şəkil",
+      "goToImageAria": "Şəkilə keç {number}"
     },
     "contact": {
       "form": {
-        "title": "Əgər hər hansı çətinliklə qarşılaşırsınızsa, bizə müraciət edin.",
+        "title": "Formu dolduraraq bizimlə əlaqə saxlayın",
         "labels": {
+          "name": "Ad",
+          "surname": "Soyad",
           "email": "Email",
-          "description": "Qeyd"
+          "phone": "Nömrə",
+          "note": "Qeyd"
         },
         "placeholders": {
-          "email": "examle@gmail.com",
-          "description": ""
+          "name": "Adınızı daxil edin",
+          "surname": "Soyadınızı daxil edin",
+          "email": "example@gmail.com",
+          "phone": "+994 99 999 99 99",
+          "note": ""
         },
         "button": "Göndər",
         "errors": {
-          "emailRequired": "Emailinizi daxil edin",
+          "nameRequired": "Adı daxil edin",
+          "surnameRequired": "Soyadı daxil edin",
+          "emailRequired": "Email daxil edin",
           "emailInvalid": "Düzgün email daxil edin",
+          "phoneRequired": "Telefon daxil edin",
           "descriptionRequired": "Mesajınızı daxil edin"
         }
       },
-      "imageAlt": "Əlaqə Şəkli"
-    },
-    "services": {
-      "title": "Digər kateqoriyalar",
-      "description": "Beynalxalq səviyyəli klinikalarda müxtəlif tibbi sahələrdə təqdim etdiyimiz xidmətlərdən yararlanın."
-    },
-    "cards": {
-      "cancer": {
-        "name": "Xərçəng müalicəsi",
-        "description": "ABŞ"
-      },
-      "oftamologiya": {
-        "name": "Oftamologiya",
-        "description": "Banqkok"
-      },
-      "ginekologiya": {
-        "name": "Ginekologiya",
-        "description": "İstanbul"
-      },
-      "hepatologiya": {
-        "name": "Hepatologiya",
-        "description": "Sinqapur"
-      }
+      "mapAlt": "Klinikanın xəritəsi"
     }
+  },
+  "clinicHotel": {
+    "title": "Tibbi Səfər üçün Otellər",
+    "description": "Sizin rahatlığınız üçün seçilmiş, beynəlxalq standartlara uyğun otellər.",
+    "slideAriaLabel": "{slideNumber}-ci slayda keç"
+  },
+  "doctorsPage": {
+    "title": "Həkimlər",
+    "searchPlaceholder": "Axtarış edin.....",
+    "breadcrumbDoctors": "Həkimlər",
+    "header": {
+      "title": "Sağlamlığınız üçün ən doğru seçim",
+      "desc": "Müxtəlif sahələr üzrə ixtisaslaşmış həkimlərdən özünüzə uyğun olanı seçin"
+    },
+    "noDoctors": "Heç bir həkim tapılmadı.",
+    "filters": {
+      "title": "Filtr",
+      "experience": "İş təcrübəsi",
+      "clinics": "Klinika",
+      "rating": "Reytinq",
+      "area": "İxtisas sahəsi",
+      "reset": "Sıfırlayın",
+      "mobileApply": "Tətbiq et",
+      "mobileClear": "Təmizlə",
+      "mobileFilter": "Filtrlə"
+    }
+  },
+  "doctorDetail": {
+    "title": "Həkim",
+    "breadcrumbDoctors": "Həkimlər",
+    "experienceSuffix": "illik təcrübə",
+    "sections": {
+      "bio": "Bio",
+      "certificates": "Sertifikatlar"
+    },
+    "empty": "—"
+  },
+  "toursPagee": {
+    "title": "Tur",
+    "breadcrumb": {
+      "tours": "Tur"
+    },
+    "searchPlaceholder": "Axtarış edin...",
+    "headerTitle": "Tibbi Tur Paketləri",
+    "headerDesc": "Müalicə, yerləşmə və transfer daxil tam tibbi tur paketləri.",
+    "noData": "Axtardığınız tur tapılmadı 😔"
   },
   "adminPanel": {
     "categoryPage": {
@@ -427,7 +476,7 @@
       "loading": "Yüklənir..."
     },
     "categoryService": {
-        "main": "Kateqoriya",
+      "main": "Kateqoriya",
       "description": "Bu bölmədə kateqoriyanın ümumi məlumatlarını görə və ona yeni xidmətlər əlavə edə bilərsiniz."
     },
     "categoryServiceTable": {
@@ -516,7 +565,26 @@
     },
     "clinicPage": {
       "title": "Klinika",
-      "description": "Buradan klinikaları idarə edə və yenilərini yarada bilərsiniz."
+      "description": "Buradan klinikaları idarə edə və yenilərini yarada bilərsiniz.",
+      "noClinicFound": "Uyğun klinika tapılmadı",
+
+      "headers": {
+        "title": "Etibar Edilən Sağlamlıq Mərkəzləri",
+        "subtitle": "Kliniken Allianz yalnız beynəlxalq standartlara cavab verən, müasir və etibarlı klinikalarla əməkdaşlıq edir."
+      },
+
+      "search": {
+        "placeholder": "Axtarış edin....."
+      },
+
+      "breadcrumb": {
+        "home": "Ana səhifə",
+        "clinics": "Klinikalar"
+      },
+
+      "bannerAlt": "Haqqımızda banner"
+
+
     },
     "clinicTable": {
       "image": "Şəkil",
@@ -747,7 +815,6 @@
         "error": "Xəta baş verdi, yenidən cəhd edin ❌"
       }
     },
-
     "doctorEdit": {
       "breadcrumb": {
         "root": "Həkim",
@@ -1198,7 +1265,6 @@
         "prev": "Əvvəlki"
       }
     },
-
     "leftBar": {
       "menu": {
         "category": "Kateqoriya",
@@ -1226,6 +1292,5 @@
         "tour": "Tur"
       }
     }
-
   }
 }

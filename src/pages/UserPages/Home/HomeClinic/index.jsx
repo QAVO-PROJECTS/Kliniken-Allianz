@@ -137,9 +137,9 @@ const isMobile = useMediaQuery({maxWidth:768})
                 <div className={'row'}>
                     <div className={"col-25 col-md-60 col-sm-60 col-xs-60"}>
                         <div className="content">
-                            <h2>Etibar Edilən Sağlamlıq Mərkəzləri</h2>
-                            <p>Kliniken Allianz yalnız beynəlxalq standartlara cavab verən, müasir və etibarlı klinikalarla əməkdaşlıq edir.</p>
-                            {isMobile ? ('') : (<button className={'headBtn'} onClick={()=>navigate('/clinics')}><span>Daha çox</span></button>)}
+                            <h2>{t("homeClinic.title")}</h2>
+                            <p>{t("homeClinic.description")}</p>
+                            {isMobile ? ('') : (<button className={'headBtn'} onClick={()=>navigate('/clinics')}><span><span>{t("homeClinic.moreButton")}</span></span></button>)}
                         </div>
                     </div>
                     <div className={'col-35 col-md-60 col-sm-60 col-xs-60'}>
@@ -177,7 +177,7 @@ const isMobile = useMediaQuery({maxWidth:768})
                         />
                     ))}
                 </div>
-                {isMobile ?  (<button className={'headBtn'}><span>Daha çox</span></button>) : ('')}
+                {isMobile ?  (<button className={'headBtn'}><span>{t("homeClinic.moreButton")}</span></button>) : ('')}
                 <div className="header">
 
                     <div className="navigationBtn">
