@@ -9,7 +9,7 @@ import img1 from '/src/assets/turDetail1.jpg'
 import img2 from '/src/assets/turDetail2.jpg'
 import img3 from '/src/assets/turDetail3.jpg'
 import {useMediaQuery} from "react-responsive";
-import {useGetToursByIdQuery} from "../../../services/userApi.jsx";
+import {useGetToursByIdQuery, usePostContactTourMutation} from "../../../services/userApi.jsx";
 import i18n from "../../../i18n.js";
 import image from "../../../assets/CatgoryContantOrange.png";
 import image1 from "../../../assets/blueIcon.png";
@@ -32,6 +32,7 @@ function TourDetail() {
     const [phoneNumber, setPhoneNumber] = useState("");
     const [description, setDescription] = useState("");
     const [errors, setErrors] = useState({});
+    const [postContact] = usePostContactTourMutation();
 
     const validate = () => {
         const newErrors = {};
@@ -58,12 +59,12 @@ function TourDetail() {
                 email,
                 phoneNumber,
                 description,
-                tourId: id, // 🔹 burda göndəririk
+                tourId: id
             };
 
             try {
                 await postContact(payload).unwrap();
-                showToast("Mesajınız uğurla göndərildi ✅",'success');
+                showToast(t("contact.form.success"), "success");
 
                 // reset
                 setName("");
@@ -74,10 +75,11 @@ function TourDetail() {
                 setErrors({});
             } catch (error) {
                 console.error("Contact error:", error);
-                showToast("Mesaj göndərilərkən xəta baş verdi ❌",'error');
+                showToast(t("contact.form.error"), "error");
             }
         }
     };
+
     return (
         <div id="tour-detail">
             <div className="container">
@@ -86,7 +88,7 @@ function TourDetail() {
                     <p data-aos="fade-up" data-aos-delay="100">
                         <Link to="/">{t("contact.breadcrumb.home")}</Link>
                         <div className="dot dot1"></div>
-                        <Link to="/tours">{t(".tours")}</Link>
+                        <Link to="/tours">{t("toursPage.title")}</Link>
                         <div className="dot dot2"></div>
                         <Link to={`/tours/${tour?.id}`}>{tour?.name}</Link>
                     </p>
@@ -122,7 +124,7 @@ function TourDetail() {
                                     );
                                 })}
                             </div>
-                            <button>{t("tourDetail.applyButton")}</button>
+                            <button>{t("toursPage.applyButton")}</button>
                         </div>
                     </div>
                     <div className={'col-30 col-md-60 col-sm-60 col-xs-60 order1'}>

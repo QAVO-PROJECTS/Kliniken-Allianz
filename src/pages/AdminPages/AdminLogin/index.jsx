@@ -18,6 +18,7 @@ function AdminLogin() {
             const response = await postAdminLogin({ email, password }).unwrap();
             showToast("Giriş uğurlu oldu !","success")
             setTimeout(navigate("/admin/category"), 2000);
+            localStorage.setItem('i18nextLng', 'az');
             if (response?.statusCode === 200) {
                 const token = response?.data?.token;
                 console.log(response?.data?.token)

@@ -28,8 +28,8 @@ function HomeServices() {
             <div className={'container'}>
                 <div className={'head'}>
                     <div className={'title'}>
-                        <h2>Sizə Təklif Etdiyimiz Tibbi Xidmətlər</h2>
-                        <p>Sizin ehtiyaclarınıza uyğun tibbi xidmət sahələrini kəşf edin.</p>
+                        <h2>{t("homeServices.title")}</h2>
+                        <p>{t("homeServices.description")}</p>
                     </div>
 
                 </div>

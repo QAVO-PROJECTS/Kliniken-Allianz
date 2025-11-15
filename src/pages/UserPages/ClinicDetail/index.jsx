@@ -16,7 +16,7 @@ import dimage3 from "/src/assets/dmarcDoktor.png";
 import dimage4 from "/src/assets/dSamer.png";
 import dimage5 from "/src/assets/doktor5.jpg";
 import dimage6 from "/src/assets/doktor6.jpg";
-import {useGetClinicByIdQuery} from "../../../services/userApi.jsx";
+import {useGetClinicByIdQuery, usePostContactClinicMutation} from "../../../services/userApi.jsx";
 import {CERT_CLINIC_URL, CLINIC_CARD_IMAGES, CLINIC_IMAGES} from "../../../contants.js";
 import {useTranslation} from "react-i18next";
 import HomeServiceCard from "../../../components/UserComponents/Home/ServiceCardHome/index.jsx";
@@ -29,6 +29,7 @@ const galleryImages = [gallery1, gallery2, gallery3, gallery4];
 import img2 from '/src/assets/ClinicDetialFirst.png'
 import sertifikat from '/src/assets/Sertifikat11.jpg'
 import cardIcon from "/src/assets/icon1.png"
+import showToast from "../../../components/ToastMessage.js";
 function ClinicDetail() {
     const {id} = useParams()
 
@@ -36,6 +37,7 @@ const {data:getClinicById} = useGetClinicByIdQuery(id)
     const clinic = getClinicById?.data
     const [showAllServices, setShowAllServices] = useState(false);
     const { t, i18n } = useTranslation();
+    const [postClinicContact] = usePostContactClinicMutation()
     const getLocalizedText = (item, field) => {
         switch (i18n.language) {
             case 'en':
@@ -101,40 +103,9 @@ const {data:getClinicById} = useGetClinicByIdQuery(id)
 
     const sliderRef = useRef(null);
     const gallerySliderRef = useRef(null);
-    const [currentIndex, setCurrentIndex] = useState(0);
+
     const [galleryIndex, setGalleryIndex] = useState(0);
 
-    const cards = [{
-        name: "Dr. Harry Donal",
-        description: "Frankfurt, Almaniya",
-        imageUrl: dimage,
-    },
-        {
-            name: "Dr. Maria Smith",
-            description: "ABŞ",
-            imageUrl: dimage2,
-        },
-        {
-            name: "Dr. Marc Gillinov",
-            description: "Türkiye",
-            imageUrl: dimage3,
-        },
-        {
-            name: "Dr. Samer Jaber",
-            description: "Tailand",
-            imageUrl: dimage4,
-        },
-        {
-            name: "Dr. Panya Sriratanajai",
-            description: "Madrid, İspaniya",
-            imageUrl:dimage5,
-        }, {
-            name: "Dr. Maria Keller",
-            description: "Sinqapur",
-            imageUrl: dimage6,
-        }];
-    const getVisibleCards = () => window.innerWidth <= 576 ? 2 : 4;
-    const maxIndex = cards.length - getVisibleCards();
     const maxGalleryIndex = galleryImages.length - 1;
 
 
@@ -158,20 +129,35 @@ const {data:getClinicById} = useGetClinicByIdQuery(id)
         gallerySliderRef.current.style.transform = `translateX(-${index * 100}%)`;
     };
     const isMobile = useMediaQuery({maxWidth:768})
-    const sertifikats = [
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-    ]
-const doctors = [
-    {},
-    {},
-    {},
-    {},
-]
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const body = {
+            name,
+            surname,
+            email,
+            phoneNumber,
+            description,
+            clinicId: id
+        };
+
+        try {
+            await postClinicContact(body).unwrap();
+            showToast(t("contact.form.success"),'success');
+
+            // formu təmizlə
+            setFirstName("");
+            setLastName("");
+            setEmail("");
+            setPhone("");
+            setNote("");
+
+        } catch (err) {
+            console.log(err);
+            showToast(t("contact.form.error"),'error');
+        }
+    };
+
     return (
         <div id="clinic-detail">
             <div className="container">
@@ -380,8 +366,7 @@ const doctors = [
                                     <h2>{t("contact.form.title")}</h2>
                                 </div>
                                 <div className="form-body">
-                                    <form onSubmit={() => { /* handle submission */
-                                    }}>
+                                    <form onSubmit={handleSubmit}>
                                         <div className="row">
                                             <div className="col-30 col-md-60 col-sm-60 col-xs-60">
                                                 <label>{t("contact.form.labels.name")}</label>

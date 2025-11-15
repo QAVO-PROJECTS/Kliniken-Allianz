@@ -39,34 +39,15 @@
   "homeServices": {
     "title": "Sizə Təklif Etdiyimiz Tibbi Xidmət Kateqoriyaları",
     "description": "Sizin ehtiyaclarınıza uyğun tibbi xidmət sahələrini kəşf edin.",
-    "videoAlt": "Xidmətlər Videosu",
-    "cards": {
-      "cancer": {
-        "name": "Xərçəng müalicəsi",
-        "description": "ABŞ"
-      },
-      "oftamologiya": {
-        "name": "Oftamologiya",
-        "description": "Banqkok"
-      },
-      "ginekologiya": {
-        "name": "Ginekologiya",
-        "description": "İstanbul"
-      },
-      "hepatologiya": {
-        "name": "Hepatologiya",
-        "description": "Sinqapur"
-      },
-      "travmatologiya": {
-        "name": "Travmatologiya",
-        "description": "Banqkok"
-      },
-      "onurga": {
-        "name": "Kardiologiya",
-        "description": "Berlin"
-      }
-    }
+    "videoAlt": "Xidmətlər Videosu"
   },
+  "tourCard": {
+    "hotel": "Otel",
+    "visa": "Viza",
+    "flight": "Aviabilet",
+    "apply": "Müraciət et"
+  },
+
   "homeServiceCard": {
     "description": "Həyat keyfiyyətinizi yüksəltmək üçün ən yeni xərçəng müalicə üsulları.",
     "button": "Ətraflı bax",
@@ -319,6 +300,7 @@
     },
     "doctors": {
       "title": "Peşəkar Komanda",
+      "subtitle": "Müxtəlif sahələr üzrə ixtisaslaşmış mütəxəssislərimiz yüksək tibbi bilik və praktiki təcrübəyə malikdir.",
       "description": "Müxtəlif sahələr üzrə ixtisaslaşmış mütəxəssislərimiz yüksək tibbi bilik və praktiki təcrübəyə malikdir.",
       "button": "Hamısına bax"
     },
@@ -394,11 +376,12 @@
     },
     "empty": "—"
   },
-  "toursPagee": {
+  "toursPage": {
     "title": "Tur",
     "breadcrumb": {
       "tours": "Tur"
     },
+    "applyButton": "Müraciət et",
     "searchPlaceholder": "Axtarış edin...",
     "headerTitle": "Tibbi Tur Paketləri",
     "headerDesc": "Müalicə, yerləşmə və transfer daxil tam tibbi tur paketləri.",
@@ -1119,7 +1102,7 @@
       },
       "loading": "Yüklənir..."
     },
-    "toursPage": {
+    "toursPagee": {
       "header": {
         "title": "Xidmət paketi",
         "description": "Buradan həkimləri idarə edə və yenilərini yarada bilərsiniz."

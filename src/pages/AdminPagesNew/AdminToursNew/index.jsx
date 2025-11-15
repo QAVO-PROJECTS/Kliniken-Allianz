@@ -14,8 +14,8 @@ function AdminToursNew() {
 
                 <div className={'category-head'}>
                     <div className={'category-header'}>
-                        <h4>{t("adminPanel.toursPage.header.title")}</h4>
-                        <p>{t("adminPanel.toursPage.header.description")}</p>
+                        <h4>{t("adminPanel.toursPagee.header.title")}</h4>
+                        <p>{t("adminPanel.toursPagee.header.description")}</p>
                     </div>
                     <div className={'category-buttons'}>
                         <LanguageDiv selected={language} onChange={setLanguage}/>

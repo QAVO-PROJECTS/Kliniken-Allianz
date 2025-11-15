@@ -15,12 +15,26 @@ function ContactTableNew({language, filter}) {
     const {data:getAllContact} = useGetAllContactQuery()
     const contacts = getAllContact?.data
     const filteredContacts = useMemo(() => {
-        if (filter === "Ümumi") return contacts;
-        if (filter === "Tur") return contacts.filter(c => c.tourId || c.tourName);
-        if (filter === "Klinik") return contacts.filter(c => c.clinicId || c.clinicName);
-        if (filter === "Xidmət") return contacts.filter(c => c.serviceId || c.serviceName);
-        return contacts;
+        if (!contacts) return [];
+
+        switch (filter) {
+            case "all":
+                return contacts;
+
+            case "tour":
+                return contacts.filter(c => c.tourId || c.tourName);
+
+            case "clinic":
+                return contacts.filter(c => c.clinicId || c.clinicName);
+
+            case "service":
+                return contacts.filter(c => c.serviceId || c.serviceName);
+
+            default:
+                return contacts;
+        }
     }, [contacts, filter]);
+
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 9;
     const totalPages = Math.ceil(filteredContacts?.length / itemsPerPage);

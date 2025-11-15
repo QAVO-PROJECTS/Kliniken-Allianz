@@ -102,7 +102,7 @@ function ClinicHotel({ otels }) {
             <div className="container">
                 <div className="headd">
                     <h2>{t('homeHotel.title')}</h2>
-                    <p>{t("homeHotel.subtitle")}</p>
+                    <p>{t("homeHotel.desc")}</p>
                 </div>
                 <div
                     className="slider-wrapper"

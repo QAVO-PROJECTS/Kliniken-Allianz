@@ -167,6 +167,12 @@
     "slideAriaLabel": "Go to slide {slideNumber}",
     "cardImgAlt": "{name} Image"
   },
+  "tourCard": {
+    "hotel": "Hotel",
+    "visa": "Visa",
+    "flight": "Flight Ticket",
+    "apply": "Apply"
+  },
   "translation": {
     "comments": [
       {
@@ -272,6 +278,8 @@
     },
     "bannerAlt": "Contact Banner"
   },
+
+
   "categoryDetail": {
     "pageTitle": "Service",
     "breadcrumb": {
@@ -319,6 +327,7 @@
     },
     "doctors": {
       "title": "Professional Team",
+      "subtitle": "Our specialists, specialized in various fields, have high medical knowledge and practical experience.",
       "description": "Our specialists across various fields possess high medical expertise and practical experience.",
       "button": "View All"
     },
@@ -399,6 +408,7 @@
     "breadcrumb": {
       "tours": "Tour"
     },
+    "applyButton": "Apply",
     "searchPlaceholder": "Search...",
     "headerTitle": "Medical Tour Packages",
     "headerDesc": "Complete medical tour packages including treatment, accommodation, and transfer.",

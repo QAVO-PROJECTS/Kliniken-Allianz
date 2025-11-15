@@ -1,10 +1,11 @@
 import "./index.scss"
 import {useNavigate} from "react-router-dom";
 import {TOUR_CARD_IMG} from "../../../contants.js";
+import {useTranslation} from "react-i18next";
 function TourCard({item}) {
     const navigate = useNavigate();
     console.log(item);
-
+const {t} = useTranslation();
     return (
         <div className={"col-12 col-md-30 col-sm-30 col-xs-30"} style={{padding:'8px'}} onClick={()=>navigate(`/tours/${item?.id}`)}>
         <div id={"tour-card"}>
@@ -21,7 +22,7 @@ function TourCard({item}) {
                             <path d="M2.75 5.75V14C2.75 15.4145 2.75 16.121 3.1895 16.5605C3.629 17 4.3355 17 5.75 17H13.25C14.6645 17 15.371 17 15.8105 16.5605C16.25 16.121 16.25 15.4145 16.25 14V5.75M13.25 5.75C13.25 4.75544 12.8549 3.80161 12.1517 3.09835C11.4484 2.39509 10.4946 2 9.5 2C8.50544 2 7.55161 2.39509 6.84835 3.09835C6.14509 3.80161 5.75 4.75544 5.75 5.75" stroke="#333333" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M11 17V14C11 13.6022 10.842 13.2206 10.5607 12.9393C10.2794 12.658 9.89782 12.5 9.5 12.5C9.10218 12.5 8.72064 12.658 8.43934 12.9393C8.15804 13.2206 8 13.6022 8 14V17M7.25 2.75H3.854C3.6215 2.75 3.38525 2.8115 3.1985 2.99675C2.642 3.548 2.321 4.466 2 5.75H5.75M11.75 2.75H15.146C15.3785 2.75 15.6148 2.8115 15.8015 2.99675C16.358 3.548 16.679 4.466 17 5.75H13.25M5 8.75H5.375M5 11.375H5.375M13.625 8.75H14M13.625 11.375H14M8.375 6.5V7.625M8.375 7.625V8.75M8.375 7.625H10.625M10.625 6.5V7.625M10.625 7.625V8.75" stroke="#003778" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                        Otel
+                        {t("tourCard.hotel")}
                     </div>
                     <div className={'offer'}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
@@ -36,16 +37,16 @@ function TourCard({item}) {
                                 </clipPath>
                             </defs>
                         </svg>
-                        Viza
+                        {t("tourCard.visa")}
                     </div>
                     <div className={'offer'}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                             <path d="M12.375 4.45825V6.04159M12.375 9.20825V10.7916M12.375 13.9583V15.5416M4.45833 4.45825H15.5417C15.9616 4.45825 16.3643 4.62507 16.6613 4.922C16.9582 5.21893 17.125 5.62166 17.125 6.04159V8.41659C16.7051 8.41659 16.3023 8.5834 16.0054 8.88033C15.7085 9.17727 15.5417 9.57999 15.5417 9.99992C15.5417 10.4198 15.7085 10.8226 16.0054 11.1195C16.3023 11.4164 16.7051 11.5833 17.125 11.5833V13.9583C17.125 14.3782 16.9582 14.7809 16.6613 15.0778C16.3643 15.3748 15.9616 15.5416 15.5417 15.5416H4.45833C4.03841 15.5416 3.63568 15.3748 3.33875 15.0778C3.04181 14.7809 2.875 14.3782 2.875 13.9583V11.5833C3.29493 11.5833 3.69765 11.4164 3.99459 11.1195C4.29152 10.8226 4.45833 10.4198 4.45833 9.99992C4.45833 9.57999 4.29152 9.17727 3.99459 8.88033C3.69765 8.5834 3.29493 8.41659 2.875 8.41659V6.04159C2.875 5.62166 3.04181 5.21893 3.33875 4.922C3.63568 4.62507 4.03841 4.45825 4.45833 4.45825Z" stroke="#003778" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                        Aviabilet
+                        {t("tourCard.flight")}
                     </div>
                 </div>
-                <button>Müraciət et</button>
+                <button>{t("tourCard.apply")}</button>
             </div>
         </div>
         </div>

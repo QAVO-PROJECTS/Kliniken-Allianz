@@ -7,7 +7,7 @@ import {useState} from "react";
 import {useTranslation} from "react-i18next";
 function AdminContactNew() {
     const [language, setLanguage] = useState("AZ");
-    const [selectedFilter, setSelectedFilter] = useState("Ümumi"); // 🔹 əlavə etdik
+    const [selectedFilter, setSelectedFilter] = useState("all");
     const { t } = useTranslation();
 
     return (

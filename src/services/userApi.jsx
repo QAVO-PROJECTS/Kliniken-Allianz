@@ -156,6 +156,30 @@ export const userApi = createApi({
                 headers: {'Content-Type': 'application/json'}
             }),
         }),
+        postContactTour: builder.mutation({
+            query: (contact) => ({
+                url: `/Contact/create-tour-contact`,
+                method: 'POST',
+                body: contact,
+                headers: {'Content-Type': 'application/json'}
+            }),
+        }),
+        postContactService: builder.mutation({
+            query: (contact) => ({
+                url: `/Contact/create-service-contact`,
+                method: 'POST',
+                body: contact,
+                headers: {'Content-Type': 'application/json'}
+            }),
+        }),
+        postContactClinic: builder.mutation({
+            query: (contact) => ({
+                url: `/Contact/create-clinic-contact`,
+                method: 'POST',
+                body: contact,
+                headers: {'Content-Type': 'application/json'}
+            }),
+        }),
         getAllContact: builder.query({
             query: () => ({
                 url: `/Contact/get-all-contacts`,
@@ -282,6 +306,9 @@ export const {
     usePostServiceMutation,
 
     usePostContactMutation,
+    usePostContactClinicMutation,
+    usePostContactTourMutation,
+    usePostContactServiceMutation,
     useGetAllContactQuery,
 
     useGetAllOtelsQuery,
