@@ -225,7 +225,7 @@ function OtelEdit() {
                             <div className={'add-inputs'}>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input value={location} onChange={(e) => setLocation(e.target.value)} placeholder={t(`adminPanel.hotelEdit.sections.country.placeholders.az`)} />
+                                        <input value={location} maxLength={50} onChange={(e) => setLocation(e.target.value)} placeholder={t(`adminPanel.hotelEdit.sections.country.placeholders.az`)} />
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={aze} alt="" />
@@ -233,7 +233,7 @@ function OtelEdit() {
                                 </div>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input value={locationRu} onChange={(e) => setLocationRu(e.target.value)} placeholder={t(`adminPanel.hotelEdit.sections.country.placeholders.ru`)} />
+                                        <input value={locationRu} maxLength={50} onChange={(e) => setLocationRu(e.target.value)} placeholder={t(`adminPanel.hotelEdit.sections.country.placeholders.ru`)} />
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={rus} alt="" />
@@ -241,7 +241,7 @@ function OtelEdit() {
                                 </div>
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
-                                        <input value={locationEng} onChange={(e) => setLocationEng(e.target.value)} placeholder={t(`adminPanel.hotelEdit.sections.country.placeholders.en`)} />
+                                        <input value={locationEng} maxLength={50} onChange={(e) => setLocationEng(e.target.value)} placeholder={t(`adminPanel.hotelEdit.sections.country.placeholders.en`)} />
                                     </div>
                                     <div className={'langCountry'}>
                                         <img src={usa} alt="" />

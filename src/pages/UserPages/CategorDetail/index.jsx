@@ -92,7 +92,7 @@ function CategoryDetail() {
 
             try {
                 await postContact(body).unwrap();
-                showToast(t("contact.form.success"), "success");
+                showToast(t("contact.succesToast"), "success");
 
                 setName("");
                 setSurname("");
@@ -102,7 +102,7 @@ function CategoryDetail() {
                 setErrors({});
             } catch (error) {
                 console.error("Contact error:", error);
-                showToast(t("contact.form.error"), "error");
+                showToast(t("contact.errorToast"), "error");
             }
         }
     };
@@ -270,7 +270,7 @@ function CategoryDetail() {
                                             </div>
                                             <div className="col-60" style={{ padding: "12px 0" }}>
                                                 <input
-                                                    type="text"
+                                                    type="number"
                                                     placeholder={t("contact.form.placeholders.phone")}
                                                     value={phoneNumber}
                                                     onChange={(e) => setPhoneNumber(e.target.value)}

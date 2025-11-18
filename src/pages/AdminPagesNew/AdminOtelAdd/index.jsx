@@ -231,6 +231,7 @@ const navigate = useNavigate();
                                         <input
                                             placeholder={t(`adminPanel.hotelAdd.sections.country.placeholders.az`)}
                                             value={countryNames.az}
+                                            maxLength={50}
                                             onChange={(e) =>
                                                 setCountryNames((prev) => ({ ...prev, az: e.target.value }))
                                             }
@@ -246,6 +247,7 @@ const navigate = useNavigate();
                                         <input
                                             placeholder={t(`adminPanel.hotelAdd.sections.country.placeholders.ru`)}
                                             value={countryNames.ru}
+                                            maxLength={50}
                                             onChange={(e) =>
                                                 setCountryNames((prev) => ({ ...prev, ru: e.target.value }))
                                             }
@@ -261,6 +263,7 @@ const navigate = useNavigate();
                                         <input
                                             placeholder={t(`adminPanel.hotelAdd.sections.country.placeholders.en`)}
                                             value={countryNames.en}
+                                            maxLength={50}
                                             onChange={(e) =>
                                                 setCountryNames((prev) => ({ ...prev, en: e.target.value }))
                                             }

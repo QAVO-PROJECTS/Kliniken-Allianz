@@ -14,10 +14,10 @@ function AdminNavbar() {
                     <img  src={logo} className="logo"/>
                 </div>
                 <div className={'navMain'}>
-                    <div className={'searchDiv'}>
-                        <input type={'text'} placeholder={'Search....'}/>
-                        <img src={searchIcon} className="searchIcon"/>
-                    </div>
+                    {/*<div className={'searchDiv'}>*/}
+                    {/*    <input type={'text'} placeholder={'Search....'}/>*/}
+                    {/*    <img src={searchIcon} className="searchIcon"/>*/}
+                    {/*</div>*/}
                     <div className={'navRight'}>
                         <LanguageDiv2/>
                         <div className={'hrXett'}></div>

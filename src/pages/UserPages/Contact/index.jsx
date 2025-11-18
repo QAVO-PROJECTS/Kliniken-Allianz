@@ -55,7 +55,7 @@ function Contact() {
         if (Object.keys(newErrors).length === 0) {
             try {
                 await postContact({name, surname, email, phoneNumber, description}).unwrap(); // Backend'e gönder
-                showToast(t("contact.form.success"), 'success'); // Success message (translation ekle istersen)
+                showToast(t("contact.succesToast"), 'success'); // Success message (translation ekle istersen)
                 // Form'u resetle
                 setName("");
                 setSurname("");
@@ -65,7 +65,7 @@ function Contact() {
                 setErrors({});
             } catch (error) {
                 console.error("Contact error:", error);
-                showToast(t("contact.form.error"), 'error');
+                showToast(t("contact.errorToast"), 'error');
             }
         }
     };
@@ -191,7 +191,7 @@ function Contact() {
                                             <div className="col-60">
                                                 <label>{t("contact.form.labels.phone")}</label> <br/>
                                                 <input
-                                                    type="tel"
+                                                    type="number"
                                                     placeholder={t("contact.form.placeholders.phone")}
                                                     value={phoneNumber}
                                                     onChange={(e) => setPhoneNumber(e.target.value)}
@@ -231,8 +231,7 @@ function Contact() {
                         <div className="col-30 col-md-60 col-sm-60 col-xs-60">
                             <div className="map" data-aos="fade-left">
                                 <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3603.5460616273745!2d49.85555347640196!3d40.41115175597831!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40307d003436b447%3A0xb8c6c13c52985f63!2sQAVO%20MMC!5e1!3m2!1sen!2saz!4v1745930590256!5m2!1sen!2saz"
-                                    width="100%"
+                                    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d6075.457541085724!2d49.8586237!3d40.414859!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x403087fef0e167f9%3A0x2d47dbedc1eea9e7!2sChinar%20Park!5e0!3m2!1saz!2saz!4v1763456109814!5m2!1saz!2saz"                                    width="100%"
                                     height="580"
                                     style={{border: 0}}
                                     allowFullScreen=""
@@ -241,6 +240,7 @@ function Contact() {
                                     title="Google Map"
                                 />
                             </div>
+
                         </div>
                     </div>
                 </div>

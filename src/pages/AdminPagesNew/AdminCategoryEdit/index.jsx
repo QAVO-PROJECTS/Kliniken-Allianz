@@ -7,6 +7,11 @@ import usa from '/src/assets/unitedstates.svg'
 import ger from '/src/assets/germany.svg'
 import arb from '/src/assets/unitedarabemirates.svg'
 import cat1 from "../../../assets/Servis/cat1.svg";
+import cat2 from "../../../assets/Servis/cat2.svg";
+import cat3 from "../../../assets/Servis/cat3.svg";
+import cat4 from "../../../assets/Servis/cat4.svg";
+import cat5 from "../../../assets/Servis/cat5.svg";
+import cat6 from "../../../assets/Servis/cat6.svg";
 import {useEffect, useState} from "react";
 import {useGetCategoryByIdQuery, usePostCategoryMutation, usePutCategoryMutation} from "../../../services/userApi.jsx";
 import showToast from "../../../components/ToastMessage.js";
@@ -45,7 +50,7 @@ function CategoryEdit() {
     };
 
     // 🔹 iconlar (placeholder, əslində burada sənin icon listin olacaq)
-    const icons = [cat1, cat1, cat1, cat1, cat1, cat1];
+    const icons = [cat1, cat2, cat3, cat4, cat5, cat6];
 
     // 🔹 icon-u blob-a çevirmək üçün helper
     const getImageBlob = async (url) => {

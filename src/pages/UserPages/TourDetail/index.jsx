@@ -16,8 +16,9 @@ import image1 from "../../../assets/blueIcon.png";
 import image3 from "../../../assets/whiteIcon.png";
 import image2 from "../../../assets/CategoryDetailImage.png";
 import {message} from "antd";
-import {useState} from "react";
 import showToast from "../../../components/ToastMessage.js";
+import {useState, useRef} from "react";
+
 function TourDetail() {
     const { id } = useParams();
     const {t} = useTranslation();
@@ -25,6 +26,8 @@ function TourDetail() {
     const {data:getToursById} = useGetToursByIdQuery(id)
     const tour = getToursById?.data
     const currentLang = i18n.language;
+    const contactRef = useRef(null);
+
     // ✅ form sahələri üçün state
     const [name, setName] = useState("");
     const [surname, setSurname] = useState("");
@@ -33,6 +36,12 @@ function TourDetail() {
     const [description, setDescription] = useState("");
     const [errors, setErrors] = useState({});
     const [postContact] = usePostContactTourMutation();
+    const scrollToContact = () => {
+        contactRef.current?.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    };
 
     const validate = () => {
         const newErrors = {};
@@ -64,7 +73,7 @@ function TourDetail() {
 
             try {
                 await postContact(payload).unwrap();
-                showToast(t("contact.form.success"), "success");
+                showToast(t("contact.succesToast"), "success");
 
                 // reset
                 setName("");
@@ -75,7 +84,7 @@ function TourDetail() {
                 setErrors({});
             } catch (error) {
                 console.error("Contact error:", error);
-                showToast(t("contact.form.error"), "error");
+                showToast(t("contact.errorToast"), "error");
             }
         }
     };
@@ -124,7 +133,7 @@ function TourDetail() {
                                     );
                                 })}
                             </div>
-                            <button>{t("toursPage.applyButton")}</button>
+                            <button onClick={scrollToContact}>{t("toursPage.applyButton")}</button>
                         </div>
                     </div>
                     <div className={'col-30 col-md-60 col-sm-60 col-xs-60 order1'}>
@@ -142,7 +151,7 @@ function TourDetail() {
 
                     </div>
                 </div>
-                <div className="contact">
+                <div className="contact" ref={contactRef}>
                     <div className={"orange"}>
                         <img src={image}/>
                     </div>
@@ -197,7 +206,7 @@ function TourDetail() {
                                             </div>
                                             <div className="col-60" style={{ padding: "12px 0" }}>
                                                 <input
-                                                    type="text"
+                                                    type="number"
                                                     placeholder={t("contact.form.placeholders.phone")}
                                                     value={phoneNumber}
                                                     onChange={(e) => setPhoneNumber(e.target.value)}

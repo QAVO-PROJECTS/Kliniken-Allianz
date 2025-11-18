@@ -12,7 +12,7 @@ import Pagination from "../../../components/UserComponents/Pagination/index.jsx"
 import {useMediaQuery} from "react-responsive";
 import filtr from "/src/assets/filter.svg"
 import mobileBanner from "../../../assets/MobileBanner.png";
-import {useGetAllDoctorsQuery} from "../../../services/userApi.jsx";
+import {useGetAllClinicQuery, useGetAllDoctorsQuery} from "../../../services/userApi.jsx";
 
 function DoctorsPage() {
     const {t} = useTranslation();
@@ -26,6 +26,8 @@ function DoctorsPage() {
     const [selectedRatings, setSelectedRatings] = useState([]);
     const [selectedAreas, setSelectedAreas] = useState([]);
     // ---- Toggle funksiyaları ----
+    const { data: getAllClinics } = useGetAllClinicQuery();
+    const clinics = getAllClinics?.data || [];
     const toggleExperience = (val) => {
         setSelectedExperience((prev) =>
             prev.includes(val) ? prev.filter((v) => v !== val) : [...prev, val]
@@ -82,8 +84,12 @@ function DoctorsPage() {
     const filteredDoctors = useMemo(() => {
         return doctors?.filter((doc) => {
             const expMatch =
-                selectedExperience?.length === 0 ||
-                selectedExperience.includes(Number(doc.experience));
+                selectedExperience.length === 0 ||
+                selectedExperience.some((exp) => {
+                    if (exp === "5+") return Number(doc.experience) >= 5; // ⭐ 5+ burda işləyir
+                    return Number(doc.experience) === exp; // normal rəqəmlər
+                });
+
 
             const clinicNames = doc.clinics?.map((c) => c.name) || [];
             const clinicMatch =
@@ -97,12 +103,11 @@ function DoctorsPage() {
                 selectedRatings?.length === 0 ||
                 selectedRatings.includes(Math.round(doc.rate));
 
-            const areaNames = doc.bio?.map((b) => b.name?.toLowerCase()) || [];
+
             const areaMatch =
                 selectedAreas?.length === 0 ||
-                areaNames.some((a) =>
-                    selectedAreas.some((sel) => a?.includes(sel.toLowerCase()))
-                );
+                selectedAreas.includes(doc.role);
+
 
             return expMatch && clinicMatch && ratingMatch && areaMatch && searchMatch;
         });
@@ -202,16 +207,17 @@ function DoctorsPage() {
                                             <button onClick={resetClinics}>{t("doctorsPage.filters.reset")}</button>
                                         </div>
                                         <div className="filter-options">
-                                            {["GlobalMed", "Simul Hospital", "Yeni Klinika", "CityMed", "Baku Clinic"].map((clinic, i) => (
+                                            {clinics.map((clinic, i) => (
                                                 <label key={i}>
                                                     <input
                                                         type="checkbox"
-                                                        checked={selectedClinics.includes(clinic)}
-                                                        onChange={() => toggleClinic(clinic)}
+                                                        checked={selectedClinics.includes(clinic.name)}
+                                                        onChange={() => toggleClinic(clinic.name)}
                                                     />
-                                                    {clinic}
+                                                    {clinic.name}
                                                 </label>
                                             ))}
+
                                         </div>
                                     </div>
 
@@ -257,16 +263,17 @@ function DoctorsPage() {
                                             <button onClick={resetAreas}>{t("doctorsPage.filters.reset")}</button>
                                         </div>
                                         <div className="filter-options">
-                                            {["Ürək-damar", "Xəstəxana", "Travmatologiya", "Urolojiya", "Cərrahiyyə"].map((area, i) => (
+                                            {[...new Set(doctors?.map((d) => d.role))].map((role, i) => (
                                                 <label key={i}>
                                                     <input
                                                         type="checkbox"
-                                                        checked={selectedAreas.includes(area)}
-                                                        onChange={() => toggleArea(area)}
+                                                        checked={selectedAreas.includes(role)}
+                                                        onChange={() => toggleArea(role)}
                                                     />
-                                                    {area}
+                                                    {role}
                                                 </label>
                                             ))}
+
                                         </div>
                                     </div>
                                 </div>
@@ -341,16 +348,17 @@ function DoctorsPage() {
                             <button onClick={resetClinics}>{t("doctorsPage.filters.reset")}</button>
                         </div>
                         <div className="filter-options">
-                            {["GlobalMed", "Simul Hospital", "Yeni Klinika", "CityMed", "Baku Clinic"].map((clinic, i) => (
+                            {clinics.map((clinic, i) => (
                                 <label key={i}>
                                     <input
                                         type="checkbox"
-                                        checked={selectedClinics.includes(clinic)}
-                                        onChange={() => toggleClinic(clinic)}
+                                        checked={selectedClinics.includes(clinic.name)}
+                                        onChange={() => toggleClinic(clinic.name)}
                                     />
-                                    {clinic}
+                                    {clinic.name}
                                 </label>
                             ))}
+
                         </div>
                     </div>
 
@@ -396,16 +404,17 @@ function DoctorsPage() {
                             <button onClick={resetAreas}>{t("doctorsPage.filters.reset")}</button>
                         </div>
                         <div className="filter-options">
-                            {["Ürək-damar", "Xəstəxana", "Travmatologiya", "Urolojiya", "Cərrahiyyə"].map((area, i) => (
+                            {[...new Set(doctors?.map((d) => d.role))].map((role, i) => (
                                 <label key={i}>
                                     <input
                                         type="checkbox"
-                                        checked={selectedAreas.includes(area)}
-                                        onChange={() => toggleArea(area)}
+                                        checked={selectedAreas.includes(role)}
+                                        onChange={() => toggleArea(role)}
                                     />
-                                    {area}
+                                    {role}
                                 </label>
                             ))}
+
                         </div>
                     </div>
                     <div className={'buttons'}>

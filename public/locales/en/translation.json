@@ -276,7 +276,10 @@
         "descriptionRequired": "Enter your message"
       }
     },
-    "bannerAlt": "Contact Banner"
+    "bannerAlt": "Contact Banner",
+    "succesToast": "Contact information sent successfully!",
+    "errorToast": "An error occurred"
+
   },
 
 

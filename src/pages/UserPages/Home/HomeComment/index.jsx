@@ -6,7 +6,7 @@ import image1 from "/src/assets/commentCardImage.jpg";
 import { useState } from "react";
 import {useGetAllCustomerViewQuery} from "../../../../services/userApi.jsx";
 import {VIEW_CARD_IMAGES} from "../../../../contants.js";
-
+import video from '/src/assets/wmremove-transformed.mp4'
 function HomeComment() {
     const { t } = useTranslation();
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -66,16 +66,30 @@ const {data:getAllCustomerView} = useGetAllCustomerViewQuery()
         <div
             id="home-comment"
             style={{
-                backgroundImage: `url(${back})`,
-                backgroundSize: 'cover',
-                backgroundRepeat: 'no-repeat',
                 padding: '60px 0 150px',
                 marginBottom: '150px',
                 position: 'relative',
-                minHeight: '100vh',
+                minHeight: '60vh',
+                overflow: "hidden",
             }}
             aria-label={t('homeComment.backgroundAriaLabel')}
         >
+            <video
+                src={video}
+                autoPlay
+                loop
+                muted
+                playsInline
+                style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    zIndex: -1,
+                }}
+            />
             <div className="container">
                 <Title
                     title={t('homeComment.title')}

@@ -143,7 +143,7 @@ const {data:getClinicById} = useGetClinicByIdQuery(id)
 
         try {
             await postClinicContact(body).unwrap();
-            showToast(t("contact.form.success"),'success');
+            showToast(t("contact.succesToast"),'success');
 
             // formu təmizlə
             setFirstName("");
@@ -154,7 +154,7 @@ const {data:getClinicById} = useGetClinicByIdQuery(id)
 
         } catch (err) {
             console.log(err);
-            showToast(t("contact.form.error"),'error');
+            showToast(t("contact.errorToast"),'error');
         }
     };
 
@@ -407,7 +407,7 @@ const {data:getClinicById} = useGetClinicByIdQuery(id)
                                             <div className="col-60">
                                                 <label>{t("contact.form.labels.phone")}</label>
                                                 <input
-                                                    type="tel"
+                                                    type="number"
                                                     placeholder={t("contact.form.placeholders.phone")}
                                                     value={phoneNumber}
                                                     onChange={(e) => setPhone(e.target.value)}

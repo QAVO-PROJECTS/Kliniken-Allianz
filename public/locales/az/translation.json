@@ -251,7 +251,9 @@
         "descriptionRequired": "Mesajınızı daxil edin"
       }
     },
-    "bannerAlt": "Əlaqə Banneri"
+    "bannerAlt": "Əlaqə Banneri",
+    "succesToast": "Əlaqə məlumatları uğurla göndərildi!",
+    "errorToast": "Xəta baş verdi"
   },
   "categoryDetail": {
     "pageTitle": "Xidmət",

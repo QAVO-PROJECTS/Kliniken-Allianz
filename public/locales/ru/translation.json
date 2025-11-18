@@ -270,7 +270,10 @@
         "descriptionRequired": "Введите сообщение"
       }
     },
-    "bannerAlt": "Баннер Контакты"
+    "bannerAlt": "Баннер Контакты",
+    "succesToast": "Контактная информация успешно отправлена!",
+    "errorToast": "Произошла ошибка"
+
   },
   "categoryDetail": {
     "pageTitle": "Услуга",

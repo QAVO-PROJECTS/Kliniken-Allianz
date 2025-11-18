@@ -462,7 +462,16 @@
           padding: 17px 22px 17px 22px;
           outline: none;
         }
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
 
+        /* Firefox */
+        input[type="number"] {
+          -moz-appearance: textfield;
+        }
         textarea {
           width: 100%;
           border-radius: 8px;
