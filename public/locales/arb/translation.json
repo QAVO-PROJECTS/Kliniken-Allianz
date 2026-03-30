@@ -201,5 +201,89 @@
         "text": "كانت عملية العلاج خالية من التوتر ومريحة تمامًا. تم تنظيم النقل والفندق وخدمات المستشفى بشكل مثالي مسبقًا، مما أسعدني كثيرًا. بفضل احترافية ورعاية الأطباء والموظفين، شعرت دائمًا بالأمان. أوصي بشدة بهذه الخدمة للجميع!"
       }
     ]
+  },
+  "adminPanel": {
+    "clinicAdd": {
+      "breadcrumb": {
+        "main": "عيادة",
+        "sub": "إنشاء عيادة جديدة"
+      },
+      "title": "إنشاء عيادة جديدة",
+      "description": "هنا يمكنك إدارة العيادات وإنشاء عيادات جديدة.",
+      "nameTitle": "اسم العيادة",
+      "nameDescription": "أدخل الاسم الذي سيتم عرضه في النظام.",
+      "imageTitle": "صورة العيادة",
+      "imageDescription": "قم بتحميل صورة تمثل العيادة.",
+      "uploadHint": "انقر أو اسحب ملفًا إلى هذه المنطقة",
+      "descTitle": "الوصف",
+      "descDescription": "أدخل وصفًا موجزًا للحزمة.",
+      "servicesTitle": "الخدمات",
+      "servicesDescription": "حدد الخدمات المرتبطة بهذه العيادة.",
+      "doctorsTitle": "الأطباء",
+      "doctorsDescription": "حدد الأطباء المرتبطين بهذه العيادة.",
+      "hotelsTitle": "الفنادق",
+      "hotelsDescription": "حدد الفنادق المرتبطة بهذه العيادة.",
+      "locationTitle": "البلد",
+      "locationDescription": "أدخل البلد الذي تقع فيه العيادة، حسب اللغة.",
+      "certificateTitle": "شهادة",
+      "certificateDescription": "تحميل الشهادات التي تمثل العيادة.",
+      "galleryTitle": "معرض الصور",
+      "galleryDescription": "تحميل الصور الموجودة للعيادة.",
+      "uploadedHeader": "تم الرفع",
+      "buttons": {
+        "save": "حفظ",
+        "loading": "جارٍ التحميل...",
+        "addVideo": "إضافة"
+      },
+      "toast": {
+        "noMainImage": "يرجى إضافة صورة رئيسية.",
+        "success": "تمت إضافة العيادة بنجاح ✅",
+        "error": "حدث خطأ أثناء إضافة العيادة ❌",
+        "invalidVideo": "يرجى إدخال رابط يوتيوب صالح ⚠️"
+      },
+      "placeholders": {
+        "nameAz": "الاسم (AZ)",
+        "nameRu": "الاسم (RU)",
+        "nameEn": "الاسم (EN)",
+        "nameAlm": "الاسم (DE)",
+        "nameArab": "الاسم (AR)",
+        "descAz": "الوصف (AZ)",
+        "descRu": "الوصف (RU)",
+        "descEn": "الوصف (EN)",
+        "descAlm": "الوصف (DE)",
+        "descArab": "الوصف (AR)",
+        "locationAz": "البلد (AZ)",
+        "locationRu": "البلد (RU)",
+        "locationEn": "البلد (EN)",
+        "locationAlm": "البلد (DE)",
+        "locationArab": "البلد (AR)",
+        "videoUrl": "https://www.youtube.com/watch?v=..."
+      }
+    },
+    "clinicEdit": {
+      "breadcrumb": {
+        "main": "عيادة",
+        "sub": "تعديل العيادة"
+      },
+      "title": "تعديل العيادة",
+      "description": "هنا يمكنك إدارة العيادات وإجراء التغييرات.",
+      "placeholders": {
+        "nameAz": "الاسم (AZ)",
+        "nameRu": "الاسم (RU)",
+        "nameEn": "الاسم (EN)",
+        "nameAlm": "الاسم (DE)",
+        "nameArab": "الاسم (AR)",
+        "descAz": "الوصف (AZ)",
+        "descRu": "الوصف (RU)",
+        "descEn": "الوصف (EN)",
+        "descAlm": "الوصف (DE)",
+        "descArab": "الوصف (AR)",
+        "locationAz": "البلد (AZ)",
+        "locationRu": "البلد (RU)",
+        "locationEn": "البلد (EN)",
+        "locationAlm": "البلد (DE)",
+        "locationArab": "البلد (AR)"
+      }
+    }
   }
 }

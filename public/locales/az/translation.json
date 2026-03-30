@@ -630,12 +630,18 @@
         "nameAz": "Ad (AZ)",
         "nameRu": "Ad (RU)",
         "nameEn": "Ad (EN)",
+        "nameAlm": "Ad (DE)",
+        "nameArab": "Ad (AR)",
         "descAz": "Təsvir (AZ)",
         "descRu": "Təsvir (RU)",
         "descEn": "Təsvir (EN)",
+        "descAlm": "Təsvir (DE)",
+        "descArab": "Təsvir (AR)",
         "locationAz": "Ölkə (AZ)",
         "locationRu": "Ölkə (RU)",
         "locationEn": "Ölkə (EN)",
+        "locationAlm": "Ölkə (DE)",
+        "locationArab": "Ölkə (AR)",
         "videoUrl": "https://www.youtube.com/watch?v=..."
 
       }
@@ -689,12 +695,18 @@
         "nameAz": "Ad (AZ)",
         "nameRu": "Ad (RU)",
         "nameEn": "Ad (EN)",
+        "nameAlm": "Ad (DE)",
+        "nameArab": "Ad (AR)",
         "descAz": "Təsvir (AZ)",
         "descRu": "Təsvir (RU)",
         "descEn": "Təsvir (EN)",
+        "descAlm": "Təsvir (DE)",
+        "descArab": "Təsvir (AR)",
         "locationAz": "Ölkə (AZ)",
         "locationRu": "Ölkə (RU)",
         "locationEn": "Ölkə (EN)",
+        "locationAlm": "Ölkə (DE)",
+        "locationArab": "Ölkə (AR)",
         "videoUrl": "https://www.youtube.com/watch?v=..."
 
       }

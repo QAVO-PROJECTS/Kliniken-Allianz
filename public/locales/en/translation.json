@@ -649,12 +649,18 @@
         "nameAz": "Name (AZ)",
         "nameRu": "Name (RU)",
         "nameEn": "Name (EN)",
+        "nameAlm": "Name (DE)",
+        "nameArab": "Name (AR)",
         "descAz": "Description (AZ)",
         "descRu": "Description (RU)",
         "descEn": "Description (EN)",
+        "descAlm": "Description (DE)",
+        "descArab": "Description (AR)",
         "locationAz": "Country (AZ)",
         "locationRu": "Country (RU)",
         "locationEn": "Country (EN)",
+        "locationAlm": "Country (DE)",
+        "locationArab": "Country (AR)",
         "videoUrl": "https://www.youtube.com/watch?v=..."
       }
     },
@@ -701,12 +707,18 @@
         "nameAz": "Name (AZ)",
         "nameRu": "Name (RU)",
         "nameEn": "Name (EN)",
+        "nameAlm": "Name (DE)",
+        "nameArab": "Name (AR)",
         "descAz": "Description (AZ)",
         "descRu": "Description (RU)",
         "descEn": "Description (EN)",
+        "descAlm": "Description (DE)",
+        "descArab": "Description (AR)",
         "locationAz": "Country (AZ)",
         "locationRu": "Country (RU)",
-        "locationEn": "Country (EN)"
+        "locationEn": "Country (EN)",
+        "locationAlm": "Country (DE)",
+        "locationArab": "Country (AR)"
       }
     },
     "contactPage": {

@@ -41,18 +41,17 @@ function ClinicAdd() {
     const [nameAz, setNameAz] = useState("");
     const [nameEn, setNameEn] = useState("");
     const [nameRu, setNameRu] = useState("");
+    const [nameAlm, setNameAlm] = useState("");
+    const [nameArab, setNameArab] = useState("");
 
     const [descAz, setDescAz] = useState("");
     const [descEn, setDescEn] = useState("");
     const [descRu, setDescRu] = useState("");
+    const [descAlm, setDescAlm] = useState("");
+    const [descArab, setDescArab] = useState("");
     const addVideo = () => {
         const trimmed = videoInput.trim();
         if (!trimmed) return;
-        // Sadə YouTube URL yoxlaması
-        if (!trimmed.includes("youtube.com") && !trimmed.includes("youtu.be")) {
-            showToast(t("adminPanel.clinicAdd.toast.invalidVideo"), "warning");
-            return;
-        }
         setClinicVideos((prev) => [...prev, trimmed]);
         setVideoInput("");
     };
@@ -63,6 +62,8 @@ function ClinicAdd() {
     const [locationAz, setLocationAz] = useState("");
     const [locationEn, setLocationEn] = useState("");
     const [locationRu, setLocationRu] = useState("");
+    const [locationAlm, setLocationAlm] = useState("");
+    const [locationArab, setLocationArab] = useState("");
 
 // Checkbox seçilən elementlər
     const [selectedServices, setSelectedServices] = useState([]);
@@ -123,40 +124,43 @@ function ClinicAdd() {
         const formData = new FormData();
 
         // 🔹 Adlar
-        formData.append("name", nameAz);
-        formData.append("nameEng", nameEn);
-        formData.append("nameRu", nameRu);
-        // Əgər Alman və Ərəb də olacaqsa əlavə et:
-        // formData.append("NameAlm", nameDe);
-        // formData.append("NameArab", nameAr);
+        formData.append("Name", nameAz);
+        formData.append("NameEng", nameEn);
+        formData.append("NameRu", nameRu);
+        formData.append("NameAlm", nameAlm);
+        formData.append("NameArab", nameArab);
 
         // 🔹 Təsvirlər
-        formData.append("description", descAz);
-        formData.append("descriptionEng", descEn);
-        formData.append("descriptionRu", descRu);
+        formData.append("Description", descAz);
+        formData.append("DescriptionEng", descEn);
+        formData.append("DescriptionRu", descRu);
+        formData.append("DescriptionAlm", descAlm);
+        formData.append("DescriptionArab", descArab);
 
         // 🔹 Məkan
-        formData.append("location", locationAz);
-        formData.append("locationEng", locationEn);
-        formData.append("locationRu", locationRu);
+        formData.append("Location", locationAz);
+        formData.append("LocationEng", locationEn);
+        formData.append("LocationRu", locationRu);
+        formData.append("LocationAlm", locationAlm);
+        formData.append("LocationArab", locationArab);
 
         // 🔹 Əsas şəkil
-        formData.append("clinicCardImage", selectedFile);
+        formData.append("ClinicCardImage", selectedFile);
 
         // 🔹 Sertifikat şəkilləri
         sertifikatFiles.forEach((item) => {
-            formData.append("clinicCertificates", item.file);
+            formData.append("ClinicSertificates", item.file);
         });
 
         // 🔹 Qalereya şəkilləri
         galereyaFiles.forEach((item) => {
-            formData.append("clinicImages", item.file);
+            formData.append("ClinicImages", item.file);
         });
 
         // 🔹 Checkbox seçimləri (xidmət, doktor, otel)
-        selectedServices.forEach((id) => formData.append("clinicServiceIds", id));
-        selectedDoctors.forEach((id) => formData.append("doctorIds", id));
-        selectedOtels.forEach((id) => formData.append("otelIds", id));
+        selectedServices.forEach((id) => formData.append("ClinicServiceIds", id));
+        selectedDoctors.forEach((id) => formData.append("DoctorIds", id));
+        selectedOtels.forEach((id) => formData.append("OtelIds", id));
         clinicVideos.forEach((url) => formData.append("ClinicVideos", url));
         try {
             const res = await postClinic(formData).unwrap();
@@ -166,12 +170,18 @@ function ClinicAdd() {
             setNameAz("");
             setNameEn("");
             setNameRu("");
+            setNameAlm("");
+            setNameArab("");
             setDescAz("");
             setDescEn("");
             setDescRu("");
+            setDescAlm("");
+            setDescArab("");
             setLocationAz("");
             setLocationEn("");
             setLocationRu("");
+            setLocationAlm("");
+            setLocationArab("");
             setSelectedFile(null);
             setSertifikatFiles([]);
             setGalereyaFiles([]);
@@ -226,28 +236,29 @@ function ClinicAdd() {
                                 </div>
                                 <div className="add-data">
                                     <div className={'add-input'}>
-
                                         <input placeholder={t("adminPanel.clinicAdd.placeholders.nameEn")}
                                                value={nameEn} onChange={(e) => setNameEn(e.target.value)}/>
                                     </div>
                                     <img src={usa} alt=""/>
                                 </div>
-                                {/*<div className={'add-data'}>*/}
-                                {/*    <div className={'add-input'}>*/}
-                                {/*        <input placeholder={'Travmatologiya'}/>*/}
-                                {/*    </div>*/}
-                                {/*    <div className={'langCountry'}>*/}
-                                {/*        <img src={ger} alt="" />*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
-                                {/*<div className={'add-data'}>*/}
-                                {/*    <div className={'add-input'}>*/}
-                                {/*        <input placeholder={'Travmatologiya'}/>*/}
-                                {/*    </div>*/}
-                                {/*    <div className={'langCountry'}>*/}
-                                {/*        <img src={arb} alt="" />*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
+                                <div className={'add-data'}>
+                                    <div className={'add-input'}>
+                                        <input placeholder={t("adminPanel.clinicAdd.placeholders.nameAlm")}
+                                               value={nameAlm} onChange={(e) => setNameAlm(e.target.value)}/>
+                                    </div>
+                                    <div className={'langCountry'}>
+                                        <img src={ger} alt=""/>
+                                    </div>
+                                </div>
+                                <div className={'add-data'}>
+                                    <div className={'add-input'}>
+                                        <input placeholder={t("adminPanel.clinicAdd.placeholders.nameArab")}
+                                               value={nameArab} onChange={(e) => setNameArab(e.target.value)}/>
+                                    </div>
+                                    <div className={'langCountry'}>
+                                        <img src={arb} alt=""/>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div className="dataDiv images">
@@ -320,18 +331,20 @@ function ClinicAdd() {
                                     <img src={usa} alt=""/>
                                 </div>
                             </div>
-                            {/*<div className={'tours-desc-texts'}>*/}
-                            {/*    <textarea  placeholder={'Təsvir əlavə edin...'}/>*/}
-                            {/*    <div className={'langCountry'}>*/}
-                            {/*        <img src={ger} alt=""/>*/}
-                            {/*    </div>*/}
-                            {/*</div>*/}
-                            {/*<div className={'tours-desc-texts'}>*/}
-                            {/*    <textarea  placeholder={'Təsvir əlavə edin...'}/>*/}
-                            {/*    <div className={'langCountry'}>*/}
-                            {/*        <img src={arb} alt=""/>*/}
-                            {/*    </div>*/}
-                            {/*</div>*/}
+                             <div className={'tours-desc-texts'}>
+                                 <textarea  placeholder={t("adminPanel.clinicAdd.placeholders.descAlm")} value={descAlm}
+                                           onChange={(e) => setDescAlm(e.target.value)}/>
+                                 <div className={'langCountry'}>
+                                     <img src={ger} alt=""/>
+                                 </div>
+                             </div>
+                             <div className={'tours-desc-texts'}>
+                                 <textarea  placeholder={t("adminPanel.clinicAdd.placeholders.descArab")} value={descArab}
+                                           onChange={(e) => setDescArab(e.target.value)}/>
+                                 <div className={'langCountry'}>
+                                     <img src={arb} alt=""/>
+                                 </div>
+                             </div>
                         </div>
                     </div>
                     <div className={'clinic-add-data'}>
@@ -429,22 +442,24 @@ function ClinicAdd() {
                                         <img src={usa} alt=""/>
                                     </div>
                                 </div>
-                                {/*<div className={'add-data'}>*/}
-                                {/*    <div className={'add-input'}>*/}
-                                {/*        <input placeholder={'Travmatologiya'}/>*/}
-                                {/*    </div>*/}
-                                {/*    <div className={'langCountry'}>*/}
-                                {/*        <img src={ger} alt="" />*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
-                                {/*<div className={'add-data'}>*/}
-                                {/*    <div className={'add-input'}>*/}
-                                {/*        <input placeholder={'Travmatologiya'}/>*/}
-                                {/*    </div>*/}
-                                {/*    <div className={'langCountry'}>*/}
-                                {/*        <img src={arb} alt="" />*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
+                                <div className={'add-data'}>
+                                    <div className={'add-input'}>
+                                        <input placeholder={t("adminPanel.clinicAdd.placeholders.locationAlm")}
+                                               value={locationAlm} onChange={(e) => setLocationAlm(e.target.value)}/>
+                                    </div>
+                                    <div className={'langCountry'}>
+                                        <img src={ger} alt=""/>
+                                    </div>
+                                </div>
+                                <div className={'add-data'}>
+                                    <div className={'add-input'}>
+                                        <input placeholder={t("adminPanel.clinicAdd.placeholders.locationArab")}
+                                               value={locationArab} onChange={(e) => setLocationArab(e.target.value)}/>
+                                    </div>
+                                    <div className={'langCountry'}>
+                                        <img src={arb} alt=""/>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div className="dataDiv images multi">

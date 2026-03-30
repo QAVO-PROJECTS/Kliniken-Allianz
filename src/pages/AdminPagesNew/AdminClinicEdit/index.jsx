@@ -27,6 +27,7 @@ import {useTranslation} from "react-i18next";
 function ClinicEdit() {
     const { t } = useTranslation();
     const {id} = useParams()
+    const [isLoaded, setIsLoaded] = useState(false);
     const [selectedFile, setSelectedFile] = useState(null);
     const [isDragging, setIsDragging] = useState(false);
     const [editClinic, { isLoading }] = usePutClinicMutation();
@@ -43,22 +44,25 @@ function ClinicEdit() {
     const [nameAz, setNameAz] = useState("");
     const [nameEn, setNameEn] = useState("");
     const [nameRu, setNameRu] = useState("");
-    // const [nameAlm, setNameAlm] = useState("");
-    // const [nameArab, setNameArab] = useState("");
+    const [nameAlm, setNameAlm] = useState("");
+    const [nameArab, setNameArab] = useState("");
 
     // 🔹 Description inputları
     const [descAz, setDescAz] = useState("");
     const [descEn, setDescEn] = useState("");
     const [descRu, setDescRu] = useState("");
-    // const [descAlm, setDescAlm] = useState("");
-    // const [descArab, setDescArab] = useState("");
+    const [descAlm, setDescAlm] = useState("");
+    const [descArab, setDescArab] = useState("");
 
     const [clinicVideos, setClinicVideos] = useState([]);
     const [videoInput, setVideoInput] = useState("");
+    const [addedClinicVideos, setAddedClinicVideos] = useState([]);
     const [deleteClinicVideos, setDeleteClinicVideos] = useState([]);
     const [locationAz, setLocationAz] = useState("");
     const [locationEn, setLocationEn] = useState("");
     const [locationRu, setLocationRu] = useState("");
+    const [locationAlm, setLocationAlm] = useState("");
+    const [locationArab, setLocationArab] = useState("");
     // 🔹 Checkbox-lar
     const [selectedServices, setSelectedServices] = useState([]);
     const [selectedDoctors, setSelectedDoctors] = useState([]);
@@ -94,24 +98,24 @@ function ClinicEdit() {
         refetch()
     }, []);
     useEffect(() => {
-        if (clinic) {
+        if (clinic && !isLoaded) {
             setNameAz(clinic.name || "");
             setNameEn(clinic.nameEng || "");
             setNameRu(clinic.nameRu || "");
-            // setNameAlm(clinic.nameAlm || "");
-            // setNameArab(clinic.nameArab || "");
+            setNameAlm(clinic.nameAlm || "");
+            setNameArab(clinic.nameArab || "");
 
             setDescAz(clinic.description || "");
             setDescEn(clinic.descriptionEng || "");
             setDescRu(clinic.descriptionRu || "");
-            // setDescAlm(clinic.descriptionAlm || "");
-            // setDescArab(clinic.descriptionArab || "");
+            setDescAlm(clinic.descriptionAlm || "");
+            setDescArab(clinic.descriptionArab || "");
 
             setLocationAz(clinic.location || "");
             setLocationEn(clinic.locationEng || "");
             setLocationRu(clinic.locationRu || "");
-            // setLocAlm(clinic.locationAlm || "");
-            // setLocArab(clinic.locationArab || "");
+            setLocationAlm(clinic.locationAlm || "");
+            setLocationArab(clinic.locationArab || "");
 
             setSelectedServices(clinic.services?.map(s => s.id) || []);
             setSelectedDoctors(clinic.doctors?.map(d => d.id) || []);
@@ -121,25 +125,36 @@ function ClinicEdit() {
             setOldSertifikatFiles(clinic.clinicSertificates || []);
             setOldGalereyaFiles(clinic.clinicImages || []);
             setClinicVideos(clinic.clinicVideos || []);
+            setIsLoaded(true);
         }
-    }, [clinic]);
+    }, [clinic, isLoaded]);
     const addVideo = () => {
         const trimmed = videoInput.trim();
         if (!trimmed) return;
-        if (!trimmed.includes("youtube.com") && !trimmed.includes("youtu.be")) {
-            showToast(t("adminPanel.clinicEdit.toast.invalidVideo"), "warning");
-            return;
-        }
+
         setClinicVideos((prev) => [...prev, trimmed]);
+        setAddedClinicVideos((prev) => [...prev, trimmed]);
         setVideoInput("");
     };
 
     const removeVideo = (index) => {
         const url = clinicVideos[index];
-        // əgər bu artıq backendde olan bir linkdirsə silinənlərə əlavə et
-        if (clinic.clinicVideos?.includes(url)) {
+
+        // Əgər yeni əlavə olunanlardandırsa, added listindən çıxart
+        if (addedClinicVideos.includes(url)) {
+            // Birdən çox eyni url ola biləcəyi üçün yalnız birini silirik (indeksə görə deyil, amma ilk tapılanı)
+            // Əslində index-ə görə manage etmək daha düzgün olardı amma bu sadə modeldə:
+            const findIdx = addedClinicVideos.indexOf(url);
+            if(findIdx > -1) {
+                const newAdded = [...addedClinicVideos];
+                newAdded.splice(findIdx, 1);
+                setAddedClinicVideos(newAdded);
+            }
+        } else {
+            // Əgər backend-dən gələn videodursa, silinənlərə əlavə et
             setDeleteClinicVideos((prev) => [...prev, url]);
         }
+
         setClinicVideos((prev) => prev.filter((_, i) => i !== index));
     };
     // 🔹 Sertifikat yükləmə funksiyası
@@ -216,14 +231,20 @@ function ClinicEdit() {
         appendIfChanged(formData, "name", nameAz, clinic.name);
         appendIfChanged(formData, "nameEng", nameEn, clinic.nameEng);
         appendIfChanged(formData, "nameRu", nameRu, clinic.nameRu);
+        appendIfChanged(formData, "nameAlm", nameAlm, clinic.nameAlm);
+        appendIfChanged(formData, "nameArab", nameArab, clinic.nameArab);
 
         appendIfChanged(formData, "description", descAz, clinic.description);
         appendIfChanged(formData, "descriptionEng", descEn, clinic.descriptionEng);
         appendIfChanged(formData, "descriptionRu", descRu, clinic.descriptionRu);
+        appendIfChanged(formData, "descriptionAlm", descAlm, clinic.descriptionAlm);
+        appendIfChanged(formData, "descriptionArab", descArab, clinic.descriptionArab);
 
-        appendIfChanged(formData, "location", locationAz, clinic.location);
-        appendIfChanged(formData, "locationEng", locationEn, clinic.locationEng);
-        appendIfChanged(formData, "locationRu", locationRu, clinic.locationRu);
+        appendIfChanged(formData, "Location", locationAz, clinic.location);
+        appendIfChanged(formData, "LocationEng", locationEn, clinic.locationEng);
+        appendIfChanged(formData, "LocationRu", locationRu, clinic.locationRu);
+        appendIfChanged(formData, "LocationAlm", locationAlm, clinic.locationAlm);
+        appendIfChanged(formData, "LocationArab", locationArab, clinic.locationArab);
 
         // 🔹 yalnız yeni əsas şəkil seçilibsə
         if (selectedFile) formData.append("clinicCardImage", selectedFile);
@@ -236,40 +257,39 @@ function ClinicEdit() {
 
         // 🔹 silinənlər
         if (deleteClinicImages.length > 0)
-            deleteClinicImages.forEach(f => formData.append("deleteClinicImages", f));
+            deleteClinicImages.forEach(f => formData.append("DeleteClinicImages", f));
         if (deleteClinicSertificates.length > 0)
-            deleteClinicSertificates.forEach(f => formData.append("deleteClinicSertificates", f));
+            deleteClinicSertificates.forEach(f => formData.append("DeleteClinicSertificates", f));
         if (deleteServices.length > 0)
-            deleteServices.forEach(id => formData.append("deleteClinicServiceIds", id));
+            deleteServices.forEach(id => formData.append("DeleteClinicServiceIds", id));
         if (deleteDoctors.length > 0)
-            deleteDoctors.forEach(id => formData.append("deleteDoctorIds", id));
+            deleteDoctors.forEach(id => formData.append("DeleteDoctorIds", id));
         if (deleteOtels.length > 0)
-            deleteOtels.forEach(id => formData.append("deleteOtelIds", id));
+            deleteOtels.forEach(id => formData.append("DeleteOtelIds", id));
 
         // 🔹 əlavə olunan (yeni) checkbox seçimləri
         const origServices = clinic.services?.map(s => s.id) || [];
         const origDoctors = clinic.doctors?.map(d => d.id) || [];
         const origOtels = clinic.otels?.map(o => o.id) || [];
-// yeni əlavə olunan videolar (backend-də olmayanlar)
-        const origVideos = clinic.clinicVideos || [];
-        clinicVideos
-            .filter(url => !origVideos.includes(url))
-            .forEach(url => formData.append("ClinicVideos", url));
+// yeni əlavə olunan videolar
+        if (addedClinicVideos.length > 0)
+            addedClinicVideos.forEach(url => formData.append("ClinicVideos", url));
 
 // silinəcək videolar
         if (deleteClinicVideos.length > 0)
-            deleteClinicVideos.forEach(url => formData.append("deleteClinicVideos", url));
+            deleteClinicVideos.forEach(url => formData.append("DeleteClinicVideos", url));
+
         selectedServices
             .filter(id => !origServices.includes(id))
-            .forEach(id => formData.append("clinicServiceIds", id));
+            .forEach(id => formData.append("ClinicServiceIds", id));
 
         selectedDoctors
             .filter(id => !origDoctors.includes(id))
-            .forEach(id => formData.append("doctorIds", id));
+            .forEach(id => formData.append("DoctorIds", id));
 
         selectedOtels
             .filter(id => !origOtels.includes(id))
-            .forEach(id => formData.append("otelIds", id));
+            .forEach(id => formData.append("OtelIds", id));
 
         try {
             await editClinic(formData).unwrap();
@@ -421,18 +441,18 @@ function ClinicEdit() {
                                     <img src={usa} alt=""/>
                                 </div>
                             </div>
-                            {/*<div className={'tours-desc-texts'}>*/}
-                            {/*    <textarea  placeholder={'Təsvir əlavə edin...'}/>*/}
-                            {/*    <div className={'langCountry'}>*/}
-                            {/*        <img src={ger} alt=""/>*/}
-                            {/*    </div>*/}
-                            {/*</div>*/}
-                            {/*<div className={'tours-desc-texts'}>*/}
-                            {/*    <textarea  placeholder={'Təsvir əlavə edin...'}/>*/}
-                            {/*    <div className={'langCountry'}>*/}
-                            {/*        <img src={arb} alt=""/>*/}
-                            {/*    </div>*/}
-                            {/*</div>*/}
+                            <div className={'tours-desc-texts'}>
+                                <textarea value={descAlm} onChange={(e)=>setDescAlm(e.target.value)} placeholder={t("adminPanel.clinicEdit.placeholders.descAlm")} />
+                                <div className={'langCountry'}>
+                                    <img src={ger} alt=""/>
+                                </div>
+                            </div>
+                            <div className={'tours-desc-texts'}>
+                                <textarea value={descArab} onChange={(e)=>setDescArab(e.target.value)} placeholder={t("adminPanel.clinicEdit.placeholders.descArab")} />
+                                <div className={'langCountry'}>
+                                    <img src={arb} alt=""/>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div className={'clinic-edit-data'}>
@@ -548,22 +568,22 @@ function ClinicEdit() {
                                         <img src={usa} alt="" />
                                     </div>
                                 </div>
-                                {/*<div className={'add-data'}>*/}
-                                {/*    <div className={'add-input'}>*/}
-                                {/*        <input placeholder={'Travmatologiya'}/>*/}
-                                {/*    </div>*/}
-                                {/*    <div className={'langCountry'}>*/}
-                                {/*        <img src={ger} alt="" />*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
-                                {/*<div className={'add-data'}>*/}
-                                {/*    <div className={'add-input'}>*/}
-                                {/*        <input placeholder={'Travmatologiya'}/>*/}
-                                {/*    </div>*/}
-                                {/*    <div className={'langCountry'}>*/}
-                                {/*        <img src={arb} alt="" />*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
+                                <div className={'add-data'}>
+                                    <div className={'add-input'}>
+                                        <input placeholder={t("adminPanel.clinicEdit.placeholders.locationAlm")} value={locationAlm} onChange={(e) => setLocationAlm(e.target.value)} />
+                                    </div>
+                                    <div className={'langCountry'}>
+                                        <img src={ger} alt="" />
+                                    </div>
+                                </div>
+                                <div className={'add-data'}>
+                                    <div className={'add-input'}>
+                                        <input placeholder={t("adminPanel.clinicEdit.placeholders.locationArab")} value={locationArab} onChange={(e) => setLocationArab(e.target.value)} />
+                                    </div>
+                                    <div className={'langCountry'}>
+                                        <img src={arb} alt="" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div className="dataDiv images multi">

@@ -651,12 +651,18 @@
         "nameAz": "Название (AZ)",
         "nameRu": "Название (RU)",
         "nameEn": "Название (EN)",
+        "nameAlm": "Название (DE)",
+        "nameArab": "Название (AR)",
         "descAz": "Описание (AZ)",
         "descRu": "Описание (RU)",
         "descEn": "Описание (EN)",
+        "descAlm": "Описание (DE)",
+        "descArab": "Описание (AR)",
         "locationAz": "Страна (AZ)",
         "locationRu": "Страна (RU)",
         "locationEn": "Страна (EN)",
+        "locationAlm": "Страна (DE)",
+        "locationArab": "Страна (AR)",
         "videoUrl": "https://www.youtube.com/watch?v=..."
 
       }
@@ -710,12 +716,18 @@
         "nameAz": "Название (AZ)",
         "nameRu": "Название (RU)",
         "nameEn": "Название (EN)",
+        "nameAlm": "Название (DE)",
+        "nameArab": "Название (AR)",
         "descAz": "Описание (AZ)",
         "descRu": "Описание (RU)",
         "descEn": "Описание (EN)",
+        "descAlm": "Описание (DE)",
+        "descArab": "Описание (AR)",
         "locationAz": "Страна (AZ)",
         "locationRu": "Страна (RU)",
         "locationEn": "Страна (EN)",
+        "locationAlm": "Страна (DE)",
+        "locationArab": "Страна (AR)",
         "videoUrl": "https://www.youtube.com/watch?v=..."
 
       }

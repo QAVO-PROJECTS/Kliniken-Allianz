@@ -49,10 +49,14 @@ function SanatoriumAdd() {
     const [nameAz, setNameAz] = useState("");
     const [nameEn, setNameEn] = useState("");
     const [nameRu, setNameRu] = useState("");
+    const [nameAlm, setNameAlm] = useState("");
+    const [nameArab, setNameArab] = useState("");
 
     const [descAz, setDescAz] = useState("");
     const [descEn, setDescEn] = useState("");
     const [descRu, setDescRu] = useState("");
+    const [descAlm, setDescAlm] = useState("");
+    const [descArab, setDescArab] = useState("");
 
 
     const handleGalereyaChange = (e) => {
@@ -82,10 +86,6 @@ function SanatoriumAdd() {
     const addVideo = () => {
         const trimmed = videoInput.trim();
         if (!trimmed) return;
-        if (!trimmed.includes("youtube.com") && !trimmed.includes("youtu.be")) {
-            showToast(t("adminPanel.sanatoriumAdd.toast.invalidVideo"), "warning");
-            return;
-        }
         setClinicVideos((prev) => [...prev, trimmed]);
         setVideoInput("");
     };
@@ -105,14 +105,14 @@ function SanatoriumAdd() {
         formData.append("Name", nameAz);
         formData.append("NameEng", nameEn);
         formData.append("NameRu", nameRu);
-        // formData.append("NameAlm", nameAlm);
-        // formData.append("NameArab", nameArab);
+        formData.append("NameAlm", nameAlm);
+        formData.append("NameArab", nameArab);
 
         formData.append("Description", descAz);
         formData.append("DescriptionEng", descEn);
         formData.append("DescriptionRu", descRu);
-        // formData.append("DescriptionAlm", descAlm);
-        // formData.append("DescriptionArab", descArab);
+        formData.append("DescriptionAlm", descAlm);
+        formData.append("DescriptionArab", descArab);
 
         formData.append("SanatoriumCardImage", selectedFile);
 
@@ -131,8 +131,8 @@ function SanatoriumAdd() {
             await postClinic(formData).unwrap();
             showToast(t("adminPanel.sanatoriumAdd.toast.success"), "success");
 
-            setNameAz(""); setNameEn(""); setNameRu("");
-            setDescAz(""); setDescEn(""); setDescRu("");
+            setNameAz(""); setNameEn(""); setNameRu(""); setNameAlm(""); setNameArab("");
+            setDescAz(""); setDescEn(""); setDescRu(""); setDescAlm(""); setDescArab("");
             setSelectedFile(null);
             setGalereyaFiles([]);
             setClinicVideos([]);
@@ -203,6 +203,26 @@ function SanatoriumAdd() {
                                         />
                                     </div>
                                     <img src={usa} alt=""/>
+                                </div>
+                                <div className="add-data">
+                                    <div className={'add-input'}>
+                                        <input
+                                            placeholder={t("adminPanel.sanatoriumAdd.placeholders.nameAlm")}
+                                            value={nameAlm}
+                                            onChange={(e) => setNameAlm(e.target.value)}
+                                        />
+                                    </div>
+                                    <img src={ger} alt=""/>
+                                </div>
+                                <div className="add-data">
+                                    <div className={'add-input'}>
+                                        <input
+                                            placeholder={t("adminPanel.sanatoriumAdd.placeholders.nameArab")}
+                                            value={nameArab}
+                                            onChange={(e) => setNameArab(e.target.value)}
+                                        />
+                                    </div>
+                                    <img src={arb} alt=""/>
                                 </div>
                             </div>
                         </div>
@@ -282,6 +302,26 @@ function SanatoriumAdd() {
                                     <img src={usa} alt=""/>
                                 </div>
                             </div>
+                            <div className={'tours-desc-texts'}>
+                                <textarea
+                                    placeholder={t("adminPanel.sanatoriumAdd.placeholders.descAlm")}
+                                    value={descAlm}
+                                    onChange={(e) => setDescAlm(e.target.value)}
+                                />
+                                <div className={'langCountry'}>
+                                    <img src={ger} alt=""/>
+                                </div>
+                            </div>
+                            <div className={'tours-desc-texts'}>
+                                <textarea
+                                    placeholder={t("adminPanel.sanatoriumAdd.placeholders.descArab")}
+                                    value={descArab}
+                                    onChange={(e) => setDescArab(e.target.value)}
+                                />
+                                <div className={'langCountry'}>
+                                    <img src={arb} alt=""/>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -324,6 +364,26 @@ function SanatoriumAdd() {
                                         />
                                     </div>
                                     <img src={usa} alt=""/>
+                                </div>
+                                <div className="add-data">
+                                    <div className="add-input">
+                                        <input
+                                            placeholder={t("adminPanel.sanatoriumAdd.placeholders.serviceAlm")}
+                                            value={serviceForm.nameAlm}
+                                            onChange={(e) => setServiceForm(p => ({...p, nameAlm: e.target.value}))}
+                                        />
+                                    </div>
+                                    <img src={ger} alt=""/>
+                                </div>
+                                <div className="add-data">
+                                    <div className="add-input">
+                                        <input
+                                            placeholder={t("adminPanel.sanatoriumAdd.placeholders.serviceArab")}
+                                            value={serviceForm.nameArab}
+                                            onChange={(e) => setServiceForm(p => ({...p, nameArab: e.target.value}))}
+                                        />
+                                    </div>
+                                    <img src={arb} alt=""/>
                                 </div>
                                 {/*<div className="add-data">*/}
                                 {/*    <div className="add-input">*/}
