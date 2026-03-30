@@ -1,5 +1,5 @@
-#clinic-add {
-  .clinic-add {
+#Sanatorium-edit {
+  .Sanatorium-edit {
     .root {
       h2 {
         font-size: 12px;
@@ -15,8 +15,48 @@
         }
       }
     }
+    .video-input-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
 
-    .clinic-add-head {
+      .add-input {
+        flex: 1;
+        input {
+          width: 100%;
+          height: 36px;
+          border: 0.5px solid #B7B7B7;
+          border-radius: 5px;
+          padding: 0 10px;
+          font-size: 12px;
+          outline: none;
+
+          &::placeholder { font-size: 12px; }
+          &:focus { border: 0.5px solid #0A4080; }
+        }
+      }
+
+      .video-add-btn {
+        height: 36px;
+        padding: 0 16px;
+        background: #0A4080;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        font-size: 12px;
+        cursor: pointer;
+        white-space: nowrap;
+
+        &:hover { background: #083366; }
+      }
+    }
+
+    .video-icon {
+      color: #c00;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    .Sanatorium-edit-head {
       margin-bottom: 32px;
 
       h1 {
@@ -35,8 +75,8 @@
       }
     }
 
-    .clinic-add-main {
-      .clinic-add-data {
+    .Sanatorium-edit-main {
+      .Sanatorium-edit-data {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -68,6 +108,22 @@
                 line-height: 100%;
                 color: #7E7E7E;
                 margin: 0;
+              }
+            }
+            .video-add-btn {
+              height: 36px;
+              padding: 0 16px;
+              background: #0A4080;
+              color: #fff;
+              border: none;
+              border-radius: 5px;
+              font-size: 12px;
+              cursor: pointer;
+              white-space: nowrap;
+              margin-top: 12px;
+
+              &:hover {
+                background: #083366;
               }
             }
 
@@ -685,47 +741,7 @@
           }
         }
       }
-      .video-input-row {
-        display: flex;
-        gap: 8px;
-        align-items: center;
 
-        .add-input {
-          flex: 1;
-          input {
-            width: 100%;
-            height: 36px;
-            border: 0.5px solid #B7B7B7;
-            border-radius: 5px;
-            padding: 0 10px;
-            font-size: 12px;
-            outline: none;
-
-            &::placeholder { font-size: 12px; }
-            &:focus { border: 0.5px solid #0A4080; }
-          }
-        }
-
-        .video-add-btn {
-          height: 36px;
-          padding: 0 16px;
-          background: #0A4080;
-          color: #fff;
-          border: none;
-          border-radius: 5px;
-          font-size: 12px;
-          cursor: pointer;
-          white-space: nowrap;
-
-          &:hover { background: #083366; }
-        }
-      }
-
-      .video-icon {
-        color: #c00;
-        font-size: 14px;
-        flex-shrink: 0;
-      }
 
       .submitButton {
         width: 100%;

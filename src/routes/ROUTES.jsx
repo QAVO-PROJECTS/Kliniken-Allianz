@@ -46,6 +46,9 @@ import AdminDoctorNew from "../pages/AdminPagesNew/AdminDoctorNew/index.jsx";
 import DoctorAdd from "../pages/AdminPagesNew/AdminDoctorAdd/index.jsx";
 import DoctorEdit from "../pages/AdminPagesNew/AdminDoctorEdit/index.jsx";
 import CategoryEdit from "../pages/AdminPagesNew/AdminCategoryEdit/index.jsx";
+import AdminSanatoriumNew from "../pages/AdminPagesNew/AdminSanatoriumNew/index.jsx";
+import SanatoriumAdd from "../pages/AdminPagesNew/AdminSanatoriumAdd/index.jsx";
+import SanatoriumEdit from "../pages/AdminPagesNew/AdminSanatoriumEdit/index.jsx";
 
 
 const router = [
@@ -202,6 +205,18 @@ const router = [
             {
                 path: "/admin/doctors/edit/:id",
                 element: <DoctorEdit/>
+            },
+            {
+                path: "/admin/sanatorium",
+                element: <AdminSanatoriumNew/>
+            },
+            {
+                path: "/admin/sanatorium/add",
+                element: <SanatoriumAdd/>
+            },
+            {
+                path: "/admin/sanatorium/edit/:id",
+                element: <SanatoriumEdit/>
             },
         ]
     },

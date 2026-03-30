@@ -34,7 +34,8 @@ function ClinicAdd() {
     const navigate = useNavigate();
     const [sertifikatFiles, setSertifikatFiles] = useState([]);
     const [sertifikatOpen, setSertifikatOpen] = useState(false);
-
+    const [clinicVideos, setClinicVideos] = useState([]);
+    const [videoInput, setVideoInput] = useState("");
     const [galereyaFiles, setGalereyaFiles] = useState([]);
     const [galereyaOpen, setGalereyaOpen] = useState(false);
     const [nameAz, setNameAz] = useState("");
@@ -44,7 +45,21 @@ function ClinicAdd() {
     const [descAz, setDescAz] = useState("");
     const [descEn, setDescEn] = useState("");
     const [descRu, setDescRu] = useState("");
+    const addVideo = () => {
+        const trimmed = videoInput.trim();
+        if (!trimmed) return;
+        // Sadə YouTube URL yoxlaması
+        if (!trimmed.includes("youtube.com") && !trimmed.includes("youtu.be")) {
+            showToast(t("adminPanel.clinicAdd.toast.invalidVideo"), "warning");
+            return;
+        }
+        setClinicVideos((prev) => [...prev, trimmed]);
+        setVideoInput("");
+    };
 
+    const removeVideo = (index) => {
+        setClinicVideos((prev) => prev.filter((_, i) => i !== index));
+    };
     const [locationAz, setLocationAz] = useState("");
     const [locationEn, setLocationEn] = useState("");
     const [locationRu, setLocationRu] = useState("");
@@ -142,7 +157,7 @@ function ClinicAdd() {
         selectedServices.forEach((id) => formData.append("clinicServiceIds", id));
         selectedDoctors.forEach((id) => formData.append("doctorIds", id));
         selectedOtels.forEach((id) => formData.append("otelIds", id));
-
+        clinicVideos.forEach((url) => formData.append("ClinicVideos", url));
         try {
             const res = await postClinic(formData).unwrap();
             showToast(t("adminPanel.clinicAdd.toast.success"), "success");
@@ -163,6 +178,8 @@ function ClinicAdd() {
             setSelectedServices([]);
             setSelectedDoctors([]);
             setSelectedOtels([]);
+            setClinicVideos([]);
+            setVideoInput("");
             navigate('/admin/clinic')
         } catch (err) {
             console.error("Xəta:", err);
@@ -507,6 +524,45 @@ function ClinicAdd() {
                                                 <span>{item.file.name}</span>
                                             </div>
                                             <button onClick={() => removeGalereya(index)}>✕</button>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                        {/* 🎬 YouTube Videolar */}
+                        <div className="dataDiv images multi inputs">
+                            <div className="header">
+                                <h3>{t("adminPanel.clinicAdd.videosTitle")}</h3>
+                                <p>{t("adminPanel.clinicAdd.videosDescription")}</p>
+                            </div>
+
+                            <div className="add-data" style={{ display: "flex", gap: "8px" }}>
+                                <div className="add-input" style={{ flex: 1 }}>
+                                    <input
+                                        placeholder={t("adminPanel.clinicAdd.placeholders.videoUrl")}
+                                        value={videoInput}
+                                        onChange={(e) => setVideoInput(e.target.value)}
+                                        onKeyDown={(e) => e.key === "Enter" && addVideo()}
+                                    />
+                                </div>
+                                <button
+                                    type="button"
+                                    className="submitButton"
+                                    style={{ width: "auto", padding: "0 16px" }}
+                                    onClick={addVideo}
+                                >
+                                    {t("adminPanel.clinicAdd.buttons.addVideo")}
+                                </button>
+                            </div>
+
+                            {clinicVideos.length > 0 && (
+                                <div className="uploadedList">
+                                    {clinicVideos.map((url, index) => (
+                                        <div key={index} className="uploadedItem">
+                                            <div className="fileLeft">
+                                                <span>🎬 {url}</span>
+                                            </div>
+                                            <button onClick={() => removeVideo(index)}>✕</button>
                                         </div>
                                     ))}
                                 </div>

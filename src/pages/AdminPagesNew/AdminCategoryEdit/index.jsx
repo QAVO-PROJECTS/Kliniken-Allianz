@@ -12,6 +12,18 @@ import cat3 from "../../../assets/Servis/cat3.svg";
 import cat4 from "../../../assets/Servis/cat4.svg";
 import cat5 from "../../../assets/Servis/cat5.svg";
 import cat6 from "../../../assets/Servis/cat6.svg";
+import cat7 from "../../../assets/Servis/cat7.svg";
+import cat8 from "../../../assets/Servis/cat8.svg";
+import cat9 from "../../../assets/Servis/cat9.svg";
+import cat10 from "../../../assets/Servis/cat10.svg";
+import cat11 from "../../../assets/Servis/cat11.svg";
+import cat12 from "../../../assets/Servis/cat12.svg";
+import cat13 from "../../../assets/Servis/cat13.svg";
+import cat14 from "../../../assets/Servis/cat14.svg";
+import cat15 from "../../../assets/Servis/cat15.svg";
+import cat16 from "../../../assets/Servis/cat16.svg";
+import cat17 from "../../../assets/Servis/cat17.svg";
+import cat18 from "../../../assets/Servis/cat18.svg";
 import {useEffect, useState} from "react";
 import {useGetCategoryByIdQuery, usePostCategoryMutation, usePutCategoryMutation} from "../../../services/userApi.jsx";
 import showToast from "../../../components/ToastMessage.js";
@@ -50,7 +62,9 @@ function CategoryEdit() {
     };
 
     // 🔹 iconlar (placeholder, əslində burada sənin icon listin olacaq)
-    const icons = [cat1, cat2, cat3, cat4, cat5, cat6];
+    const icons = [
+        cat1, cat2, cat3, cat4, cat5, cat6 , cat7 , cat8 , cat9, cat10, cat11, cat12, cat13, cat14, cat15, cat16 , cat17, cat18
+    ];
 
     // 🔹 icon-u blob-a çevirmək üçün helper
     const getImageBlob = async (url) => {

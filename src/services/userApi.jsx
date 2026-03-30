@@ -275,6 +275,37 @@ export const userApi = createApi({
                 method: 'DELETE',
             }),
         }),
+        getAllSanatorium: builder.query({
+            query: () => ({
+                url: `/Sanatorium/get-all-sanatoriums`,
+            }),
+        }),
+
+        getSanatoriumById: builder.query({
+            query: (id) => ({
+                url: `/Sanatorium/get-sanatorium/${id}`,
+            }),
+        }),
+        putSanatorium: builder.mutation({
+            query: (sanatorium) => ({
+                url: `/Sanatorium/update-sanatorium`,
+                method: 'PUT',
+                body: sanatorium,
+            }),
+        }),
+        postSanatorium: builder.mutation({
+            query: (data) => ({
+                url: `/Sanatorium/create-sanatorium`,
+                method: 'POST',
+                body: data,
+            }),
+        }),
+        deleteSanatorium: builder.mutation({
+            query: (id) => ({
+                url: `/Sanatorium/delete-sanatorium/${id}`,
+                method: 'DELETE',
+            }),
+        }),
     }),
 })
 export const {
@@ -292,6 +323,12 @@ export const {
     usePutClinicMutation,
     useDeleteClinicMutation,
     usePostClinicMutation,
+
+    useGetAllSanatoriumQuery,
+    useGetSanatoriumByIdQuery,
+    usePutSanatoriumMutation,
+    useDeleteSanatoriumMutation,
+    usePostSanatoriumMutation,
 
     useGetAllDoctorsQuery,
     useGetDoctorsByIdQuery,

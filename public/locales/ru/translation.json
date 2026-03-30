@@ -610,6 +610,8 @@
         "main": "Клиника",
         "sub": "Создать новую клинику"
       },
+      "videosTitle": "YouTube Видео",
+      "videosDescription": "Добавьте ссылки на YouTube видео, связанные с клиникой.",
       "title": "Создать новую клинику",
       "description": "Здесь вы можете управлять клиниками и создавать новые.",
       "nameTitle": "Название клиники",
@@ -634,12 +636,16 @@
       "uploadedHeader": "Загруженные",
       "buttons": {
         "save": "Сохранить",
-        "loading": "Загрузка..."
+        "loading": "Загрузка...",
+        "addVideo": "Добавить"
+
       },
       "toast": {
         "noMainImage": "Пожалуйста, добавьте основное изображение.",
         "success": "Клиника успешно добавлена ✅",
-        "error": "Произошла ошибка при добавлении клиники ❌"
+        "error": "Произошла ошибка при добавлении клиники ❌",
+        "invalidVideo": "Введите корректную ссылку YouTube ⚠️"
+
       },
       "placeholders": {
         "nameAz": "Название (AZ)",
@@ -650,7 +656,9 @@
         "descEn": "Описание (EN)",
         "locationAz": "Страна (AZ)",
         "locationRu": "Страна (RU)",
-        "locationEn": "Страна (EN)"
+        "locationEn": "Страна (EN)",
+        "videoUrl": "https://www.youtube.com/watch?v=..."
+
       }
     },
     "clinicEdit": {
@@ -658,6 +666,8 @@
         "main": "Клиника",
         "sub": "Редактировать клинику"
       },
+      "videosTitle": "YouTube Видео",
+      "videosDescription": "Добавьте ссылки на YouTube видео, связанные с клиникой.",
       "title": "Редактировать клинику",
       "description": "Здесь вы можете управлять клиниками и вносить изменения.",
       "nameTitle": "Название клиники",
@@ -686,11 +696,15 @@
       },
       "buttons": {
         "save": "Сохранить",
-        "loading": "Загрузка..."
+        "loading": "Загрузка...",
+        "addVideo": "Добавить"
+
       },
       "toast": {
         "success": "Изменения успешно отправлены ✅",
-        "error": "Произошла ошибка ❌"
+        "error": "Произошла ошибка ❌",
+        "invalidVideo": "Введите корректную ссылку YouTube ⚠️"
+
       },
       "placeholders": {
         "nameAz": "Название (AZ)",
@@ -701,7 +715,9 @@
         "descEn": "Описание (EN)",
         "locationAz": "Страна (AZ)",
         "locationRu": "Страна (RU)",
-        "locationEn": "Страна (EN)"
+        "locationEn": "Страна (EN)",
+        "videoUrl": "https://www.youtube.com/watch?v=..."
+
       }
     },
     "contactPage": {
@@ -1270,6 +1286,168 @@
         "prev": "Назад"
       }
     },
+    "sanatoriumPage": {
+      "title": "Санаторий",
+      "description": "Здесь вы можете управлять санаториями и создавать новые.",
+      "noSanatoriumFound": "Санатории не найдены",
+      "headers": {
+        "title": "Надёжные Оздоровительные Центры",
+        "subtitle": "Kliniken Allianz сотрудничает только с современными и надёжными санаториями, соответствующими международным стандартам."
+      },
+      "search": {
+        "placeholder": "Поиск....."
+      },
+      "breadcrumb": {
+        "home": "Главная",
+        "sanatoriums": "Санатории"
+      },
+      "bannerAlt": "Баннер о нас"
+    },
+
+    "sanatoriumTable": {
+      "image": "Изображение",
+      "name": "Название",
+      "description": "Описание",
+      "actions": "Действия",
+      "deleteConfirmTitle": "Вы уверены, что хотите удалить санаторий?",
+      "cancel": "Отменить",
+      "delete": "Удалить",
+      "deleting": "Удаляется...",
+      "toast": {
+        "deleteSuccess": "✅ Санаторий успешно удалён!",
+        "deleteError": "❌ Произошла ошибка при удалении санатория!"
+      }
+    },
+
+    "sanatoriumAdd": {
+      "breadcrumb": {
+        "main": "Санаторий",
+        "sub": "Создать новый санаторий"
+      },
+      "title": "Создать новый санаторий",
+      "description": "Здесь вы можете управлять санаториями и создавать новые.",
+      "nameTitle": "Название санатория",
+      "nameDescription": "Введите название, которое будет отображаться в системе.",
+      "imageTitle": "Изображение санатория",
+      "imageDescription": "Загрузите изображение, которое будет представлять санаторий.",
+      "uploadHint": "Нажмите или перетащите файл в эту область",
+      "descTitle": "Описание",
+      "descDescription": "Введите краткое описание пакета.",
+      "servicesTitle": "Услуги",
+      "servicesDescription": "Выберите клинику, связанную с услугой.",
+      "doctorsTitle": "Врач",
+      "doctorsDescription": "Выберите врачей, связанных с услугой.",
+      "hotelsTitle": "Отели",
+      "hotelsDescription": "Выберите отели, связанные с услугой.",
+      "locationTitle": "Название страны",
+      "locationDescription": "Введите страну, в которой расположен санаторий, по языкам.",
+      "certificateTitle": "Сертификат",
+      "certificateDescription": "Загрузите сертификаты, представляющие санаторий.",
+      "galleryTitle": "Галерея",
+      "galleryDescription": "Загрузите существующие изображения санатория.",
+      "uploadedHeader": "Загруженные",
+      "videosTitle": "YouTube Видео",
+      "videosDescription": "Добавьте ссылки на YouTube видео, связанные с санаторием.",
+      "buttons": {
+        "save": "Сохранить",
+        "loading": "Загрузка...",
+        "addVideo": "Добавить",
+        "addService": "Добавить услугу"
+
+      },
+      "toast": {
+        "noMainImage": "Пожалуйста, добавьте основное изображение.",
+        "success": "Санаторий успешно добавлен ✅",
+        "error": "Произошла ошибка при добавлении санатория ❌",
+        "invalidVideo": "Введите корректную ссылку YouTube ⚠️",
+        "emptyService": "Название услуги на азербайджанском не может быть пустым!"
+
+      },
+      "placeholders": {
+        "nameAz": "Название (AZ)",
+        "nameRu": "Название (RU)",
+        "nameEn": "Название (EN)",
+        "descAz": "Описание (AZ)",
+        "descRu": "Описание (RU)",
+        "descEn": "Описание (EN)",
+        "locationAz": "Страна (AZ)",
+        "locationRu": "Страна (RU)",
+        "locationEn": "Страна (EN)",
+        "videoUrl": "https://www.youtube.com/watch?v=...",
+        "serviceAz": "Название услуги (AZ)",
+        "serviceRu": "Название услуги (RU)",
+        "serviceEn": "Название услуги (EN)",
+        "serviceAlm": "Название услуги (DE)",
+        "serviceArab": "Название услуги (AR)"
+      }
+    },
+
+    "sanatoriumEdit": {
+      "breadcrumb": {
+        "main": "Санаторий",
+        "sub": "Редактировать санаторий"
+      },
+      "videosTitle": "YouTube Видео",
+      "videosDescription": "Добавьте ссылки на YouTube видео, связанные с санаторием.",
+      "title": "Редактировать санаторий",
+      "description": "Здесь вы можете управлять санаториями и вносить изменения.",
+      "nameTitle": "Название санатория",
+      "nameDescription": "Введите название, которое будет отображаться в системе.",
+      "imageTitle": "Изображение санатория",
+      "imageDescription": "Загрузите изображение, которое будет представлять санаторий.",
+      "uploadHint": "Нажмите или перетащите файл в эту область",
+      "descTitle": "Описание",
+      "descDescription": "Введите краткое описание пакета.",
+      "servicesTitle": "Услуги",
+      "servicesDescription": "Выберите клинику, связанную с услугой.",
+      "doctorsTitle": "Врач",
+      "doctorsDescription": "Выберите врачей, связанных с услугой.",
+      "hotelsTitle": "Отели",
+      "hotelsDescription": "Выберите отели, связанные с услугой.",
+      "locationTitle": "Название страны",
+      "locationDescription": "Введите страну, в которой расположен санаторий, по языкам.",
+      "certificateTitle": "Сертификат",
+      "certificateDescription": "Загрузите сертификаты, представляющие санаторий.",
+      "galleryTitle": "Галерея",
+      "galleryDescription": "Загрузите существующие изображения санатория.",
+      "uploadedHeader": "Загруженные",
+      "uploadedSubTitle": {
+        "newCertificates": "Новые сертификаты",
+        "newGallery": "Новая галерея"
+      },
+      "buttons": {
+        "save": "Сохранить",
+        "loading": "Загрузка...",
+        "addVideo": "Добавить",
+        "addService": "Добавить услугу"
+
+
+      },
+      "toast": {
+        "success": "Только изменённые данные успешно отправлены ✅",
+        "error": "Произошла ошибка ❌",
+        "invalidVideo": "Введите корректную ссылку YouTube ⚠️",
+        "emptyService": "Название услуги на азербайджанском не может быть пустым!"
+
+      },
+      "placeholders": {
+        "nameAz": "Название (AZ)",
+        "nameRu": "Название (RU)",
+        "nameEn": "Название (EN)",
+        "descAz": "Описание (AZ)",
+        "descRu": "Описание (RU)",
+        "descEn": "Описание (EN)",
+        "locationAz": "Страна (AZ)",
+        "locationRu": "Страна (RU)",
+        "locationEn": "Страна (EN)",
+        "videoUrl": "https://www.youtube.com/watch?v=...",
+        "serviceAz": "Название услуги (AZ)",
+        "serviceRu": "Название услуги (RU)",
+        "serviceEn": "Название услуги (EN)",
+        "serviceAlm": "Название услуги (DE)",
+        "serviceArab": "Название услуги (AR)"
+      }
+    },
     "leftBar": {
       "menu": {
         "category": "Категория",
@@ -1278,7 +1456,9 @@
         "tours": "Пакет услуг",
         "hotel": "Отель",
         "comment": "Отзывы",
-        "contact": "Контакты"
+        "contact": "Контакты",
+        "sanatorium": "Санаторий"
+
       },
       "buttons": {
         "logout": "Выйти"

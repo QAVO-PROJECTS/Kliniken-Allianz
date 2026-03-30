@@ -18,6 +18,7 @@ function AdminLeftBar() {
     const menuItems = [
         { path: "/admin/category", icon: categoryIcon, label: t("adminPanel.leftBar.menu.category") },
         { path: "/admin/clinic", icon: clinicIcon, label: t("adminPanel.leftBar.menu.clinic") },
+        { path: "/admin/sanatorium", icon: clinicIcon, label: t("adminPanel.leftBar.menu.sanatorium") },
         { path: "/admin/doctors", icon: doctorIcon, label: t("adminPanel.leftBar.menu.doctor") },
         { path: "/admin/tours", icon: turIcon, label: t("adminPanel.leftBar.menu.tours") },
         { path: "/admin/otel", icon: hotelIcon, label: t("adminPanel.leftBar.menu.hotel") },

@@ -53,7 +53,9 @@ function ClinicEdit() {
     // const [descAlm, setDescAlm] = useState("");
     // const [descArab, setDescArab] = useState("");
 
-
+    const [clinicVideos, setClinicVideos] = useState([]);
+    const [videoInput, setVideoInput] = useState("");
+    const [deleteClinicVideos, setDeleteClinicVideos] = useState([]);
     const [locationAz, setLocationAz] = useState("");
     const [locationEn, setLocationEn] = useState("");
     const [locationRu, setLocationRu] = useState("");
@@ -118,9 +120,28 @@ function ClinicEdit() {
             setOldMainImage(clinic.clinicCardImage ? `/uploads/${clinic.clinicCardImage}` : null);
             setOldSertifikatFiles(clinic.clinicSertificates || []);
             setOldGalereyaFiles(clinic.clinicImages || []);
+            setClinicVideos(clinic.clinicVideos || []);
         }
     }, [clinic]);
+    const addVideo = () => {
+        const trimmed = videoInput.trim();
+        if (!trimmed) return;
+        if (!trimmed.includes("youtube.com") && !trimmed.includes("youtu.be")) {
+            showToast(t("adminPanel.clinicEdit.toast.invalidVideo"), "warning");
+            return;
+        }
+        setClinicVideos((prev) => [...prev, trimmed]);
+        setVideoInput("");
+    };
 
+    const removeVideo = (index) => {
+        const url = clinicVideos[index];
+        // əgər bu artıq backendde olan bir linkdirsə silinənlərə əlavə et
+        if (clinic.clinicVideos?.includes(url)) {
+            setDeleteClinicVideos((prev) => [...prev, url]);
+        }
+        setClinicVideos((prev) => prev.filter((_, i) => i !== index));
+    };
     // 🔹 Sertifikat yükləmə funksiyası
     const handleSertifikatChange = (e) => {
         const newFiles = Array.from(e.target.files);
@@ -229,7 +250,15 @@ function ClinicEdit() {
         const origServices = clinic.services?.map(s => s.id) || [];
         const origDoctors = clinic.doctors?.map(d => d.id) || [];
         const origOtels = clinic.otels?.map(o => o.id) || [];
+// yeni əlavə olunan videolar (backend-də olmayanlar)
+        const origVideos = clinic.clinicVideos || [];
+        clinicVideos
+            .filter(url => !origVideos.includes(url))
+            .forEach(url => formData.append("ClinicVideos", url));
 
+// silinəcək videolar
+        if (deleteClinicVideos.length > 0)
+            deleteClinicVideos.forEach(url => formData.append("deleteClinicVideos", url));
         selectedServices
             .filter(id => !origServices.includes(id))
             .forEach(id => formData.append("clinicServiceIds", id));
@@ -657,7 +686,41 @@ function ClinicEdit() {
                             )}
                         </div>
 
+                        {/* 🎬 YouTube Videolar */}
+                        <div className="dataDiv images multi">
+                            <div className="header">
+                                <h3>{t("adminPanel.clinicEdit.videosTitle")}</h3>
+                                <p>{t("adminPanel.clinicEdit.videosDescription")}</p>
+                            </div>
 
+                            <div className="video-input-row">
+                                <div className="add-input">
+                                    <input
+                                        placeholder={t("adminPanel.clinicEdit.placeholders.videoUrl")}
+                                        value={videoInput}
+                                        onChange={(e) => setVideoInput(e.target.value)}
+                                        onKeyDown={(e) => e.key === "Enter" && addVideo()}
+                                    />
+                                </div>
+                                <button type="button" className="video-add-btn" onClick={addVideo}>
+                                    {t("adminPanel.clinicEdit.buttons.addVideo")}
+                                </button>
+                            </div>
+
+                            {clinicVideos.length > 0 && (
+                                <div className="uploadedList">
+                                    {clinicVideos.map((url, index) => (
+                                        <div key={index} className="uploadedItem">
+                                            <div className="fileLeft">
+                                                <span className="video-icon">▶</span>
+                                                <span>{url}</span>
+                                            </div>
+                                            <button onClick={() => removeVideo(index)}>✕</button>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
                     </div>
                     <button className="submitButton" onClick={handleEdit} disabled={isLoading}>
                         {isLoading ? t("adminPanel.clinicEdit.buttons.loading") : t("adminPanel.clinicEdit.buttons.save")}
