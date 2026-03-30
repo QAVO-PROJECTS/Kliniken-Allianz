@@ -2,6 +2,7 @@
   "navbar": {
     "clinics": "Clinics",
     "doctors": "Doctors",
+    "sanatoriums": "Sanatoriums",
     "tours": "Tours",
     "about": "About Us",
     "contact": "Contact",
@@ -10,7 +11,8 @@
     "languages": {
       "az": "Azerbaijani",
       "en": "English",
-      "ru": "Russian"
+      "ru": "Russian",
+      "ar": "Arabic"
     }
   },
   "categoriesMenu": {
@@ -173,28 +175,6 @@
     "flight": "Flight Ticket",
     "apply": "Apply"
   },
-  "translation": {
-    "comments": [
-      {
-        "text": "This platform is truly incredible! Every service is organized at the highest level, very easy to use, and offers solutions tailored to everyone's needs. The support team is always there to help and responds instantly. This is not just a platform, it’s a full experience!"
-      },
-      {
-        "text": "A really useful and easy-to-use service. The interface is so simple and intuitive that even beginners face no difficulty. Every function is designed thoughtfully, saving users valuable time. This platform will make your life much easier!"
-      },
-      {
-        "text": "My experience was absolutely fantastic! The quality of services, professionalism of the staff, and attention to detail amazed me. I felt special at every step and the whole process was very smooth. It’s definitely worth trying!"
-      },
-      {
-        "text": "The treatment process was incredibly comfortable and stress-free. Everything — transportation, hotel, hospital — was perfectly arranged in advance. The care and professionalism of the doctors and staff impressed me deeply. I felt safe and supported at every moment — this is the biggest advantage!"
-      },
-      {
-        "text": "This platform is just amazing! A very user-friendly interface, top-quality services, and a fast support team make it perfect for everyone. Every detail is designed with user comfort in mind, making it unique. Highly recommended!"
-      },
-      {
-        "text": "The treatment process was completely stress-free and smooth. Transportation, hotel, and hospital services were perfectly organized, which made me very satisfied. The professionalism and care of the medical team made me feel safe at all times. I highly recommend it to everyone!"
-      }
-    ]
-  },
   "aboutUs": {
     "pageTitle": "About Us",
     "breadcrumb": {
@@ -224,7 +204,27 @@
         }
       }
     },
-    "bannerAlt": "About Us Banner"
+    "bannerAlt": "About Us Banner",
+    "details": {
+      "p1": "As Kliniken Allianz Medical Tourism Company, we are a professional team operating in the international medical tourism field, providing patients with access to quality and reliable medical services. Our main goal is to accurately analyze the health needs of each patient and provide them with the most suitable clinic and treatment programs.",
+      "p2": "Our company has an official representation in Germany. This allows us to direct our patients to leading and highly specialized clinics in Germany and organize diagnostic and treatment processes in accordance with international standards. At the same time, we cooperate closely with the best clinics, medical centers, and sanatoriums within Azerbaijan to provide examination, treatment, rehabilitation, and leisure programs.",
+      "p3": "Furthermore, we organize check-up services. These examinations, performed with modern medical equipment, allow for early detection of diseases, general assessment of health status, and timely intervention.",
+      "p4": "We do not limit our services to medical guidance alone. By providing a \"full service package\" for our patients, we organize the entire process professionally from start to finish:",
+      "p5": "Every patient is unique to us. We provide the most optimal solutions taking into account their wishes, medical condition, and budget. Our goal is not only to organize the treatment process but also to ensure that our patients feel comfortable, safe, and at the center of attention.",
+      "p6": "Operating based on the principles of professionalism, transparency, and reliability, Kliniken Allianz Medical Tourism Company is your reliable partner on the path to your health."
+    },
+    "servicesList": [
+      "Initial consultation and accurate assessment of medical needs",
+      "Selection of the appropriate clinic and doctor",
+      "Preparation and coordination of the treatment plan",
+      "Organization of check-up programs",
+      "Admission to the clinic and organization of meetings",
+      "Visa support and documentation",
+      "Airport pick-up and comfortable transfer service",
+      "Placement in a hotel, clinic, or sanatorium",
+      "Interpreter and accompaniment service",
+      "Continuous support during and after the treatment period"
+    ]
   },
   "contact": {
     "title": "Contact",
@@ -279,7 +279,6 @@
     "bannerAlt": "Contact Banner",
     "succesToast": "Contact information sent successfully!",
     "errorToast": "An error occurred"
-
   },
   "categoryDetail": {
     "pageTitle": "Service",
@@ -337,35 +336,23 @@
       "prevAria": "Previous image",
       "nextAria": "Next image",
       "goToImageAria": "Go to image {number}"
+    }
+  },
+  "sanatoriumDetail": {
+    "breadcrumb": {
+      "home": "Home",
+      "sanatoriums": "Sanatoriums"
     },
-    "contact": {
-      "form": {
-        "title": "Fill out the form to contact us",
-        "labels": {
-          "name": "Name",
-          "surname": "Surname",
-          "email": "Email",
-          "phone": "Phone",
-          "note": "Note"
-        },
-        "placeholders": {
-          "name": "Enter your name",
-          "surname": "Enter your surname",
-          "email": "example@gmail.com",
-          "phone": "+994 99 999 99 99",
-          "note": ""
-        },
-        "button": "Send",
-        "errors": {
-          "nameRequired": "Enter name",
-          "surnameRequired": "Enter surname",
-          "emailRequired": "Enter email",
-          "emailInvalid": "Enter a valid email",
-          "phoneRequired": "Enter phone",
-          "descriptionRequired": "Enter your message"
-        }
-      },
-      "mapAlt": "Clinic Map"
+    "services": {
+      "title": "Services Offered by the Sanatorium",
+      "description": "Discover high-quality services tailored to your needs."
+    },
+    "related": {
+      "title": "Other Sanatoriums",
+      "description": "Explore other high-end sanatoriums we've selected for you."
+    },
+    "videos": {
+      "title": "Videos"
     }
   },
   "clinicHotel": {
@@ -432,164 +419,16 @@
       "deleteSuccess": "Category successfully deleted ✅",
       "deleteError": "Failed to delete category ❌"
     },
-    "categoryAdd": {
-      "breadcrumb": {
-        "main": "Category",
-        "sub": "Create New Category"
-      },
-      "title": "Create New Category",
-      "description": "Here you can manage categories and create new ones.",
-      "nameTitle": "Category Name",
-      "nameDescription": "Enter the category name that will be displayed in the system.",
-      "iconTitle": "Distinctive Category Icon",
-      "iconDescription": "This icon defines the appearance of your category. Simply select one.",
-      "placeholders": {
-        "az": "Travmatologiya",
-        "ru": "Travmatologiya",
-        "en": "Traumatology"
-      },
-      "buttons": {
-        "save": "Save",
-        "loading": "Loading..."
-      },
-      "toast": {
-        "emptyName": "Category name in Azerbaijani cannot be empty!",
-        "noIcon": "Please select an icon!",
-        "success": "Category successfully added ✅",
-        "error": "An error occurred ❌"
-      }
-    },
-    "categoryEdit": {
-      "breadcrumb": {
-        "main": "Category",
-        "sub": "Edit Category"
-      },
-      "title": "Edit Category",
-      "description": "Here you can modify the data of an existing category.",
-      "nameTitle": "Category Name",
-      "nameDescription": "Enter the category name that will be displayed in the system.",
-      "iconTitle": "Distinctive Category Icon",
-      "iconDescription": "This icon defines the appearance of your category. Simply select one.",
-      "placeholders": {
-        "az": "Travmatologiya",
-        "ru": "Travmatologiya",
-        "en": "Traumatology"
-      },
-      "buttons": {
-        "save": "Save",
-        "updating": "Updating..."
-      },
-      "toast": {
-        "emptyName": "Category name in Azerbaijani cannot be empty!",
-        "success": "Category successfully updated ✅",
-        "error": "An error occurred ❌"
-      },
-      "loading": "Loading..."
-    },
-    "categoryService": {
-      "main": "Category",
-      "description": "In this section you can view general category information and add new services to it."
-    },
-    "categoryServiceTable": {
-      "name": "Name",
-      "description": "Description",
-      "clinics": "Clinics",
-      "actions": "Actions",
-      "noData": "No services found for this category.",
-      "deleteConfirmTitle": "Are you sure you want to delete the service?",
-      "cancel": "Cancel",
-      "delete": "Delete",
-      "deleting": "Deleting...",
-      "loading": "Loading...",
-      "toast": {
-        "notFound": "Service not found ❌",
-        "deleteSuccess": "Service successfully deleted ✅",
-        "deleteError": "Failed to delete service ❌"
-      }
-    },
-    "categoryServisAdd": {
-      "breadcrumb": {
-        "main": "Category",
-        "sub": "Create New"
-      },
-      "title": "Create New Service",
-      "description": "Here you can manage services and create new ones.",
-      "nameTitle": "Service Name",
-      "nameDescription": "Enter the service name that will be displayed in the system.",
-      "clinicTitle": "Clinic",
-      "clinicDescription": "Select the clinic associated with the service.",
-      "noClinic": "No clinic found.",
-      "descTitle": "Description",
-      "descDescription": "Enter a brief description of the service.",
-      "placeholders": {
-        "nameAz": "Travmatologiya",
-        "nameRu": "Travmatologiya",
-        "nameEn": "Traumatology",
-        "descAz": "Add description...",
-        "descRu": "Add description...",
-        "descEn": "Add description..."
-      },
-      "buttons": {
-        "save": "Save",
-        "loading": "Loading..."
-      },
-      "toast": {
-        "emptyName": "Service name in Azerbaijani cannot be empty!",
-        "noCategoryId": "Category ID not found!",
-        "noClinic": "Please select at least one clinic!",
-        "success": "Service successfully added ✅",
-        "error": "An error occurred while adding the service ❌"
-      }
-    },
-    "categoryServiceEdit": {
-      "breadcrumb": {
-        "main": "Category",
-        "sub": "Edit"
-      },
-      "title": "Edit Service",
-      "description": "Here you can manage services and make changes.",
-      "nameTitle": "Service Name",
-      "nameDescription": "Enter the service name that will be displayed in the system.",
-      "clinicTitle": "Clinic",
-      "clinicDescription": "Select the clinic associated with the service.",
-      "descTitle": "Description",
-      "descDescription": "Enter a brief description of the service.",
-      "placeholders": {
-        "nameAz": "Travmatologiya",
-        "nameRu": "Travmatologiya",
-        "nameEn": "Traumatology",
-        "descAz": "Add description...",
-        "descRu": "Add description...",
-        "descEn": "Add description..."
-      },
-      "buttons": {
-        "save": "Save",
-        "updating": "Updating..."
-      },
-      "toast": {
-        "emptyName": "Service name in Azerbaijani cannot be empty!",
-        "noCategoryId": "Category ID not found!",
-        "success": "Service successfully updated ✅",
-        "error": "An error occurred while updating the service ❌"
-      },
-      "loading": "Loading..."
-    },
     "clinicPage": {
       "title": "Clinic",
       "description": "Here you can manage clinics and create new ones.",
-      "noClinicFound": "No clinics found",
       "headers": {
-        "title": "Trusted Medical Centers",
-        "subtitle": "Kliniken Allianz partners only with modern and reliable clinics that meet international standards."
+        "title": "Trusted Health Centers",
+        "subtitle": "Kliniken Allianz only cooperates with modern and reliable clinics that meet international standards."
       },
       "search": {
         "placeholder": "Search..."
-      },
-      "breadcrumb": {
-        "home": "Home",
-        "clinics": "Clinics"
-      },
-      "bannerAlt": "About Us Banner"
+      }
     },
     "clinicTable": {
       "image": "Image",
@@ -601,714 +440,14 @@
       "delete": "Delete",
       "deleting": "Deleting...",
       "toast": {
-        "deleteSuccess": "✅ Clinic successfully deleted!",
-        "deleteError": "❌ An error occurred while deleting the clinic!"
-      }
-    },
-    "clinicAdd": {
-      "breadcrumb": {
-        "main": "Clinic",
-        "sub": "Create New Clinic"
-      },
-      "videosTitle": "YouTube Videos",
-      "videosDescription": "Add YouTube video links related to the clinic.",
-      "title": "Create New Clinic",
-      "description": "Here you can manage clinics and create new ones.",
-      "nameTitle": "Clinic Name",
-      "nameDescription": "Enter the name that will be displayed in the system.",
-      "imageTitle": "Clinic Image",
-      "imageDescription": "Upload an image that will represent the clinic.",
-      "uploadHint": "Click or drag a file to this area",
-      "descTitle": "Description",
-      "descDescription": "Enter a brief description of the package.",
-      "servicesTitle": "Services",
-      "servicesDescription": "Select the services associated with this clinic.",
-      "doctorsTitle": "Doctors",
-      "doctorsDescription": "Select the doctors associated with this clinic.",
-      "hotelsTitle": "Hotels",
-      "hotelsDescription": "Select the hotels associated with this clinic.",
-      "locationTitle": "Country",
-      "locationDescription": "Enter the country where the clinic is located, by language.",
-      "certificateTitle": "Certificate",
-      "certificateDescription": "Upload certificates representing the clinic.",
-      "galleryTitle": "Gallery",
-      "galleryDescription": "Upload existing images of the clinic.",
-      "uploadedHeader": "Uploaded",
-      "buttons": {
-        "save": "Save",
-        "loading": "Loading...",
-        "addVideo": "Add"
-      },
-      "toast": {
-        "noMainImage": "Please add a main image.",
-        "success": "Clinic successfully added ✅",
-        "error": "An error occurred while adding the clinic ❌",
-        "invalidVideo": "Please enter a valid YouTube link ⚠️"
-      },
-      "placeholders": {
-        "nameAz": "Name (AZ)",
-        "nameRu": "Name (RU)",
-        "nameEn": "Name (EN)",
-        "nameAlm": "Name (DE)",
-        "nameArab": "Name (AR)",
-        "descAz": "Description (AZ)",
-        "descRu": "Description (RU)",
-        "descEn": "Description (EN)",
-        "descAlm": "Description (DE)",
-        "descArab": "Description (AR)",
-        "locationAz": "Country (AZ)",
-        "locationRu": "Country (RU)",
-        "locationEn": "Country (EN)",
-        "locationAlm": "Country (DE)",
-        "locationArab": "Country (AR)",
-        "videoUrl": "https://www.youtube.com/watch?v=..."
-      }
-    },
-    "clinicEdit": {
-      "breadcrumb": {
-        "main": "Clinic",
-        "sub": "Edit Clinic"
-      },
-      "title": "Edit Clinic",
-      "description": "Here you can manage clinics and make changes.",
-      "nameTitle": "Clinic Name",
-      "nameDescription": "Enter the name that will be displayed in the system.",
-      "imageTitle": "Clinic Image",
-      "imageDescription": "Upload an image that will represent the clinic.",
-      "uploadHint": "Click or drag a file to this area",
-      "descTitle": "Description",
-      "descDescription": "Enter a brief description of the package.",
-      "servicesTitle": "Services",
-      "servicesDescription": "Select the services associated with this clinic.",
-      "doctorsTitle": "Doctors",
-      "doctorsDescription": "Select the doctors associated with this clinic.",
-      "hotelsTitle": "Hotels",
-      "hotelsDescription": "Select the hotels associated with this clinic.",
-      "locationTitle": "Country",
-      "locationDescription": "Enter the country where the clinic is located, by language.",
-      "certificateTitle": "Certificate",
-      "certificateDescription": "Upload certificates representing the clinic.",
-      "galleryTitle": "Gallery",
-      "galleryDescription": "Upload existing images of the clinic.",
-      "uploadedHeader": "Uploaded",
-      "uploadedSubTitle": {
-        "newCertificates": "New Certificates",
-        "newGallery": "New Gallery"
-      },
-      "buttons": {
-        "save": "Save",
-        "loading": "Loading..."
-      },
-      "toast": {
-        "success": "Changes successfully submitted ✅",
-        "error": "An error occurred ❌"
-      },
-      "placeholders": {
-        "nameAz": "Name (AZ)",
-        "nameRu": "Name (RU)",
-        "nameEn": "Name (EN)",
-        "nameAlm": "Name (DE)",
-        "nameArab": "Name (AR)",
-        "descAz": "Description (AZ)",
-        "descRu": "Description (RU)",
-        "descEn": "Description (EN)",
-        "descAlm": "Description (DE)",
-        "descArab": "Description (AR)",
-        "locationAz": "Country (AZ)",
-        "locationRu": "Country (RU)",
-        "locationEn": "Country (EN)",
-        "locationAlm": "Country (DE)",
-        "locationArab": "Country (AR)"
-      }
-    },
-    "contactPage": {
-      "title": "Contacts",
-      "description": "View client messages and track responses",
-      "filters": {
-        "default": "General"
-      }
-    },
-    "contactTable": {
-      "headers": {
-        "name": "Name",
-        "email": "Email",
-        "note": "Note",
-        "tourName": "Tour Name",
-        "phone": "Phone"
-      },
-      "emptyMessage": "No contacts found."
-    },
-    "doctorPage": {
-      "title": "Doctor",
-      "description": "Here you can manage doctors and create new ones."
-    },
-    "doctorTable": {
-      "headers": {
-        "image": "Image",
-        "name": "Name",
-        "surname": "Surname",
-        "role": "Position",
-        "experience": "Experience",
-        "description": "Clinics",
-        "actions": "Actions"
-      },
-      "loading": "Loading...",
-      "noData": "No doctor found",
-      "notAssigned": "Not assigned",
-      "deleteConfirm": "Are you sure you want to delete the doctor?",
-      "cancel": "Cancel",
-      "delete": "Delete",
-      "deleting": "Deleting...",
-      "toast": {
-        "deleteSuccess": "Doctor successfully deleted ✅",
-        "deleteError": "Error while deleting ❌"
-      }
-    },
-    "doctorAdd": {
-      "breadcrumb": {
-        "root": "Doctor",
-        "current": "Create New Doctor"
-      },
-      "title": "Create New Doctor",
-      "description": "Here you can manage doctors and create new ones.",
-      "sections": {
-        "name": {
-          "title": "Doctor's Name",
-          "desc": "Enter the doctor's name that will be displayed in the system."
-        },
-        "surname": {
-          "title": "Doctor's Surname",
-          "desc": "Enter the doctor's surname that will be displayed in the system."
-        },
-        "role": {
-          "title": "Position",
-          "desc": "Enter the doctor's position that will be displayed in the system."
-        },
-        "image": {
-          "title": "Doctor's Photo",
-          "desc": "Upload an image that will represent the doctor.",
-          "uploadText": "Click or drag a file to this area"
-        },
-        "clinic": {
-          "title": "Clinic",
-          "desc": "Select the clinics associated with the doctor."
-        },
-        "certificate": {
-          "title": "Certificate",
-          "desc": "Upload certificates that will represent the doctor.",
-          "uploaded": "Uploaded"
-        },
-        "experience": {
-          "title": "Work Experience",
-          "desc": "Enter the number of years of experience that will be displayed in the system.",
-          "placeholder": "E.g.: 5"
-        },
-        "rating": {
-          "title": "Rating",
-          "desc": "Set the rating value for the doctor."
-        },
-        "bio": {
-          "title": "Biography",
-          "desc": "Enter the doctor's biography that will be displayed in the system.",
-          "section": "Bio Section #",
-          "placeholder": "Enter here...",
-          "addButton": "Add"
-        }
-      },
-      "placeholders": {
-        "nameAz": "Name (AZ)",
-        "nameRu": "Name (RU)",
-        "nameEn": "Name (EN)",
-        "surnameAz": "Surname (AZ)",
-        "surnameRu": "Surname (RU)",
-        "surnameEn": "Surname (EN)",
-        "roleAz": "Position (AZ)",
-        "roleRu": "Position (RU)",
-        "roleEn": "Position (EN)"
-      },
-      "buttons": {
-        "save": "Save",
-        "loading": "Saving...",
-        "addBio": "Add New Biography"
-      },
-      "uploadHint": "Click or drag a file to this area",
-      "toast": {
-        "success": "Doctor successfully added ✅",
-        "error": "An error occurred, please try again ❌"
-      }
-    },
-    "doctorEdit": {
-      "breadcrumb": {
-        "root": "Doctor",
-        "current": "Edit Doctor"
-      },
-      "title": "Edit Doctor",
-      "description": "Here you can manage doctors and make changes.",
-      "sections": {
-        "name": {
-          "title": "Doctor's Name",
-          "desc": "Enter the doctor's name that will be displayed in the system."
-        },
-        "surname": {
-          "title": "Doctor's Surname",
-          "desc": "Enter the doctor's surname that will be displayed in the system."
-        },
-        "role": {
-          "title": "Position",
-          "desc": "Enter the doctor's position."
-        },
-        "image": {
-          "title": "Doctor's Image",
-          "desc": "Upload an image that will represent the doctor.",
-          "uploadText": "Click or drag a file"
-        },
-        "clinic": {
-          "title": "Clinic",
-          "desc": "Select the clinics associated with this doctor."
-        },
-        "certificate": {
-          "title": "Certificate",
-          "desc": "Upload certificates representing the doctor.",
-          "uploaded": "Uploaded"
-        },
-        "experience": {
-          "title": "Experience",
-          "desc": "Enter the doctor's experience in the system.",
-          "placeholder": "3 years"
-        },
-        "rating": {
-          "title": "Rating",
-          "desc": "Set the rating for the doctor."
-        },
-        "bio": {
-          "title": "Bio",
-          "desc": "Enter the doctor's biography.",
-          "placeholder": "Write here...",
-          "addButton": "Add"
-        }
-      },
-      "buttons": {
-        "save": "Save",
-        "saving": "Saving..."
-      },
-      "toast": {
-        "success": "Doctor's data successfully updated ✅",
-        "error": "Error while updating data ❌"
-      },
-      "loading": "Loading..."
-    },
-    "hotelPage": {
-      "title": "Hotel",
-      "description": "Here you can manage hotels and create new ones."
-    },
-    "hotelTable": {
-      "headers": {
-        "image": "Image",
-        "name": "Name",
-        "location": "Location",
-        "rating": "Rating",
-        "actions": "Actions"
-      },
-      "modal": {
-        "confirmDelete": "Are you sure you want to delete the hotel?",
-        "cancel": "Cancel",
-        "delete": "Delete",
-        "deleting": "Deleting..."
-      },
-      "toast": {
-        "deleteSuccess": "Hotel successfully deleted ✅",
-        "deleteError": "Failed to delete hotel ❌"
-      }
-    },
-    "hotelAdd": {
-      "breadcrumb": {
-        "root": "Hotel",
-        "current": "Create New Hotel"
-      },
-      "title": "Create New Hotel",
-      "description": "Here you can manage hotels and create new ones.",
-      "sections": {
-        "name": {
-          "title": "Hotel Name",
-          "desc": "Enter the hotel name that will be displayed in the system.",
-          "placeholders": {
-            "az": "Name (AZ)",
-            "ru": "Name (RU)",
-            "en": "Name (EN)"
-          }
-        },
-        "image": {
-          "title": "Hotel Image",
-          "desc": "Upload an image that will represent the hotel.",
-          "uploadText": "Click or drag a file"
-        },
-        "country": {
-          "title": "Country",
-          "desc": "Enter the country where the hotel is located, in different languages.",
-          "placeholders": {
-            "az": "Country (AZ)",
-            "ru": "Country (RU)",
-            "en": "Country (EN)"
-          }
-        },
-        "rating": {
-          "title": "Rating",
-          "desc": "Set the rating for the hotel."
-        },
-        "link": {
-          "title": "Hotel Link",
-          "desc": "Enter the hotel link.",
-          "placeholder": "https://www.fairmonthotels.com/baku/"
-        }
-      },
-      "buttons": {
-        "save": "Save",
-        "saving": "Saving..."
-      },
-      "toast": {
-        "success": "Hotel successfully added!",
-        "error": "Error while adding hotel!",
-        "warning": "Please fill in all fields."
-      }
-    },
-    "hotelEdit": {
-      "breadcrumb": {
-        "root": "Hotel",
-        "current": "Edit Hotel"
-      },
-      "title": "Edit Hotel",
-      "description": "Here you can manage hotels and make changes.",
-      "sections": {
-        "name": {
-          "title": "Hotel Name",
-          "desc": "Enter the hotel name that will be displayed in the system.",
-          "placeholders": {
-            "az": "Name (AZ)",
-            "ru": "Name (RU)",
-            "en": "Name (EN)"
-          }
-        },
-        "image": {
-          "title": "Hotel Image",
-          "desc": "Upload an image that will represent the hotel.",
-          "uploadText": "Click or drag a file"
-        },
-        "country": {
-          "title": "Country",
-          "desc": "Enter the country where the hotel is located, in different languages.",
-          "placeholders": {
-            "az": "Country (AZ)",
-            "ru": "Country (RU)",
-            "en": "Country (EN)"
-          }
-        },
-        "rating": {
-          "title": "Rating",
-          "desc": "Set the rating for the hotel."
-        },
-        "link": {
-          "title": "Hotel Link",
-          "desc": "Enter the hotel link.",
-          "placeholder": "https://www.fairmonthotels.com/baku/"
-        }
-      },
-      "buttons": {
-        "save": "Save",
-        "saving": "Updating..."
-      },
-      "toast": {
-        "success": "Hotel successfully edited ✅",
-        "error": "Error while editing ❌",
-        "warning": "Please fill in the required fields."
-      }
-    },
-    "commentPage": {
-      "header": {
-        "title": "Review",
-        "description": "Here you can manage reviews and add new ones."
-      },
-      "buttons": {
-        "addNew": "Add New Review"
-      }
-    },
-    "commentTable": {
-      "table": {
-        "headers": {
-          "image": "Image",
-          "author": "Author",
-          "country": "Country",
-          "description": "Description",
-          "actions": "Actions"
-        },
-        "noData": "No reviews found.",
-        "deleteConfirm": "Are you sure you want to delete the review?",
-        "loading": "Loading..."
-      },
-      "modal": {
-        "cancel": "Cancel",
-        "confirm": "Delete",
-        "deleting": "Deleting..."
-      },
-      "toast": {
-        "success": "Review successfully deleted ✅",
-        "error": "Error while deleting review ❌"
-      }
-    },
-    "commentAdd": {
-      "breadcrumb": {
-        "root": "Review",
-        "current": "Create New Review"
-      },
-      "title": "Create New Review",
-      "description": "Here you can manage reviews and add new ones.",
-      "sections": {
-        "author": {
-          "title": "Author",
-          "desc": "Enter the author's name that will be displayed in the system.",
-          "placeholder": "E.g.: Anar Mammadov"
-        },
-        "country": {
-          "title": "Country of Review",
-          "desc": "Specify which country the review is from.",
-          "placeholder": "E.g.: Azerbaijan"
-        },
-        "image": {
-          "title": "Image",
-          "desc": "Upload the author's profile image.",
-          "uploadText": "Click or drag a file"
-        },
-        "description": {
-          "title": "Description",
-          "desc": "Enter the review text.",
-          "placeholders": {
-            "az": "E.g.: The service was excellent!",
-            "ru": "E.g.: Everything was great!",
-            "en": "Example: Everything was great!"
-          }
-        }
-      },
-      "buttons": {
-        "save": "Save",
-        "saving": "Loading..."
-      },
-      "toast": {
-        "success": "Review successfully added ✅",
-        "error": "An error occurred while adding the review ❌",
-        "warning": "Fields in Azerbaijani cannot be empty!"
-      }
-    },
-    "commentEdit": {
-      "breadcrumb": {
-        "root": "Review",
-        "current": "Edit Review"
-      },
-      "title": "Edit Review",
-      "description": "Here you can manage reviews and make changes.",
-      "sections": {
-        "author": {
-          "title": "Author",
-          "desc": "Enter the author's name that will be displayed in the system.",
-          "placeholder": "Enter name"
-        },
-        "country": {
-          "title": "Country of Review",
-          "desc": "Specify which country the review is from.",
-          "placeholder": "E.g.: Azerbaijan"
-        },
-        "image": {
-          "title": "Image",
-          "desc": "Upload the author's profile image.",
-          "uploadText": "Click or drag a file"
-        },
-        "description": {
-          "title": "Description",
-          "desc": "Enter the review text.",
-          "placeholders": {
-            "az": "Description (AZ)",
-            "ru": "Description (RU)",
-            "en": "Description (EN)"
-          }
-        }
-      },
-      "buttons": {
-        "save": "Save",
-        "saving": "Updating..."
-      },
-      "toast": {
-        "success": "Review successfully updated ✅",
-        "error": "Error while updating ❌",
-        "warning": "All required fields must be filled in!"
-      },
-      "loading": "Loading..."
-    },
-    "toursPagee": {
-      "header": {
-        "title": "Service Package",
-        "description": "Here you can manage service packages and add new ones."
-      },
-      "buttons": {
-        "addNew": "Add New Service Package"
-      }
-    },
-    "toursAdd": {
-      "breadcrumb": {
-        "root": "Service Package",
-        "current": "Create New Service Package"
-      },
-      "title": "Create New Service Package",
-      "description": "Here you can manage service packages and add new ones.",
-      "sections": {
-        "name": {
-          "title": "Service Package Name",
-          "desc": "Enter the package name that will be displayed in the system.",
-          "placeholders": {
-            "az": "Name (AZ)",
-            "ru": "Name (RU)",
-            "en": "Name (EN)"
-          }
-        },
-        "image": {
-          "title": "Package Image",
-          "desc": "Upload an image that will represent the package.",
-          "uploadText": "Click or drag a file"
-        },
-        "description": {
-          "title": "Description",
-          "desc": "Enter a brief description of the package.",
-          "placeholders": {
-            "az": "Description (AZ)",
-            "ru": "Description (RU)",
-            "en": "Description (EN)"
-          }
-        },
-        "offers": {
-          "title": "Offers",
-          "desc": "Enter the offers included in the package.",
-          "placeholders": {
-            "az": "Offer (AZ)",
-            "ru": "Offer (RU)",
-            "en": "Offer (EN)"
-          },
-          "addBtn": "Add",
-          "sectionTitle": "Offer #",
-          "removeBtn": "Remove"
-        }
-      },
-      "buttons": {
-        "save": "Save",
-        "saving": "Loading..."
-      },
-      "toast": {
-        "success": "✅ Service package successfully added!",
-        "error": "Error while adding service package!"
-      }
-    },
-    "toursEdit": {
-      "breadcrumb": {
-        "root": "Service Package",
-        "current": "Edit Service Package"
-      },
-      "title": "Edit Service Package",
-      "description": "Here you can manage service packages and make changes.",
-      "sections": {
-        "name": {
-          "title": "Service Package Name",
-          "desc": "Enter the package name that will be displayed in the system.",
-          "placeholders": {
-            "az": "Name (AZ)",
-            "ru": "Name (RU)",
-            "en": "Name (EN)"
-          }
-        },
-        "image": {
-          "title": "Package Image",
-          "desc": "Upload an image that will represent the package.",
-          "uploadText": "Click or drag a file",
-          "oldImage": "Existing Image"
-        },
-        "description": {
-          "title": "Description",
-          "desc": "Enter a brief description of the package.",
-          "placeholders": {
-            "az": "Description (AZ)",
-            "ru": "Description (RU)",
-            "en": "Description (EN)"
-          }
-        },
-        "offers": {
-          "title": "Offers",
-          "desc": "Enter the offers included in the package.",
-          "placeholders": {
-            "az": "Traumatologiya",
-            "ru": "Traumatologiya",
-            "en": "Traumatology"
-          },
-          "addBtn": "Add",
-          "sectionTitle": "Offer #",
-          "removeBtn": "Remove"
-        }
-      },
-      "buttons": {
-        "save": "Save",
-        "saving": "Updating..."
-      },
-      "toast": {
-        "success": "✅ Service package successfully updated!",
-        "error": "Error while updating service package!"
-      }
-    },
-    "toursTable": {
-      "title": "Service Packages",
-      "description": "Here you can view, edit and delete all service packages.",
-      "headers": {
-        "checkbox": "",
-        "image": "Image",
-        "name": "Name",
-        "offer": "Offer",
-        "description": "Description",
-        "actions": "Actions"
-      },
-      "actions": {
-        "edit": "Edit",
-        "delete": "Delete"
-      },
-      "modal": {
-        "title": "Are you sure you want to delete this service package?",
-        "cancel": "Cancel",
-        "confirm": "Delete",
-        "deleting": "Deleting..."
-      },
-      "toast": {
-        "deleteSuccess": "Tour successfully deleted ✅",
-        "deleteError": "An error occurred. Please try again ❌"
-      },
-      "pagination": {
-        "next": "Next",
-        "prev": "Previous"
+        "deleteSuccess": "✅ Clinic deleted successfully!",
+        "deleteError": "❌ Error occurred while deleting clinic!"
       }
     },
     "sanatoriumPage": {
       "title": "Sanatorium",
-      "description": "Here you can manage sanatoriums and create new ones.",
-      "noSanatoriumFound": "No matching sanatorium found",
-
-      "headers": {
-        "title": "Trusted Wellness Centers",
-        "subtitle": "Kliniken Allianz partners only with modern and reliable sanatoriums that meet international standards."
-      },
-
-      "search": {
-        "placeholder": "Search....."
-      },
-
-      "breadcrumb": {
-        "home": "Home",
-        "sanatoriums": "Sanatoriums"
-      },
-
-      "bannerAlt": "About us banner"
+      "description": "Here you can manage sanatoriums and create new ones."
     },
-
     "sanatoriumTable": {
       "image": "Image",
       "name": "Name",
@@ -1319,168 +458,9 @@
       "delete": "Delete",
       "deleting": "Deleting...",
       "toast": {
-        "deleteSuccess": "✅ Sanatorium successfully deleted!",
-        "deleteError": "❌ An error occurred while deleting the sanatorium!"
-      }
-    },
-
-    "sanatoriumAdd": {
-      "breadcrumb": {
-        "main": "Sanatorium",
-        "sub": "Create new sanatorium"
-      },
-      "title": "Create new sanatorium",
-      "description": "Here you can manage sanatoriums and create new ones.",
-      "nameTitle": "Sanatorium name",
-      "nameDescription": "Enter the name that will be displayed in the system.",
-      "imageTitle": "Sanatorium image",
-      "imageDescription": "Upload an image that will represent the sanatorium.",
-      "uploadHint": "Click or drag a file to this area to upload",
-      "descTitle": "Description",
-      "descDescription": "Enter a brief description of the package.",
-      "servicesTitle": "Services",
-      "servicesDescription": "Select the clinic associated with the service.",
-      "doctorsTitle": "Doctor",
-      "doctorsDescription": "Select the doctors associated with the service.",
-      "hotelsTitle": "Hotels",
-      "hotelsDescription": "Select the hotels associated with the service.",
-      "locationTitle": "Country name",
-      "locationDescription": "Enter the country where the sanatorium is located, by language.",
-      "certificateTitle": "Certificate",
-      "certificateDescription": "Upload certificates that will represent the sanatorium.",
-      "galleryTitle": "Gallery",
-      "galleryDescription": "Upload existing images of the sanatorium.",
-      "uploadedHeader": "Uploaded",
-      "videosTitle": "YouTube Videos",
-      "videosDescription": "Add YouTube video links related to the sanatorium.",
-      "buttons": {
-        "save": "Save",
-        "loading": "Loading...",
-        "addVideo": "Add",
-        "addService": "Add service"
-
-      },
-      "toast": {
-        "noMainImage": "Please add a main image.",
-        "success": "Sanatorium successfully added ✅",
-        "error": "An error occurred while adding the sanatorium ❌",
-        "invalidVideo": "Please enter a valid YouTube link ⚠️",
-        "emptyService": "Service name in Azerbaijani cannot be empty!"
-
-      },
-      "placeholders": {
-        "nameAz": "Name (AZ)",
-        "nameRu": "Name (RU)",
-        "nameEn": "Name (EN)",
-        "descAz": "Description (AZ)",
-        "descRu": "Description (RU)",
-        "descEn": "Description (EN)",
-        "locationAz": "Country (AZ)",
-        "locationRu": "Country (RU)",
-        "locationEn": "Country (EN)",
-        "videoUrl": "https://www.youtube.com/watch?v=...",
-        "serviceAz": "Service name (AZ)",
-        "serviceRu": "Service name (RU)",
-        "serviceEn": "Service name (EN)",
-        "serviceAlm": "Service name (DE)",
-        "serviceArab": "Service name (AR)"
-      }
-    },
-
-    "sanatoriumEdit": {
-      "breadcrumb": {
-        "main": "Sanatorium",
-        "sub": "Edit sanatorium"
-      },
-      "videosTitle": "YouTube Videos",
-      "videosDescription": "Add YouTube video links related to the sanatorium.",
-      "title": "Edit sanatorium",
-      "description": "Here you can manage sanatoriums and make changes.",
-      "nameTitle": "Sanatorium name",
-      "nameDescription": "Enter the name that will be displayed in the system.",
-      "imageTitle": "Sanatorium image",
-      "imageDescription": "Upload an image that will represent the sanatorium.",
-      "uploadHint": "Click or drag a file to this area to upload",
-      "descTitle": "Description",
-      "descDescription": "Enter a brief description of the package.",
-      "servicesTitle": "Services",
-      "servicesDescription": "Select the clinic associated with the service.",
-      "doctorsTitle": "Doctor",
-      "doctorsDescription": "Select the doctors associated with the service.",
-      "hotelsTitle": "Hotels",
-      "hotelsDescription": "Select the hotels associated with the service.",
-      "locationTitle": "Country name",
-      "locationDescription": "Enter the country where the sanatorium is located, by language.",
-      "certificateTitle": "Certificate",
-      "certificateDescription": "Upload certificates that will represent the sanatorium.",
-      "galleryTitle": "Gallery",
-      "galleryDescription": "Upload existing images of the sanatorium.",
-      "uploadedHeader": "Uploaded",
-      "uploadedSubTitle": {
-        "newCertificates": "New Certificates",
-        "newGallery": "New Gallery"
-      },
-      "buttons": {
-        "save": "Save",
-        "loading": "Loading...",
-        "addVideo": "Add",
-        "addService": "Add service"
-
-      },
-      "toast": {
-        "success": "Only changed data was successfully submitted ✅",
-        "error": "An error occurred ❌",
-        "invalidVideo": "Please enter a valid YouTube link ⚠️",
-        "emptyService": "Service name in Azerbaijani cannot be empty!"
-
-      },
-      "placeholders": {
-        "nameAz": "Name (AZ)",
-        "nameRu": "Name (RU)",
-        "nameEn": "Name (EN)",
-        "descAz": "Description (AZ)",
-        "descRu": "Description (RU)",
-        "descEn": "Description (EN)",
-        "locationAz": "Country (AZ)",
-        "locationRu": "Country (RU)",
-        "locationEn": "Country (EN)",
-        "videoUrl": "https://www.youtube.com/watch?v=...",
-        "serviceAz": "Service name (AZ)",
-        "serviceRu": "Service name (RU)",
-        "serviceEn": "Service name (EN)",
-        "serviceAlm": "Service name (DE)",
-        "serviceArab": "Service name (AR)"
-      }
-    },
-    "leftBar": {
-      "menu": {
-        "category": "Category",
-        "clinic": "Clinic",
-        "doctor": "Doctor",
-        "tours": "Service Package",
-        "hotel": "Hotel",
-        "comment": "Reviews",
-        "contact": "Contacts",
-        "sanatorium": "Sanatorium"
-
-      },
-      "buttons": {
-        "logout": "Logout"
-      }
-    },
-    "addBtn": {
-      "text": "Create New",
-      "tooltip": "Add new item"
-    },
-    "filterDropdown": {
-      "label": "Filter",
-      "options": {
-        "all": "General",
-        "clinic": "Clinic",
-        "service": "Service",
-        "tour": "Tour"
+        "deleteSuccess": "✅ Sanatorium deleted successfully!",
+        "deleteError": "❌ Error occurred while deleting sanatorium!"
       }
     }
   }
 }
-

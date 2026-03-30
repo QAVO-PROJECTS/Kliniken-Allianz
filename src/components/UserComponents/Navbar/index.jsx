@@ -66,6 +66,7 @@ function Navbar() {
         currentLanguage = "AZE";
     } else if (i18n.language?.startsWith('arb')) {
         currentFlag = flagArb;
+        currentLanguage = "ARB";
     }
 
     const handleLangMouseEnter = () => {
@@ -157,6 +158,15 @@ function Navbar() {
                             {t('navbar.clinics')}
                         </Link>
                         <Link
+                            to="/sanatoriums"
+                            className={`link ${location.pathname === '/sanatoriums' ? 'active' : ''}`}
+                            onClick={() =>
+                                setMenuOpen(false)
+                            }
+                        >
+                            {t('navbar.sanatoriums')}
+                        </Link>
+                        <Link
                             to="/doctors"
                             className={`link ${location.pathname === '/doctors' ? 'active' : ''}`}
                             onClick={() =>
@@ -226,9 +236,9 @@ function Navbar() {
                                    <div onClick={() => handleLanguageChange('ru')}>
                                        <img src={flagRu} alt="RU Flag"/> {t('navbar.languages.ru')}
                                    </div>
-                                   {/*<div onClick={() => handleLanguageChange('arb')}>*/}
-                                   {/*    <img src={flagArb} alt="Arb Flag" /> {t('navbar.languages.ru')}*/}
-                                   {/*</div>*/}
+                                   <div onClick={() => handleLanguageChange('arb')}>
+                                        <img src={flagArb} alt="Arb Flag" /> {t('navbar.languages.ar')}
+                                    </div>
                                </div>
                            </div>
                        </div>

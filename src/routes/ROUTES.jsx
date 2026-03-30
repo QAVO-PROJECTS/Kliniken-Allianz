@@ -49,6 +49,8 @@ import CategoryEdit from "../pages/AdminPagesNew/AdminCategoryEdit/index.jsx";
 import AdminSanatoriumNew from "../pages/AdminPagesNew/AdminSanatoriumNew/index.jsx";
 import SanatoriumAdd from "../pages/AdminPagesNew/AdminSanatoriumAdd/index.jsx";
 import SanatoriumEdit from "../pages/AdminPagesNew/AdminSanatoriumEdit/index.jsx";
+import SanatoriumsPage from "../pages/UserPages/SanatoriumsPage/index.jsx";
+import SanatoriumDetail from "../pages/UserPages/SanatoriumDetail/index.jsx";
 
 
 const router = [
@@ -67,6 +69,14 @@ const router = [
             {
                 path: "/clinics",
                 element: <ClinicsPage/>
+            },
+            {
+                path: "/sanatoriums",
+                element: <SanatoriumsPage/>
+            },
+            {
+                path: "/sanatoriums/:id",
+                element: <SanatoriumDetail/>
             },
             {
                 path: "/tours",

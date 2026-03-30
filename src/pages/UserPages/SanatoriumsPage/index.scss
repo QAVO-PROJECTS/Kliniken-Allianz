@@ -1,0 +1,146 @@
+#sanatoriums-page {
+  padding: 140px 16px;
+  position: relative;
+  @media screen and (max-width: 576px){
+    padding: 120px 16px;
+  }
+  .bannerAbout{
+    position: absolute;
+    top: -40px;
+    left: 0;
+    width: 100%;
+    z-index:-1;
+    transform: rotate(2deg);
+    img{
+      width: 100%;
+      height: 100%;
+    }
+    @media screen and (max-width: 576px) {
+      height: 280px;
+      top: 0;
+    }
+  }
+  .sanatoriums-page{
+    .head {
+      width: 100%;
+      text-align: center;
+      margin-bottom: 220px;
+      h1 {
+        color: #191919;
+        font-size: 15px; // Reduced from 16px
+        font-style: normal;
+        font-weight: 500;
+        line-height: 28px; 
+      }
+      .breadcrumb-wrapper {
+        margin-top: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #686868;
+        font-size: 13px; // Reduced from 14px
+        font-style: normal;
+        font-weight: 400;
+        line-height: 22px; 
+
+        .dot {
+          width: 10px; // Reduced from 12px
+          height: 10px;
+          background-color: #003778;
+          border-radius: 50%;
+          margin: 0 8px 0 16px;
+        }
+
+        a {
+          color: #686868;
+          transition: all 0.3s ease-in-out;
+          text-decoration: none;
+
+          &:hover {
+            font-weight: 500;
+          }
+        }
+      }
+      .search{
+        position: relative;
+        width: 40%;
+        margin:24px auto;
+        height: 40px;
+        input{
+          width: 100%;
+          height: 40px;
+          border-radius: 8px;
+          border: 1px solid #E4E4E4;
+          background: #FFF;
+          outline: none;
+          padding: 0 16px;
+          &::placeholder {
+            color: #9A9A9A;
+            font-size: 11px; // Reduced from 12px
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+          }
+        }
+        svg{
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          right: 16px;
+        }
+      }
+      @media screen and (max-width: 576px) {
+        margin-bottom:60px;
+        h1{
+          font-size: 14px;
+          line-height: 20px;
+          margin-bottom: 6px;
+        }
+        .breadcrumb-wrapper{
+          margin-top: 0;
+          font-size: 11px;
+          line-height: 20px;
+          .dot{
+            width: 8px;
+            height: 8px;
+          }
+        }
+        .search{
+          width: 90%;
+          margin: 12px auto;
+        }
+      }
+    }
+    .headers{
+      margin-bottom: 32px;
+      h2{
+        color: #202020;
+        font-size: 21px; // Reduced from 24px
+        font-style: normal;
+        font-weight: 600;
+        line-height: 32px; 
+        margin-bottom: 12px;
+      }
+      p{
+        color: #727272;
+        font-size: 14px; // Reduced from 16px
+        font-style: normal;
+        font-weight: 400;
+        line-height: 24px; 
+      }
+      @media screen and (max-width: 576px) {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        h2{
+          font-size: 16px;
+          line-height: 24px;
+          margin-bottom: 6px;
+        }
+        p{
+          font-size: 12px;
+          line-height: 20px;
+        }
+      }
+    }
+  }
+}

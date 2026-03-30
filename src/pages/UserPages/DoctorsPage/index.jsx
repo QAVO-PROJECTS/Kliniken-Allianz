@@ -176,8 +176,8 @@ function DoctorsPage() {
                                         <div className="filter-header">
                                             <span><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
                                                        viewBox="0 0 14 14" fill="none">
-  <path d="M3.44141 6.87875H10.3202" stroke="black" stroke-width="1.28978" stroke-linecap="round"
-        stroke-linejoin="round"/>
+  <path d="M3.44141 6.87875H10.3202" stroke="black" strokeWidth="1.28978" strokeLinecap="round"
+        strokeLinejoin="round"/>
 </svg>
                                                 {t("doctorsPage.filters.experience")}</span>
                                             <button onClick={resetExperience}>{t("doctorsPage.filters.reset")}</button>
@@ -201,8 +201,8 @@ function DoctorsPage() {
                                         <div className="filter-header">
                                             <span><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
                                                        viewBox="0 0 14 14" fill="none">
-  <path d="M3.44141 6.87875H10.3202" stroke="black" stroke-width="1.28978" stroke-linecap="round"
-        stroke-linejoin="round"/>
+  <path d="M3.44141 6.87875H10.3202" stroke="black" strokeWidth="1.28978" strokeLinecap="round"
+        strokeLinejoin="round"/>
 </svg> {t("doctorsPage.filters.clinics")}</span>
                                             <button onClick={resetClinics}>{t("doctorsPage.filters.reset")}</button>
                                         </div>
@@ -226,8 +226,8 @@ function DoctorsPage() {
                                         <div className="filter-header">
                                             <span><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
                                                        viewBox="0 0 14 14" fill="none">
-  <path d="M3.44141 6.87875H10.3202" stroke="black" stroke-width="1.28978" stroke-linecap="round"
-        stroke-linejoin="round"/>
+  <path d="M3.44141 6.87875H10.3202" stroke="black" strokeWidth="1.28978" strokeLinecap="round"
+        strokeLinejoin="round"/>
 </svg> {t("doctorsPage.filters.rating")}</span>
                                             <button onClick={resetRatings}>{t("doctorsPage.filters.reset")}</button>
                                         </div>
@@ -257,8 +257,8 @@ function DoctorsPage() {
                                         <div className="filter-header">
                                             <span><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
                                                        viewBox="0 0 14 14" fill="none">
-  <path d="M3.44141 6.87875H10.3202" stroke="black" stroke-width="1.28978" stroke-linecap="round"
-        stroke-linejoin="round"/>
+  <path d="M3.44141 6.87875H10.3202" stroke="black" strokeWidth="1.28978" strokeLinecap="round"
+        strokeLinejoin="round"/>
 </svg> {t("doctorsPage.filters.area")}</span>
                                             <button onClick={resetAreas}>{t("doctorsPage.filters.reset")}</button>
                                         </div>
@@ -318,8 +318,8 @@ function DoctorsPage() {
                         <div className="filter-header">
                                             <span><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
                                                        viewBox="0 0 14 14" fill="none">
-  <path d="M3.44141 6.87875H10.3202" stroke="black" stroke-width="1.28978" stroke-linecap="round"
-        stroke-linejoin="round"/>
+  <path d="M3.44141 6.87875H10.3202" stroke="black" strokeWidth="1.28978" strokeLinecap="round"
+        strokeLinejoin="round"/>
 </svg> {t("doctorsPage.filters.experience")}</span>
                             <button onClick={resetExperience}>{t("doctorsPage.filters.reset")}</button>
                         </div>
@@ -342,8 +342,8 @@ function DoctorsPage() {
                         <div className="filter-header">
                                             <span><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
                                                        viewBox="0 0 14 14" fill="none">
-  <path d="M3.44141 6.87875H10.3202" stroke="black" stroke-width="1.28978" stroke-linecap="round"
-        stroke-linejoin="round"/>
+  <path d="M3.44141 6.87875H10.3202" stroke="black" strokeWidth="1.28978" strokeLinecap="round"
+        strokeLinejoin="round"/>
 </svg> {t("doctorsPage.filters.clinics")}</span>
                             <button onClick={resetClinics}>{t("doctorsPage.filters.reset")}</button>
                         </div>
@@ -367,8 +367,8 @@ function DoctorsPage() {
                         <div className="filter-header">
                                             <span><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
                                                        viewBox="0 0 14 14" fill="none">
-  <path d="M3.44141 6.87875H10.3202" stroke="black" stroke-width="1.28978" stroke-linecap="round"
-        stroke-linejoin="round"/>
+  <path d="M3.44141 6.87875H10.3202" stroke="black" strokeWidth="1.28978" strokeLinecap="round"
+        strokeLinejoin="round"/>
 </svg> {t("doctorsPage.filters.rating")}</span>
                             <button onClick={resetRatings}>{t("doctorsPage.filters.reset")}</button>
                         </div>
@@ -398,8 +398,8 @@ function DoctorsPage() {
                         <div className="filter-header">
                                             <span><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
                                                        viewBox="0 0 14 14" fill="none">
-  <path d="M3.44141 6.87875H10.3202" stroke="black" stroke-width="1.28978" stroke-linecap="round"
-        stroke-linejoin="round"/>
+  <path d="M3.44141 6.87875H10.3202" stroke="black" strokeWidth="1.28978" strokeLinecap="round"
+        strokeLinejoin="round"/>
 </svg> {t("doctorsPage.filters.area")}</span>
                             <button onClick={resetAreas}>{t("doctorsPage.filters.reset")}</button>
                         </div>

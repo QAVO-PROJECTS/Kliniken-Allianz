@@ -12,7 +12,7 @@ import {
     useGetAllClinicQuery,
     useGetAllSanatoriumQuery
 } from "../../../../services/userApi.jsx";
-import {CLINIC_CARD_IMAGES} from "../../../../contants.js";
+import {SANATORIUM_CARD_IMAGES} from "../../../../contants.js";
 import showToast from "../../../../components/ToastMessage.js";
 import {useTranslation} from "react-i18next";
 
@@ -107,7 +107,7 @@ function SanatoriumTableNew({language}) {
                                 </div>
                                 <div className="icon">
                                     <img
-                                        src={CLINIC_CARD_IMAGES + item.clinicCardImage}
+                                        src={SANATORIUM_CARD_IMAGES + item.sanatoriumCardImage}
                                         alt={getLocalizedName(item)}
                                     />
                                 </div>

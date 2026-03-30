@@ -120,6 +120,7 @@ const {data:getAllOtels} = useGetAllOtelsQuery()
                     <div className="slider-card row" ref={sliderRef}>
                         {cardss?.map((item) => (
                             <HotelCard
+                                key={item.id}
                                 id={item.id}
                                item={item}
                             />

@@ -4,6 +4,8 @@ import rootIcon from '/src/assets/rootIcon.svg'
 import aze from '/src/assets/azerbaijan.svg'
 import rus from '/src/assets/russia.svg'
 import usa from '/src/assets/unitedstates.svg'
+import ger from '/src/assets/germany.svg'
+import arb from '/src/assets/unitedarabemirates.svg'
 import uploadIcon from '/src/assets/uploadIcon.svg'
 import {useState} from "react";
 import openIcon from '/src/assets/accordionOpen.svg'
@@ -57,6 +59,12 @@ function SanatoriumAdd() {
     const [descRu, setDescRu] = useState("");
     const [descAlm, setDescAlm] = useState("");
     const [descArab, setDescArab] = useState("");
+
+    const [locationAz, setLocationAz] = useState("");
+    const [locationEn, setLocationEn] = useState("");
+    const [locationRu, setLocationRu] = useState("");
+    const [locationAlm, setLocationAlm] = useState("");
+    const [locationArab, setLocationArab] = useState("");
 
 
     const handleGalereyaChange = (e) => {
@@ -114,6 +122,12 @@ function SanatoriumAdd() {
         formData.append("DescriptionAlm", descAlm);
         formData.append("DescriptionArab", descArab);
 
+        formData.append("Location", locationAz);
+        formData.append("LocationEng", locationEn);
+        formData.append("LocationRu", locationRu);
+        formData.append("LocationAlm", locationAlm);
+        formData.append("LocationArab", locationArab);
+
         formData.append("SanatoriumCardImage", selectedFile);
 
         galereyaFiles.forEach((item) => {
@@ -133,6 +147,7 @@ function SanatoriumAdd() {
 
             setNameAz(""); setNameEn(""); setNameRu(""); setNameAlm(""); setNameArab("");
             setDescAz(""); setDescEn(""); setDescRu(""); setDescAlm(""); setDescArab("");
+            setLocationAz(""); setLocationEn(""); setLocationRu(""); setLocationAlm(""); setLocationArab("");
             setSelectedFile(null);
             setGalereyaFiles([]);
             setClinicVideos([]);
@@ -220,6 +235,66 @@ function SanatoriumAdd() {
                                             placeholder={t("adminPanel.sanatoriumAdd.placeholders.nameArab")}
                                             value={nameArab}
                                             onChange={(e) => setNameArab(e.target.value)}
+                                        />
+                                    </div>
+                                    <img src={arb} alt=""/>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Yerləşmə (Location) - Yeni */}
+                        <div className={"dataDiv inputs"}>
+                            <div className={'header'}>
+                                <h3>{t("adminPanel.sanatoriumAdd.locationTitle")}</h3>
+                                <p>{t("adminPanel.sanatoriumAdd.locationDescription")}</p>
+                            </div>
+                            <div className={'add-inputs'}>
+                                <div className="add-data">
+                                    <div className={'add-input'}>
+                                        <input
+                                            placeholder={t("adminPanel.sanatoriumAdd.placeholders.locationAz")}
+                                            value={locationAz}
+                                            onChange={(e) => setLocationAz(e.target.value)}
+                                        />
+                                    </div>
+                                    <img src={aze} alt=""/>
+                                </div>
+                                <div className="add-data">
+                                    <div className={'add-input'}>
+                                        <input
+                                            placeholder={t("adminPanel.sanatoriumAdd.placeholders.locationRu")}
+                                            value={locationRu}
+                                            onChange={(e) => setLocationRu(e.target.value)}
+                                        />
+                                    </div>
+                                    <img src={rus} alt=""/>
+                                </div>
+                                <div className="add-data">
+                                    <div className={'add-input'}>
+                                        <input
+                                            placeholder={t("adminPanel.sanatoriumAdd.placeholders.locationEn")}
+                                            value={locationEn}
+                                            onChange={(e) => setLocationEn(e.target.value)}
+                                        />
+                                    </div>
+                                    <img src={usa} alt=""/>
+                                </div>
+                                <div className="add-data">
+                                    <div className={'add-input'}>
+                                        <input
+                                            placeholder={t("adminPanel.sanatoriumAdd.placeholders.locationAlm")}
+                                            value={locationAlm}
+                                            onChange={(e) => setLocationAlm(e.target.value)}
+                                        />
+                                    </div>
+                                    <img src={ger} alt=""/>
+                                </div>
+                                <div className="add-data">
+                                    <div className={'add-input'}>
+                                        <input
+                                            placeholder={t("adminPanel.sanatoriumAdd.placeholders.locationArab")}
+                                            value={locationArab}
+                                            onChange={(e) => setLocationArab(e.target.value)}
                                         />
                                     </div>
                                     <img src={arb} alt=""/>

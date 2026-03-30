@@ -2,6 +2,7 @@
   "navbar": {
     "clinics": "Klinikalar",
     "doctors": "Həkimlər",
+    "sanatoriums": "Sanatoriyalar",
     "tours": "Turlar",
     "about": "Haqqımızda",
     "contact": "Əlaqə",
@@ -10,7 +11,8 @@
     "languages": {
       "az": "Azərbaycan",
       "en": "İngilis",
-      "ru": "Rus"
+      "ru": "Rus",
+      "ar": "Ərəb"
     }
   },
   "categoriesMenu": {
@@ -199,7 +201,27 @@
         }
       }
     },
-    "bannerAlt": "Haqqımızda banner"
+    "bannerAlt": "Haqqımızda banner",
+    "details": {
+      "p1": "Kliniken Allianz Tibbi Turizm Şirkəti olaraq, biz beynəlxalq tibbi turizm sahəsində fəaliyyət göstərən, pasiyentlərə keyfiyyətli və etibarlı tibbi xidmətlərə çıxış imkanı yaradan peşəkar komandayıq. Əsas məqsədimiz, hər bir pasiyentin sağlamlıq ehtiyaclarını düzgün analiz edərək, onları ən uyğun klinika və müalicə proqramları ilə təmin etməkdir.",
+      "p2": "Şirkətimizin Almaniyada rəsmi nümayəndəliyi fəaliyyət göstərir. Bu sayədə pasiyentlərimizi Almaniyanın qabaqcıl və yüksək ixtisaslaşmış klinikalarına yönləndirir, diaqnostika və müalicə proseslərini beynəlxalq standartlara uyğun şəkildə təşkil edirik. Eyni zamanda, Azərbaycan daxilində də ən yaxşı klinikalar, tibb mərkəzləri və sanatoriyalar ilə sıx əməkdaşlıq edərək müayinə, müalicə, reabilitasiya və istirahət proqramları təqdim edirik.",
+      "p3": "Bundan əlavə, biz check-up xidmətləri də təşkil edirik. Müasir tibbi avadanlıqlar vasitəsilə həyata keçirilən bu müayinələr xəstəliklərin erkən aşkarlanmasına, sağlamlıq vəziyyətinin ümumi qiymətləndirilməsinə və vaxtında müdaxiləyə imkan yaradır.",
+      "p4": "Biz xidmətlərimizi yalnız tibbi yönləndirmə ilə məhdudlaşdırmırıq. Pasiyentlərimiz üçün “tam xidmət paketi” təqdim edərək bütün prosesi başdan sona qədər peşəkar şəkildə təşkil edirik:",
+      "p5": "Hər bir pasiyent bizim üçün fərdidir. Biz onların istəklərini, tibbi vəziyyətini və büdcəsini nəzərə alaraq ən optimal həll yollarını təqdim edirik. Məqsədimiz yalnız müalicə prosesini təşkil etmək deyil, eyni zamanda pasiyentlərimizin özlərini rahat, güvənli və diqqət mərkedində hiss etmələrini təmin etməkdir.",
+      "p6": "Peşəkarlıq, şəffaflıq və etibarlılıq prinsiplərinə əsaslanaraq fəaliyyət göstərən Kliniken Allianz Tibbi Turizm Şirkəti, sağlamlığınıza gedən yolda sizin güvənli tərəfdaşınızdır."
+    },
+    "servicesList": [
+      "İlkin konsultasiya və tibbi ehtiyacların düzgün qiymətləndirilməsi",
+      "Uyğun klinika və həkim seçimi",
+      "Müalicə planının hazırlanması və koordinasiyası",
+      "Check-up proqramlarının təşkili",
+      "Klinikaya qəbul və görüşlərin təşkili",
+      "Viza dəstəyi və sənədləşmə",
+      "Hava limanında qarşılanma və komfortlu transfer xidməti",
+      "Otel, klinika və ya sanatoriyada yerləşdirmə",
+      "Tərcüməçi və müşayiət xidməti",
+      "Müalicə müddətində və sonrasında davamlı dəstək"
+    ]
   },
   "contact": {
     "title": "Əlaqə",
@@ -307,39 +329,30 @@
       "button": "Hamısına bax"
     },
     "gallery": {
-      "title": "Image gallery",
+      "title": "Şəkil qalereyası",
       "prevAria": "Əvvəlki şəkil",
       "nextAria": "Növbəti şəkil",
       "goToImageAria": "Şəkilə keç {number}"
     },
-    "contact": {
-      "form": {
-        "title": "Formu dolduraraq bizimlə əlaqə saxlayın",
-        "labels": {
-          "name": "Ad",
-          "surname": "Soyad",
-          "email": "Email",
-          "phone": "Nömrə",
-          "note": "Qeyd"
-        },
-        "placeholders": {
-          "name": "Adınızı daxil edin",
-          "surname": "Soyadınızı daxil edin",
-          "email": "example@gmail.com",
-          "phone": "+994 99 999 99 99",
-          "note": ""
-        },
-        "button": "Göndər",
-        "errors": {
-          "nameRequired": "Adı daxil edin",
-          "surnameRequired": "Soyadı daxil edin",
-          "emailRequired": "Email daxil edin",
-          "emailInvalid": "Düzgün email daxil edin",
-          "phoneRequired": "Telefon daxil edin",
-          "descriptionRequired": "Mesajınızı daxil edin"
-        }
-      },
-      "mapAlt": "Klinikanın xəritəsi"
+    "videos": {
+      "title": "Videolar"
+    }
+  },
+  "sanatoriumDetail": {
+    "breadcrumb": {
+      "home": "Ana səhifə",
+      "sanatoriums": "Sanatoriyalar"
+    },
+    "services": {
+      "title": "Sanatoriyanın Təklif Etdiyi Xidmətlər",
+      "description": "Sizin ehtiyaclarınıza uyğun xidmət sahələrini kəşf edin."
+    },
+    "related": {
+      "title": "Digər Sanatoriyalar",
+      "description": "Sizin üçün seçdiyimiz digər yüksək səviyyəli sanatoriyaları kəşf edin."
+    },
+    "videos": {
+      "title": "Videolar"
     }
   },
   "clinicHotel": {
@@ -394,6 +407,17 @@
       "title": "Kateqoriya",
       "description": "Buradan kateqoriyaları idarə edə və yenilərini yarada bilərsiniz."
     },
+    "clinicPage": {
+      "title": "Klinika",
+      "description": "Buradan klinikaları idarə edə və yenilərini yarada bilərsiniz.",
+      "headers": {
+        "title": "Etibar Edilən Sağlamlıq Mərkəzləri",
+        "subtitle": "Kliniken Allianz yalnız beynəlxalq standartlara cavab verən, müasir və etibarlı klinikalarla əməkdaşlıq edir."
+      },
+      "search": {
+        "placeholder": "Axtarış edin....."
+      }
+    },
     "categoryTable": {
       "icon": "İcon",
       "name": "Adı",
@@ -405,6 +429,20 @@
       "deleting": "Silinir...",
       "deleteSuccess": "Kateqoriya uğurla silindi ✅",
       "deleteError": "Kateqoriyanı silmək mümkün olmadı ❌"
+    },
+    "clinicTable": {
+      "image": "Şəkil",
+      "name": "Adı",
+      "description": "Təsvir",
+      "actions": "Fəaliyyətlər",
+      "deleteConfirmTitle": "Klinikanı silmək istədiyinizə əminsiz?",
+      "cancel": "Ləğv et",
+      "delete": "Sil",
+      "deleting": "Silinir...",
+      "toast": {
+        "deleteSuccess": "✅ Klinika uğurla silindi!",
+        "deleteError": "❌ Klinika silinərkən xəta baş verdi!"
+      }
     },
     "categoryAdd": {
       "breadcrumb": {
@@ -548,43 +586,6 @@
       },
       "loading": "Yüklənir..."
     },
-    "clinicPage": {
-      "title": "Klinika",
-      "description": "Buradan klinikaları idarə edə və yenilərini yarada bilərsiniz.",
-      "noClinicFound": "Uyğun klinika tapılmadı",
-
-      "headers": {
-        "title": "Etibar Edilən Sağlamlıq Mərkəzləri",
-        "subtitle": "Kliniken Allianz yalnız beynəlxalq standartlara cavab verən, müasir və etibarlı klinikalarla əməkdaşlıq edir."
-      },
-
-      "search": {
-        "placeholder": "Axtarış edin....."
-      },
-
-      "breadcrumb": {
-        "home": "Ana səhifə",
-        "clinics": "Klinikalar"
-      },
-
-      "bannerAlt": "Haqqımızda banner"
-
-
-    },
-    "clinicTable": {
-      "image": "Şəkil",
-      "name": "Adı",
-      "description": "Təsvir",
-      "actions": "Fəaliyyətlər",
-      "deleteConfirmTitle": "Klinikanı silmək istədiyinizə əminsiz?",
-      "cancel": "Ləğv et",
-      "delete": "Sil",
-      "deleting": "Silinir...",
-      "toast": {
-        "deleteSuccess": "✅ Klinika uğurla silindi!",
-        "deleteError": "❌ Klinika silinərkən xəta baş verdi!"
-      }
-    },
     "clinicAdd": {
       "breadcrumb": {
         "main": "Klinika",
@@ -624,7 +625,6 @@
         "success": "Klinika uğurla əlavə olundu ✅",
         "error": "Klinika əlavə olunarkən xəta baş verdi ❌",
         "invalidVideo": "Düzgün YouTube linki daxil edin ⚠️"
-
       },
       "placeholders": {
         "nameAz": "Ad (AZ)",
@@ -643,7 +643,6 @@
         "locationAlm": "Ölkə (DE)",
         "locationArab": "Ölkə (AR)",
         "videoUrl": "https://www.youtube.com/watch?v=..."
-
       }
     },
     "clinicEdit": {
@@ -683,13 +682,11 @@
         "save": "Yadda saxla",
         "loading": "Yüklənir...",
         "addVideo": "Əlavə et"
-
       },
       "toast": {
         "success": "Yalnız dəyişən məlumatlar uğurla göndərildi ✅",
         "error": "Xəta baş verdi ❌",
         "invalidVideo": "Düzgün YouTube linki daxil edin ⚠️"
-
       },
       "placeholders": {
         "nameAz": "Ad (AZ)",
@@ -708,7 +705,6 @@
         "locationAlm": "Ölkə (DE)",
         "locationArab": "Ölkə (AR)",
         "videoUrl": "https://www.youtube.com/watch?v=..."
-
       }
     },
     "sanatoriumPage": {
@@ -728,7 +724,6 @@
       },
       "bannerAlt": "Haqqımızda banner"
     },
-
     "sanatoriumTable": {
       "image": "Şəkil",
       "name": "Adı",
@@ -743,7 +738,6 @@
         "deleteError": "❌ Sanatoriya silinərkən xəta baş verdi!"
       }
     },
-
     "sanatoriumAdd": {
       "breadcrumb": {
         "main": "Sanatoriya",
@@ -755,19 +749,13 @@
       "nameDescription": "Xidmətin sistemdə görünəcək adını daxil edin.",
       "imageTitle": "Sanatoriya şəkil",
       "imageDescription": "Sanatoriyani təmsil edəcək şəkil yükləyin.",
-      "uploadHint": "Faylı yükləmək üçün bu sahəyə klikləyin və ya sürükləyin",
+      "uploadHint": "Faylı yükləmək üçün bu sahəyə klikləyin ve ya sürükləyin",
       "descTitle": "Təsvir",
       "descDescription": "Paketin qısa təsvirini yazın.",
       "servicesTitle": "Xidmətlər",
-      "servicesDescription": "Xidmətin əlaqəli olduğu klinikanı seçin.",
-      "doctorsTitle": "Doktor",
-      "doctorsDescription": "Xidmətin əlaqəli olduğu doktorları seçin.",
-      "hotelsTitle": "Otellər",
-      "hotelsDescription": "Xidmətin əlaqəli olduğu otelləri seçin.",
+      "servicesDescription": "Sanatoriyanın təklif etdiyi xidmətləri əlavə edin.",
       "locationTitle": "Yerləşdiyi ölkənin adı",
       "locationDescription": "Sanatoriyonun yerləşdiyi ölkəni dillərə əsasən daxil edin.",
-      "certificateTitle": "Sertifikat",
-      "certificateDescription": "Sanatoriyani təmsil edəcək sertifikatları yükləyin.",
       "galleryTitle": "Galereya",
       "galleryDescription": "Sanatoriyonun mövcud şəkillərini yükləyin.",
       "uploadedHeader": "Yüklənənlər",
@@ -778,7 +766,6 @@
         "loading": "Yüklənir...",
         "addVideo": "Əlavə et",
         "addService": "Xidmət əlavə et"
-
       },
       "toast": {
         "noMainImage": "Zəhmət olmasa əsas şəkli əlavə edin.",
@@ -786,85 +773,84 @@
         "error": "Sanatoriya əlavə olunarkən xəta baş verdi ❌",
         "invalidVideo": "Düzgün YouTube linki daxil edin ⚠️",
         "emptyService": "Azərbaycan dilində xidmət adı boş ola bilməz!"
-
       },
       "placeholders": {
         "nameAz": "Ad (AZ)",
         "nameRu": "Ad (RU)",
         "nameEn": "Ad (EN)",
+        "nameAlm": "Ad (DE)",
+        "nameArab": "Ad (AR)",
         "descAz": "Təsvir (AZ)",
         "descRu": "Təsvir (RU)",
         "descEn": "Təsvir (EN)",
+        "descAlm": "Təsvir (DE)",
+        "descArab": "Təsvir (AR)",
         "locationAz": "Ölkə (AZ)",
         "locationRu": "Ölkə (RU)",
         "locationEn": "Ölkə (EN)",
+        "locationAlm": "Ölkə (DE)",
+        "locationArab": "Ölkə (AR)",
         "videoUrl": "https://www.youtube.com/watch?v=...",
         "serviceAz": "Xidmət adı (AZ)",
         "serviceRu": "Xidmət adı (RU)",
         "serviceEn": "Xidmət adı (EN)",
         "serviceAlm": "Xidmət adı (DE)",
         "serviceArab": "Xidmət adı (AR)"
-
       }
     },
-
     "sanatoriumEdit": {
       "breadcrumb": {
         "main": "Sanatoriya",
         "sub": "Sanatoriyaya düzəliş edin"
       },
-      "videosTitle": "YouTube Videolar",
-      "videosDescription": "Sanatoriyaya aid YouTube video linklərini əlavə edin.",
       "title": "Sanatoriyaya düzəliş edin",
       "description": "Buradan sanatoriyaları idarə edə və düzəliş edə bilərsiniz.",
       "nameTitle": "Sanatoriya adı",
-      "nameDescription": "Xidmətin sistemdə görünəcək adını daxil edin.",
-      "imageTitle": "Sanatoriya şəkil",
-      "imageDescription": "Sanatoriyani təmsil edəcək şəkil yükləyin.",
-      "uploadHint": "Faylı yükləmək üçün bu sahəyə klikləyin və ya sürükləyin",
+      "nameDescription": "Sanatoriyanın sistemdə görünəcək adını daxil edin.",
+      "imageTitle": "Sanatoriya şəkli",
+      "imageDescription": "Sanatoriyanı təmsil edəcək şəkil yükləyin.",
+      "uploadHint": "Faylı yükləmək üçün bu sahəyə klikləyin ve ya sürükləyin",
       "descTitle": "Təsvir",
-      "descDescription": "Paketin qısa təsvirini yazın.",
+      "descDescription": "Sanatoriyanın qısa təsvirini yazın.",
       "servicesTitle": "Xidmətlər",
-      "servicesDescription": "Xidmətin əlaqəli olduğu klinikanı seçin.",
-      "doctorsTitle": "Doktor",
-      "doctorsDescription": "Xidmətin əlaqəli olduğu doktorları seçin.",
-      "hotelsTitle": "Otellər",
-      "hotelsDescription": "Xidmətin əlaqəli olduğu otelləri seçin.",
+      "servicesDescription": "Sanatoriyanın təklif etdiyi xidmətləri əlavə edin.",
       "locationTitle": "Yerləşdiyi ölkənin adı",
-      "locationDescription": "Sanatoriyonun yerləşdiyi ölkəni dillərə əsasən daxil edin.",
-      "certificateTitle": "Sertifikat",
-      "certificateDescription": "Sanatoriyani təmsil edəcək sertifikatları yükləyin.",
+      "locationDescription": "Sanatoriyanın yerləşdiyi ölkəni dillər üzrə daxil edin.",
       "galleryTitle": "Galereya",
-      "galleryDescription": "Sanatoriyonun mövcud şəkillərini yükləyin.",
+      "galleryDescription": "Sanatoriyanın şəkillərini idarə edin.",
       "uploadedHeader": "Yüklənənlər",
       "uploadedSubTitle": {
-        "newCertificates": "Yeni Sertifikatlar",
         "newGallery": "Yeni Galereya"
       },
+      "videosTitle": "YouTube Videolar",
+      "videosDescription": "Sanatoriyaya aid YouTube videolarını idarə edin.",
       "buttons": {
         "save": "Yadda saxla",
         "loading": "Yüklənir...",
         "addVideo": "Əlavə et",
         "addService": "Xidmət əlavə et"
-
       },
       "toast": {
-        "success": "Yalnız dəyişən məlumatlar uğurla göndərildi ✅",
+        "success": "Məlumatlar uğurla yeniləndi ✅",
         "error": "Xəta baş verdi ❌",
-        "invalidVideo": "Düzgün YouTube linki daxil edin ⚠️",
         "emptyService": "Azərbaycan dilində xidmət adı boş ola bilməz!"
-
       },
       "placeholders": {
         "nameAz": "Ad (AZ)",
         "nameRu": "Ad (RU)",
         "nameEn": "Ad (EN)",
+        "nameAlm": "Ad (DE)",
+        "nameArab": "Ad (AR)",
         "descAz": "Təsvir (AZ)",
         "descRu": "Təsvir (RU)",
         "descEn": "Təsvir (EN)",
+        "descAlm": "Təsvir (DE)",
+        "descArab": "Təsvir (AR)",
         "locationAz": "Ölkə (AZ)",
         "locationRu": "Ölkə (RU)",
         "locationEn": "Ölkə (EN)",
+        "locationAlm": "Ölkə (DE)",
+        "locationArab": "Ölkə (AR)",
         "videoUrl": "https://www.youtube.com/watch?v=...",
         "serviceAz": "Xidmət adı (AZ)",
         "serviceRu": "Xidmət adı (RU)",

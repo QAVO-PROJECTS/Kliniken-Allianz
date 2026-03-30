@@ -10,3 +10,5 @@ export const CERT_CLINIC_URL = 'https://api.kliniken-allianz.com/files/clinic_se
 export const CERT_DOKTOR_URL = 'https://api.kliniken-allianz.com/files/doctor_sertificates/'
 export const OTEL_CARD_IMAGES = 'https://api.kliniken-allianz.com/files/otel_card_images/'
 export const VIEW_CARD_IMAGES = 'https://api.kliniken-allianz.com/files/view_card_images/'
+export const SANATORIUM_CARD_IMAGES = 'https://api.kliniken-allianz.com/files/sanatorium_card/'
+export const SANATORIUM_IMAGES = 'https://api.kliniken-allianz.com/files/sanatorium_images/'

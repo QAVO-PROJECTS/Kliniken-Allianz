@@ -14,7 +14,7 @@ import {
     useGetSanatoriumByIdQuery,
     usePutSanatoriumMutation
 } from "../../../services/userApi.jsx";
-// import {SANATORIUM_CARD_IMAGES, SANATORIUM_IMAGES} from "../../../contants.js";
+import {SANATORIUM_CARD_IMAGES, SANATORIUM_IMAGES} from "../../../contants.js";
 import showToast from "../../../components/ToastMessage.js";
 import {useTranslation} from "react-i18next";
 
@@ -43,6 +43,13 @@ function SanatoriumEdit() {
     const [descRu, setDescRu] = useState("");
     const [descAlm, setDescAlm] = useState("");
     const [descArab, setDescArab] = useState("");
+
+    // 🔹 Yerləşmə
+    const [locationAz, setLocationAz] = useState("");
+    const [locationEn, setLocationEn] = useState("");
+    const [locationRu, setLocationRu] = useState("");
+    const [locationAlm, setLocationAlm] = useState("");
+    const [locationArab, setLocationArab] = useState("");
 
     // 🔹 Şəkillər
     const [oldMainImage, setOldMainImage] = useState(null);
@@ -80,6 +87,12 @@ function SanatoriumEdit() {
             setDescRu(sanatorium.descriptionRu || "");
             setDescAlm(sanatorium.descriptionAlm || "");
             setDescArab(sanatorium.descriptionArab || "");
+
+            setLocationAz(sanatorium.location || "");
+            setLocationEn(sanatorium.locationEng || "");
+            setLocationRu(sanatorium.locationRu || "");
+            setLocationAlm(sanatorium.locationAlm || "");
+            setLocationArab(sanatorium.locationArab || "");
 
             setOldMainImage(sanatorium.sanatoriumCardImage || null);
             setOldGalereyaFiles(sanatorium.images || []);
@@ -176,6 +189,12 @@ function SanatoriumEdit() {
         appendIfChanged(formData, "DescriptionRu", descRu, sanatorium.descriptionRu);
         appendIfChanged(formData, "DescriptionAlm", descAlm, sanatorium.descriptionAlm);
         appendIfChanged(formData, "DescriptionArab", descArab, sanatorium.descriptionArab);
+
+        appendIfChanged(formData, "Location", locationAz, sanatorium.location);
+        appendIfChanged(formData, "LocationEng", locationEn, sanatorium.locationEng);
+        appendIfChanged(formData, "LocationRu", locationRu, sanatorium.locationRu);
+        appendIfChanged(formData, "LocationAlm", locationAlm, sanatorium.locationAlm);
+        appendIfChanged(formData, "LocationArab", locationArab, sanatorium.locationArab);
 
         // 🔹 Əsas şəkil
         if (selectedFile) formData.append("SanatoriumCardImage", selectedFile);
@@ -275,6 +294,66 @@ function SanatoriumEdit() {
                             </div>
                         </div>
 
+                        {/* Yerləşmə (Location) - Yeni */}
+                        <div className={"dataDiv inputs"}>
+                            <div className={'header'}>
+                                <h3>{t("adminPanel.sanatoriumEdit.locationTitle")}</h3>
+                                <p>{t("adminPanel.sanatoriumEdit.locationDescription")}</p>
+                            </div>
+                            <div className={'add-inputs'}>
+                                <div className="add-data">
+                                    <div className={'add-input'}>
+                                        <input
+                                            value={locationAz}
+                                            onChange={(e) => setLocationAz(e.target.value)}
+                                            placeholder={t("adminPanel.sanatoriumEdit.placeholders.locationAz")}
+                                        />
+                                    </div>
+                                    <img src={aze} alt=""/>
+                                </div>
+                                <div className="add-data">
+                                    <div className={'add-input'}>
+                                        <input
+                                            value={locationRu}
+                                            onChange={(e) => setLocationRu(e.target.value)}
+                                            placeholder={t("adminPanel.sanatoriumEdit.placeholders.locationRu")}
+                                        />
+                                    </div>
+                                    <img src={rus} alt=""/>
+                                </div>
+                                <div className="add-data">
+                                    <div className={'add-input'}>
+                                        <input
+                                            value={locationEn}
+                                            onChange={(e) => setLocationEn(e.target.value)}
+                                            placeholder={t("adminPanel.sanatoriumEdit.placeholders.locationEn")}
+                                        />
+                                    </div>
+                                    <img src={usa} alt=""/>
+                                </div>
+                                <div className="add-data">
+                                    <div className={'add-input'}>
+                                        <input
+                                            value={locationAlm}
+                                            onChange={(e) => setLocationAlm(e.target.value)}
+                                            placeholder={t("adminPanel.sanatoriumEdit.placeholders.locationAlm")}
+                                        />
+                                    </div>
+                                    <img src={ger} alt=""/>
+                                </div>
+                                <div className="add-data">
+                                    <div className={'add-input'}>
+                                        <input
+                                            value={locationArab}
+                                            onChange={(e) => setLocationArab(e.target.value)}
+                                            placeholder={t("adminPanel.sanatoriumEdit.placeholders.locationArab")}
+                                        />
+                                    </div>
+                                    <img src={arb} alt=""/>
+                                </div>
+                            </div>
+                        </div>
+
                         <div className="dataDiv images">
                             <div className="header">
                                 <h3>{t("adminPanel.sanatoriumEdit.imageTitle")}</h3>
@@ -302,7 +381,7 @@ function SanatoriumEdit() {
                                 <div className="uploadedFile">
                                     <div className="fileInfo">
                                         <img
-                                            // src={`${SANATORIUM_CARD_IMAGES}${oldMainImage}`}
+                                            src={`${SANATORIUM_CARD_IMAGES}${oldMainImage}`}
                                             alt="sanatorium-main"
                                             className="previewImg"
                                         />
@@ -460,7 +539,7 @@ function SanatoriumEdit() {
                                     {oldGalereyaFiles.map((f, i) => (
                                         <div key={i} className="uploadedItem">
                                             <div className="fileLeft">
-                                                {/*<img src={`${SANATORIUM_IMAGES}${f}`} alt="old" className="filePreview"/>*/}
+                                                <img src={`${SANATORIUM_IMAGES}${f}`} alt="old" className="filePreview"/>
                                                 <span>{f}</span>
                                             </div>
                                             <button onClick={() => removeOldGalereya(f)}>✕</button>

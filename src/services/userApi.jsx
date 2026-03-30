@@ -180,6 +180,14 @@ export const userApi = createApi({
                 headers: {'Content-Type': 'application/json'}
             }),
         }),
+        postContactSanatorium: builder.mutation({
+            query: (contact) => ({
+                url: `/Contact/create-sanatorium-contact`,
+                method: 'POST',
+                body: contact,
+                headers: {'Content-Type': 'application/json'}
+            }),
+        }),
         getAllContact: builder.query({
             query: () => ({
                 url: `/Contact/get-all-contacts`,
@@ -344,6 +352,7 @@ export const {
 
     usePostContactMutation,
     usePostContactClinicMutation,
+    usePostContactSanatoriumMutation,
     usePostContactTourMutation,
     usePostContactServiceMutation,
     useGetAllContactQuery,

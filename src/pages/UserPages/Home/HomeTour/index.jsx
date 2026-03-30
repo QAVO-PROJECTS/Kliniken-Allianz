@@ -116,6 +116,7 @@ const {data:getAllOtels} = useGetAllToursQuery()
                     <div className="slider-card row" ref={sliderRef}>
                         {cardss?.map((item) => (
                             <TourCard
+                                key={item.id}
                                 id={item.id}
                                item={item}
                             />
