@@ -3,6 +3,7 @@ import image from '/src/assets/HomeBannerImage.png';
 import { FaArrowDownLong } from 'react-icons/fa6';
 import { useTranslation } from 'react-i18next';
 import glass from "/src/assets/glassButton.png"
+import DNA3D from "../../../../components/UserComponents/DNA3D/index.jsx";
 function HomeBanner() {
     const { t } = useTranslation();
 
@@ -51,7 +52,7 @@ function HomeBanner() {
                     </div>
                     <div className={'col-25 col-md-60 col-sm-60 col-xs-60'}>
                         <div className={'image'}>
-                            <img src={image} alt={t('homeBanner.imageAlt')} />
+                            <DNA3D />
                         </div>
                     </div>
                 </div>
