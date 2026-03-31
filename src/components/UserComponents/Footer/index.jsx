@@ -66,6 +66,17 @@ function Footer() {
                                         <li><Link to="/clinics"  onClick={() => {
                                             handleScrollClinic();
                                         }}>{t('navbar.clinics')}</Link></li>
+                                        <li>
+                                            <Link
+                                                to="/sanatoriums"
+                                                className={`link ${location.pathname === '/sanatoriums' ? 'active' : ''}`}
+                                                onClick={() =>
+                                                    setMenuOpen(false)
+                                                }
+                                            >
+                                                {t('navbar.sanatoriums')}
+                                            </Link>
+                                        </li>
                                         <li><Link to="/contact">{t('navbar.contact')}</Link></li>
                                     </ul>
                                 </div>

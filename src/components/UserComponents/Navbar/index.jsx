@@ -236,9 +236,9 @@ function Navbar() {
                                    <div onClick={() => handleLanguageChange('ru')}>
                                        <img src={flagRu} alt="RU Flag"/> {t('navbar.languages.ru')}
                                    </div>
-                                   <div onClick={() => handleLanguageChange('arb')}>
-                                        <img src={flagArb} alt="Arb Flag" /> {t('navbar.languages.ar')}
-                                    </div>
+                                   {/*<div onClick={() => handleLanguageChange('arb')}>*/}
+                                   {/*     <img src={flagArb} alt="Arb Flag" /> {t('navbar.languages.ar')}*/}
+                                   {/* </div>*/}
                                </div>
                            </div>
                        </div>

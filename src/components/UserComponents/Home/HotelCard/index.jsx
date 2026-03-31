@@ -15,7 +15,7 @@ function HotelCard({name, desc, img, item}) {
                 onClick={handleClick}
                 style={{
                     background: `linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(${OTEL_CARD_IMAGES + item?.cardImage})`,
-                    backgroundSize: "auto",
+                    backgroundSize: "cover",
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "center center",
                     cursor: "pointer",

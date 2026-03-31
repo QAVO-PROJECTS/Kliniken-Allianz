@@ -1,6 +1,6 @@
 import './index.scss';
 import HomeServiceCard from '../../../../components/UserComponents/Home/ServiceCardHome/index.jsx';
-import image from '/src/assets/HomeVideo.gif';
+import image from '/src/assets/9430532-hd_1920_1080_25fps.gif';
 import { useTranslation } from 'react-i18next';
 import {useGetAllCategoryQuery, useGetAllServiceQuery} from "../../../../services/userApi.jsx";
 import icons from "/src/assets/icon1.png"

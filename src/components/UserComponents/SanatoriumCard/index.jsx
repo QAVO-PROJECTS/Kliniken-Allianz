@@ -26,7 +26,7 @@ function SanatoriumCard({ item }) {
     };
 
     return (
-        <div className={"col-12 col-md-30 col-sm-30 col-xs-30"} style={{ padding: '4px', width: '100%' }} onClick={() => navigate(`/sanatoriums/${item.id}`)}>
+        <div className={"col-12 col-md-30 col-sm-30 col-xs-30"} style={{ padding: '4px' }} onClick={() => navigate(`/sanatoriums/${item.id}`)}>
             <div id={"sanatoriumCard"}>
                 <div className={"cardImage"}>
                     <img src={SANATORIUM_CARD_IMAGES + item.sanatoriumCardImage} alt={getName()} />

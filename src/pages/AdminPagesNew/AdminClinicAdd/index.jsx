@@ -241,24 +241,24 @@ function ClinicAdd() {
                                     </div>
                                     <img src={usa} alt=""/>
                                 </div>
-                                <div className={'add-data'}>
-                                    <div className={'add-input'}>
-                                        <input placeholder={t("adminPanel.clinicAdd.placeholders.nameAlm")}
-                                               value={nameAlm} onChange={(e) => setNameAlm(e.target.value)}/>
-                                    </div>
-                                    <div className={'langCountry'}>
-                                        <img src={ger} alt=""/>
-                                    </div>
-                                </div>
-                                <div className={'add-data'}>
-                                    <div className={'add-input'}>
-                                        <input placeholder={t("adminPanel.clinicAdd.placeholders.nameArab")}
-                                               value={nameArab} onChange={(e) => setNameArab(e.target.value)}/>
-                                    </div>
-                                    <div className={'langCountry'}>
-                                        <img src={arb} alt=""/>
-                                    </div>
-                                </div>
+                                {/*<div className={'add-data'}>*/}
+                                {/*    <div className={'add-input'}>*/}
+                                {/*        <input placeholder={t("adminPanel.clinicAdd.placeholders.nameAlm")}*/}
+                                {/*               value={nameAlm} onChange={(e) => setNameAlm(e.target.value)}/>*/}
+                                {/*    </div>*/}
+                                {/*    <div className={'langCountry'}>*/}
+                                {/*        <img src={ger} alt=""/>*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
+                                {/*<div className={'add-data'}>*/}
+                                {/*    <div className={'add-input'}>*/}
+                                {/*        <input placeholder={t("adminPanel.clinicAdd.placeholders.nameArab")}*/}
+                                {/*               value={nameArab} onChange={(e) => setNameArab(e.target.value)}/>*/}
+                                {/*    </div>*/}
+                                {/*    <div className={'langCountry'}>*/}
+                                {/*        <img src={arb} alt=""/>*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
                             </div>
                         </div>
                         <div className="dataDiv images">
@@ -331,20 +331,20 @@ function ClinicAdd() {
                                     <img src={usa} alt=""/>
                                 </div>
                             </div>
-                             <div className={'tours-desc-texts'}>
-                                 <textarea  placeholder={t("adminPanel.clinicAdd.placeholders.descAlm")} value={descAlm}
-                                           onChange={(e) => setDescAlm(e.target.value)}/>
-                                 <div className={'langCountry'}>
-                                     <img src={ger} alt=""/>
-                                 </div>
-                             </div>
-                             <div className={'tours-desc-texts'}>
-                                 <textarea  placeholder={t("adminPanel.clinicAdd.placeholders.descArab")} value={descArab}
-                                           onChange={(e) => setDescArab(e.target.value)}/>
-                                 <div className={'langCountry'}>
-                                     <img src={arb} alt=""/>
-                                 </div>
-                             </div>
+                             {/*<div className={'tours-desc-texts'}>*/}
+                             {/*    <textarea  placeholder={t("adminPanel.clinicAdd.placeholders.descAlm")} value={descAlm}*/}
+                             {/*              onChange={(e) => setDescAlm(e.target.value)}/>*/}
+                             {/*    <div className={'langCountry'}>*/}
+                             {/*        <img src={ger} alt=""/>*/}
+                             {/*    </div>*/}
+                             {/*</div>*/}
+                             {/*<div className={'tours-desc-texts'}>*/}
+                             {/*    <textarea  placeholder={t("adminPanel.clinicAdd.placeholders.descArab")} value={descArab}*/}
+                             {/*              onChange={(e) => setDescArab(e.target.value)}/>*/}
+                             {/*    <div className={'langCountry'}>*/}
+                             {/*        <img src={arb} alt=""/>*/}
+                             {/*    </div>*/}
+                             {/*</div>*/}
                         </div>
                     </div>
                     <div className={'clinic-add-data'}>
@@ -442,24 +442,24 @@ function ClinicAdd() {
                                         <img src={usa} alt=""/>
                                     </div>
                                 </div>
-                                <div className={'add-data'}>
-                                    <div className={'add-input'}>
-                                        <input placeholder={t("adminPanel.clinicAdd.placeholders.locationAlm")}
-                                               value={locationAlm} onChange={(e) => setLocationAlm(e.target.value)}/>
-                                    </div>
-                                    <div className={'langCountry'}>
-                                        <img src={ger} alt=""/>
-                                    </div>
-                                </div>
-                                <div className={'add-data'}>
-                                    <div className={'add-input'}>
-                                        <input placeholder={t("adminPanel.clinicAdd.placeholders.locationArab")}
-                                               value={locationArab} onChange={(e) => setLocationArab(e.target.value)}/>
-                                    </div>
-                                    <div className={'langCountry'}>
-                                        <img src={arb} alt=""/>
-                                    </div>
-                                </div>
+                                {/*<div className={'add-data'}>*/}
+                                {/*    <div className={'add-input'}>*/}
+                                {/*        <input placeholder={t("adminPanel.clinicAdd.placeholders.locationAlm")}*/}
+                                {/*               value={locationAlm} onChange={(e) => setLocationAlm(e.target.value)}/>*/}
+                                {/*    </div>*/}
+                                {/*    <div className={'langCountry'}>*/}
+                                {/*        <img src={ger} alt=""/>*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
+                                {/*<div className={'add-data'}>*/}
+                                {/*    <div className={'add-input'}>*/}
+                                {/*        <input placeholder={t("adminPanel.clinicAdd.placeholders.locationArab")}*/}
+                                {/*               value={locationArab} onChange={(e) => setLocationArab(e.target.value)}/>*/}
+                                {/*    </div>*/}
+                                {/*    <div className={'langCountry'}>*/}
+                                {/*        <img src={arb} alt=""/>*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
                             </div>
                         </div>
                         <div className="dataDiv images multi">
