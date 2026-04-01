@@ -1,6 +1,31 @@
 .ant-dropdown-menu {
   border-radius: 10px !important;
   padding: 6px !important;
+  height: 600px !important;
+  overflow-y: auto !important;
+
+  /* Custom Scrollbar */
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #003778;
+    border-radius: 10px;
+
+    &:hover {
+      background: #002255;
+    }
+  }
+
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: #003778 #f1f1f1;
 
 }
 
