@@ -7,6 +7,7 @@ import TourCard from "../../../components/UserComponents/TourCard/index.jsx";
 import {useMediaQuery} from "react-responsive";
 import {useGetAllToursQuery} from "../../../services/userApi.jsx";
 import {useState} from "react";
+import { getLocalizedText } from "../../../utils/getLocalizedText.js";
 function ToursPage() {
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -18,12 +19,8 @@ function ToursPage() {
 
     // 🔍 Filter logic
     const filteredTours = tours?.filter((tour) => {
-        const term = searchTerm.toLowerCase();
-        return (
-            tour.name?.toLowerCase().includes(term) ||
-            tour.nameEng?.toLowerCase().includes(term) ||
-            tour.nameRu?.toLowerCase().includes(term)
-        );
+        const localizedName = getLocalizedText(tour, 'name')?.toLowerCase() || "";
+        return localizedName.includes(searchTerm.toLowerCase());
     });
     return (
         <div id="tours-page">

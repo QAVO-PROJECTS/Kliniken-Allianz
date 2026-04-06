@@ -1,41 +1,51 @@
-#contact{
-  padding: 140px 16px;
+#contact {
+  padding: 110px 16px;
   position: relative;
-  @media screen and (max-width: 576px){
+
+  @media screen and (max-width: 576px) {
     padding: 120px 16px;
-    .col-4{
-      padding: 8px 0 ;
+
+    .col-4 {
+      padding: 8px 0;
     }
   }
-  .bannerAbout{
+
+  .bannerAbout {
     position: absolute;
     top: -80px;
     left: 0;
     width: 100%;
-    z-index:-1;
+    z-index: -1;
     transform: rotate(2deg);
-    img{
+
+    img {
       width: 100%;
       height: 100%;
 
     }
+
     @media screen and (max-width: 576px) {
       height: 230px;
       top: 0;
     }
   }
-  .contact{
+
+  .contact {
     .head {
       width: 100%;
       text-align: center;
-      margin-bottom: 90px;
-      h1 {
-        font-weight: 500;
-        font-size: 16px;
-        line-height: 30px;
-        margin-bottom: 8px;
+      margin-bottom: 100px;
+      margin-top: 20px;
 
+      h1 {
+        color: #191919;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 30px;
+        /* 187.5% */
       }
+
       p {
         display: flex;
         justify-content: center;
@@ -61,29 +71,37 @@
           }
         }
       }
+
       @media screen and (max-width: 576px) {
         margin-bottom: 63px;
-        h1{
+
+        h1 {
           font-size: 16px;
-          line-height: 21px; /* 150% */
+          line-height: 21px;
+          /* 150% */
           margin-bottom: 6px;
         }
-        p{
+
+        p {
           margin-top: 0;
           font-size: 12px;
-          line-height: 24px; /* 171.429% */
-          .dot{
+          line-height: 24px;
+
+          /* 171.429% */
+          .dot {
             width: 10px;
             height: 10px;
           }
         }
       }
     }
-    .contactCard{
+
+    .contactCard {
       display: flex;
       align-items: center;
       gap: 25px;
-      .icon{
+
+      .icon {
         width: 50px;
         height: 50px;
         border-radius: 50%;
@@ -95,36 +113,42 @@
         border: 1px solid #EEE;
         background: rgba(255, 255, 255, 0.10);
       }
-      .text{
-        @media screen and (max-width: 576px){
+
+      .text {
+        @media screen and (max-width: 576px) {
           width: 80%;
         }
-        h4{
+
+        h4 {
           font-weight: 500;
           font-size: 18px;
           line-height: 27px;
           margin-bottom: 0;
         }
-        p{
+
+        p {
           font-weight: 400;
           font-size: 16px;
           line-height: 27px;
           color: #797979;
           margin: 0;
         }
-        @media screen and (max-width: 576px){
-          h4{
+
+        @media screen and (max-width: 576px) {
+          h4 {
             font-size: 14px;
             line-height: 24px;
             margin-bottom: 4px;
           }
-          p{
+
+          p {
             font-size: 14px;
             line-height: 21px;
           }
         }
       }
     }
+
     .form-section {
       border: 1px solid #E5E5E5;
       padding: 37px 42px;
@@ -132,17 +156,21 @@
       align-items: end;
       margin-top: 90px;
       border-radius: 4px;
+
       @media screen and (max-width: 576px) {
         margin-top: 32px;
         padding: 20px;
-        .col-6,.col-12{
-          padding:8px 0;
+
+        .col-6,
+        .col-12 {
+          padding: 8px 0;
         }
 
-        iframe{
+        iframe {
           height: 350px;
         }
       }
+
       .form {
         .form-head {
           color: black;
@@ -162,6 +190,7 @@
             line-height: 30px;
             width: 60%;
             margin: 0;
+
             @media (max-width: 576px) {
               width: 100%;
             }
@@ -185,8 +214,10 @@
             padding: 17px 22px 17px 22px;
             outline: none;
           }
+
           input[type="number"]::-webkit-outer-spin-button,
           input[type="number"]::-webkit-inner-spin-button {
+            appearance: none;
             -webkit-appearance: none;
             margin: 0;
           }
@@ -195,6 +226,7 @@
           input[type="number"] {
             -moz-appearance: textfield;
           }
+
           textarea {
             width: 100%;
             border-radius: 8px;

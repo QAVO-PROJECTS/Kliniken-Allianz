@@ -7,8 +7,12 @@ import Cookies from "js-cookie";
 import {useEffect} from "react";
 import {useTranslation} from "react-i18next";
 import 'antd/dist/reset.css';
+import {useState} from "react";
+import SplashScreen from "./components/UserComponents/SplashScreen/index.jsx";
 
 function App() {
+    const [loading, setLoading] = useState(true);
+    const [isFading, setIsFading] = useState(false);
     const token = Cookies.get("klinikenToken");
 
     if (!token) {
@@ -20,6 +24,15 @@ function App() {
     const { i18n } = useTranslation();
 
     useEffect(() => {
+        // Minimum loading time + fade sequence
+        const fadeTimer = setTimeout(() => {
+            setIsFading(true);
+        }, 1200); // Wait 1.2s then start fading
+
+        const removeTimer = setTimeout(() => {
+            setLoading(false);
+        }, 1800); // After fade (0.6s), remove component
+
         // RTL/LTR ve dil ayarı
         document.documentElement.setAttribute('dir', i18n.language === 'arb' ? 'rtl' : 'ltr');
         document.documentElement.setAttribute('lang', i18n.language === 'arb' ? 'ar' : i18n.language);
@@ -30,9 +43,15 @@ function App() {
         styleLink.rel = 'stylesheet';
         styleLink.href = i18n.language === 'arb' ? '/rtl.css' : '/ltr.css';
         document.head.appendChild(styleLink);
+
+        return () => {
+            clearTimeout(fadeTimer);
+            clearTimeout(removeTimer);
+        };
     }, [i18n.language]);
     return (
         <>
+            {loading && <SplashScreen isFading={isFading} />}
             <ToastContainer/>
             <RouterProvider router={routes}/>
             {/*<div className={"container"}>*/}

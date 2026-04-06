@@ -3,6 +3,7 @@ import {IoLocationOutline} from "react-icons/io5";
 import {BsArrowRight} from "react-icons/bs";
 import {useNavigate} from "react-router-dom";
 import {CLINIC_CARD_IMAGES} from "../../../contants.js";
+import {getLocalizedText} from "../../../utils/getLocalizedText.js";
 function ClinicCard2({item}) {
     const navigate = useNavigate();
     return (
@@ -14,8 +15,8 @@ function ClinicCard2({item}) {
                 </div>
                <div className={"content"}>
                    <div className={"text"}>
-                       <h5>{item.name}</h5>
-                       <p> {item.location}</p>
+                       <h5>{getLocalizedText(item, 'name')}</h5>
+                       <p> {getLocalizedText(item, 'location')}</p>
                    </div>
 
                </div>

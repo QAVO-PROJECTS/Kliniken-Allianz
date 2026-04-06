@@ -7,6 +7,7 @@ import { useGetAllSanatoriumQuery } from "../../../services/userApi.jsx";
 import { useMediaQuery } from "react-responsive";
 import mobileBanner from "../../../assets/MobileBanner.png";
 import SanatoriumCard from "../../../components/UserComponents/SanatoriumCard/index.jsx";
+import { getLocalizedText } from "../../../utils/getLocalizedText.js";
 
 function SanatoriumsPage() {
     const { data: getAllSanatorium } = useGetAllSanatoriumQuery();
@@ -17,18 +18,8 @@ function SanatoriumsPage() {
     const [searchTerm, setSearchTerm] = useState("");
 
     const filteredSanatoriums = sanatoriums?.filter((item) => {
-        const term = searchTerm.toLowerCase();
-        const nameAz = (item.name || "").toLowerCase();
-        const nameEn = (item.nameEn || "").toLowerCase();
-        const nameRu = (item.nameRu || "").toLowerCase();
-        const nameAlm = (item.nameAlm || "").toLowerCase();
-        const nameArab = (item.nameArab || "").toLowerCase();
-        
-        return nameAz.includes(term) || 
-               nameEn.includes(term) || 
-               nameRu.includes(term) ||
-               nameAlm.includes(term) ||
-               nameArab.includes(term);
+        const localizedName = getLocalizedText(item, 'name')?.toLowerCase() || "";
+        return localizedName.includes(searchTerm.toLowerCase());
     });
 
     return (
@@ -36,11 +27,11 @@ function SanatoriumsPage() {
             <div className="container">
                 <div className="sanatoriums-page">
                     <div className="head">
-                        <h1>{t("adminPanel.sanatoriumPage.title")}</h1>
+                        <h1>{t("navbar.sanatoriums")}</h1>
                         <div className="breadcrumb-wrapper" data-aos="fade-up" data-aos-delay="100">
-                            <Link to="/">{t("adminPanel.sanatoriumPage.breadcrumb.home")}</Link>
+                            <Link to="/">{t("contact.breadcrumb.home")}</Link>
                             <div className="dot"></div>
-                            <Link to="/sanatoriums">{t("adminPanel.sanatoriumPage.title")}</Link>
+                            <Link to="/sanatoriums">{t("navbar.sanatoriums")}</Link>
                         </div>
 
                         <div className={'search'}>

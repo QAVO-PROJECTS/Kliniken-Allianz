@@ -113,9 +113,9 @@ export default function CategoriesMenuAntd() {
         >
            <a onClick={(e) => e.preventDefault()}
             style={{
-            color: "#5f5f5f",
-            fontWeight: 500,
-            fontSize: "16px",
+            color: "#333",
+            fontWeight: 400,
+            fontSize: "14px",
             margin: "0 20px",
             display: "flex",
             alignItems: "center",

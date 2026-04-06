@@ -7,18 +7,18 @@ import icons from "/src/assets/icon1.png"
 import {useMediaQuery} from "react-responsive";
 function HomeServices() {
     const { t, i18n } = useTranslation();
-    const { data: getAllService } = useGetAllServiceQuery()
-    const cardss = getAllService?.data?.slice(0, 6);
+    const { data: getAllCategories } = useGetAllCategoryQuery();
+    const categories = getAllCategories?.data?.slice(0, 6);
     const isMobile = useMediaQuery({maxWidth:768})
-    // Mevcut dili al ve buna göre alan seç
-    const getLocalizedText = (card, field) => {
+
+    const getLocalizedText = (item, field) => {
         switch (i18n.language) {
             case 'en':
-                return field === 'name' ? card.nameEng : card.descriptionEng;
+                return field === 'name' ? item.nameEng : item.descriptionEng;
             case 'ru':
-                return field === 'name' ? card.nameRu : card.descriptionRu;
-            default: // 'tr' veya varsayılan
-                return field === 'name' ? card.name : card.description;
+                return field === 'name' ? item.nameRu : item.descriptionRu;
+            default:
+                return field === 'name' ? item.name : item.description;
         }
     };
 
@@ -39,15 +39,22 @@ function HomeServices() {
                             <img src={image} alt={t('homeServices.videoAlt')} />
                         </div>
                     </div>
-                    {cardss?.map((card) => (
-                        <HomeServiceCard
-                            key={card?.id}
-                            id={card?.id}
-                            name={card.name}
-                            desc={card.description}
-                            icon={card.categoryImage}
-                        />
-                    ))}
+                    {categories?.map((category) => {
+                        const firstService = category.services?.[0];
+                        const displayItem = firstService || category;
+                        const isService = !!firstService;
+
+                        return (
+                            <HomeServiceCard
+                                key={category?.id}
+                                id={displayItem?.id}
+                                name={getLocalizedText(displayItem, 'name')}
+                                desc={getLocalizedText(displayItem, 'description')}
+                                icon={category.categoryImage}
+                                isService={isService}
+                            />
+                        );
+                    })}
 
                 </div>
 

@@ -4,6 +4,7 @@ import {Link, useNavigate} from "react-router-dom";
 
 import {useEffect, useMemo, useState} from "react";
 import {useTranslation} from "react-i18next";
+import {getLocalizedText} from "../../../utils/getLocalizedText.js";
 import img1 from "/src/assets/dSamer.png"
 import DoktorCard2 from "../../../components/UserComponents/DoktorCard2/index.jsx";
 import dolu from "/src/assets/doluUlduz.svg"
@@ -91,13 +92,17 @@ function DoctorsPage() {
                 });
 
 
-            const clinicNames = doc.clinics?.map((c) => c.name) || [];
+            const localizedName = getLocalizedText(doc, 'name')?.toLowerCase() || "";
+            const localizedSurname = getLocalizedText(doc, 'surName')?.toLowerCase() || "";
+            const localizedRole = getLocalizedText(doc, 'role')?.toLowerCase() || "";
+
+            const clinicNames = doc.clinics?.map((c) => getLocalizedText(c, 'name')) || [];
             const clinicMatch =
                 selectedClinics?.length === 0 ||
                 clinicNames.some((c) => selectedClinics.includes(c));
             const searchMatch =
                 searchQuery.trim() === "" ||
-                `${doc.name} ${doc.surName}`.toLowerCase().includes(searchQuery.toLowerCase());
+                `${localizedName} ${localizedSurname}`.includes(searchQuery.toLowerCase());
 
             const ratingMatch =
                 selectedRatings?.length === 0 ||
@@ -106,7 +111,7 @@ function DoctorsPage() {
 
             const areaMatch =
                 selectedAreas?.length === 0 ||
-                selectedAreas.includes(doc.role);
+                selectedAreas.includes(getLocalizedText(doc, 'role'));
 
 
             return expMatch && clinicMatch && ratingMatch && areaMatch && searchMatch;
@@ -212,9 +217,9 @@ function DoctorsPage() {
                                                     <input
                                                         type="checkbox"
                                                         checked={selectedClinics.includes(clinic.name)}
-                                                        onChange={() => toggleClinic(clinic.name)}
+                                                        onChange={() => toggleClinic(getLocalizedText(clinic, 'name'))}
                                                     />
-                                                    {clinic.name}
+                                                    {getLocalizedText(clinic, 'name')}
                                                 </label>
                                             ))}
 
@@ -263,7 +268,7 @@ function DoctorsPage() {
                                             <button onClick={resetAreas}>{t("doctorsPage.filters.reset")}</button>
                                         </div>
                                         <div className="filter-options">
-                                            {[...new Set(doctors?.map((d) => d.role))].map((role, i) => (
+                                             {[...new Set(doctors?.map((d) => getLocalizedText(d, 'role')))].map((role, i) => (
                                                 <label key={i}>
                                                     <input
                                                         type="checkbox"
@@ -404,7 +409,7 @@ function DoctorsPage() {
                             <button onClick={resetAreas}>{t("doctorsPage.filters.reset")}</button>
                         </div>
                         <div className="filter-options">
-                            {[...new Set(doctors?.map((d) => d.role))].map((role, i) => (
+                             {[...new Set(doctors?.map((d) => getLocalizedText(d, 'role')))].map((role, i) => (
                                 <label key={i}>
                                     <input
                                         type="checkbox"

@@ -1,5 +1,6 @@
 import "./index.scss";
 import {IoLocationOutline} from "react-icons/io5";
+import {getLocalizedText} from "../../../../utils/getLocalizedText.js";
 import {OTEL_CARD_IMAGES} from "../../../../contants.js";
 
 function HotelCard({name, desc, img, item}) {
@@ -32,7 +33,7 @@ function HotelCard({name, desc, img, item}) {
 
                 <div className={"card-title"}>
 
-                    <h5>{item?.name}</h5>
+                    <h5>{getLocalizedText(item, 'name')}</h5>
 
                     <div className="stars">
                         {[...Array(5)].map((_, i) => (
@@ -54,7 +55,7 @@ function HotelCard({name, desc, img, item}) {
 
                     <p>
                         <IoLocationOutline style={{marginRight: 5}}/>
-                        {item?.location}
+                        {getLocalizedText(item, 'location')}
                     </p>
 
                 </div>

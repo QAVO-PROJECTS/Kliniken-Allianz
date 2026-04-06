@@ -1,6 +1,7 @@
 import "./index.scss"
 import {useNavigate} from "react-router-dom";
 import {TOUR_CARD_IMG} from "../../../contants.js";
+import {getLocalizedText} from "../../../utils/getLocalizedText.js";
 import {useTranslation} from "react-i18next";
 function TourCard({item}) {
     const navigate = useNavigate();
@@ -14,7 +15,7 @@ const {t} = useTranslation();
             </div>
             <div className={"content"}>
                 <h5>
-                    {item?.name}
+                    {getLocalizedText(item, 'name')}
                 </h5>
                 <div className={'offers'}>
                     <div className={'offer'}>

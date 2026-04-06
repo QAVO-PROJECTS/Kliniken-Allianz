@@ -3,6 +3,7 @@ import { useRef, useState, useEffect } from 'react';
 import ServiceDetailCard from '../../../../components/UserComponents/ServicesDetailCard/index.jsx';
 import { HiOutlineArrowLeft, HiOutlineArrowRight } from 'react-icons/hi';
 import { useTranslation } from 'react-i18next';
+import { getLocalizedText } from '../../../../utils/getLocalizedText.js';
 import image from "/src/assets/ServiceDetailCard.png"
 import {useGetAllClinicQuery} from "../../../../services/userApi.jsx";
 import ClinicCard from "../../../../components/UserComponents/ClinicCard/index.jsx";
@@ -23,16 +24,6 @@ function HomeClinic() {
 const isMobile = useMediaQuery({maxWidth:768})
     const navigate = useNavigate();
     // Dil bazlı metin seçimi
-    const getLocalizedText = (item, field) => {
-        switch (i18n.language) {
-            case 'en':
-                return field === 'name' ? item.nameEng : item.descriptionEng;
-            case 'ru':
-                return field === 'name' ? item.nameRu : item.descriptionRu;
-            default: // 'tr' veya varsayılan
-                return field === 'name' ? item.name : item.description;
-        }
-    };
 
     const maxIndex = Math.max(0, cardss.length - visibleCards);
 

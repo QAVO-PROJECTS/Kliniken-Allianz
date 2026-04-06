@@ -2,8 +2,11 @@ import "./index.scss"
 import {FaArrowRightLong} from "react-icons/fa6";
 import {useNavigate} from "react-router-dom";
 import {DOCTOR_IMG_URL} from "/src/contants.js";
+import {getLocalizedText} from "../../../utils/getLocalizedText.js";
+import {useTranslation} from "react-i18next";
 function DoktorCard2({item}) {
     const navigate = useNavigate();
+    const {t} = useTranslation();
 
     return (
         <div className={"col-20 col-md-30 col-sm-30 col-xs-30"} onClick={()=>navigate(`/doktor/${item.id}`)}>
@@ -13,10 +16,10 @@ function DoktorCard2({item}) {
                     {/*<img src={img}/>*/}
                 </div>
                 <div className={"content"}>
-                    <h5>{item.name} {item.surName}</h5>
-                    <p>{item.experience} il təcrübə</p>
+                    <h5>{getLocalizedText(item, 'name')} {getLocalizedText(item, 'surName')}</h5>
+                    <p>{item.experience} {t("doctorsPage.experienceSuffix")}</p>
                     <div className={"position"}>
-                        {item.role}
+                        {getLocalizedText(item, 'role')}
                     </div>
                 </div>
                 <div className={'svg'}>

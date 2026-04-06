@@ -108,7 +108,6 @@ function TourDetail() {
                 }}>
                     <div className={'col-25 col-md-60 col-sm-60 col-xs-60 order2'}>
                         <div className={'content'}>
-                            <h2>{tour?.name}</h2>
                             <p>{tour?.description}</p>
 
                             <div className="row">

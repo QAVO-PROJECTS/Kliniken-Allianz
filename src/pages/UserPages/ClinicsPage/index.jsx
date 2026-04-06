@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { getLocalizedText } from "../../../utils/getLocalizedText.js";
 import {useGetAllClinicQuery, usePostContactMutation} from "../../../services/userApi.jsx"; // Mutation hook'unu ekledim
 import { message } from "antd";
 import ServiceDetailCard from "../../../components/UserComponents/ServicesDetailCard/index.jsx"; // Success/error için ekledim
@@ -19,11 +20,10 @@ function ClinicsPage() {
     const isMobile = useMediaQuery({maxWidth:768})
     const [searchTerm, setSearchTerm] = useState("");
 
-    const filteredClinics = clinics?.filter((clinic) =>
-        clinic.name?.toLowerCase().includes(searchTerm) ||
-        clinic.nameEng?.toLowerCase().includes(searchTerm) ||
-        clinic.nameRu?.toLowerCase().includes(searchTerm) 
-    );
+    const filteredClinics = clinics?.filter((clinic) => {
+        const localizedName = getLocalizedText(clinic, 'name')?.toLowerCase() || "";
+        return localizedName.includes(searchTerm);
+    });
 
 
     return (
@@ -31,11 +31,11 @@ function ClinicsPage() {
             <div className="container">
                 <div className="clinics-page">
                     <div className="head">
-                        <h1>{t("adminPanel.clinicPage.title")}</h1>
+                        <h1>{t("navbar.clinics")}</h1>
                         <p data-aos="fade-up" data-aos-delay="100">
                             <Link to="/">{t("contact.breadcrumb.home")}</Link>
                             <div className="dot"></div>
-                            <Link to="/clinics">{t("adminPanel.clinicPage.title")}</Link>
+                            <Link to="/clinics">{t("navbar.clinics")}</Link>
                         </p>
 
                         <div className={'search'}>
