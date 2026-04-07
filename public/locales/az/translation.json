@@ -1446,7 +1446,9 @@
         "hotel": "Otel",
         "comment": "Şərh",
         "contact": "Əlaqələr",
-        "sanatorium": "Sanatoriya"
+        "sanatorium": "Sanatoriya",
+        "car": "Nəqliyyat",
+        "newspaper": "Xəbərlər"
       },
       "buttons": {
         "logout": "Çıxış edin"
@@ -1455,6 +1457,277 @@
     "addBtn": {
       "text": "Yenisini yarat",
       "tooltip": "Yeni element əlavə et"
+    },
+    "carTable": {
+      "header": {
+        "title": "Avtomobil",
+        "description": "Buradan bütün avtomobilləri idarə edə və yenilərini yarada bilərsiniz."
+      },
+      "headers": {
+        "image": "Şəkil",
+        "name": "Ad",
+        "type": "Tip",
+        "price": "Qiymət",
+        "description": "Təsvir",
+        "actions": "Əməliyyat"
+      },
+      "modal": {
+        "confirmDelete": "Bu avtomobili silmək istədiyinizə əminsiniz?",
+        "cancel": "Ləğv et",
+        "delete": "Sil",
+        "deleting": "Silinir..."
+      },
+      "toast": {
+        "deleteSuccess": "Avtomobil uğurla silindi",
+        "deleteError": "Xəta baş verdi"
+      }
+    },
+    "carAdd": {
+      "breadcrumb": {
+        "root": "Avtomobillər",
+        "current": "Yeni avtomobil"
+      },
+      "title": "Avtomobil əlavə et",
+      "description": "Yeni avtomobil məlumatlarını daxil edin",
+      "sections": {
+        "name": {
+          "title": "Avtomobilin adı",
+          "desc": "Avtomobilin adını bütün dillərdə daxil edin",
+          "placeholders": {
+            "az": "Ad (AZ)",
+            "ru": "Ad (RU)",
+            "en": "Ad (EN)",
+            "de": "Ad (DE)",
+            "ar": "Ad (AR)"
+          }
+        },
+        "typePrice": {
+          "title": "Tip və Qiymət",
+          "desc": "Avtomobilin növünü və qiymətini daxil edin",
+          "placeholders": {
+            "type": "Tip (məs: Sedan, SUV, Van...)",
+            "price": "Qiymət (məs: 150 AZN/gün)"
+          }
+        },
+        "cardImage": {
+          "title": "Əsas Şəkil (Card Image)",
+          "desc": "Avtomobilin əsas şəklini yükləyin"
+        },
+        "images": {
+          "title": "Şəkillər",
+          "desc": "Avtomobilin digər şəkillərini yükləyin",
+          "uploadedLength": "Yüklənmiş şəkillər"
+        },
+        "videos": {
+          "title": "Videolar",
+          "desc": "Video URL-lərini əlavə edin",
+          "placeholder": "Video URL daxil edin",
+          "addBtn": "Əlavə et"
+        },
+        "description": {
+          "title": "Təsvir",
+          "desc": "Avtomobilin təsvirini bütün dillərdə daxil edin",
+          "placeholders": {
+            "az": "Təsvir (AZ)",
+            "ru": "Təsvir (RU)",
+            "en": "Təsvir (EN)",
+            "de": "Təsvir (DE)",
+            "ar": "Təsvir (AR)"
+          }
+        }
+      },
+      "buttons": {
+        "save": "Yadda saxla",
+        "saving": "Yüklənir..."
+      },
+      "toast": {
+        "success": "Avtomobil uğurla əlavə edildi",
+        "error": "Xəta baş verdi",
+        "warnNameAz": "Ad daxil edin (AZ)"
+      },
+      "uploadHint": "Şəkil seçin və ya sürükləyin"
+    },
+    "carEdit": {
+      "breadcrumb": {
+        "root": "Avtomobillər",
+        "current": "Avtomobilə düzəliş et"
+      },
+      "title": "Avtomobilə düzəliş et",
+      "description": "Avtomobil məlumatlarını yeniləyin",
+      "sections": {
+        "name": {
+          "title": "Avtomobilin adı",
+          "desc": "Avtomobilin adını bütün dillərdə daxil edin",
+          "placeholders": {
+            "az": "Ad (AZ)",
+            "ru": "Ad (RU)",
+            "en": "Ad (EN)",
+            "de": "Ad (DE)",
+            "ar": "Ad (AR)"
+          }
+        },
+        "typePrice": {
+          "title": "Tip və Qiymət",
+          "desc": "Avtomobilin növünü və qiymətini daxil edin",
+          "placeholders": {
+            "type": "Tip",
+            "price": "Qiymət"
+          }
+        },
+        "cardImage": {
+          "title": "Əsas Şəkil (Card Image)",
+          "desc": "Avtomobilin əsas şəklini yükləyin",
+          "oldImage": "Mövcud Əsas Şəkil"
+        },
+        "images": {
+          "title": "Şəkillər",
+          "desc": "Avtomobilin digər şəkillərini yükləyin",
+          "uploadedLength": "Yüklənmiş şəkillər"
+        },
+        "videos": {
+          "title": "Videolar",
+          "desc": "Video URL-lərini əlavə edin",
+          "placeholder": "Video URL daxil edin",
+          "addBtn": "Əlavə et"
+        },
+        "description": {
+          "title": "Təsvir",
+          "desc": "Avtomobilin təsvirini bütün dillərdə daxil edin",
+          "placeholders": {
+            "az": "Təsvir (AZ)",
+            "ru": "Təsvir (RU)",
+            "en": "Təsvir (EN)",
+            "de": "Təsvir (DE)",
+            "ar": "Təsvir (AR)"
+          }
+        }
+      },
+      "buttons": {
+        "save": "Yadda saxla",
+        "saving": "Yüklənir..."
+      },
+      "toast": {
+        "success": "Yalnız dəyişən məlumatlar uğurla göndərildi",
+        "error": "Xəta baş verdi",
+        "warnNameAz": "Ad daxil edin (AZ)"
+      },
+      "uploadHint": "Şəkil seçin və ya sürükləyin"
+    },
+    "newspaperTable": {
+      "header": {
+        "title": "Xəbərlər",
+        "description": "Buradan bütün xəbərləri idarə edə və yenilərini yarada bilərsiniz."
+      },
+      "headers": {
+        "image": "Şəkil",
+        "title": "Başlıq",
+        "subtitle": "Məzmun",
+        "actions": "Əməliyyat"
+      },
+      "modal": {
+        "confirmDelete": "Bu xəbəri silmək istədiyinizə əminsiniz?",
+        "cancel": "Ləğv et",
+        "delete": "Sil",
+        "deleting": "Silinir..."
+      },
+      "toast": {
+        "deleteSuccess": "Xəbər uğurla silindi",
+        "deleteError": "Xəta baş verdi"
+      }
+    },
+    "newspaperAdd": {
+      "breadcrumb": {
+        "root": "Xəbərlər",
+        "current": "Yeni xəbər"
+      },
+      "title": "Xəbər əlavə et",
+      "description": "Yeni xəbər / qəzet məlumatlarını daxil edin",
+      "sections": {
+        "title": {
+          "title": "Xəbərin başlığı",
+          "desc": "Xəbərin başlığını bütün dillərdə daxil edin",
+          "placeholders": {
+            "az": "Başlıq (AZ)",
+            "ru": "Başlıq (RU)",
+            "en": "Başlıq (EN)",
+            "de": "Başlıq (DE)",
+            "ar": "Başlıq (AR)"
+          }
+        },
+        "images": {
+          "title": "Şəkillər",
+          "desc": "Xəbərin şəkillərini yükləyin",
+          "uploadedLength": "Yüklənmiş şəkillər"
+        },
+        "subtitle": {
+          "title": "Alt Başlıq (Subtitle) / Məzmun",
+          "desc": "Xəbərin mətnini bütün dillərdə daxil edin",
+          "placeholders": {
+            "az": "Məzmun (AZ)",
+            "ru": "Məzmun (RU)",
+            "en": "Məzmun (EN)",
+            "de": "Məzmun (DE)",
+            "ar": "Məzmun (AR)"
+          }
+        }
+      },
+      "buttons": {
+        "save": "Yadda saxla",
+        "saving": "Yüklənir..."
+      },
+      "toast": {
+        "success": "Xəbər uğurla əlavə edildi",
+        "error": "Xəta baş verdi",
+        "warnAz": "Başlıq daxil edin (AZ)"
+      },
+      "uploadHint": "Şəkil seçin və ya sürükləyin"
+    },
+    "newspaperEdit": {
+      "breadcrumb": {
+        "root": "Xəbərlər",
+        "current": "Xəbərə düzəliş et"
+      },
+      "title": "Xəbərə düzəliş et",
+      "description": "Mövcud xəbərə düzəliş edin",
+      "sections": {
+        "title": {
+          "title": "Xəbərin başlığı",
+          "desc": "Xəbərin başlığını bütün dillərdə daxil edin",
+          "placeholders": {
+            "az": "Başlıq (AZ)",
+            "ru": "Başlıq (RU)",
+            "en": "Başlıq (EN)",
+            "de": "Başlıq (DE)",
+            "ar": "Başlıq (AR)"
+          }
+        },
+        "images": {
+          "title": "Şəkillər",
+          "desc": "Xəbərin şəkillərini yükləyin",
+          "uploadedLength": "Yüklənmiş şəkillər"
+        },
+        "subtitle": {
+          "title": "Alt Başlıq (Subtitle) / Məzmun",
+          "desc": "Xəbərin mətnini bütün dillərdə daxil edin",
+          "placeholders": {
+            "az": "Məzmun (AZ)",
+            "ru": "Məzmun (RU)",
+            "en": "Məzmun (EN)",
+            "de": "Məzmun (DE)",
+            "ar": "Məzmun (AR)"
+          }
+        }
+      },
+      "buttons": {
+        "save": "Yadda saxla",
+        "saving": "Yüklənir..."
+      },
+      "toast": {
+        "success": "Dəyişikliklər uğurla yadda saxlanıldı",
+        "error": "Xəta baş verdi",
+        "warnAz": "Başlıq daxil edin (AZ)"
+      },
+      "uploadHint": "Şəkil seçin və ya sürükləyin"
     },
     "filterDropdown": {
       "label": "Filter",

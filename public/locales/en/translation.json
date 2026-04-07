@@ -1444,12 +1444,14 @@
       "menu": {
         "category": "Categories",
         "clinic": "Clinic",
-        "doctor": "Həkim",
-        "tours": "Xidmət paketi",
-        "hotel": "Otel",
-        "comment": "Şərh",
-        "contact": "Əlaqələr",
-        "sanatorium": "Sanatoriya"
+        "doctor": "Doctor",
+        "tours": "Tours",
+        "hotel": "Hotel",
+        "comment": "Comments",
+        "contact": "Contact",
+        "sanatorium": "Sanatorium",
+        "car": "Cars",
+        "newspaper": "Newspaper"
       },
       "buttons": {
         "logout": "Çıxış edin"
@@ -1458,6 +1460,277 @@
     "addBtn": {
       "text": "Create new",
       "tooltip": "Yeni element əlavə et"
+    },
+    "carTable": {
+      "header": {
+        "title": "Cars",
+        "description": "Manage all car models and create new ones for the transportation fleet."
+      },
+      "headers": {
+        "image": "Image",
+        "name": "Name",
+        "type": "Type",
+        "price": "Price",
+        "description": "Description",
+        "actions": "Actions"
+      },
+      "modal": {
+        "confirmDelete": "Are you sure you want to delete this car?",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "deleting": "Deleting..."
+      },
+      "toast": {
+        "deleteSuccess": "Car deleted successfully",
+        "deleteError": "An error occurred"
+      }
+    },
+    "carAdd": {
+      "breadcrumb": {
+        "root": "Cars",
+        "current": "New car"
+      },
+      "title": "Add Car",
+      "description": "Enter new car details",
+      "sections": {
+        "name": {
+          "title": "Car Name",
+          "desc": "Enter car name in all languages",
+          "placeholders": {
+            "az": "Name (AZ)",
+            "ru": "Name (RU)",
+            "en": "Name (EN)",
+            "de": "Name (DE)",
+            "ar": "Name (AR)"
+          }
+        },
+        "typePrice": {
+          "title": "Type & Price",
+          "desc": "Enter car type and price",
+          "placeholders": {
+            "type": "Type (e.g., Sedan, SUV)",
+            "price": "Price"
+          }
+        },
+        "cardImage": {
+          "title": "Main Graphic",
+          "desc": "Upload main car image"
+        },
+        "images": {
+          "title": "Images",
+          "desc": "Upload additional images",
+          "uploadedLength": "Uploaded Images"
+        },
+        "videos": {
+          "title": "Videos",
+          "desc": "Add video URLs",
+          "placeholder": "Enter Video URL",
+          "addBtn": "Add"
+        },
+        "description": {
+          "title": "Description",
+          "desc": "Enter car description",
+          "placeholders": {
+            "az": "Desc (AZ)",
+            "ru": "Desc (RU)",
+            "en": "Desc (EN)",
+            "de": "Desc (DE)",
+            "ar": "Desc (AR)"
+          }
+        }
+      },
+      "buttons": {
+        "save": "Save",
+        "saving": "Saving..."
+      },
+      "toast": {
+        "success": "Car added successfully",
+        "error": "An error occurred",
+        "warnNameAz": "Enter Name (AZ)"
+      },
+      "uploadHint": "Click or drag images here"
+    },
+    "carEdit": {
+      "breadcrumb": {
+        "root": "Cars",
+        "current": "Edit car"
+      },
+      "title": "Edit Car",
+      "description": "Update car details",
+      "sections": {
+        "name": {
+          "title": "Car Name",
+          "desc": "Enter car name in all languages",
+          "placeholders": {
+            "az": "Name (AZ)",
+            "ru": "Name (RU)",
+            "en": "Name (EN)",
+            "de": "Name (DE)",
+            "ar": "Name (AR)"
+          }
+        },
+        "typePrice": {
+          "title": "Type & Price",
+          "desc": "Enter car type and price",
+          "placeholders": {
+            "type": "Type",
+            "price": "Price"
+          }
+        },
+        "cardImage": {
+          "title": "Main Graphic",
+          "desc": "Upload main car image",
+          "oldImage": "Current Main Image"
+        },
+        "images": {
+          "title": "Images",
+          "desc": "Upload additional images",
+          "uploadedLength": "Uploaded Images"
+        },
+        "videos": {
+          "title": "Videos",
+          "desc": "Add video URLs",
+          "placeholder": "Enter Video URL",
+          "addBtn": "Add"
+        },
+        "description": {
+          "title": "Description",
+          "desc": "Enter car description",
+          "placeholders": {
+            "az": "Desc (AZ)",
+            "ru": "Desc (RU)",
+            "en": "Desc (EN)",
+            "de": "Desc (DE)",
+            "ar": "Desc (AR)"
+          }
+        }
+      },
+      "buttons": {
+        "save": "Save",
+        "saving": "Saving..."
+      },
+      "toast": {
+        "success": "Only updated fields were sent successfully",
+        "error": "An error occurred",
+        "warnNameAz": "Enter Name (AZ)"
+      },
+      "uploadHint": "Click or drag images here"
+    },
+    "newspaperTable": {
+      "header": {
+        "title": "News",
+        "description": "Manage all news articles and newspaper archives from this panel."
+      },
+      "headers": {
+        "image": "Image",
+        "title": "Title",
+        "subtitle": "Content",
+        "actions": "Actions"
+      },
+      "modal": {
+        "confirmDelete": "Are you sure you want to delete this news?",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "deleting": "Deleting..."
+      },
+      "toast": {
+        "deleteSuccess": "News deleted successfully",
+        "deleteError": "An error occurred"
+      }
+    },
+    "newspaperAdd": {
+      "breadcrumb": {
+        "root": "News",
+        "current": "New news"
+      },
+      "title": "Add News",
+      "description": "Enter news data",
+      "sections": {
+        "title": {
+          "title": "News Title",
+          "desc": "Enter title in all languages",
+          "placeholders": {
+            "az": "Title (AZ)",
+            "ru": "Title (RU)",
+            "en": "Title (EN)",
+            "de": "Title (DE)",
+            "ar": "Title (AR)"
+          }
+        },
+        "images": {
+          "title": "Images",
+          "desc": "Upload images",
+          "uploadedLength": "Uploaded images"
+        },
+        "subtitle": {
+          "title": "Subtitle / Content",
+          "desc": "Enter news content",
+          "placeholders": {
+            "az": "Content (AZ)",
+            "ru": "Content (RU)",
+            "en": "Content (EN)",
+            "de": "Content (DE)",
+            "ar": "Content (AR)"
+          }
+        }
+      },
+      "buttons": {
+        "save": "Save",
+        "saving": "Saving..."
+      },
+      "toast": {
+        "success": "News added successfully",
+        "error": "An error occurred",
+        "warnAz": "Enter title (AZ)"
+      },
+      "uploadHint": "Click or drag to upload"
+    },
+    "newspaperEdit": {
+      "breadcrumb": {
+        "root": "News",
+        "current": "Edit news"
+      },
+      "title": "Edit News",
+      "description": "Update news data",
+      "sections": {
+        "title": {
+          "title": "News Title",
+          "desc": "Enter title in all languages",
+          "placeholders": {
+            "az": "Title (AZ)",
+            "ru": "Title (RU)",
+            "en": "Title (EN)",
+            "de": "Title (DE)",
+            "ar": "Title (AR)"
+          }
+        },
+        "images": {
+          "title": "Images",
+          "desc": "Upload images",
+          "uploadedLength": "Uploaded images"
+        },
+        "subtitle": {
+          "title": "Subtitle / Content",
+          "desc": "Enter news content",
+          "placeholders": {
+            "az": "Content (AZ)",
+            "ru": "Content (RU)",
+            "en": "Content (EN)",
+            "de": "Content (DE)",
+            "ar": "Content (AR)"
+          }
+        }
+      },
+      "buttons": {
+        "save": "Save",
+        "saving": "Saving..."
+      },
+      "toast": {
+        "success": "Changes saved successfully",
+        "error": "An error occurred",
+        "warnAz": "Enter title (AZ)"
+      },
+      "uploadHint": "Click or drag to upload"
     },
     "filterDropdown": {
       "label": "Filter",

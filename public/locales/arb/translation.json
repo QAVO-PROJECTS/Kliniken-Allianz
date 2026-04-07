@@ -1230,14 +1230,16 @@
     },
     "leftBar": {
       "menu": {
-        "category": "Kateqoriya",
-        "clinic": "Klinika",
-        "doctor": "Həkim",
-        "tours": "Xidmət paketi",
-        "hotel": "Otel",
-        "comment": "Şərh",
-        "contact": "Əlaqələr",
-        "sanatorium": "Sanatoriya"
+        "category": "فئة",
+        "clinic": "عيادة",
+        "doctor": "طبيب",
+        "tours": "جولات",
+        "hotel": "فندق",
+        "comment": "تعليق",
+        "contact": "اتصال",
+        "sanatorium": "مصحة",
+        "car": "سيارات",
+        "newspaper": "أخبار"
       },
       "buttons": {
         "logout": "Çıxış edin"
@@ -1246,6 +1248,277 @@
     "addBtn": {
       "text": "Yenisini yarat",
       "tooltip": "Yeni element əlavə et"
+    },
+    "carTable": {
+      "header": {
+        "title": "السيارات",
+        "description": "إدارة جميع طرازات السيارات وإضافة طرازات جديدة هنا."
+      },
+      "headers": {
+        "image": "صورة",
+        "name": "اسم",
+        "type": "نوع",
+        "price": "السعر",
+        "description": "الوصف",
+        "actions": "عمليات"
+      },
+      "modal": {
+        "confirmDelete": "هل أنت متأكد أنك تريد حذف هذه السيارة؟",
+        "cancel": "إلغاء",
+        "delete": "حذف",
+        "deleting": "حذف..."
+      },
+      "toast": {
+        "deleteSuccess": "تم الحذف",
+        "deleteError": "حدث خطأ"
+      }
+    },
+    "carAdd": {
+      "breadcrumb": {
+        "root": "السيارات",
+        "current": "سيارة جديدة"
+      },
+      "title": "إضافة سيارة",
+      "description": "أدخل تفاصيل السيارة",
+      "sections": {
+        "name": {
+          "title": "اسم السيارة",
+          "desc": "أدخل الاسم",
+          "placeholders": {
+            "az": "الاسم (AZ)",
+            "ru": "الاسم (RU)",
+            "en": "الاسم (EN)",
+            "de": "الاسم (DE)",
+            "ar": "الاسم (AR)"
+          }
+        },
+        "typePrice": {
+          "title": "النوع والسعر",
+          "desc": "النوع والسعر",
+          "placeholders": {
+            "type": "النوع",
+            "price": "السعر"
+          }
+        },
+        "cardImage": {
+          "title": "الصورة الرئيسية",
+          "desc": "الجرافيك الأساسي"
+        },
+        "images": {
+          "title": "الصور",
+          "desc": "تحميل الصور",
+          "uploadedLength": "تم التحميل"
+        },
+        "videos": {
+          "title": "فيديو",
+          "desc": "إضافة فيديو",
+          "placeholder": "رابط",
+          "addBtn": "إضافة"
+        },
+        "description": {
+          "title": "الوصف",
+          "desc": "الوصف",
+          "placeholders": {
+            "az": "الوصف (AZ)",
+            "ru": "الوصف (RU)",
+            "en": "الوصف (EN)",
+            "de": "الوصف (DE)",
+            "ar": "الوصف (AR)"
+          }
+        }
+      },
+      "buttons": {
+        "save": "حفظ",
+        "saving": "تحميل..."
+      },
+      "toast": {
+        "success": "تمت الإضافة بنجاح",
+        "error": "حدث خطأ",
+        "warnNameAz": "إدخال الاسم"
+      },
+      "uploadHint": "انقر أو اسحب"
+    },
+    "carEdit": {
+      "breadcrumb": {
+        "root": "السيارات",
+        "current": "تعديل"
+      },
+      "title": "تعديل",
+      "description": "تعديل",
+      "sections": {
+        "name": {
+          "title": "الاسم",
+          "desc": "الاسم",
+          "placeholders": {
+            "az": "الاسم (AZ)",
+            "ru": "الاسم (RU)",
+            "en": "الاسم (EN)",
+            "de": "الاسم (DE)",
+            "ar": "الاسم (AR)"
+          }
+        },
+        "typePrice": {
+          "title": "النوع",
+          "desc": "النوع والسعر",
+          "placeholders": {
+            "type": "النوع",
+            "price": "السعر"
+          }
+        },
+        "cardImage": {
+          "title": "الصورة",
+          "desc": "الصورة",
+          "oldImage": "الصورة القديمة"
+        },
+        "images": {
+          "title": "الصور",
+          "desc": "الصور",
+          "uploadedLength": "مرفوعة"
+        },
+        "videos": {
+          "title": "فيديوهات",
+          "desc": "إضافة فيديو",
+          "placeholder": "رابط",
+          "addBtn": "أضف"
+        },
+        "description": {
+          "title": "الوصف",
+          "desc": "الوصف",
+          "placeholders": {
+            "az": "الوصف (AZ)",
+            "ru": "الوصف (RU)",
+            "en": "الوصف (EN)",
+            "de": "الوصف (DE)",
+            "ar": "الوصف (AR)"
+          }
+        }
+      },
+      "buttons": {
+        "save": "حفظ",
+        "saving": "تحديث..."
+      },
+      "toast": {
+        "success": "تم التعديل",
+        "error": "خطأ",
+        "warnNameAz": "أدخل الاسم"
+      },
+      "uploadHint": "انقر أو اسحب للصورة"
+    },
+    "newspaperTable": {
+      "header": {
+        "title": "الأخبار",
+        "description": "إدارة جميع المقالات الإخبارية والمجلات من هذه اللوحة."
+      },
+      "headers": {
+        "image": "صورة",
+        "title": "عنوان",
+        "subtitle": "محتوى",
+        "actions": "عمليات"
+      },
+      "modal": {
+        "confirmDelete": "حذف الأخبار؟",
+        "cancel": "إلغاء",
+        "delete": "حذف",
+        "deleting": "جار الحذف..."
+      },
+      "toast": {
+        "deleteSuccess": "تم الحذف",
+        "deleteError": "خطأ"
+      }
+    },
+    "newspaperAdd": {
+      "breadcrumb": {
+        "root": "أخبار",
+        "current": "جديد"
+      },
+      "title": "إضافة أخبار",
+      "description": "إضافة أخبار",
+      "sections": {
+        "title": {
+          "title": "العنوان",
+          "desc": "العنوان",
+          "placeholders": {
+            "az": "العنوان",
+            "ru": "العنوان",
+            "en": "العنوان",
+            "de": "العنوان",
+            "ar": "العنوان"
+          }
+        },
+        "images": {
+          "title": "الصور",
+          "desc": "رفع الصور",
+          "uploadedLength": "تم الرفع"
+        },
+        "subtitle": {
+          "title": "المحتوى",
+          "desc": "وصف",
+          "placeholders": {
+            "az": "المحتوى",
+            "ru": "المحتوى",
+            "en": "المحتوى",
+            "de": "المحتوى",
+            "ar": "المحتوى"
+          }
+        }
+      },
+      "buttons": {
+        "save": "حفظ",
+        "saving": "يتم الرفع..."
+      },
+      "toast": {
+        "success": "تم بنجاح",
+        "error": "خطأ",
+        "warnAz": "أدخل العنوان"
+      },
+      "uploadHint": "اسحب ملفا"
+    },
+    "newspaperEdit": {
+      "breadcrumb": {
+        "root": "أخبار",
+        "current": "تعديل"
+      },
+      "title": "تعديل الأخبار",
+      "description": "تعديل",
+      "sections": {
+        "title": {
+          "title": "العنوان",
+          "desc": "العنوان",
+          "placeholders": {
+            "az": "العنوان",
+            "ru": "العنوان",
+            "en": "العنوان",
+            "de": "العنوان",
+            "ar": "العنوان"
+          }
+        },
+        "images": {
+          "title": "الصور",
+          "desc": "رفع الصور",
+          "uploadedLength": "تم الرفع"
+        },
+        "subtitle": {
+          "title": "المحتوى",
+          "desc": "وصف",
+          "placeholders": {
+            "az": "المحتوى",
+            "ru": "المحتوى",
+            "en": "المحتوى",
+            "de": "المحتوى",
+            "ar": "المحتوى"
+          }
+        }
+      },
+      "buttons": {
+        "save": "حفظ",
+        "saving": "يتم الحفظ..."
+      },
+      "toast": {
+        "success": "تم بنجاح",
+        "error": "خطأ",
+        "warnAz": "العنوان"
+      },
+      "uploadHint": "اسحب ملفا"
     },
     "filterDropdown": {
       "label": "Filter",

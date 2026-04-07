@@ -13,8 +13,10 @@ import closeIcon from '/src/assets/accordionClose.svg'
 import {useGetNewspaperByIdQuery, usePutNewspaperMutation} from "../../../services/userApi.jsx";
 import {NEWSPAPER_IMAGES} from "../../../contants.js";
 import showToast from "../../../components/ToastMessage.js";
+import {useTranslation} from "react-i18next";
 
 function NewspaperEdit() {
+    const {t} = useTranslation();
     const { id } = useParams();
     const navigate = useNavigate();
 
@@ -113,16 +115,16 @@ function NewspaperEdit() {
             newImages.forEach(f => formData.append("NewsPaperImages", f.file));
 
         if (deleteImages.length > 0)
-            deleteImages.forEach(f => formData.append("DeleteImageIds", f));
+            deleteImages.forEach(f => formData.append("DeleteNewsPaperImages", f));
 
         try {
             await editNewspaper(formData).unwrap();
-            showToast("Xəbər uğurla yeniləndi", "success");
+            showToast(t("adminPanel.newspaperEdit.toast.success"), "success");
             refetch();
             navigate('/admin/newspaper');
         } catch (err) {
             console.error("Xəta:", err);
-            showToast("Xəta baş verdi", "error");
+            showToast(t("adminPanel.newspaperEdit.toast.error"), "error");
         }
     };
 
@@ -131,15 +133,15 @@ function NewspaperEdit() {
             <div className={'Newspaper-edit'}>
                 <div className={"root"}>
                     <h2>
-                        <NavLink className="link" to="/admin/newspaper">Xəbərlər</NavLink>
+                        <NavLink className="link" to="/admin/newspaper">{t("adminPanel.newspaperEdit.breadcrumb.root")}</NavLink>
                         <img src={rootIcon} alt=""/>
-                        Xəbəri redaktə et
+                        {t("adminPanel.newspaperEdit.breadcrumb.current")}
                     </h2>
                 </div>
 
                 <div className={'Newspaper-edit-head'}>
-                    <h1>Xəbəri redaktə et</h1>
-                    <p>Xəbər məlumatlarını yeniləyin</p>
+                    <h1>{t("adminPanel.newspaperEdit.title")}</h1>
+                    <p>{t("adminPanel.newspaperEdit.description")}</p>
                 </div>
 
                 <div className={'Newspaper-edit-main'}>
@@ -148,37 +150,37 @@ function NewspaperEdit() {
                         {/* Başlıq */}
                         <div className={"dataDiv inputs"}>
                             <div className={'header'}>
-                                <h3>Xəbərin başlığı</h3>
-                                <p>Xəbərin başlığını bütün dillərdə daxil edin</p>
+                                <h3>{t("adminPanel.newspaperEdit.sections.title.title")}</h3>
+                                <p>{t("adminPanel.newspaperEdit.sections.title.desc")}</p>
                             </div>
                             <div className={'add-inputs'}>
                                 <div className="add-data">
                                     <div className={'add-input'}>
-                                        <input value={titleAz} onChange={(e) => setTitleAz(e.target.value)} placeholder="Başlıq (AZ)"/>
+                                        <input value={titleAz} onChange={(e) => setTitleAz(e.target.value)} placeholder={t("adminPanel.newspaperEdit.sections.title.placeholders.az")}/>
                                     </div>
                                     <img src={aze} alt=""/>
                                 </div>
                                 <div className="add-data">
                                     <div className={'add-input'}>
-                                        <input value={titleRu} onChange={(e) => setTitleRu(e.target.value)} placeholder="Başlıq (RU)"/>
+                                        <input value={titleRu} onChange={(e) => setTitleRu(e.target.value)} placeholder={t("adminPanel.newspaperEdit.sections.title.placeholders.ru")}/>
                                     </div>
                                     <img src={rus} alt=""/>
                                 </div>
                                 <div className="add-data">
                                     <div className={'add-input'}>
-                                        <input value={titleEn} onChange={(e) => setTitleEn(e.target.value)} placeholder="Başlıq (EN)"/>
+                                        <input value={titleEn} onChange={(e) => setTitleEn(e.target.value)} placeholder={t("adminPanel.newspaperEdit.sections.title.placeholders.en")}/>
                                     </div>
                                     <img src={usa} alt=""/>
                                 </div>
                                 <div className="add-data">
                                     <div className={'add-input'}>
-                                        <input value={titleAlm} onChange={(e) => setTitleAlm(e.target.value)} placeholder="Başlıq (DE)"/>
+                                        <input value={titleAlm} onChange={(e) => setTitleAlm(e.target.value)} placeholder={t("adminPanel.newspaperEdit.sections.title.placeholders.de")}/>
                                     </div>
                                     <img src={ger} alt=""/>
                                 </div>
                                 <div className="add-data">
                                     <div className={'add-input'}>
-                                        <input value={titleArab} onChange={(e) => setTitleArab(e.target.value)} placeholder="Başlıq (AR)"/>
+                                        <input value={titleArab} onChange={(e) => setTitleArab(e.target.value)} placeholder={t("adminPanel.newspaperEdit.sections.title.placeholders.ar")}/>
                                     </div>
                                     <img src={arb} alt=""/>
                                 </div>
@@ -188,8 +190,8 @@ function NewspaperEdit() {
                         {/* Şəkillər */}
                         <div className="dataDiv images multi">
                             <div className="header">
-                                <h3>Şəkillər</h3>
-                                <p>Xəbərin şəkillərini əlavə edin və ya mövcudları silin</p>
+                                <h3>{t("adminPanel.newspaperEdit.sections.images.title")}</h3>
+                                <p>{t("adminPanel.newspaperEdit.sections.images.desc")}</p>
                             </div>
                             <div className="uploadBox">
                                 <input
@@ -202,11 +204,11 @@ function NewspaperEdit() {
                                 />
                                 <label htmlFor="newspaperImages" className="uploadArea">
                                     <img src={uploadIcon} alt="upload"/>
-                                    <p>Şəkil seçin və ya sürükləyin</p>
+                                    <p>{t("adminPanel.newspaperEdit.uploadHint")}</p>
                                 </label>
                             </div>
                             <div className="uploadedHeader" onClick={() => setImagesOpen((p) => !p)}>
-                                <span>Şəkillər ({oldImages.length + newImages.length})</span>
+                                <span>{t("adminPanel.newspaperEdit.sections.images.uploadedLength")} ({oldImages.length + newImages.length})</span>
                                 <img src={imagesOpen ? openIcon : closeIcon} alt="toggle"/>
                             </div>
                             {imagesOpen && (
@@ -240,35 +242,35 @@ function NewspaperEdit() {
                     {/* Alt Başlıq */}
                     <div className={'tours-desc'}>
                         <div className={'header'}>
-                            <h3>Alt Başlıq (Subtitle) / Məzmun</h3>
-                            <p>Xəbərin mətnini daxil edin</p>
+                            <h3>{t("adminPanel.newspaperEdit.sections.subtitle.title")}</h3>
+                            <p>{t("adminPanel.newspaperEdit.sections.subtitle.desc")}</p>
                         </div>
                         <div className={'tours-desc-data'}>
                             <div className={'tours-desc-texts'}>
-                                <textarea placeholder="Məzmun (AZ)" value={subtitleAz} onChange={(e) => setSubtitleAz(e.target.value)}/>
+                                <textarea placeholder={t("adminPanel.newspaperEdit.sections.subtitle.placeholders.az")} value={subtitleAz} onChange={(e) => setSubtitleAz(e.target.value)}/>
                                 <div className={'langCountry'}><img src={aze} alt=""/></div>
                             </div>
                             <div className={'tours-desc-texts'}>
-                                <textarea placeholder="Məzmun (RU)" value={subtitleRu} onChange={(e) => setSubtitleRu(e.target.value)}/>
+                                <textarea placeholder={t("adminPanel.newspaperEdit.sections.subtitle.placeholders.ru")} value={subtitleRu} onChange={(e) => setSubtitleRu(e.target.value)}/>
                                 <div className={'langCountry'}><img src={rus} alt=""/></div>
                             </div>
                             <div className={'tours-desc-texts'}>
-                                <textarea placeholder="Məzmun (EN)" value={subtitleEn} onChange={(e) => setSubtitleEn(e.target.value)}/>
+                                <textarea placeholder={t("adminPanel.newspaperEdit.sections.subtitle.placeholders.en")} value={subtitleEn} onChange={(e) => setSubtitleEn(e.target.value)}/>
                                 <div className={'langCountry'}><img src={usa} alt=""/></div>
                             </div>
                             <div className={'tours-desc-texts'}>
-                                <textarea placeholder="Məzmun (DE)" value={subtitleAlm} onChange={(e) => setSubtitleAlm(e.target.value)}/>
+                                <textarea placeholder={t("adminPanel.newspaperEdit.sections.subtitle.placeholders.de")} value={subtitleAlm} onChange={(e) => setSubtitleAlm(e.target.value)}/>
                                 <div className={'langCountry'}><img src={ger} alt=""/></div>
                             </div>
                             <div className={'tours-desc-texts'}>
-                                <textarea placeholder="Məzmun (AR)" value={subtitleArab} onChange={(e) => setSubtitleArab(e.target.value)}/>
+                                <textarea placeholder={t("adminPanel.newspaperEdit.sections.subtitle.placeholders.ar")} value={subtitleArab} onChange={(e) => setSubtitleArab(e.target.value)}/>
                                 <div className={'langCountry'}><img src={arb} alt=""/></div>
                             </div>
                         </div>
                     </div>
 
                     <button className="submitButton" onClick={handleEdit} disabled={isLoading}>
-                        {isLoading ? "Yüklənir..." : "Yadda saxla"}
+                        {isLoading ? t("adminPanel.newspaperEdit.buttons.saving") : t("adminPanel.newspaperEdit.buttons.save")}
                     </button>
                 </div>
             </div>

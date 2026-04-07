@@ -10,8 +10,10 @@ import openIcon from '/src/assets/accordionOpen.svg'
 import {useDeleteCarMutation, useGetAllCarQuery} from "../../../../services/userApi.jsx";
 import {CAR_CARD_IMAGES, CAR_IMAGES} from "../../../../contants.js";
 import showToast from "../../../../components/ToastMessage.js";
+import {useTranslation} from "react-i18next";
 
-function CarTable({language}) {
+function CarTableNew({language}) {
+    const {t} = useTranslation();
     const {data: getAllCars, refetch} = useGetAllCarQuery();
     const cars = getAllCars?.data;
     const [deleteCar, {isLoading: isDeleting}] = useDeleteCarMutation();
@@ -67,10 +69,10 @@ function CarTable({language}) {
             await deleteCar(selectedItem.id).unwrap();
             closeModal();
             refetch();
-            showToast("Avtomobil uğurla silindi", "success");
+            showToast(t('adminPanel.carTable.toast.deleteSuccess'), "success");
         } catch (err) {
             console.error("Silinmə xətası:", err);
-            showToast("Xəta baş verdi", "error");
+            showToast(t('adminPanel.carTable.toast.deleteError'), "error");
         }
     };
 
@@ -79,12 +81,12 @@ function CarTable({language}) {
             <div className={'Car-table-wrapper'}>
                 <div className="grid-header">
                     <div></div>
-                    <div>Şəkil</div>
-                    <div>Ad</div>
-                    <div>Tip</div>
-                    <div>Qiymət</div>
-                    <div>Təsvir</div>
-                    <div>Əməliyyat</div>
+                    <div>{t("adminPanel.carTable.headers.image")}</div>
+                    <div>{t("adminPanel.carTable.headers.name")}</div>
+                    <div>{t("adminPanel.carTable.headers.type")}</div>
+                    <div>{t("adminPanel.carTable.headers.price")}</div>
+                    <div>{t("adminPanel.carTable.headers.description")}</div>
+                    <div>{t("adminPanel.carTable.headers.actions")}</div>
                 </div>
 
                 <div className="grid-body">
@@ -136,11 +138,11 @@ function CarTable({language}) {
                 <div className="modal-overlay" onClick={closeModal}>
                     <div className="delete-modal-content" onClick={(e) => e.stopPropagation()}>
                         <img src={deleteImgModal} className={'deleteImg'} alt="delete"/>
-                        <h3>Bu avtomobili silmək istədiyinizə əminsiniz?</h3>
+                        <h3>{t("adminPanel.carTable.modal.confirmDelete")}</h3>
                         <div className="modal-actions">
-                            <button className="cancel" onClick={closeModal}>Ləğv et</button>
+                            <button className="cancel" onClick={closeModal}>{t("adminPanel.carTable.modal.cancel")}</button>
                             <button className="confirm" onClick={handleDelete} disabled={isDeleting}>
-                                {isDeleting ? "Silinir..." : "Sil"}
+                                {isDeleting ? t("adminPanel.carTable.modal.deleting") : t("adminPanel.carTable.modal.delete")}
                             </button>
                         </div>
                     </div>
@@ -150,4 +152,4 @@ function CarTable({language}) {
     );
 }
 
-export default CarTable;
+export default CarTableNew;

@@ -13,8 +13,10 @@ import closeIcon from '/src/assets/accordionClose.svg'
 import {useGetCarByIdQuery, usePutCarMutation} from "../../../services/userApi.jsx";
 import {CAR_CARD_IMAGES, CAR_IMAGES} from "../../../contants.js";
 import showToast from "../../../components/ToastMessage.js";
+import {useTranslation} from "react-i18next";
 
 function CarEdit() {
+    const {t} = useTranslation();
     const {id} = useParams();
     const navigate = useNavigate();
     const [isLoaded, setIsLoaded] = useState(false);
@@ -153,22 +155,22 @@ function CarEdit() {
             newImages.forEach(f => formData.append("CarImages", f.file));
 
         if (deleteImages.length > 0)
-            deleteImages.forEach(f => formData.append("DeleteImageIds", f));
+            deleteImages.forEach(f => formData.append("DeleteCarImages", f));
 
         if (addedVideos.length > 0)
             addedVideos.forEach(url => formData.append("CarVideos", url));
 
         if (deleteVideos.length > 0)
-            deleteVideos.forEach(url => formData.append("DeleteVideoIds", url));
+            deleteVideos.forEach(url => formData.append("DeleteCarVideos", url));
 
         try {
             await editCar(formData).unwrap();
-            showToast("Avtomobil uğurla yeniləndi", "success");
+            showToast(t("adminPanel.carEdit.toast.success"), "success");
             refetch();
             navigate('/admin/car');
         } catch (err) {
             console.error("Xəta:", err);
-            showToast("Xəta baş verdi", "error");
+            showToast(t("adminPanel.carEdit.toast.error"), "error");
         }
     };
 
@@ -177,15 +179,15 @@ function CarEdit() {
             <div className={'Car-edit'}>
                 <div className={"root"}>
                     <h2>
-                        <NavLink className="link" to="/admin/car">Avtomobillər</NavLink>
+                        <NavLink className="link" to="/admin/car">{t("adminPanel.carEdit.breadcrumb.root")}</NavLink>
                         <img src={rootIcon} alt=""/>
-                        Avtomobili redaktə et
+                        {t("adminPanel.carEdit.breadcrumb.current")}
                     </h2>
                 </div>
 
                 <div className={'Car-edit-head'}>
-                    <h1>Avtomobili redaktə et</h1>
-                    <p>Avtomobil məlumatlarını yeniləyin</p>
+                    <h1>{t("adminPanel.carEdit.title")}</h1>
+                    <p>{t("adminPanel.carEdit.description")}</p>
                 </div>
 
                 <div className={'Car-edit-main'}>
@@ -194,37 +196,37 @@ function CarEdit() {
                         {/* Ad */}
                         <div className={"dataDiv inputs"}>
                             <div className={'header'}>
-                                <h3>Avtomobilin adı</h3>
-                                <p>Avtomobilin adını bütün dillərdə daxil edin</p>
+                                <h3>{t("adminPanel.carEdit.sections.name.title")}</h3>
+                                <p>{t("adminPanel.carEdit.sections.name.desc")}</p>
                             </div>
                             <div className={'add-inputs'}>
                                 <div className="add-data">
                                     <div className={'add-input'}>
-                                        <input value={nameAz} onChange={(e) => setNameAz(e.target.value)} placeholder="Ad (AZ)"/>
+                                        <input value={nameAz} onChange={(e) => setNameAz(e.target.value)} placeholder={t("adminPanel.carEdit.sections.name.placeholders.az")}/>
                                     </div>
                                     <img src={aze} alt=""/>
                                 </div>
                                 <div className="add-data">
                                     <div className={'add-input'}>
-                                        <input value={nameRu} onChange={(e) => setNameRu(e.target.value)} placeholder="Ad (RU)"/>
+                                        <input value={nameRu} onChange={(e) => setNameRu(e.target.value)} placeholder={t("adminPanel.carEdit.sections.name.placeholders.ru")}/>
                                     </div>
                                     <img src={rus} alt=""/>
                                 </div>
                                 <div className="add-data">
                                     <div className={'add-input'}>
-                                        <input value={nameEn} onChange={(e) => setNameEn(e.target.value)} placeholder="Ad (EN)"/>
+                                        <input value={nameEn} onChange={(e) => setNameEn(e.target.value)} placeholder={t("adminPanel.carEdit.sections.name.placeholders.en")}/>
                                     </div>
                                     <img src={usa} alt=""/>
                                 </div>
                                 <div className="add-data">
                                     <div className={'add-input'}>
-                                        <input value={nameAlm} onChange={(e) => setNameAlm(e.target.value)} placeholder="Ad (DE)"/>
+                                        <input value={nameAlm} onChange={(e) => setNameAlm(e.target.value)} placeholder={t("adminPanel.carEdit.sections.name.placeholders.de")}/>
                                     </div>
                                     <img src={ger} alt=""/>
                                 </div>
                                 <div className="add-data">
                                     <div className={'add-input'}>
-                                        <input value={nameArab} onChange={(e) => setNameArab(e.target.value)} placeholder="Ad (AR)"/>
+                                        <input value={nameArab} onChange={(e) => setNameArab(e.target.value)} placeholder={t("adminPanel.carEdit.sections.name.placeholders.ar")}/>
                                     </div>
                                     <img src={arb} alt=""/>
                                 </div>
@@ -234,18 +236,18 @@ function CarEdit() {
                         {/* Tip + Qiymət */}
                         <div className={"dataDiv inputs"}>
                             <div className={'header'}>
-                                <h3>Tip və Qiymət</h3>
-                                <p>Avtomobilin növünü və qiymətini daxil edin</p>
+                                <h3>{t("adminPanel.carEdit.sections.typePrice.title")}</h3>
+                                <p>{t("adminPanel.carEdit.sections.typePrice.desc")}</p>
                             </div>
                             <div className={'add-inputs'}>
                                 <div className="add-data full">
                                     <div className={'add-input'}>
-                                        <input value={type} onChange={(e) => setType(e.target.value)} placeholder="Tip (məs: Sedan, SUV, Van...)"/>
+                                        <input value={type} onChange={(e) => setType(e.target.value)} placeholder={t("adminPanel.carEdit.sections.typePrice.placeholders.type")}/>
                                     </div>
                                 </div>
                                 <div className="add-data full">
                                     <div className={'add-input'}>
-                                        <input value={price} onChange={(e) => setPrice(e.target.value)} placeholder="Qiymət (məs: 150 AZN/gün)"/>
+                                        <input value={price} onChange={(e) => setPrice(e.target.value)} placeholder={t("adminPanel.carEdit.sections.typePrice.placeholders.price")}/>
                                     </div>
                                 </div>
                             </div>
@@ -254,8 +256,8 @@ function CarEdit() {
                         {/* Əsas Şəkil (Card Image) */}
                         <div className="dataDiv images">
                             <div className="header">
-                                <h3>Əsas Şəkil (Card Image)</h3>
-                                <p>Avtomobilin əsas şəklini yeniləyin</p>
+                                <h3>{t("adminPanel.carEdit.sections.cardImage.title")}</h3>
+                                <p>{t("adminPanel.carEdit.sections.cardImage.desc")}</p>
                             </div>
                             <div className="uploadBox">
                                 <input
@@ -274,7 +276,7 @@ function CarEdit() {
                                 />
                                 <label htmlFor="cardImage" className="uploadArea">
                                     <img src={uploadIcon} alt="upload"/>
-                                    <p>Şəkil seçin və ya sürükləyin</p>
+                                    <p>{t("adminPanel.carEdit.uploadHint")}</p>
                                 </label>
                             </div>
                             {(cardImagePreview || oldCardImage) && (
@@ -297,8 +299,8 @@ function CarEdit() {
                         {/* Şəkillər */}
                         <div className="dataDiv images multi">
                             <div className="header">
-                                <h3>Şəkillər</h3>
-                                <p>Avtomobilin digər şəkillərini əlavə edin və ya mövcudları silin</p>
+                                <h3>{t("adminPanel.carEdit.sections.images.title")}</h3>
+                                <p>{t("adminPanel.carEdit.sections.images.desc")}</p>
                             </div>
                             <div className="uploadBox">
                                 <input
@@ -311,11 +313,11 @@ function CarEdit() {
                                 />
                                 <label htmlFor="carImages" className="uploadArea">
                                     <img src={uploadIcon} alt="upload"/>
-                                    <p>Şəkil seçin və ya sürükləyin</p>
+                                    <p>{t("adminPanel.carEdit.uploadHint")}</p>
                                 </label>
                             </div>
                             <div className="uploadedHeader" onClick={() => setImagesOpen((p) => !p)}>
-                                <span>Şəkillər ({oldImages.length + newImages.length})</span>
+                                <span>{t("adminPanel.carEdit.sections.images.uploadedLength")} ({oldImages.length + newImages.length})</span>
                                 <img src={imagesOpen ? openIcon : closeIcon} alt="toggle"/>
                             </div>
                             {imagesOpen && (
@@ -350,19 +352,19 @@ function CarEdit() {
                         {/* Videolar */}
                         <div className="dataDiv images multi">
                             <div className="header">
-                                <h3>Videolar</h3>
-                                <p>Video URL-lərini əlavə edin və ya silin</p>
+                                <h3>{t("adminPanel.carEdit.sections.videos.title")}</h3>
+                                <p>{t("adminPanel.carEdit.sections.videos.desc")}</p>
                             </div>
                             <div className="video-input-row">
                                 <div className="add-input">
                                     <input
-                                        placeholder="Video URL daxil edin"
+                                        placeholder={t("adminPanel.carEdit.sections.videos.placeholder")}
                                         value={videoInput}
                                         onChange={(e) => setVideoInput(e.target.value)}
                                         onKeyDown={(e) => e.key === "Enter" && addVideo()}
                                     />
                                 </div>
-                                <button type="button" className="video-add-btn" onClick={addVideo}>Əlavə et</button>
+                                <button type="button" className="video-add-btn" onClick={addVideo}>{t("adminPanel.carEdit.sections.videos.addBtn")}</button>
                             </div>
                             {videos.length > 0 && (
                                 <div className="uploadedList">
@@ -383,35 +385,35 @@ function CarEdit() {
                     {/* Təsvir */}
                     <div className={'tours-desc'}>
                         <div className={'header'}>
-                            <h3>Təsvir</h3>
-                            <p>Avtomobilin təsvirini bütün dillərdə daxil edin</p>
+                            <h3>{t("adminPanel.carEdit.sections.description.title")}</h3>
+                            <p>{t("adminPanel.carEdit.sections.description.desc")}</p>
                         </div>
                         <div className={'tours-desc-data'}>
                             <div className={'tours-desc-texts'}>
-                                <textarea value={descAz} onChange={(e) => setDescAz(e.target.value)} placeholder="Təsvir (AZ)"/>
+                                <textarea value={descAz} onChange={(e) => setDescAz(e.target.value)} placeholder={t("adminPanel.carEdit.sections.description.placeholders.az")}/>
                                 <div className={'langCountry'}><img src={aze} alt=""/></div>
                             </div>
                             <div className={'tours-desc-texts'}>
-                                <textarea value={descRu} onChange={(e) => setDescRu(e.target.value)} placeholder="Təsvir (RU)"/>
+                                <textarea value={descRu} onChange={(e) => setDescRu(e.target.value)} placeholder={t("adminPanel.carEdit.sections.description.placeholders.ru")}/>
                                 <div className={'langCountry'}><img src={rus} alt=""/></div>
                             </div>
                             <div className={'tours-desc-texts'}>
-                                <textarea value={descEn} onChange={(e) => setDescEn(e.target.value)} placeholder="Təsvir (EN)"/>
+                                <textarea value={descEn} onChange={(e) => setDescEn(e.target.value)} placeholder={t("adminPanel.carEdit.sections.description.placeholders.en")}/>
                                 <div className={'langCountry'}><img src={usa} alt=""/></div>
                             </div>
                             <div className={'tours-desc-texts'}>
-                                <textarea value={descAlm} onChange={(e) => setDescAlm(e.target.value)} placeholder="Təsvir (DE)"/>
+                                <textarea value={descAlm} onChange={(e) => setDescAlm(e.target.value)} placeholder={t("adminPanel.carEdit.sections.description.placeholders.de")}/>
                                 <div className={'langCountry'}><img src={ger} alt=""/></div>
                             </div>
                             <div className={'tours-desc-texts'}>
-                                <textarea value={descArab} onChange={(e) => setDescArab(e.target.value)} placeholder="Təsvir (AR)"/>
+                                <textarea value={descArab} onChange={(e) => setDescArab(e.target.value)} placeholder={t("adminPanel.carEdit.sections.description.placeholders.ar")}/>
                                 <div className={'langCountry'}><img src={arb} alt=""/></div>
                             </div>
                         </div>
                     </div>
 
                     <button className="submitButton" onClick={handleEdit} disabled={isLoading}>
-                        {isLoading ? "Yüklənir..." : "Yadda saxla"}
+                        {isLoading ? t("adminPanel.carEdit.buttons.saving") : t("adminPanel.carEdit.buttons.save")}
                     </button>
                 </div>
             </div>

@@ -224,6 +224,148 @@
             }
           }
 
+          &.multi {
+            display: flex;
+            flex-direction: column;
+
+            .header {
+              margin-bottom: 8px;
+              padding: 11px 15px;
+              border: 0.5px solid #D4D4D4;
+              border-radius: 5px;
+
+              h3 {
+                font-weight: 500;
+                font-size: 14px;
+                margin-bottom: 8px;
+              }
+
+              p {
+                font-weight: 400;
+                font-size: 12px;
+                color: #7E7E7E;
+                margin: 0;
+              }
+            }
+
+            .uploadBox {
+              border: 1.5px dashed #d4d4d4;
+              border-radius: 8px;
+              height: 130px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              text-align: center;
+              transition: all 0.3s ease;
+              background: transparent;
+
+              .uploadArea {
+                cursor: pointer;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                color: #7e7e7e;
+
+                img {
+                  width: 32px;
+                  height: 32px;
+                  opacity: 0.6;
+                  margin-bottom: 8px;
+                }
+
+                p { font-size: 13px; line-height: 1.3; }
+
+                &:hover {
+                  color: #0a4080;
+                  img { opacity: 1; }
+                }
+              }
+            }
+
+            .uploadedHeader {
+              border: 1px solid #D4D4D4;
+              border-radius: 6px;
+              margin-top: 12px;
+              padding: 8px 14px;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              font-size: 13px;
+              cursor: pointer;
+              background: #fff;
+
+              &:hover { background: #f7f9fc; }
+
+              img {
+                width: 14px;
+                height: 14px;
+                opacity: 0.7;
+              }
+            }
+
+            .uploadedList {
+              border: 1px solid #ebebeb;
+              border-top: none;
+              border-radius: 0 0 6px 6px;
+              padding: 8px 0;
+              background: #fff;
+              display: flex;
+              flex-direction: column;
+              gap: 6px;
+              max-height: 200px;
+              overflow-y: auto;
+
+              &::-webkit-scrollbar { width: 4px; }
+              &::-webkit-scrollbar-track { background: #ebebeb; border-radius: 10px; }
+              &::-webkit-scrollbar-thumb { background-color: #1d2b70; border-radius: 10px; }
+
+              .uploadedItem {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 6px 12px;
+                border-bottom: 1px solid #f1f1f1;
+
+                &:last-child { border-bottom: none; }
+
+                .fileLeft {
+                  display: flex;
+                  align-items: center;
+                  gap: 8px;
+
+                  .filePreview {
+                    width: 36px;
+                    height: 36px;
+                    border-radius: 5px;
+                    object-fit: cover;
+                    border: 1px solid #e0e0e0;
+                  }
+
+                  span {
+                    font-size: 13px;
+                    color: #444;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    max-width: 180px;
+                  }
+                }
+
+                button {
+                  border: none;
+                  background: none;
+                  font-size: 16px;
+                  color: #888;
+                  cursor: pointer;
+                  transition: 0.2s;
+
+                  &:hover { color: #c00; }
+                }
+              }
+            }
+          }
+
         }
 
         .dataDiv2 {

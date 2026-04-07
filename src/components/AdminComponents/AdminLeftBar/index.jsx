@@ -26,8 +26,8 @@ function AdminLeftBar() {
         { path: "/admin/otel", icon: hotelIcon, label: t("adminPanel.leftBar.menu.hotel") },
         { path: "/admin/serh", icon: serhIcon, label: t("adminPanel.leftBar.menu.comment") },
         { path: "/admin/contact", icon: contactIcon, label: t("adminPanel.leftBar.menu.contact") },
-        { path: "/admin/car", icon: carIcon, label: t("adminPanel.leftBar.menu.contact") },
-        { path: "/admin/newspaper", icon: newsIcon, label: t("adminPanel.leftBar.menu.contact") },
+        { path: "/admin/car", icon: carIcon, label: t("adminPanel.leftBar.menu.car") },
+        { path: "/admin/newspaper", icon: newsIcon, label: t("adminPanel.leftBar.menu.newspaper") },
     ];
     const handleLogout = () => {
         // Bütün cookieləri sil
