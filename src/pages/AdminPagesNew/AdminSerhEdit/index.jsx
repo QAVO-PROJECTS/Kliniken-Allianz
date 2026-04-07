@@ -24,6 +24,8 @@ function SerhEdit() {
     const [descAz, setDescAz] = useState("");
     const [descRu, setDescRu] = useState("");
     const [descEn, setDescEn] = useState("");
+    const [descAlm, setDescAlm] = useState("");
+    const [descArab, setDescArab] = useState("");
     const [selectedFile, setSelectedFile] = useState(null);
     const [isDragging, setIsDragging] = useState(false);
     useEffect(() => {
@@ -33,6 +35,8 @@ function SerhEdit() {
             setDescAz(view.reviewText || "");
             setDescRu(view.reviewTextRu || "");
             setDescEn(view.reviewTextEng || "");
+            setDescAlm(view.reviewTextAlm || "");
+            setDescArab(view.reviewTextArab || "");
         }
     }, [view]);
     const handleFileChange = (e) => {
@@ -71,6 +75,8 @@ function SerhEdit() {
             formData.append("reviewText", descAz);
             formData.append("reviewTextRu", descRu);
             formData.append("reviewTextEng", descEn);
+            formData.append("reviewTextAlm", descAlm);
+            formData.append("reviewTextArab", descArab);
             formData.append("country", country);
             formData.append("rating", 1); // sabit
 
@@ -292,22 +298,30 @@ function SerhEdit() {
                                         <img src={usa} alt="" />
                                     </div>
                                 </div>
-                                {/*<div className={'add-data'}>*/}
-                                {/*    <div className={'add-input'}>*/}
-                                {/*        <input placeholder={'Travmatologiya'}/>*/}
-                                {/*    </div>*/}
-                                {/*    <div className={'langCountry'}>*/}
-                                {/*        <img src={ger} alt="" />*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
-                                {/*<div className={'add-data'}>*/}
-                                {/*    <div className={'add-input'}>*/}
-                                {/*        <input placeholder={'Travmatologiya'}/>*/}
-                                {/*    </div>*/}
-                                {/*    <div className={'langCountry'}>*/}
-                                {/*        <img src={arb} alt="" />*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
+                                <div className={'add-data'}>
+                                    <div className={'add-input'}>
+                                        <input
+                                            value={descAlm}
+                                            onChange={(e) => setDescAlm(e.target.value)}
+                                            placeholder={t(`adminPanel.commentEdit.sections.description.placeholders.alm`)}
+                                        />
+                                    </div>
+                                    <div className={'langCountry'}>
+                                        <img src={ger} alt="" />
+                                    </div>
+                                </div>
+                                <div className={'add-data'}>
+                                    <div className={'add-input'}>
+                                        <input
+                                            value={descArab}
+                                            onChange={(e) => setDescArab(e.target.value)}
+                                            placeholder={t(`adminPanel.commentEdit.sections.description.placeholders.arab`)}
+                                        />
+                                    </div>
+                                    <div className={'langCountry'}>
+                                        <img src={arb} alt="" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
 

@@ -347,22 +347,22 @@ function ClinicEdit() {
                                         <img src={usa} alt="" />
                                     </div>
                                 </div>
-                                {/*<div className={'add-data'}>*/}
-                                {/*    <div className={'add-input'}>*/}
-                                {/*        <input placeholder={'Travmatologiya'}/>*/}
-                                {/*    </div>*/}
-                                {/*    <div className={'langCountry'}>*/}
-                                {/*        <img src={ger} alt="" />*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
-                                {/*<div className={'add-data'}>*/}
-                                {/*    <div className={'add-input'}>*/}
-                                {/*        <input placeholder={'Travmatologiya'}/>*/}
-                                {/*    </div>*/}
-                                {/*    <div className={'langCountry'}>*/}
-                                {/*        <img src={arb} alt="" />*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
+                                <div className={'add-data'}>
+                                    <div className={'add-input'}>
+                                        <input value={nameAlm} onChange={(e)=>setNameAlm(e.target.value)} placeholder={t("adminPanel.clinicEdit.placeholders.nameAlm")} />
+                                    </div>
+                                    <div className={'langCountry'}>
+                                        <img src={ger} alt="" />
+                                    </div>
+                                </div>
+                                <div className={'add-data'}>
+                                    <div className={'add-input'}>
+                                        <input value={nameArab} onChange={(e)=>setNameArab(e.target.value)} placeholder={t("adminPanel.clinicEdit.placeholders.nameArab")} />
+                                    </div>
+                                    <div className={'langCountry'}>
+                                        <img src={arb} alt="" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div className="dataDiv images">
@@ -441,18 +441,18 @@ function ClinicEdit() {
                                     <img src={usa} alt=""/>
                                 </div>
                             </div>
-                            {/*<div className={'tours-desc-texts'}>*/}
-                            {/*    <textarea value={descAlm} onChange={(e)=>setDescAlm(e.target.value)} placeholder={t("adminPanel.clinicEdit.placeholders.descAlm")} />*/}
-                            {/*    <div className={'langCountry'}>*/}
-                            {/*        <img src={ger} alt=""/>*/}
-                            {/*    </div>*/}
-                            {/*</div>*/}
-                            {/*<div className={'tours-desc-texts'}>*/}
-                            {/*    <textarea value={descArab} onChange={(e)=>setDescArab(e.target.value)} placeholder={t("adminPanel.clinicEdit.placeholders.descArab")} />*/}
-                            {/*    <div className={'langCountry'}>*/}
-                            {/*        <img src={arb} alt=""/>*/}
-                            {/*    </div>*/}
-                            {/*</div>*/}
+                            <div className={'tours-desc-texts'}>
+                                <textarea value={descAlm} onChange={(e)=>setDescAlm(e.target.value)} placeholder={t("adminPanel.clinicEdit.placeholders.descAlm")} />
+                                <div className={'langCountry'}>
+                                    <img src={ger} alt=""/>
+                                </div>
+                            </div>
+                            <div className={'tours-desc-texts'}>
+                                <textarea value={descArab} onChange={(e)=>setDescArab(e.target.value)} placeholder={t("adminPanel.clinicEdit.placeholders.descArab")} />
+                                <div className={'langCountry'}>
+                                    <img src={arb} alt=""/>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div className={'clinic-edit-data'}>
@@ -568,22 +568,22 @@ function ClinicEdit() {
                                         <img src={usa} alt="" />
                                     </div>
                                 </div>
-                                {/*<div className={'add-data'}>*/}
-                                {/*    <div className={'add-input'}>*/}
-                                {/*        <input placeholder={t("adminPanel.clinicEdit.placeholders.locationAlm")} value={locationAlm} onChange={(e) => setLocationAlm(e.target.value)} />*/}
-                                {/*    </div>*/}
-                                {/*    <div className={'langCountry'}>*/}
-                                {/*        <img src={ger} alt="" />*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
-                                {/*<div className={'add-data'}>*/}
-                                {/*    <div className={'add-input'}>*/}
-                                {/*        <input placeholder={t("adminPanel.clinicEdit.placeholders.locationArab")} value={locationArab} onChange={(e) => setLocationArab(e.target.value)} />*/}
-                                {/*    </div>*/}
-                                {/*    <div className={'langCountry'}>*/}
-                                {/*        <img src={arb} alt="" />*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
+                                <div className={'add-data'}>
+                                    <div className={'add-input'}>
+                                        <input placeholder={t("adminPanel.clinicEdit.placeholders.locationAlm")} value={locationAlm} onChange={(e) => setLocationAlm(e.target.value)} />
+                                    </div>
+                                    <div className={'langCountry'}>
+                                        <img src={ger} alt="" />
+                                    </div>
+                                </div>
+                                <div className={'add-data'}>
+                                    <div className={'add-input'}>
+                                        <input placeholder={t("adminPanel.clinicEdit.placeholders.locationArab")} value={locationArab} onChange={(e) => setLocationArab(e.target.value)} />
+                                    </div>
+                                    <div className={'langCountry'}>
+                                        <img src={arb} alt="" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div className="dataDiv images multi">

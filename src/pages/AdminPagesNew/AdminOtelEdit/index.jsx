@@ -55,9 +55,13 @@ function OtelEdit() {
     const [name, setName] = useState("");
     const [nameRu, setNameRu] = useState("");
     const [nameEng, setNameEng] = useState("");
+    const [nameAlm, setNameAlm] = useState("");
+    const [nameArab, setNameArab] = useState("");
     const [location, setLocation] = useState("");
     const [locationRu, setLocationRu] = useState("");
     const [locationEng, setLocationEng] = useState("");
+    const [locationAlm, setLocationAlm] = useState("");
+    const [locationArab, setLocationArab] = useState("");
 
     // 🔹 Gələn datanı inputlara yaz
     useEffect(() => {
@@ -65,9 +69,13 @@ function OtelEdit() {
             setName(otel.name || "");
             setNameRu(otel.nameRu || "");
             setNameEng(otel.nameEng || "");
+            setNameAlm(otel.nameAlm || "");
+            setNameArab(otel.nameArab || "");
             setLocation(otel.location || "");
             setLocationRu(otel.locationRu || "");
             setLocationEng(otel.locationEng || "");
+            setLocationAlm(otel.locationAlm || "");
+            setLocationArab(otel.locationArab || "");
             setHotelLink(otel.otelLink || "");
             setRaiting(otel.raiting || 0);
         }
@@ -84,9 +92,13 @@ function OtelEdit() {
         formData.append("name", name);
         formData.append("nameRu", nameRu);
         formData.append("nameEng", nameEng);
+        formData.append("nameAlm", nameAlm);
+        formData.append("nameArab", nameArab);
         formData.append("location", location);
         formData.append("locationRu", locationRu);
         formData.append("locationEng", locationEng);
+        formData.append("locationAlm", locationAlm);
+        formData.append("locationArab", locationArab);
 
         // 🔸 Əgər rating dəyişməyibsə backenddəki dəyəri göndər
         const raitingToSend = raiting && raiting > 0 ? raiting : otel?.raiting || 0;
@@ -156,22 +168,22 @@ function OtelEdit() {
                                         <img src={usa} alt="" />
                                     </div>
                                 </div>
-                                {/*<div className={'add-data'}>*/}
-                                {/*    <div className={'add-input'}>*/}
-                                {/*        <input placeholder={'Travmatologiya'}/>*/}
-                                {/*    </div>*/}
-                                {/*    <div className={'langCountry'}>*/}
-                                {/*        <img src={ger} alt="" />*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
-                                {/*<div className={'add-data'}>*/}
-                                {/*    <div className={'add-input'}>*/}
-                                {/*        <input placeholder={'Travmatologiya'}/>*/}
-                                {/*    </div>*/}
-                                {/*    <div className={'langCountry'}>*/}
-                                {/*        <img src={arb} alt="" />*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
+                                <div className={'add-data'}>
+                                    <div className={'add-input'}>
+                                        <input value={nameAlm} onChange={(e) => setNameAlm(e.target.value)} placeholder={t(`adminPanel.hotelEdit.sections.name.placeholders.alm`)} />
+                                    </div>
+                                    <div className={'langCountry'}>
+                                        <img src={ger} alt="" />
+                                    </div>
+                                </div>
+                                <div className={'add-data'}>
+                                    <div className={'add-input'}>
+                                        <input value={nameArab} onChange={(e) => setNameArab(e.target.value)} placeholder={t(`adminPanel.hotelEdit.sections.name.placeholders.arab`)} />
+                                    </div>
+                                    <div className={'langCountry'}>
+                                        <img src={arb} alt="" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div className="dataDiv images">
@@ -247,22 +259,22 @@ function OtelEdit() {
                                         <img src={usa} alt="" />
                                     </div>
                                 </div>
-                                {/*<div className={'add-data'}>*/}
-                                {/*    <div className={'add-input'}>*/}
-                                {/*        <input placeholder={'Travmatologiya'}/>*/}
-                                {/*    </div>*/}
-                                {/*    <div className={'langCountry'}>*/}
-                                {/*        <img src={ger} alt="" />*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
-                                {/*<div className={'add-data'}>*/}
-                                {/*    <div className={'add-input'}>*/}
-                                {/*        <input placeholder={'Travmatologiya'}/>*/}
-                                {/*    </div>*/}
-                                {/*    <div className={'langCountry'}>*/}
-                                {/*        <img src={arb} alt="" />*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
+                                <div className={'add-data'}>
+                                    <div className={'add-input'}>
+                                        <input value={locationAlm} maxLength={50} onChange={(e) => setLocationAlm(e.target.value)} placeholder={t(`adminPanel.hotelEdit.sections.country.placeholders.alm`)} />
+                                    </div>
+                                    <div className={'langCountry'}>
+                                        <img src={ger} alt="" />
+                                    </div>
+                                </div>
+                                <div className={'add-data'}>
+                                    <div className={'add-input'}>
+                                        <input value={locationArab} maxLength={50} onChange={(e) => setLocationArab(e.target.value)} placeholder={t(`adminPanel.hotelEdit.sections.country.placeholders.arab`)} />
+                                    </div>
+                                    <div className={'langCountry'}>
+                                        <img src={arb} alt="" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div className="dataDiv2 inputs">

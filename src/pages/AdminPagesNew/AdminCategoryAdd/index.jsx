@@ -37,7 +37,9 @@ function CategoryAdd() {
     const [inputs, setInputs] = useState({
         az: "",
         ru: "",
-        en: ""
+        en: "",
+        de: "",
+        ar: ""
     });
     // 🔹 input dəyişiklikləri üçün funksiya
     const handleInputChange = (lang, value) => {
@@ -69,11 +71,13 @@ function CategoryAdd() {
             formData.append("name", inputs.az);
             formData.append("nameRu", inputs.ru);
             formData.append("nameEng", inputs.en);
+            formData.append("nameAlm", inputs.de);
+            formData.append("nameArab", inputs.ar);
             const iconBlob = await getImageBlob(icons[activeIcon]);
             formData.append("categoryImage", iconBlob, `icon_${activeIcon}.svg`);
             await postCategory(formData).unwrap();
             showToast(t("adminPanel.categoryAdd.toast.success"), "success");
-            setInputs({ az: "", ru: "", en: "" });
+            setInputs({ az: "", ru: "", en: "", de: "", ar: "" });
             setActiveIcon(null);
             navigate('/admin/category');
         } catch (err) {
@@ -139,22 +143,30 @@ function CategoryAdd() {
                                         <img src={usa} alt="" />
                                     </div>
                                 </div>
-                                {/*<div className={'add-data'}>*/}
-                                {/*    <div className={'add-input'}>*/}
-                                {/*        <input placeholder={'Travmatologiya'}/>*/}
-                                {/*    </div>*/}
-                                {/*    <div className={'langCountry'}>*/}
-                                {/*        <img src={ger} alt="" />*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
-                                {/*<div className={'add-data'}>*/}
-                                {/*    <div className={'add-input'}>*/}
-                                {/*        <input placeholder={'Travmatologiya'}/>*/}
-                                {/*    </div>*/}
-                                {/*    <div className={'langCountry'}>*/}
-                                {/*        <img src={arb} alt="" />*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
+                                <div className={'add-data'}>
+                                    <div className={'add-input'}>
+                                        <input
+                                            value={inputs.de}
+                                            onChange={e => handleInputChange("de", e.target.value)}
+                                            placeholder={t("adminPanel.categoryAdd.placeholders.de")}
+                                        />
+                                    </div>
+                                    <div className={'langCountry'}>
+                                        <img src={ger} alt="" />
+                                    </div>
+                                </div>
+                                <div className={'add-data'}>
+                                    <div className={'add-input'}>
+                                        <input
+                                            value={inputs.ar}
+                                            onChange={e => handleInputChange("ar", e.target.value)}
+                                            placeholder={t("adminPanel.categoryAdd.placeholders.ar")}
+                                        />
+                                    </div>
+                                    <div className={'langCountry'}>
+                                        <img src={arb} alt="" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div className={"dataDiv images"}>

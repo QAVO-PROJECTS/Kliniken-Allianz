@@ -51,12 +51,16 @@ const navigate = useNavigate();
     const [hotelNames, setHotelNames] = useState({
         az: "",
         ru: "",
-        en: ""
+        en: "",
+        alm: "",
+        arab: ""
     });
     const [countryNames, setCountryNames] = useState({
         az: "",
         ru: "",
-        en: ""
+        en: "",
+        alm: "",
+        arab: ""
     });
 
     const handleSubmit = async () => {
@@ -73,9 +77,13 @@ const navigate = useNavigate();
         formData.append("name", hotelNames.az);
         formData.append("nameRu", hotelNames.ru);
         formData.append("nameEng", hotelNames.en);
+        formData.append("nameAlm", hotelNames.alm);
+        formData.append("nameArab", hotelNames.arab);
         formData.append("location", countryNames.az);
         formData.append("locationRu", countryNames.ru);
         formData.append("locationEng", countryNames.en);
+        formData.append("locationAlm", countryNames.alm);
+        formData.append("locationArab", countryNames.arab);
         formData.append("raiting", Number(selectedStars)); // ⭐ dolu ulduz sayı
         formData.append("otelLink", hotelLink);
         formData.append("cardImage", selectedFile);
@@ -85,8 +93,8 @@ const navigate = useNavigate();
             console.log("Otel əlavə olundu:", response);
             showToast(t("adminPanel.hotelAdd.toast.success"), "success");
             // 🔹 Form reset
-            setHotelNames({ az: "", ru: "", en: "" });
-            setCountryNames({ az: "", ru: "", en: "" });
+            setHotelNames({ az: "", ru: "", en: "", alm: "", arab: "" });
+            setCountryNames({ az: "", ru: "", en: "", alm: "", arab: "" });
             setHotelLink("");
             setRating(null);
             setSelectedFile(null);
@@ -163,22 +171,34 @@ const navigate = useNavigate();
                                         <img src={usa} alt="" />
                                     </div>
                                 </div>
-                                {/*<div className={'add-data'}>*/}
-                                {/*    <div className={'add-input'}>*/}
-                                {/*        <input placeholder={'Travmatologiya'}/>*/}
-                                {/*    </div>*/}
-                                {/*    <div className={'langCountry'}>*/}
-                                {/*        <img src={ger} alt="" />*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
-                                {/*<div className={'add-data'}>*/}
-                                {/*    <div className={'add-input'}>*/}
-                                {/*        <input placeholder={'Travmatologiya'}/>*/}
-                                {/*    </div>*/}
-                                {/*    <div className={'langCountry'}>*/}
-                                {/*        <img src={arb} alt="" />*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
+                                <div className={'add-data'}>
+                                    <div className={'add-input'}>
+                                        <input
+                                            placeholder={t(`adminPanel.hotelAdd.sections.name.placeholders.alm`)}
+                                            value={hotelNames.alm}
+                                            onChange={(e) =>
+                                                setHotelNames((prev) => ({ ...prev, alm: e.target.value }))
+                                            }
+                                        />
+                                    </div>
+                                    <div className={'langCountry'}>
+                                        <img src={ger} alt="" />
+                                    </div>
+                                </div>
+                                <div className={'add-data'}>
+                                    <div className={'add-input'}>
+                                        <input
+                                            placeholder={t(`adminPanel.hotelAdd.sections.name.placeholders.arab`)}
+                                            value={hotelNames.arab}
+                                            onChange={(e) =>
+                                                setHotelNames((prev) => ({ ...prev, arab: e.target.value }))
+                                            }
+                                        />
+                                    </div>
+                                    <div className={'langCountry'}>
+                                        <img src={arb} alt="" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div className="dataDiv images">
@@ -273,22 +293,36 @@ const navigate = useNavigate();
                                         <img src={usa} alt="" />
                                     </div>
                                 </div>
-                                {/*<div className={'add-data'}>*/}
-                                {/*    <div className={'add-input'}>*/}
-                                {/*        <input placeholder={'Travmatologiya'}/>*/}
-                                {/*    </div>*/}
-                                {/*    <div className={'langCountry'}>*/}
-                                {/*        <img src={ger} alt="" />*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
-                                {/*<div className={'add-data'}>*/}
-                                {/*    <div className={'add-input'}>*/}
-                                {/*        <input placeholder={'Travmatologiya'}/>*/}
-                                {/*    </div>*/}
-                                {/*    <div className={'langCountry'}>*/}
-                                {/*        <img src={arb} alt="" />*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
+                                <div className={'add-data'}>
+                                    <div className={'add-input'}>
+                                        <input
+                                            placeholder={t(`adminPanel.hotelAdd.sections.country.placeholders.alm`)}
+                                            value={countryNames.alm}
+                                            maxLength={50}
+                                            onChange={(e) =>
+                                                setCountryNames((prev) => ({ ...prev, alm: e.target.value }))
+                                            }
+                                        />
+                                    </div>
+                                    <div className={'langCountry'}>
+                                        <img src={ger} alt="" />
+                                    </div>
+                                </div>
+                                <div className={'add-data'}>
+                                    <div className={'add-input'}>
+                                        <input
+                                            placeholder={t(`adminPanel.hotelAdd.sections.country.placeholders.arab`)}
+                                            value={countryNames.arab}
+                                            maxLength={50}
+                                            onChange={(e) =>
+                                                setCountryNames((prev) => ({ ...prev, arab: e.target.value }))
+                                            }
+                                        />
+                                    </div>
+                                    <div className={'langCountry'}>
+                                        <img src={arb} alt="" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div className="dataDiv2 inputs">

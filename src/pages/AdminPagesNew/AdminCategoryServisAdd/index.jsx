@@ -26,12 +26,16 @@ function CategoryServisAdd() {
         az: "",
         ru: "",
         en: "",
+        de: "",
+        ar: "",
     });
 
     const [descriptions, setDescriptions] = useState({
         az: "",
         ru: "",
         en: "",
+        de: "",
+        ar: "",
     });
 
     // 🔹 seçilmiş klinikalar
@@ -69,9 +73,13 @@ function CategoryServisAdd() {
             formData.append("name", inputs.az);
             formData.append("nameRu", inputs.ru);
             formData.append("nameEng", inputs.en);
+            formData.append("nameAlm", inputs.de);
+            formData.append("nameArab", inputs.ar);
             formData.append("description", descriptions.az);
             formData.append("descriptionRu", descriptions.ru);
             formData.append("descriptionEng", descriptions.en);
+            formData.append("descriptionAlm", descriptions.de);
+            formData.append("descriptionArab", descriptions.ar);
 
             // 🔹 Hər bir clinic ID-ni ayrıca əlavə et
             selectedClinics.forEach((clinicId) => {
@@ -82,8 +90,8 @@ function CategoryServisAdd() {
             showToast(t("adminPanel.categoryServisAdd.toast.success"), "success");
 
             // reset
-            setInputs({ az: "", ru: "", en: "" });
-            setDescriptions({ az: "", ru: "", en: "" });
+            setInputs({ az: "", ru: "", en: "", de: "", ar: "" });
+            setDescriptions({ az: "", ru: "", en: "", de: "", ar: "" });
             setSelectedClinics([]);
             navigate(`/admin/category/servis/${id}`)
         } catch (err) {
@@ -163,22 +171,30 @@ function CategoryServisAdd() {
                                         <img src={usa} alt="" />
                                     </div>
                                 </div>
-                                {/*<div className={'add-data'}>*/}
-                                {/*    <div className={'add-input'}>*/}
-                                {/*        <input placeholder={'Travmatologiya'}/>*/}
-                                {/*    </div>*/}
-                                {/*    <div className={'langCountry'}>*/}
-                                {/*        <img src={ger} alt=""/>*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
-                                {/*<div className={'add-data'}>*/}
-                                {/*    <div className={'add-input'}>*/}
-                                {/*        <input placeholder={'Travmatologiya'}/>*/}
-                                {/*    </div>*/}
-                                {/*    <div className={'langCountry'}>*/}
-                                {/*        <img src={arb} alt=""/>*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
+                                <div className={'add-data'}>
+                                    <div className={'add-input'}>
+                                        <input
+                                            value={inputs.de}
+                                            onChange={e => handleInputChange("de", e.target.value)}
+                                            placeholder={t("adminPanel.categoryServisAdd.placeholders.nameDe")}
+                                        />
+                                    </div>
+                                    <div className={'langCountry'}>
+                                        <img src={ger} alt=""/>
+                                    </div>
+                                </div>
+                                <div className={'add-data'}>
+                                    <div className={'add-input'}>
+                                        <input
+                                            value={inputs.ar}
+                                            onChange={e => handleInputChange("ar", e.target.value)}
+                                            placeholder={t("adminPanel.categoryServisAdd.placeholders.nameAr")}
+                                        />
+                                    </div>
+                                    <div className={'langCountry'}>
+                                        <img src={arb} alt=""/>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div className={"dataDiv images"}>
@@ -242,18 +258,26 @@ function CategoryServisAdd() {
                                     <img src={usa} alt="" />
                                 </div>
                             </div>
-                            {/*<div className={'category-servis-desc-texts'}>*/}
-                            {/*    <textarea  placeholder={'Təsvir əlavə edin...'}/>*/}
-                            {/*    <div className={'langCountry'}>*/}
-                            {/*        <img src={ger} alt=""/>*/}
-                            {/*    </div>*/}
-                            {/*</div>*/}
-                            {/*<div className={'category-servis-desc-texts'}>*/}
-                            {/*    <textarea  placeholder={'Təsvir əlavə edin...'}/>*/}
-                            {/*    <div className={'langCountry'}>*/}
-                            {/*        <img src={arb} alt=""/>*/}
-                            {/*    </div>*/}
-                            {/*</div>*/}
+                            <div className={'category-servis-desc-texts'}>
+                                <textarea
+                                    value={descriptions.de}
+                                    onChange={e => handleDescriptionChange("de", e.target.value)}
+                                    placeholder={t("adminPanel.categoryServisAdd.placeholders.descDe")}
+                                />
+                                <div className={'langCountry'}>
+                                    <img src={ger} alt=""/>
+                                </div>
+                            </div>
+                            <div className={'category-servis-desc-texts'}>
+                                <textarea
+                                    value={descriptions.ar}
+                                    onChange={e => handleDescriptionChange("ar", e.target.value)}
+                                    placeholder={t("adminPanel.categoryServisAdd.placeholders.descAr")}
+                                />
+                                <div className={'langCountry'}>
+                                    <img src={arb} alt=""/>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <button onClick={handleSubmit} disabled={isLoading}>

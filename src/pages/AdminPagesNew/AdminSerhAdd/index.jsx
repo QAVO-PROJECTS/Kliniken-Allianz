@@ -18,7 +18,7 @@ function SerhAdd() {
     const navigate = useNavigate();
     const [postSerh, { isLoading }] = usePostCustomerViewMutation();
     const [names, setNames] = useState({ az: "", ru: "", en: "" });
-    const [comments, setComments] = useState({ az: "", ru: "", en: "" });
+    const [comments, setComments] = useState({ az: "", ru: "", en: "", alm: "", arab: "" });
     const [countries, setCountries] = useState({ az: "", ru: "", en: "" });
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -63,6 +63,8 @@ function SerhAdd() {
             formData.append("reviewText", comments.az);
             formData.append("reviewTextRu", comments.ru);
             formData.append("reviewTextEng", comments.en);
+            formData.append("reviewTextAlm", comments.alm);
+            formData.append("reviewTextArab", comments.arab);
 
             formData.append("country", countries.az);
             // formData.append("countryNameRu", countries.ru);
@@ -303,22 +305,30 @@ function SerhAdd() {
                                         <img src={usa} alt="" />
                                     </div>
                                 </div>
-                                {/*<div className={'add-data'}>*/}
-                                {/*    <div className={'add-input'}>*/}
-                                {/*        <input placeholder={'Travmatologiya'}/>*/}
-                                {/*    </div>*/}
-                                {/*    <div className={'langCountry'}>*/}
-                                {/*        <img src={ger} alt="" />*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
-                                {/*<div className={'add-data'}>*/}
-                                {/*    <div className={'add-input'}>*/}
-                                {/*        <input placeholder={'Travmatologiya'}/>*/}
-                                {/*    </div>*/}
-                                {/*    <div className={'langCountry'}>*/}
-                                {/*        <img src={arb} alt="" />*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
+                                <div className={'add-data'}>
+                                    <div className={'add-input'}>
+                                        <input
+                                            value={comments.alm}
+                                            onChange={e => handleInputChange(setComments, "alm", e.target.value)}
+                                            placeholder={t(`adminPanel.commentAdd.sections.description.placeholders.alm`)}
+                                        />
+                                    </div>
+                                    <div className={'langCountry'}>
+                                        <img src={ger} alt="" />
+                                    </div>
+                                </div>
+                                <div className={'add-data'}>
+                                    <div className={'add-input'}>
+                                        <input
+                                            value={comments.arab}
+                                            onChange={e => handleInputChange(setComments, "arab", e.target.value)}
+                                            placeholder={t(`adminPanel.commentAdd.sections.description.placeholders.arab`)}
+                                        />
+                                    </div>
+                                    <div className={'langCountry'}>
+                                        <img src={arb} alt="" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
