@@ -24,38 +24,37 @@ function HomeServices() {
 
 
     return (
-        <div id={'home-services'}>
+        <div id={'home-services'} data-aos="fade-up">
             <div className={'container'}>
-                <div className={'head'}>
+                <div className={'head'} data-aos="fade-up" data-aos-delay="50">
                     <div className={'title'}>
                         <h2>{t("homeServices.title")}</h2>
                         <p>{t("homeServices.description")}</p>
                     </div>
 
                 </div>
-                <div className={'row'}>
-                    <div className={'col-6'}>
+                <div className={'row services-wrapper'}>
+                    <div className={'media-col'} data-aos="fade-right" data-aos-delay="50">
                         <div className={"videos"}>
                             <img src={image} alt={t('homeServices.videoAlt')} />
                         </div>
                     </div>
-                    {categories?.map((category) => {
+                    {categories?.map((category, index) => {
                         const firstService = category.services?.[0];
-                        const displayItem = firstService || category;
-                        const isService = !!firstService;
+                        if (!firstService) return null;
 
                         return (
-                            <HomeServiceCard
-                                key={category?.id}
-                                id={displayItem?.id}
-                                name={getLocalizedText(displayItem, 'name')}
-                                desc={getLocalizedText(displayItem, 'description')}
-                                icon={category.categoryImage}
-                                isService={isService}
-                            />
+                            <div key={category?.id} className="service-card-wrapper" data-aos="fade-up" data-aos-delay={100 + (index * 50)}>
+                                <HomeServiceCard
+                                    id={firstService.id}
+                                    name={getLocalizedText(firstService, 'name')}
+                                    desc={getLocalizedText(firstService, 'description')}
+                                    icon={category.categoryImage}
+                                    isService={true}
+                                />
+                            </div>
                         );
                     })}
-
                 </div>
 
             </div>

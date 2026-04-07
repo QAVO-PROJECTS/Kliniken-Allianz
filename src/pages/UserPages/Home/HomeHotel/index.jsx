@@ -101,14 +101,16 @@ const {data:getAllOtels} = useGetAllOtelsQuery()
     };
 
     return (
-        <div id="home-hotel">
+        <div id="home-hotel" data-aos="fade-up">
             <div className="container">
-                <div className="head">
+                <div className="head" data-aos="fade-up" data-aos-delay="50">
                     <h2>{t("homeHotel.title")}</h2>
                     <p>{t("homeHotel.desc")}</p>
                 </div>
                 <div
                     className="slider-wrapper"
+                    data-aos="fade-up"
+                    data-aos-delay="100"
                     onMouseDown={startDragging}
                     onMouseUp={stopDragging}
                     onMouseLeave={stopDragging}

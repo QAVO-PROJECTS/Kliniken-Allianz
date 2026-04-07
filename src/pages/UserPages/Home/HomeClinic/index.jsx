@@ -122,18 +122,18 @@ const isMobile = useMediaQuery({maxWidth:768})
     };
 
     return (
-        <div id="home-clinic">
+        <div id="home-clinic" data-aos="fade-up">
             <div className="container">
 
                 <div className={'row'}>
-                    <div className={"col-25 col-md-60 col-sm-60 col-xs-60"}>
+                    <div className={"col-25 col-md-60 col-sm-60 col-xs-60"} data-aos="fade-right" data-aos-delay="50">
                         <div className="content">
                             <h2>{t("homeClinic.title")}</h2>
                             <p>{t("homeClinic.description")}</p>
                             {isMobile ? ('') : (<button className={'headBtn'} onClick={()=>navigate('/clinics')}><span><span>{t("homeClinic.moreButton")}</span></span></button>)}
                         </div>
                     </div>
-                    <div className={'col-35 col-md-60 col-sm-60 col-xs-60'}>
+                    <div className={'col-35 col-md-60 col-sm-60 col-xs-60'} data-aos="fade-left" data-aos-delay="100">
                         <div
                             className="slider-wrapper"
                             onMouseDown={startDragging}

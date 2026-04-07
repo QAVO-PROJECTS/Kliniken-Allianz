@@ -97,14 +97,16 @@ const {data:getAllOtels} = useGetAllToursQuery()
         sliderRef.current.style.transform = `translateX(${currentTranslate.current}%)`;
     };
     return (
-        <div id="home-tour">
+        <div id="home-tour" data-aos="fade-up">
             <div className="container">
-                <div className="head">
+                <div className="head" data-aos="fade-up" data-aos-delay="50">
                     <h2>{t("homeTour.title")}</h2>
                     <p>{t("homeTour.description")}</p>
                 </div>
                 <div
                     className="slider-wrapper"
+                    data-aos="fade-up"
+                    data-aos-delay="100"
                     onMouseDown={startDragging}
                     onMouseUp={stopDragging}
                     onMouseLeave={stopDragging}

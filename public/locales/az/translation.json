@@ -46,12 +46,70 @@
     "description": "Ən müasir tibbi xidmətlər və rahat səyahət imkanları ilə sağlığınızı yenidən qazanın.",
     "button": "Kəşf edin",
     "imageAlt": "Ana Səhifə Şəkli",
-    "bannerAlt": "Ana Səhifə Banneri"
+    "bannerAlt": "Ana Səhifə Banneri",
+    "slides": [
+      {
+        "title": "Dünyanın Ən Yaxşı Klinikalarına Yol Açın",
+        "description": "Ən müasir tibbi xidmətlər və rahat səyahət imkanları ilə sağlığınızı yenidən qazanın."
+      },
+      {
+        "title": "Almaniyanın Müasir Tibbi İmkanları",
+        "description": "Ən son texnologiyalar və peşəkar həkim heyəti ilə yanınızdayıq."
+      },
+      {
+        "title": "Sizin Sağlamlığınız Bizim Prioritetimizdir",
+        "description": "Pasiyentlərimizə fərdi yanaşma və yüksək keyfiyyətli qayğı təklif edirik."
+      }
+    ]
   },
   "homeServices": {
     "title": "Sizə Təklif Etdiyimiz Tibbi Xidmət Kateqoriyaları",
     "description": "Sizin ehtiyaclarınıza uyğun tibbi xidmət sahələrini kəşf edin.",
     "videoAlt": "Xidmətlər Videosu"
+  },
+  "homeFeatures": {
+    "stats": [
+      { "value": "150+", "label": "Tərəfdaş Klinikalar" },
+      { "value": "500+", "label": "Peşəkar Həkimlər" },
+      { "value": "2000+", "label": "Uğurlu Səyahətlər" },
+      { "value": "98%", "label": "Müştəri Məmnuniyyəti" }
+    ]
+  },
+  "homeAbout": {
+    "tag": "Haqqımızda",
+    "title": "Sağlamlığınız üçün Beynəlxalq Standartlar",
+    "description": "Kliniken Allianz olaraq, biz pasiyentlərimizin dünyanın ən yaxşı klinikalarında müalicə alması üçün peşəkar dəstək göstəririk. Almaniyanın qabaqcıl tibb mərkəzləri ilə birbaşa əməkdaşlığımız sayəsində sizə ən dəqiq diaqnostika və effektiv müalicə üsullarını təklif edirik.",
+    "features": [
+      "Peşəkar Həkim Heyəti",
+      "Müasir Tibbi Texnologiyalar",
+      "Viza və Səyahət Dəstəyi",
+      "7/24 Pasiyent Müşayiəti"
+    ],
+    "experienceValue": "10+",
+    "experienceLabel": "İllik Təcrübə",
+    "button": "Daha Ətraflı"
+  },
+  "homeProcess": {
+    "title": "Necə İşləyirik?",
+    "description": "Sağlamlıq səyahətinizin hər addımında yanınızdayıq. Prosesimiz sadə və effektivdir.",
+    "steps": [
+      {
+        "title": "Konsultasiya",
+        "description": "Ehtiyaclarınızı dinləyirik və ilkin tibbi rəy alırıq."
+      },
+      {
+        "title": "Planlama",
+        "description": "Sizin üçün ən uyğun klinika və müalicə planını hazırlayırıq."
+      },
+      {
+        "title": "Səyahət və Müalicə",
+        "description": "Viza, bilet və xəstəxana qəbulu prosesini idarə edirik."
+      },
+      {
+        "title": "Dəstək",
+        "description": "Müalicədən sonra da sizinlə əlaqədə qalırıq."
+      }
+    ]
   },
   "tourCard": {
     "hotel": "Otel",
