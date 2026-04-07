@@ -23,7 +23,8 @@
     "suggestedCategories": "Рекомендуемые Категории",
     "category": "Категория",
     "service": "Услуга",
-    "services": "Услуги"
+    "services": "Услуги",
+    "suggestedServices": "Рекомендуемые услуги"
   },
   "categoriesMenu": {
     "title": "Категории",

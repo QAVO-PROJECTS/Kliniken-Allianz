@@ -23,7 +23,8 @@
     "suggestedCategories": "Önerilən Kateqoriyalar",
     "category": "Kateqoriya",
     "service": "Xidmət",
-    "services": "Xidmətlər"
+    "services": "Xidmətlər",
+    "suggestedServices": "Önerilən Xidmətlər"
   },
   "categoriesMenu": {
     "title": "Kateqoriyalar",

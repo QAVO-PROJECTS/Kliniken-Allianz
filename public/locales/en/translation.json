@@ -23,7 +23,8 @@
     "suggestedCategories": "Suggested Categories",
     "category": "Category",
     "service": "Service",
-    "services": "Services"
+    "services": "Services",
+    "suggestedServices": "Suggested Services"
   },
   "categoriesMenu": {
     "title": "Categories",
