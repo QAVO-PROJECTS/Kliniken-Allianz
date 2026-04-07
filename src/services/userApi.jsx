@@ -344,6 +344,36 @@ export const userApi = createApi({
                 method: 'DELETE',
             }),
         }),
+        getAllNewspaper: builder.query({
+            query: () => ({
+                url: `/Newspaper/get-all-newspapers`,
+            }),
+        }),
+        getNewspaperById: builder.query({
+            query: (id) => ({
+                url: `/Newspaper/get-newspaper-by-id/${id}`,
+            }),
+        }),
+        putNewspaper: builder.mutation({
+            query: (newspaper) => ({
+                url: `/Newspaper/update-newspaper`,
+                method: 'PUT',
+                body: newspaper,
+            }),
+        }),
+        postNewspaper: builder.mutation({
+            query: (data) => ({
+                url: `/Newspaper/create-newspaper`,
+                method: 'POST',
+                body: data,
+            }),
+        }),
+        deleteNewspaper: builder.mutation({
+            query: (id) => ({
+                url: `/Newspaper/delete-newspaper/${id}`,
+                method: 'DELETE',
+            }),
+        }),
     }),
 })
 export const {
@@ -371,6 +401,12 @@ export const {
     usePutSanatoriumMutation,
     useDeleteSanatoriumMutation,
     usePostSanatoriumMutation,
+
+    useGetAllNewspaperQuery,
+    useGetNewspaperByIdQuery,
+    usePutNewspaperMutation,
+    useDeleteNewspaperMutation,
+    usePostNewspaperMutation,
 
     useGetAllDoctorsQuery,
     useGetDoctorsByIdQuery,

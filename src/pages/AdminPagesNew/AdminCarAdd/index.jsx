@@ -40,6 +40,8 @@ function CarAdd() {
 
     const [carVideos, setCarVideos] = useState([]);
     const [videoInput, setVideoInput] = useState("");
+    const [cardImage, setCardImage] = useState(null);
+    const [cardImagePreview, setCardImagePreview] = useState(null);
 
     const handleImagesChange = (e) => {
         const newFiles = Array.from(e.target.files);
@@ -93,6 +95,10 @@ function CarAdd() {
         formData.append("DescriptionAlm", descAlm);
         formData.append("DescriptionArab", descArab);
 
+        if (cardImage) {
+            formData.append("CardImage", cardImage);
+        }
+
         carImages.forEach((item) => {
             formData.append("CarImages", item.file);
         });
@@ -108,6 +114,7 @@ function CarAdd() {
             setNameAz(""); setNameEn(""); setNameRu(""); setNameAlm(""); setNameArab("");
             setType(""); setPrice("");
             setDescAz(""); setDescEn(""); setDescRu(""); setDescAlm(""); setDescArab("");
+            setCardImage(null); setCardImagePreview(null);
             setCarImages([]);
             setCarVideos([]);
             setVideoInput("");
@@ -198,11 +205,49 @@ function CarAdd() {
                             </div>
                         </div>
 
+                        {/* Əsas Şəkil (Card Image) */}
+                        <div className="dataDiv images">
+                            <div className="header">
+                                <h3>Əsas Şəkil (Card Image)</h3>
+                                <p>Avtomobilin əsas şəklini yükləyin</p>
+                            </div>
+                            <div className="uploadBox">
+                                <input
+                                    type="file"
+                                    id="cardImage"
+                                    accept="image/*"
+                                    onChange={(e) => {
+                                        const file = e.target.files[0];
+                                        if (file) {
+                                            setCardImage(file);
+                                            setCardImagePreview(URL.createObjectURL(file));
+                                        }
+                                    }}
+                                    style={{display: "none"}}
+                                />
+                                <label htmlFor="cardImage" className="uploadArea">
+                                    <img src={uploadIcon} alt="upload"/>
+                                    <p>Şəkil seçin və ya sürükləyin</p>
+                                </label>
+                            </div>
+                            {cardImagePreview && (
+                                <div className="uploadedList">
+                                    <div className="uploadedItem">
+                                        <div className="fileLeft">
+                                            <img src={cardImagePreview} alt="preview" className="filePreview" />
+                                            <span>{cardImage.name}</span>
+                                        </div>
+                                        <button onClick={() => { setCardImage(null); setCardImagePreview(null); }}>✕</button>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+
                         {/* Şəkillər */}
                         <div className="dataDiv images multi">
                             <div className="header">
                                 <h3>Şəkillər</h3>
-                                <p>Avtomobilin şəkillərini yükləyin</p>
+                                <p>Avtomobilin digər şəkillərini yükləyin</p>
                             </div>
                             <div
                                 className={`uploadBox ${isDragging ? "dragging" : ""}`}

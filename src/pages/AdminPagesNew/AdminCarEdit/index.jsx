@@ -11,7 +11,7 @@ import {useEffect, useState} from "react";
 import openIcon from '/src/assets/accordionOpen.svg'
 import closeIcon from '/src/assets/accordionClose.svg'
 import {useGetCarByIdQuery, usePutCarMutation} from "../../../services/userApi.jsx";
-import {CAR_IMAGES} from "../../../contants.js";
+import {CAR_CARD_IMAGES, CAR_IMAGES} from "../../../contants.js";
 import showToast from "../../../components/ToastMessage.js";
 
 function CarEdit() {
@@ -42,6 +42,10 @@ function CarEdit() {
     const [deleteImages, setDeleteImages] = useState([]);
     const [imagesOpen, setImagesOpen] = useState(false);
 
+    const [newCardImage, setNewCardImage] = useState(null);
+    const [oldCardImage, setOldCardImage] = useState(null);
+    const [cardImagePreview, setCardImagePreview] = useState(null);
+
     const [videos, setVideos] = useState([]);
     const [videoInput, setVideoInput] = useState("");
     const [addedVideos, setAddedVideos] = useState([]);
@@ -67,6 +71,7 @@ function CarEdit() {
             setDescArab(car.descriptionArab || "");
 
             setOldImages(car.carImages || []);
+            setOldCardImage(car.cardImage || null);
             setVideos(car.carVideos || []);
             setIsLoaded(true);
         }
@@ -139,6 +144,10 @@ function CarEdit() {
         appendIfChanged(formData, "DescriptionRu", descRu, car.descriptionRu);
         appendIfChanged(formData, "DescriptionAlm", descAlm, car.descriptionAlm);
         appendIfChanged(formData, "DescriptionArab", descArab, car.descriptionArab);
+
+        if (newCardImage) {
+            formData.append("CardImage", newCardImage);
+        }
 
         if (newImages.length > 0)
             newImages.forEach(f => formData.append("CarImages", f.file));
@@ -242,11 +251,54 @@ function CarEdit() {
                             </div>
                         </div>
 
+                        {/* Əsas Şəkil (Card Image) */}
+                        <div className="dataDiv images">
+                            <div className="header">
+                                <h3>Əsas Şəkil (Card Image)</h3>
+                                <p>Avtomobilin əsas şəklini yeniləyin</p>
+                            </div>
+                            <div className="uploadBox">
+                                <input
+                                    type="file"
+                                    id="cardImage"
+                                    accept="image/*"
+                                    onChange={(e) => {
+                                        const file = e.target.files[0];
+                                        if (file) {
+                                            setNewCardImage(file);
+                                            setCardImagePreview(URL.createObjectURL(file));
+                                            setOldCardImage(null);
+                                        }
+                                    }}
+                                    style={{display: "none"}}
+                                />
+                                <label htmlFor="cardImage" className="uploadArea">
+                                    <img src={uploadIcon} alt="upload"/>
+                                    <p>Şəkil seçin və ya sürükləyin</p>
+                                </label>
+                            </div>
+                            {(cardImagePreview || oldCardImage) && (
+                                <div className="uploadedList">
+                                    <div className="uploadedItem">
+                                        <div className="fileLeft">
+                                            <img src={cardImagePreview ? cardImagePreview : `${CAR_CARD_IMAGES}${oldCardImage}`} alt="preview" className="filePreview" />
+                                            <span>{newCardImage ? newCardImage.name : oldCardImage}</span>
+                                        </div>
+                                        <button onClick={() => { 
+                                            setNewCardImage(null); 
+                                            setCardImagePreview(null); 
+                                            setOldCardImage(null); 
+                                        }}>✕</button>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+
                         {/* Şəkillər */}
                         <div className="dataDiv images multi">
                             <div className="header">
                                 <h3>Şəkillər</h3>
-                                <p>Yeni şəkil əlavə edin və ya mövcudları silin</p>
+                                <p>Avtomobilin digər şəkillərini əlavə edin və ya mövcudları silin</p>
                             </div>
                             <div className="uploadBox">
                                 <input
