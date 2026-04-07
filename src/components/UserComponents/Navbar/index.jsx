@@ -14,14 +14,16 @@ import {
     useGetAllSanatoriumQuery,
     useGetAllToursQuery,
     useGetAllDoctorsQuery,
-    useGetAllCategoryQuery
+    useGetAllCategoryQuery,
+    useGetAllServiceQuery
 } from "../../../services/userApi.jsx";
 import {
     CLINIC_CARD_IMAGES,
     SANATORIUM_CARD_IMAGES,
     TOUR_CARD_IMG,
     DOCTOR_IMG_URL,
-    CATEGORY_IMAGES
+    CATEGORY_IMAGES,
+    SERVICE_CARD_IMAGES
 } from "../../../contants.js";
 
 const LANGUAGES = {
@@ -107,6 +109,7 @@ function Navbar() {
     const { data: toursData }      = useGetAllToursQuery();
     const { data: doctorsData }    = useGetAllDoctorsQuery();
     const { data: categoriesData } = useGetAllCategoryQuery();
+    const { data: servicesData }   = useGetAllServiceQuery();
 
 
     const filteredClinics = searchQuery.length > 1
@@ -128,11 +131,25 @@ function Navbar() {
         })
         : [];
 
-    const filteredCategories = searchQuery.length > 1
-        ? categoriesData?.data?.filter(item => getLocalizedText(item, 'name').toLowerCase().includes(searchQuery.toLowerCase()))
+    const filteredServices = searchQuery.length > 1
+        ? (() => {
+            const query = searchQuery.toLowerCase();
+            const fromServices = servicesData?.data?.filter(item => 
+                getLocalizedText(item, 'name').toLowerCase().includes(query)
+            ) || [];
+            
+            const fromCategories = categoriesData?.data?.filter(cat => 
+                getLocalizedText(cat, 'name').toLowerCase().includes(query)
+            ).flatMap(cat => cat.services || []) || [];
+
+            const combined = [...fromServices, ...fromCategories];
+            return combined.filter((svc, index, self) => 
+                index === self.findIndex((t) => t.id === svc.id)
+            );
+        })()
         : [];
 
-    const hasResults = filteredClinics?.length > 0 || filteredSanatoriums?.length > 0 || filteredTours?.length > 0 || filteredDoctors?.length > 0 || filteredCategories?.length > 0;
+    const hasResults = filteredClinics?.length > 0 || filteredSanatoriums?.length > 0 || filteredTours?.length > 0 || filteredDoctors?.length > 0 || filteredServices?.length > 0;
 
     useEffect(() => {
         const stored = localStorage.getItem('i18nextLng');
@@ -307,41 +324,41 @@ function Navbar() {
                                             </div>
                                         )}
 
-                                        {filteredCategories?.length > 0 && (
+                                        {filteredServices?.length > 0 && (
                                             <div className="nb-search-group">
-                                                <div className="nb-group-title">{t('navbar.categories')}</div>
-                                                {filteredCategories.map(item => (
+                                                <div className="nb-group-title">{t('navbar.services') || 'Xidmətlər'}</div>
+                                                {filteredServices.map(item => (
                                                     <div
                                                         key={item.id}
                                                         className="nb-result-item"
                                                         onClick={() => { navigate(`/category/${item.id}`); closeSearch(); }}
                                                     >
                                                         <div className="nb-res-icon-box">
-                                                            {item.categoryImage && (
-                                                                <img src={CATEGORY_IMAGES + item.categoryImage} alt="" />
+                                                            {item.serviceCardImage && (
+                                                                <img src={SERVICE_CARD_IMAGES + item.serviceCardImage} alt="" />
                                                             )}
                                                         </div>
                                                         <div className="nb-result-info">
                                                             <span className="nb-res-name">{getLocalizedText(item, 'name')}</span>
-                                                            <span className="nb-res-type">{t('navbar.category')}</span>
+                                                            <span className="nb-res-type">{t('navbar.service') || 'Xidmət'}</span>
                                                         </div>
                                                     </div>
                                                 ))}
                                             </div>
                                         )}
 
-                                        {searchQuery.length === 0 && categoriesData?.data?.length > 0 && (
+                                        {searchQuery.length === 0 && servicesData?.data?.length > 0 && (
                                             <div className="nb-suggested">
-                                                <div className="nb-suggested-title">{t('navbar.suggestedCategories') || 'Önerilən Kateqoriyalar'}</div>
+                                                <div className="nb-suggested-title">{t('navbar.suggestedServices') || 'Önerilən Xidmətlər'}</div>
                                                 <div className="nb-suggested-list">
-                                                    {categoriesData.data.slice(0, 8).map(item => (
+                                                    {servicesData.data.slice(0, 8).map(item => (
                                                         <div
                                                             key={item.id}
                                                             className="nb-suggested-item"
                                                             onClick={() => { navigate(`/category/${item.id}`); closeSearch(); }}
                                                         >
-                                                            {item.categoryImage && (
-                                                                <img src={CATEGORY_IMAGES + item.categoryImage} alt="" />
+                                                            {item.serviceCardImage && (
+                                                                <img src={SERVICE_CARD_IMAGES + item.serviceCardImage} alt="" />
                                                             )}
                                                             <span>{getLocalizedText(item, 'name')}</span>
                                                         </div>

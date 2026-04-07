@@ -9,6 +9,8 @@ import {useTranslation} from "react-i18next";
 import 'antd/dist/reset.css';
 import {useState} from "react";
 import SplashScreen from "./components/UserComponents/SplashScreen/index.jsx";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 function App() {
     const [loading, setLoading] = useState(true);
@@ -19,9 +21,15 @@ function App() {
         Cookies.set("klinikenToken", "null");
     }
 
-
     const routes = createBrowserRouter(ROUTES);
     const { i18n } = useTranslation();
+
+    useEffect(() => {
+        AOS.init({
+            duration: 700,
+            once: true,
+        });
+    }, []);
 
     useEffect(() => {
         // Minimum loading time + fade sequence

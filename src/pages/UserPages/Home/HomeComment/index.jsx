@@ -91,12 +91,12 @@ const {data:getAllCustomerView} = useGetAllCustomerViewQuery()
                     zIndex: -1,
                 }}
             />
-            <div className="container">
+            <div className="container" data-aos="fade-up">
                 <Title
                     title={t('homeComment.title')}
                     desc={t('homeComment.desc')}
                 />
-                <div className="homeComment">
+                <div className="homeComment" data-aos="zoom-in" data-aos-delay="100">
                     <div className="profile-thumbnails">
                         {fakeComments?.map((comment, index) => {
                             const position = positions[index] || { left: 0, top: 0 };

@@ -20,7 +20,7 @@
   .content {
 
     h2 {
-      font-weight: 600;
+      font-weight: 500;
       font-size: 24px;
       color: #202020;
       font-style: normal;
@@ -62,7 +62,6 @@
     display: flex;
     align-items: center;
     justify-content: end;
-    margin-bottom: 60px;
     padding: 0 16px;
     @media screen and (max-width: 576px) {
       display: block;

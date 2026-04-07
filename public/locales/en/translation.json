@@ -23,7 +23,8 @@
     "suggestedCategories": "Suggested Categories",
     "category": "Category",
     "service": "Service",
-    "services": "Services"
+    "services": "Services",
+    "suggestedServices": "Suggested Services"
   },
   "categoriesMenu": {
     "title": "Categories",
@@ -46,7 +47,65 @@
     "description": "Regain your health with the most advanced medical services and comfortable travel options.",
     "button": "Explore",
     "imageAlt": "Home Page Image",
-    "bannerAlt": "Home Banner"
+    "bannerAlt": "Home Banner",
+    "slides": [
+      {
+        "title": "Access the World’s Best Hospitals",
+        "description": "Regain your health with the most advanced medical services and comfortable travel options."
+      },
+      {
+        "title": "Modern Medical Opportunities in Germany",
+        "description": "We are by your side with the latest technologies and professional medical staff."
+      },
+      {
+        "title": "Your Health is Our Priority",
+        "description": "We offer personalized approaches and high-quality care to our patients."
+      }
+    ]
+  },
+  "homeFeatures": {
+    "stats": [
+      { "value": "150+", "label": "Partner Clinics" },
+      { "value": "500+", "label": "Expert Doctors" },
+      { "value": "2000+", "label": "Successful Journeys" },
+      { "value": "98%", "label": "Customer Satisfaction" }
+    ]
+  },
+  "homeAbout": {
+    "tag": "About Us",
+    "title": "International Standards for Your Health",
+    "description": "As Kliniken Allianz, we provide professional support for our patients to receive treatment in the world's best clinics. Thanks to our direct cooperation with Germany's leading medical centers, we offer you the most accurate diagnostics and effective treatment methods.",
+    "features": [
+      "Professional Medical Staff",
+      "Modern Medical Technologies",
+      "Visa and Travel Support",
+      "24/7 Patient Accompaniment"
+    ],
+    "experienceValue": "10+",
+    "experienceLabel": "Years of Experience",
+    "button": "Read More"
+  },
+  "homeProcess": {
+    "title": "How We Work?",
+    "description": "We are with you at every step of your health journey. Our process is simple and effective.",
+    "steps": [
+      {
+        "title": "Consultation",
+        "description": "We listen to your needs and get an initial medical opinion."
+      },
+      {
+        "title": "Planning",
+        "description": "We prepare the most suitable clinic and treatment plan for you."
+      },
+      {
+        "title": "Travel & Treatment",
+        "description": "We manage the visa, ticket, and hospital admission process."
+      },
+      {
+        "title": "Support",
+        "description": "We stay in touch with you even after the treatment."
+      }
+    ]
   },
   "homeServices": {
     "title": "Medical Service Categories We Offer",
