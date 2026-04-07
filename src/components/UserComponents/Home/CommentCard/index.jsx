@@ -3,6 +3,7 @@ import { HiOutlineArrowLeft, HiOutlineArrowRight } from "react-icons/hi";
 import { useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import "./index.scss";
+import {getLocalizedText} from "../../../../utils/getLocalizedText.js";
 import {VIEW_CARD_IMAGES} from "../../../../contants.js";
 
 function CommentCard({ currentIndex, setCurrentIndex, fakeComments }) {
@@ -36,15 +37,15 @@ function CommentCard({ currentIndex, setCurrentIndex, fakeComments }) {
                         <div className="quote-icon">
                             <img src={image} alt="quote icon" />
                         </div>
-                        <p>{comment.reviewTextEng}</p>
+                        <p>{getLocalizedText(comment, 'reviewText')}</p>
                         <div className="comment-author">
                             <div className="text">
                                 <div className="image">
                                     <img src={VIEW_CARD_IMAGES+comment.profilImage} alt="author" />
                                 </div>
                                 <div style={{ display: "flex", flexDirection: "column", alignItems: "start" }}>
-                                    <h6 className="name">{comment.customerName}</h6>
-                                    <span className="country">{comment.country}</span>
+                                    <h6 className="name">{getLocalizedText(comment, 'customerName')}</h6>
+                                    <span className="country">{getLocalizedText(comment, 'country')}</span>
                                 </div>
                             </div>
                         </div>

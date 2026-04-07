@@ -1,36 +1,45 @@
 #doktorDetail {
-  padding: 140px 16px;
-  @media screen and (max-width: 576px){
+  padding: 110px 16px;
+
+  @media screen and (max-width: 576px) {
     padding: 120px 16px;
   }
-  .bannerAbout{
+
+  .bannerAbout {
     position: absolute;
     top: -80px;
     left: 0;
     width: 100%;
-    z-index:-1;
+    z-index: -1;
     transform: rotate(2deg);
-    img{
+
+    img {
       width: 100%;
       height: 100%;
 
     }
+
     @media screen and (max-width: 576px) {
       height: 210px;
       top: 0;
     }
   }
+
   .head {
     width: 100%;
     text-align: center;
-    margin-bottom: 200px;
+    margin-bottom: 100px;
+    margin-top: 20px;
+
     h1 {
       color: #191919;
-      font-size: 16px;
+      font-size: 20px;
       font-style: normal;
       font-weight: 500;
-      line-height: 30px; /* 187.5% */
+      line-height: 30px;
+      /* 187.5% */
     }
+
     p {
       margin-top: 8px;
       display: flex;
@@ -40,7 +49,8 @@
       font-size: 14px;
       font-style: normal;
       font-weight: 400;
-      line-height: 24px; /* 171.429% */
+      line-height: 24px;
+      /* 171.429% */
 
       .dot {
         width: 12px;
@@ -49,12 +59,15 @@
         border-radius: 50%;
         margin: 0 8px 0 16px;
       }
-      .dot1{
+
+      .dot1 {
         background-color: #CFCFCF;
       }
-      .dot2{
+
+      .dot2 {
         background-color: #003778;
       }
+
       a {
         color: #686868;
         transition: all 0.3s ease-in-out;
@@ -64,12 +77,14 @@
         }
       }
     }
-    .search{
+
+    .search {
       position: relative;
       width: 40%;
-      margin:24px auto;
+      margin: 24px auto;
       height: 40px;
-      input{
+
+      input {
         width: 100%;
         height: 40px;
         border-radius: 8px;
@@ -77,6 +92,7 @@
         background: #FFF;
         outline: none;
         padding: 0 16px;
+
         &::placeholder {
           color: #9A9A9A;
           font-size: 12px;
@@ -85,25 +101,32 @@
           line-height: normal;
         }
       }
-      svg{
+
+      svg {
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
         right: 16px;
       }
     }
+
     @media screen and (max-width: 576px) {
       margin-bottom: 52px;
-      h1{
+
+      h1 {
         font-size: 16px;
         line-height: 21px;
-        margin-bottom: 6px/* 150% */
+        margin-bottom: 6px
+          /* 150% */
       }
-      p{
+
+      p {
         margin-top: 0;
         font-size: 12px;
-        line-height: 24px; /* 171.429% */
-        .dot{
+        line-height: 24px;
+
+        /* 171.429% */
+        .dot {
           width: 10px;
           height: 10px;
         }
@@ -172,10 +195,12 @@
 
           gap: 24px;
           align-items: center;
+
           @media screen and (max-width: 576px) {
             flex-wrap: wrap;
             gap: 5px;
           }
+
           div {
             display: flex;
             align-items: center;
@@ -187,10 +212,11 @@
             font-size: 14px;
             font-style: normal;
             font-weight: 400;
-            line-height: 24px; /* 171.429% */
+            line-height: 24px;
+            /* 171.429% */
 
             @media screen and (max-width: 576px) {
-                font-size: 12px;
+              font-size: 12px;
             }
           }
         }
@@ -198,12 +224,16 @@
         @media screen and (max-width: 576px) {
           h2 {
             font-size: 16px;
-            line-height: 21px; /* 131.25% */
+            line-height: 21px;
+            /* 131.25% */
           }
+
           p {
             font-size: 12px;
-            line-height: 21px; /* 150% */
+            line-height: 21px;
+            /* 150% */
           }
+
           .stars {
             margin-bottom: 8px;
           }
@@ -221,18 +251,21 @@
       .first-section {
         padding: 0 8px;
         margin-bottom: 32px;
-        .row{
-          .col-30{
+
+        .row {
+          .col-30 {
             padding: 8px;
           }
         }
+
         h2 {
           color: #2C2C2C;
           font-family: Poppins;
           font-size: 18px;
           font-style: normal;
           font-weight: 500;
-          line-height: 21px; /* 116.667% */
+          line-height: 21px;
+          /* 116.667% */
           margin-bottom: 32px;
           margin-left: 8px;
         }
@@ -247,7 +280,8 @@
             font-size: 16px;
             font-style: normal;
             font-weight: 500;
-            line-height: 21px; /* 131.25% */
+            line-height: 21px;
+            /* 131.25% */
             margin-bottom: 8px;
           }
 
@@ -256,14 +290,16 @@
             font-size: 14px;
             font-style: normal;
             font-weight: 400;
-            line-height: 21px; /* 150% */
+            line-height: 21px;
+            /* 150% */
             margin: 0 !important;
           }
         }
       }
 
       .second-section {
-margin-left: 8px;
+        margin-left: 8px;
+
         h2 {
           padding: 0 8px;
           color: #2C2C2C;

@@ -1,26 +1,31 @@
-#doctors-page{
-  padding: 140px 16px;
+#doctors-page {
+  padding: 110px 16px;
   position: relative;
-  @media screen and (max-width: 576px){
+
+  @media screen and (max-width: 576px) {
     padding: 120px 16px;
   }
-  .bannerAbout{
+
+  .bannerAbout {
     position: absolute;
     top: -40px;
     left: 0;
     width: 100%;
-    z-index:-1;
+    z-index: -1;
     transform: rotate(2deg);
-    img{
+
+    img {
       width: 100%;
       height: 100%;
 
     }
+
     @media screen and (max-width: 576px) {
       height: 280px;
       top: 0;
     }
   }
+
   .mobile-filter-btn {
     display: none;
     background: #003778;
@@ -29,7 +34,7 @@
     border-radius: 8px;
     padding: 10px 20px;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 400;
     cursor: pointer;
     margin-bottom: 20px;
 
@@ -54,13 +59,10 @@
     &.open {
       right: 0;
     }
-  //.filter-bar-content{
-  //         height:90vh;
-  //         overflow-y: auto;
-  //       }
     .filter-section {
       margin-bottom: 28px;
-pointer-events: none;
+      pointer-events: none;
+
       .filter-header {
         display: flex;
         justify-content: space-between;
@@ -69,10 +71,11 @@ pointer-events: none;
 
         span {
           color: #060606;
-          font-size: 12px;
+          font-size: 16px;
           font-style: normal;
-          font-weight: 500;
-          line-height: 20.636px; /* 171.97% */
+          font-weight: 600;
+          line-height: 20.636px;
+          /* 171.97% */
           display: flex;
           align-items: center;
           gap: 8px;
@@ -90,18 +93,17 @@ pointer-events: none;
       .filter-options {
         display: flex;
         flex-direction: column;
-        gap: 6px;
-        max-height: 120px;
-        overflow-y: auto;
+        gap: 12px;
         padding-right: 4px;
 
         label {
           display: flex;
           align-items: center;
-          font-size: 12px;
+          font-size: 14px;
           color: #474747;
-          gap: 6px;
+          gap: 12px;
           cursor: pointer;
+
           input {
             appearance: none;
             width: 14px;
@@ -145,6 +147,7 @@ pointer-events: none;
         color: #f0b000;
       }
     }
+
     .filter-bar-header {
       display: flex;
       justify-content: space-between;
@@ -152,10 +155,11 @@ pointer-events: none;
       margin-bottom: 16px;
 
       h3 {
-        font-weight: 500;
+        font-weight: 400;
         font-size: 20px;
         line-height: 23.22px;
-        span{
+
+        span {
           font-size: 16px;
         }
       }
@@ -168,33 +172,38 @@ pointer-events: none;
         color: #333;
       }
     }
-  .buttons{
-    display: flex;
-    padding: 24px 0px 0px;
-    gap: 12px;
-    border-top: 1px solid #EFEFEF;
-    button{
-      width: 50%;
+
+    .buttons {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 14px;
-      font-weight: 400;
-      font-size: 14px;
-      line-height: 21px;
-      height: 40px;
+      padding: 24px 0px 0px;
+      gap: 12px;
+      border-top: 1px solid #EFEFEF;
+
+      button {
+        width: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 14px;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 21px;
+        height: 40px;
+      }
+
+      .clean {
+        border: 1px solid #AEAEAE;
+        background: transparent;
+        color: #9F9F9F;
+      }
+
+      .submitButton {
+        border: 1px solid #003778;
+        background: #003778;
+        color: #fff;
+      }
     }
-    .clean{
-      border: 1px solid #AEAEAE;
-      background: transparent;
-      color: #9F9F9F;
-    }
-    .submitButton{
-      border: 1px solid #003778;
-      background: #003778;
-      color: #fff;
-    }
-  }
+
     .filter-bar-content {
       .filter-section {
         margin-bottom: 24px;
@@ -208,18 +217,22 @@ pointer-events: none;
     }
   }
 
-  .doctors-page{
+  .doctors-page {
     .head {
       width: 100%;
       text-align: center;
-      margin-bottom: 220px;
+      margin-bottom: 100px;
+      margin-top: 20px;
+
       h1 {
         color: #191919;
-        font-size: 16px;
+        font-size: 20px;
         font-style: normal;
-        font-weight: 500;
-        line-height: 30px; /* 187.5% */
+        font-weight: 400;
+        line-height: 30px;
+        /* 187.5% */
       }
+
       p {
         margin-top: 8px;
         display: flex;
@@ -229,7 +242,8 @@ pointer-events: none;
         font-size: 14px;
         font-style: normal;
         font-weight: 400;
-        line-height: 24px; /* 171.429% */
+        line-height: 24px;
+        /* 171.429% */
 
         .dot {
           width: 12px;
@@ -244,17 +258,18 @@ pointer-events: none;
           transition: all 0.3s ease-in-out;
 
           &:hover {
-            font-weight: 500;
+            font-weight: 400;
           }
         }
       }
 
-      .search{
+      .search {
         position: relative;
         width: 50%;
-        margin:24px auto;
+        margin: 24px auto;
         height: 40px;
-        input{
+
+        input {
           width: 100%;
           height: 40px;
           border-radius: 8px;
@@ -262,6 +277,7 @@ pointer-events: none;
           background: #FFF;
           outline: none;
           padding: 0 16px;
+
           &::placeholder {
             color: #9A9A9A;
             font-size: 12px;
@@ -270,38 +286,48 @@ pointer-events: none;
             line-height: normal;
           }
         }
-        svg{
+
+        svg {
           position: absolute;
           top: 50%;
           transform: translateY(-50%);
           right: 16px;
         }
       }
+
       @media screen and (max-width: 576px) {
         margin-bottom: 63px;
-        h1{
+
+        h1 {
           font-size: 16px;
           line-height: 21px;
-          margin-bottom: 6px/* 150% */
+          margin-bottom: 6px
+            /* 150% */
         }
-        p{
+
+        p {
           margin-top: 0;
           font-size: 12px;
-          line-height: 24px; /* 171.429% */
-          .dot{
+          line-height: 24px;
+
+          /* 171.429% */
+          .dot {
             width: 10px;
             height: 10px;
           }
         }
-        .search{
+
+        .search {
           margin: 0;
           width: 80%;
         }
       }
-      .settingss{
+
+      .settingss {
         display: flex;
         gap: 8px;
-        .mobile-filter-btn{
+
+        .mobile-filter-btn {
           height: 40px;
           border: 0.85px solid #E4E4E4;
           background: #fff;
@@ -309,8 +335,9 @@ pointer-events: none;
           display: flex;
           justify-content: center;
           align-items: center;
-          gap: 6px;
-          div{
+          gap: 12px;
+
+          div {
             width: 18px;
             height: 18px;
             border-radius: 50%;
@@ -321,49 +348,58 @@ pointer-events: none;
             font-weight: 600;
             font-size: 12px;
             line-height: 100%;
-          color: #FE9754 !important;
+            color: #FE9754 !important;
           }
         }
       }
     }
-    .headers{
+
+    .headers {
       margin-bottom: 32px;
-      h2{
+
+      h2 {
         color: #202020;
         font-size: 24px;
         font-style: normal;
         font-weight: 600;
-        line-height: 36px; /* 150% */
+        line-height: 36px;
+        /* 150% */
         margin-bottom: 12px;
       }
-      p{
+
+      p {
         color: #727272;
         font-size: 16px;
         font-style: normal;
         font-weight: 400;
-        line-height: 28px; /* 175% */
+        line-height: 28px;
+        /* 175% */
       }
+
       @media screen and (max-width: 576px) {
         margin-top: 20px;
         margin-bottom: 20px;
-        h2{
+
+        h2 {
           font-size: 18px;
           line-height: 27px;
           margin-bottom: 6px;
         }
-        p{
+
+        p {
           font-size: 14px;
           line-height: 24px;
         }
       }
     }
+
     .filter-bar {
       width: 100%;
       background: #fff;
       border-radius: 12px;
       border: 1px solid #eee;
       padding: 20px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
       font-family: 'Poppins', sans-serif;
       position: sticky;
       top: 100px;
@@ -372,11 +408,13 @@ pointer-events: none;
         color: #040404;
         font-size: 14px;
         font-style: normal;
-        font-weight: 500;
-        line-height: 23.216px; /* 165.828% */
+        font-weight: 400;
+        line-height: 23.216px;
+        /* 165.828% */
         margin-bottom: 12px;
       }
-      .hr{
+
+      .hr {
         width: 26px;
         height: 0.645px;
         background: #D4D4D4;
@@ -390,14 +428,15 @@ pointer-events: none;
           display: flex;
           justify-content: space-between;
           align-items: center;
-          margin-bottom: 10px;
+          margin-bottom: 20px;
 
           span {
             color: #060606;
-            font-size: 12px;
+            font-size: 16px;
             font-style: normal;
-            font-weight: 500;
-            line-height: 20.636px; /* 171.97% */
+            font-weight: 600;
+            line-height: 20.636px;
+            /* 171.97% */
             display: flex;
             align-items: center;
             gap: 8px;
@@ -415,18 +454,18 @@ pointer-events: none;
         .filter-options {
           display: flex;
           flex-direction: column;
-          gap: 6px;
-          max-height: 120px;
-          overflow-y: auto;
+          gap: 12px;
+          max-height: 250px;
           padding-right: 4px;
 
           label {
             display: flex;
             align-items: center;
-            font-size: 12px;
+            font-size: 14px;
             color: #474747;
-            gap: 6px;
+            gap: 12px;
             cursor: pointer;
+
             input {
               appearance: none;
               width: 14px;
@@ -471,9 +510,10 @@ pointer-events: none;
         }
       }
     }
-    .row{
-      .col-md-6{
-        @media screen and (max-width: 576px){
+
+    .row {
+      .col-md-6 {
+        @media screen and (max-width: 576px) {
           padding: 8px;
         }
 

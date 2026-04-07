@@ -2,6 +2,7 @@ import './index.scss';
 import { HiOutlineArrowLeft, HiOutlineArrowRight } from 'react-icons/hi';
 import { useRef, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { getLocalizedText } from '../../../../utils/getLocalizedText.js';
 import BestServCard from '../../../../components/UserComponents/Home/BestServiceCard/index.jsx';
 import image from '../../../../assets/BestService1.jpg';
 import image2 from '../../../../assets/BestService2.jpg';
@@ -131,7 +132,7 @@ function HomeBestServ() {
                 <div className="header">
                     <div className="content">
                         <h2>{t('homeBestServ.title')}</h2>
-                        <p>Pasiyentlərin ən çox üstünlük verdiyi tibbi xidmətlərlə tanış olun.</p>
+                        <p>{t('homeBestServ.description')}</p>
                     </div>
                     <div className="navigationBtn">
                         <button className="prev" onClick={handlePrev} aria-label={t('homeBestServ.prevButton')}>
@@ -159,13 +160,14 @@ function HomeBestServ() {
                     <div className="slider-card row" ref={sliderRef}>
                         {cardss?.map((item) => (
                             <BestServCard
+                                key={item.id}
                                 id={item.id}
-                                name={item.name}
-                                desc={item.description}
+                                name={getLocalizedText(item, 'name')}
+                                desc={getLocalizedText(item, 'description')}
                                 img={item.serviceImages[0]}
-                                imgAlt={t('homeBestServ.cardImgAlt', { name: item.name })}
+                                imgAlt={t('homeBestServ.cardImgAlt', { name: getLocalizedText(item, 'name') })}
                                 icon={item.serviceCardImage}
-                                iconAlt={t('homeBestServ.cardIconAlt', { name: item.name })}
+                                iconAlt={t('homeBestServ.cardIconAlt', { name: getLocalizedText(item, 'name') })}
                             />
                         ))}
                     </div>

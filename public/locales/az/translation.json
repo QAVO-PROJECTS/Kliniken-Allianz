@@ -13,7 +13,17 @@
       "en": "İngilis",
       "ru": "Rus",
       "ar": "Ərəb"
-    }
+    },
+    "searchPlaceholder": "Axtar...",
+    "noResults": "Nəticə tapılmadı",
+    "clinic": "Klinika",
+    "doctor": "Həkim",
+    "sanatorium": "Sanatoriya",
+    "tour": "Tur",
+    "suggestedCategories": "Önerilən Kateqoriyalar",
+    "category": "Kateqoriya",
+    "service": "Xidmət",
+    "services": "Xidmətlər"
   },
   "categoriesMenu": {
     "title": "Kateqoriyalar",
@@ -378,7 +388,8 @@
       "reset": "Sıfırlayın",
       "mobileApply": "Tətbiq et",
       "mobileClear": "Təmizlə",
-      "mobileFilter": "Filtrlə"
+      "mobileFilter": "Filtrlə",
+      "experienceSuffix": "illik təcrübə"
     }
   },
   "doctorDetail": {
@@ -416,7 +427,8 @@
       },
       "search": {
         "placeholder": "Axtarış edin....."
-      }
+      },
+      "noClinicFound": "Klinika tapılmadı 😔"
     },
     "categoryTable": {
       "icon": "İcon",

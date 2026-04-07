@@ -13,7 +13,17 @@
       "en": "Английский",
       "ru": "Русский",
       "ar": "Арабский"
-    }
+    },
+    "searchPlaceholder": "Поиск...",
+    "noResults": "Результатов не найдено",
+    "clinic": "Клиника",
+    "doctor": "Врач",
+    "sanatorium": "Санаторий",
+    "tour": "Тур",
+    "suggestedCategories": "Рекомендуемые Категории",
+    "category": "Категория",
+    "service": "Услуга",
+    "services": "Услуги"
   },
   "categoriesMenu": {
     "title": "Категории",
@@ -295,7 +305,6 @@
     "bannerAlt": "Баннер Контакты",
     "succesToast": "Контактная информация успешно отправлена!",
     "errorToast": "Произошла ошибка"
-
   },
   "categoryDetail": {
     "pageTitle": "Услуга",
@@ -359,6 +368,9 @@
       "prevAria": "Предыдущее изображение",
       "nextAria": "Следующее изображение",
       "goToImageAria": "Перейти к изображению {number}"
+    },
+    "videos": {
+      "title": "Videolar"
     }
   },
   "sanatoriumDetail": {
@@ -401,7 +413,8 @@
       "reset": "Сбросить",
       "mobileApply": "Применить",
       "mobileClear": "Очистить",
-      "mobileFilter": "Фильтр"
+      "mobileFilter": "Фильтр",
+      "experienceSuffix": "лет опыта"
     }
   },
   "doctorDetail": {
@@ -648,14 +661,12 @@
         "save": "Сохранить",
         "loading": "Загрузка...",
         "addVideo": "Добавить"
-
       },
       "toast": {
         "noMainImage": "Пожалуйста, добавьте основное изображение.",
         "success": "Клиника успешно добавлена ✅",
         "error": "Произошла ошибка при добавлении клиники ❌",
         "invalidVideo": "Введите корректную ссылку YouTube ⚠️"
-
       },
       "placeholders": {
         "nameAz": "Название (AZ)",
@@ -674,7 +685,6 @@
         "locationAlm": "Страна (DE)",
         "locationArab": "Страна (AR)",
         "videoUrl": "https://www.youtube.com/watch?v=..."
-
       }
     },
     "clinicEdit": {
@@ -714,13 +724,11 @@
         "save": "Сохранить",
         "loading": "Загрузка...",
         "addVideo": "Добавить"
-
       },
       "toast": {
         "success": "Изменения успешно отправлены ✅",
         "error": "Произошла ошибка ❌",
         "invalidVideo": "Введите корректную ссылку YouTube ⚠️"
-
       },
       "placeholders": {
         "nameAz": "Название (AZ)",
@@ -739,7 +747,6 @@
         "locationAlm": "Страна (DE)",
         "locationArab": "Страна (AR)",
         "videoUrl": "https://www.youtube.com/watch?v=..."
-
       }
     },
     "contactPage": {
@@ -1348,7 +1355,6 @@
       },
       "bannerAlt": "Баннер о нас"
     },
-
     "sanatoriumTable": {
       "image": "Изображение",
       "name": "Название",
@@ -1363,7 +1369,6 @@
         "deleteError": "❌ Произошла ошибка при удалении санатория!"
       }
     },
-
     "sanatoriumAdd": {
       "breadcrumb": {
         "main": "Санаторий",
@@ -1398,7 +1403,6 @@
         "loading": "Загрузка...",
         "addVideo": "Добавить",
         "addService": "Добавить услугу"
-
       },
       "toast": {
         "noMainImage": "Пожалуйста, добавьте основное изображение.",
@@ -1406,7 +1410,6 @@
         "error": "Произошла ошибка при добавлении санатория ❌",
         "invalidVideo": "Введите корректную ссылку YouTube ⚠️",
         "emptyService": "Название услуги на азербайджанском не может быть пустым!"
-
       },
       "placeholders": {
         "nameAz": "Название (AZ)",
@@ -1432,7 +1435,6 @@
         "serviceArab": "Название услуги (AR)"
       }
     },
-
     "sanatoriumEdit": {
       "breadcrumb": {
         "main": "Санаторий",
@@ -1471,15 +1473,12 @@
         "loading": "Загрузка...",
         "addVideo": "Добавить",
         "addService": "Добавить услугу"
-
-
       },
       "toast": {
         "success": "Только изменённые данные успешно отправлены ✅",
         "error": "Произошла ошибка ❌",
         "invalidVideo": "Введите корректную ссылку YouTube ⚠️",
         "emptyService": "Название услуги на азербайджанском не может быть пустым!"
-
       },
       "placeholders": {
         "nameAz": "Название (AZ)",
@@ -1515,7 +1514,6 @@
         "comment": "Отзывы",
         "contact": "Контакты",
         "sanatorium": "Санаторий"
-
       },
       "buttons": {
         "logout": "Выйти"

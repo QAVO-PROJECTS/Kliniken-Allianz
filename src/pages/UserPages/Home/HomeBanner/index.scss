@@ -2,7 +2,13 @@
   position: relative;
   padding: 70px 0 60px;
   box-shadow: 0px 1px 11.2px 1px #e8e8e869;
-background-color: #F4F9FFA3;
+  background-color: #F4F9FFA3;
+  overflow: hidden;
+
+  @media screen and (max-width: 992px) {
+    margin-top: 16px;
+  }
+
   .banner {
     position: absolute;
     top: 30px;
@@ -10,12 +16,14 @@ background-color: #F4F9FFA3;
     right: 0;
     width: 100%;
     z-index: -1;
+
     img {
       width: 100%;
     }
-    @media screen and (max-width: 576px){
+
+    @media screen and (max-width: 576px) {
       height: 750px;
-      img{
+      img {
         width: 100%;
         height: 100%;
       }
@@ -49,7 +57,8 @@ background-color: #F4F9FFA3;
     .image {
       width: 100%;
       height: 100%;
-      transform: rotate(30deg);
+      transform: rotate(25deg);
+
       img {
         width: 100%;
         height: 100%;
@@ -58,6 +67,7 @@ background-color: #F4F9FFA3;
 
     .content {
       position: relative;
+
       h1 {
         font-weight: 600;
         font-size: 32px;
@@ -65,14 +75,16 @@ background-color: #F4F9FFA3;
         margin-bottom: 8px;
         width: 75%;
       }
+
       p {
         font-weight: 400;
         font-size: 16px;
         line-height: 30px;
         color: #454545;
-        margin-bottom:24px;
+        margin-bottom: 24px;
         width: 75%;
       }
+
       .muraciet {
         display: flex;
         align-items: center;
@@ -84,14 +96,17 @@ background-color: #F4F9FFA3;
         width: max-content;
         background-color: #003778;
         transition: all 0.3s ease;
-.glass-image{
-  width: 28px;
-  height: 28px;
-  img{
-    width: 100%;
-    height: 100%;
-  }
-}
+
+        .glass-image {
+          width: 28px;
+          height: 28px;
+
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+
         button {
           width: 28px;
           height: 28px;
@@ -105,9 +120,8 @@ background-color: #F4F9FFA3;
           background: rgba(255, 255, 255, 0.15);
           backdrop-filter: blur(10px) saturate(180%);
           -webkit-backdrop-filter: blur(10px) saturate(180%);
-          box-shadow:
-                  inset 0 0 15px rgba(255, 255, 255, 0.2),
-                  0 4px 20px rgba(0, 0, 0, 0.3);
+          box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.2),
+          0 4px 20px rgba(0, 0, 0, 0.3);
           color: #ffffff;
           transition: all 0.35s ease;
 
@@ -156,57 +170,62 @@ background-color: #F4F9FFA3;
       }
 
 
-
-      @media (max-width: 576px){
-        h1{
+      @media (max-width: 576px) {
+        h1 {
           width: 100%;
           font-size: 20px;
           line-height: 30px; /* 150% */
         }
-        p{
+        p {
           width: 100%;
           font-size: 16px;
           line-height: 24px; /* 150% */
         }
       }
-      .icons{
+
+      .icons {
         width: 100%;
         position: absolute;
-        .icon1{
+
+        .icon1 {
           position: absolute;
-          right:-15px;
+          right: -15px;
         }
-        .icon2{
+
+        .icon2 {
           position: absolute;
-          top:80px;
-          left:-50px;
+          top: 80px;
+          left: -50px;
         }
-        .icon3{
+
+        .icon3 {
           position: absolute;
-          top:20px;
+          top: 20px;
           left: 500px;
         }
-        .icon4{
+
+        .icon4 {
           position: absolute;
           top: -150px;
-          right:25px;
+          right: 25px;
         }
+
         @media (max-width: 576px) {
 
-          .icon2{
+          .icon2 {
             position: absolute;
-            top:-80px;
-            left:50px;
+            top: -80px;
+            left: 50px;
           }
-          .icon3{
+          .icon3 {
             position: absolute;
-            top:25px;
+            top: 25px;
             left: 50%;
           }
-          .icon4{
+          .icon4 {
             position: absolute;
             top: -50px;
-            right:25px;
+            right: 25px;
           }
         }
       }

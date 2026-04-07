@@ -144,6 +144,7 @@ function ServiceDetail() {
         <div id={"serviceDetail"}>
             <div className={"container"}>
                 <div className={"head"}>
+                    <h1>{service?.name}</h1>
                     <p data-aos="fade-up" data-aos-delay="100">
                         <Link to={"/"}>Ana səhifə</Link>
                         <div className={"dot active"}></div>
@@ -153,7 +154,6 @@ function ServiceDetail() {
                 <div className={"row first-section"}>
                     <div className={"col-6 col-md-12 col-sm-12 col-xs-12 second"}>
                         <div className={"content"}>
-                            <h2>{service?.name}</h2>
                             <p>{service?.description}</p>
                             <button>Müraciət et</button>
                             <img src={arrow} alt="" className="arrow" />

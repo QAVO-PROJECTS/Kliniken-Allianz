@@ -3,11 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {CATEGORY_IMAGES, SERVICE_CARD_IMAGES, SERVICE_IMAGES} from "../../../../contants.js";
 
-function HomeServiceCard({ name, desc, icon,id }) {
+function HomeServiceCard({ name, desc, icon, id, isService }) {
     const { t } = useTranslation();
     const navigate = useNavigate();
+    const navPath = `/category/${id}`;
+
     return (
-        <div className={'col-15 col-md-30 col-sm-30 col-xs-30'} style={{ padding: '8px' }} onClick={() => navigate(`/category/${id}`)}>
+        <div className={'col-15 col-md-30 col-sm-30 col-xs-30'} style={{ padding: '8px' }} onClick={() => navigate(navPath)}>
             <div id={'homeServCard'}>
                 <div className={'icons'}>
                     <img src={CATEGORY_IMAGES + icon} alt={t('homeServiceCard.iconAlt', { name })} />
@@ -16,8 +18,9 @@ function HomeServiceCard({ name, desc, icon,id }) {
                 <h4>{name}</h4>
                 <p>{desc}</p>
                 <div className={'btn'}>
-                    <button onClick={() => navigate(`/category/${id}`)}>
+                    <button onClick={() => navigate(navPath)}>
                         {t('homeServiceCard.button')}
+                        
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
                             <g clip-path="url(#clip0_609_218)">
                                 <path d="M12 14.25C12 13.6935 12.5498 12.8625 13.1063 12.165C13.8217 11.265 14.6767 10.4797 15.657 9.8805C16.392 9.43125 17.283 9 18 9M18 9C17.283 9 16.3912 8.56875 15.657 8.1195C14.6767 7.5195 13.8217 6.73425 13.1062 5.83575C12.5497 5.1375 12 4.305 12 3.75M18 9L9.71542e-07 9" stroke="black" />

@@ -19,6 +19,7 @@ import dimage6 from "/src/assets/doktor6.jpg";
 import {useGetClinicByIdQuery, usePostContactClinicMutation} from "../../../services/userApi.jsx";
 import {CERT_CLINIC_URL, CLINIC_CARD_IMAGES, CLINIC_IMAGES} from "../../../contants.js";
 import {useTranslation} from "react-i18next";
+import {getLocalizedText} from "../../../utils/getLocalizedText.js";
 import HomeServiceCard from "../../../components/UserComponents/Home/ServiceCardHome/index.jsx";
 import banner from "../../../assets/AboutBanner.png";
 import ClinicHotel from "../ClinicHotel/index.jsx";
@@ -36,18 +37,7 @@ function ClinicDetail() {
 const {data:getClinicById} = useGetClinicByIdQuery(id)
     const clinic = getClinicById?.data
     const [showAllServices, setShowAllServices] = useState(false);
-    const { t, i18n } = useTranslation();
-    const [postClinicContact] = usePostContactClinicMutation()
-    const getLocalizedText = (item, field) => {
-        switch (i18n.language) {
-            case 'en':
-                return field === 'name' ? item?.nameEng : item?.descriptionEng;
-            case 'ru':
-                return field === 'name' ? item?.nameRu : item?.descriptionRu;
-            default: // 'tr' veya varsayılan
-                return field === 'name' ? item?.name : item?.description;
-        }
-    };const certificates = clinic?.clinicSertificates || [];
+    const certificates = clinic?.clinicSertificates || [];
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(window.innerWidth <= 576 ? 2 : 6);
 

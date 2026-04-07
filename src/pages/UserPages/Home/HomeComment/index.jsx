@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { getLocalizedText } from '../../../../utils/getLocalizedText.js';
 import Title from '../../../../components/UserComponents/Title/index.jsx';
 import CommentCard from '../../../../components/UserComponents/Home/CommentCard/index.jsx';
 import back from '/src/assets/CommentBack.png';
@@ -112,7 +113,7 @@ const {data:getAllCustomerView} = useGetAllCustomerViewQuery()
                                 >
                                     <img
                                         src={VIEW_CARD_IMAGES+comment.profilImage}
-                                        alt={`${comment.name}'s profile`}
+                                        alt={`${getLocalizedText(comment, 'customerName')}'s profile`}
                                         style={{
                                             width: '50px',
                                             height: '50px',
