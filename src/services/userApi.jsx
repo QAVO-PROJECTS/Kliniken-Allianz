@@ -314,6 +314,36 @@ export const userApi = createApi({
                 method: 'DELETE',
             }),
         }),
+        getAllCar: builder.query({
+            query: () => ({
+                url: `/Car/get-all-cars`,
+            }),
+        }),
+        getCarById: builder.query({
+            query: (id) => ({
+                url: `/Car/get-car-by-id/${id}`,
+            }),
+        }),
+        putCar: builder.mutation({
+            query: (car) => ({
+                url: `/Car/update-car`,
+                method: 'PUT',
+                body: car,
+            }),
+        }),
+        postCar: builder.mutation({
+            query: (data) => ({
+                url: `/Car/create-car`,
+                method: 'POST',
+                body: data,
+            }),
+        }),
+        deleteCar: builder.mutation({
+            query: (id) => ({
+                url: `/Car/delete-car/${id}`,
+                method: 'DELETE',
+            }),
+        }),
     }),
 })
 export const {
@@ -331,7 +361,11 @@ export const {
     usePutClinicMutation,
     useDeleteClinicMutation,
     usePostClinicMutation,
-
+    useGetAllCarQuery,
+    useGetCarByIdQuery,
+    usePutCarMutation,
+    useDeleteCarMutation,
+    usePostCarMutation,
     useGetAllSanatoriumQuery,
     useGetSanatoriumByIdQuery,
     usePutSanatoriumMutation,

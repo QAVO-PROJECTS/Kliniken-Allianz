@@ -7,6 +7,8 @@ import turIcon from '/src/assets/leftBarIcon/turIcon.svg'
 import hotelIcon from '/src/assets/leftBarIcon/hotelIcon.svg'
 import serhIcon from '/src/assets/leftBarIcon/serhIcon.svg'
 import contactIcon from '/src/assets/leftBarIcon/contactIcon.svg'
+import carIcon from '/src/assets/leftBarIcon/carIcon.svg'
+import newsIcon from '/src/assets/leftBarIcon/newspaper.svg'
 import selectedIcon from '/src/assets/adminSelected.svg'
 import logoutIcon from '/src/assets/logoutIcon.svg'
 import {useTranslation} from "react-i18next";
@@ -24,6 +26,8 @@ function AdminLeftBar() {
         { path: "/admin/otel", icon: hotelIcon, label: t("adminPanel.leftBar.menu.hotel") },
         { path: "/admin/serh", icon: serhIcon, label: t("adminPanel.leftBar.menu.comment") },
         { path: "/admin/contact", icon: contactIcon, label: t("adminPanel.leftBar.menu.contact") },
+        { path: "/admin/car", icon: carIcon, label: t("adminPanel.leftBar.menu.contact") },
+        { path: "/admin/newspaper", icon: newsIcon, label: t("adminPanel.leftBar.menu.contact") },
     ];
     const handleLogout = () => {
         // Bütün cookieləri sil

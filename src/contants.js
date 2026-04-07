@@ -12,3 +12,5 @@ export const OTEL_CARD_IMAGES = 'https://api.kliniken-allianz.com/files/otel_car
 export const VIEW_CARD_IMAGES = 'https://api.kliniken-allianz.com/files/view_card_images/'
 export const SANATORIUM_CARD_IMAGES = 'https://api.kliniken-allianz.com/files/sanatorium_card/'
 export const SANATORIUM_IMAGES = 'https://api.kliniken-allianz.com/files/sanatorium_images/'
+export const CAR_CARD_IMAGES = 'https://api.kliniken-allianz.com/files/car/'
+export const CAR_IMAGES = 'https://api.kliniken-allianz.com/files/car/'

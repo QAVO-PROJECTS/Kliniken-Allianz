@@ -735,21 +735,45 @@
           &:hover { background: #083366; }
         }
       }
+      .room-checkbox {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 16px;
+        height: 16px;
+        border: 1px solid #d1d1d1;
+        border-radius: 4px;
+        background: #fff;
+        cursor: pointer;
+        display: grid;
+        place-items: center;
+        box-shadow: 0px 1px 1px 0px #0000001A;
+        transition: all 0.2s ease;
 
+        &:checked {
+          border-color: #0C4281;
+          background: #fff;
+        }
+        &:checked::after {
+          content: "✓";
+          color: #094080;
+          font-size: 12px;
+          font-weight: 700;
+        }
+      }
       .video-icon {
         color: #c00;
         font-size: 14px;
         flex-shrink: 0;
       }
 .xidmett{
-  height: 450px!important;
+  height: 600px!important;
 }
       .uploadedList {
         margin-top: 8px;
         display: flex;
         flex-direction: column;
         gap: 4px;
-        max-height: 150px;
+        max-height: 180px;
         overflow-y: auto;
 
         &::-webkit-scrollbar { width: 3px; }

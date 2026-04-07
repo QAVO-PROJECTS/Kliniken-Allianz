@@ -66,7 +66,35 @@ function SanatoriumAdd() {
     const [locationAlm, setLocationAlm] = useState("");
     const [locationArab, setLocationArab] = useState("");
 
+// Room type checkboxes
+    const [selectedRooms, setSelectedRooms] = useState([]);
 
+// Standard Room
+    const [stdDescAz, setStdDescAz] = useState("");
+    const [stdDescEn, setStdDescEn] = useState("");
+    const [stdDescRu, setStdDescRu] = useState("");
+    const [stdDescAlm, setStdDescAlm] = useState("");
+    const [stdDescArab, setStdDescArab] = useState("");
+
+// Comfort Room
+    const [comfDescAz, setComfDescAz] = useState("");
+    const [comfDescEn, setComfDescEn] = useState("");
+    const [comfDescRu, setComfDescRu] = useState("");
+    const [comfDescAlm, setComfDescAlm] = useState("");
+    const [comfDescArab, setComfDescArab] = useState("");
+
+// VIP Room
+    const [vipDescAz, setVipDescAz] = useState("");
+    const [vipDescEn, setVipDescEn] = useState("");
+    const [vipDescRu, setVipDescRu] = useState("");
+    const [vipDescAlm, setVipDescAlm] = useState("");
+    const [vipDescArab, setVipDescArab] = useState("");
+
+    const toggleRoom = (type) => {
+        setSelectedRooms(prev =>
+            prev.includes(type) ? prev.filter(r => r !== type) : [...prev, type]
+        );
+    };
     const handleGalereyaChange = (e) => {
         const newFiles = Array.from(e.target.files);
         const withPreview = newFiles.map((file) => ({
@@ -127,7 +155,26 @@ function SanatoriumAdd() {
         formData.append("LocationRu", locationRu);
         formData.append("LocationAlm", locationAlm);
         formData.append("LocationArab", locationArab);
+// Standard Room
+        formData.append("StandardRoomDescription", stdDescAz);
+        formData.append("StandardRoomDescriptionEng", stdDescEn);
+        formData.append("StandardRoomDescriptionRu", stdDescRu);
+        formData.append("StandardRoomDescriptionAlm", stdDescAlm);
+        formData.append("StandardRoomDescriptionArab", stdDescArab);
 
+// Comfort Room
+        formData.append("ComfortRoomDescription", comfDescAz);
+        formData.append("ComfortRoomDescriptionEng", comfDescEn);
+        formData.append("ComfortRoomDescriptionRu", comfDescRu);
+        formData.append("ComfortRoomDescriptionAlm", comfDescAlm);
+        formData.append("ComfortRoomDescriptionArab", comfDescArab);
+
+// VIP Room
+        formData.append("VipRoomDescription", vipDescAz);
+        formData.append("VipRoomDescriptionEng", vipDescEn);
+        formData.append("VipRoomDescriptionRu", vipDescRu);
+        formData.append("VipRoomDescriptionAlm", vipDescAlm);
+        formData.append("VipRoomDescriptionArab", vipDescArab);
         formData.append("SanatoriumCardImage", selectedFile);
 
         galereyaFiles.forEach((item) => {
@@ -154,6 +201,10 @@ function SanatoriumAdd() {
             setVideoInput("");
             setServiceList([]);
             setServiceForm({ name: "", nameEng: "", nameRu: "", nameAlm: "", nameArab: "" });
+            setSelectedRooms([]);
+            setStdDescAz(""); setStdDescEn(""); setStdDescRu(""); setStdDescAlm(""); setStdDescArab("");
+            setComfDescAz(""); setComfDescEn(""); setComfDescRu(""); setComfDescAlm(""); setComfDescArab("");
+            setVipDescAz(""); setVipDescEn(""); setVipDescRu(""); setVipDescAlm(""); setVipDescArab("");
             navigate('/admin/sanatorium');
         } catch (err) {
             console.error("Xəta:", err);
@@ -219,26 +270,26 @@ function SanatoriumAdd() {
                                     </div>
                                     <img src={usa} alt=""/>
                                 </div>
-                                {/*<div className="add-data">*/}
-                                {/*    <div className={'add-input'}>*/}
-                                {/*        <input*/}
-                                {/*            placeholder={t("adminPanel.sanatoriumAdd.placeholders.nameAlm")}*/}
-                                {/*            value={nameAlm}*/}
-                                {/*            onChange={(e) => setNameAlm(e.target.value)}*/}
-                                {/*        />*/}
-                                {/*    </div>*/}
-                                {/*    <img src={ger} alt=""/>*/}
-                                {/*</div>*/}
-                                {/*<div className="add-data">*/}
-                                {/*    <div className={'add-input'}>*/}
-                                {/*        <input*/}
-                                {/*            placeholder={t("adminPanel.sanatoriumAdd.placeholders.nameArab")}*/}
-                                {/*            value={nameArab}*/}
-                                {/*            onChange={(e) => setNameArab(e.target.value)}*/}
-                                {/*        />*/}
-                                {/*    </div>*/}
-                                {/*    <img src={arb} alt=""/>*/}
-                                {/*</div>*/}
+                                <div className="add-data">
+                                    <div className={'add-input'}>
+                                        <input
+                                            placeholder={t("adminPanel.sanatoriumAdd.placeholders.nameAlm")}
+                                            value={nameAlm}
+                                            onChange={(e) => setNameAlm(e.target.value)}
+                                        />
+                                    </div>
+                                    <img src={ger} alt=""/>
+                                </div>
+                                <div className="add-data">
+                                    <div className={'add-input'}>
+                                        <input
+                                            placeholder={t("adminPanel.sanatoriumAdd.placeholders.nameArab")}
+                                            value={nameArab}
+                                            onChange={(e) => setNameArab(e.target.value)}
+                                        />
+                                    </div>
+                                    <img src={arb} alt=""/>
+                                </div>
                             </div>
                         </div>
 
@@ -279,26 +330,26 @@ function SanatoriumAdd() {
                                     </div>
                                     <img src={usa} alt=""/>
                                 </div>
-                                {/*<div className="add-data">*/}
-                                {/*    <div className={'add-input'}>*/}
-                                {/*        <input*/}
-                                {/*            placeholder={t("adminPanel.sanatoriumAdd.placeholders.locationAlm")}*/}
-                                {/*            value={locationAlm}*/}
-                                {/*            onChange={(e) => setLocationAlm(e.target.value)}*/}
-                                {/*        />*/}
-                                {/*    </div>*/}
-                                {/*    <img src={ger} alt=""/>*/}
-                                {/*</div>*/}
-                                {/*<div className="add-data">*/}
-                                {/*    <div className={'add-input'}>*/}
-                                {/*        <input*/}
-                                {/*            placeholder={t("adminPanel.sanatoriumAdd.placeholders.locationArab")}*/}
-                                {/*            value={locationArab}*/}
-                                {/*            onChange={(e) => setLocationArab(e.target.value)}*/}
-                                {/*        />*/}
-                                {/*    </div>*/}
-                                {/*    <img src={arb} alt=""/>*/}
-                                {/*</div>*/}
+                                <div className="add-data">
+                                    <div className={'add-input'}>
+                                        <input
+                                            placeholder={t("adminPanel.sanatoriumAdd.placeholders.locationAlm")}
+                                            value={locationAlm}
+                                            onChange={(e) => setLocationAlm(e.target.value)}
+                                        />
+                                    </div>
+                                    <img src={ger} alt=""/>
+                                </div>
+                                <div className="add-data">
+                                    <div className={'add-input'}>
+                                        <input
+                                            placeholder={t("adminPanel.sanatoriumAdd.placeholders.locationArab")}
+                                            value={locationArab}
+                                            onChange={(e) => setLocationArab(e.target.value)}
+                                        />
+                                    </div>
+                                    <img src={arb} alt=""/>
+                                </div>
                             </div>
                         </div>
 
@@ -377,29 +428,141 @@ function SanatoriumAdd() {
                                     <img src={usa} alt=""/>
                                 </div>
                             </div>
-                            {/*<div className={'tours-desc-texts'}>*/}
-                            {/*    <textarea*/}
-                            {/*        placeholder={t("adminPanel.sanatoriumAdd.placeholders.descAlm")}*/}
-                            {/*        value={descAlm}*/}
-                            {/*        onChange={(e) => setDescAlm(e.target.value)}*/}
-                            {/*    />*/}
-                            {/*    <div className={'langCountry'}>*/}
-                            {/*        <img src={ger} alt=""/>*/}
-                            {/*    </div>*/}
-                            {/*</div>*/}
-                            {/*<div className={'tours-desc-texts'}>*/}
-                            {/*    <textarea*/}
-                            {/*        placeholder={t("adminPanel.sanatoriumAdd.placeholders.descArab")}*/}
-                            {/*        value={descArab}*/}
-                            {/*        onChange={(e) => setDescArab(e.target.value)}*/}
-                            {/*    />*/}
-                            {/*    <div className={'langCountry'}>*/}
-                            {/*        <img src={arb} alt=""/>*/}
-                            {/*    </div>*/}
-                            {/*</div>*/}
+                            <div className={'tours-desc-texts'}>
+                                <textarea
+                                    placeholder={t("adminPanel.sanatoriumAdd.placeholders.descAlm")}
+                                    value={descAlm}
+                                    onChange={(e) => setDescAlm(e.target.value)}
+                                />
+                                <div className={'langCountry'}>
+                                    <img src={ger} alt=""/>
+                                </div>
+                            </div>
+                            <div className={'tours-desc-texts'}>
+                                <textarea
+                                    placeholder={t("adminPanel.sanatoriumAdd.placeholders.descArab")}
+                                    value={descArab}
+                                    onChange={(e) => setDescArab(e.target.value)}
+                                />
+                                <div className={'langCountry'}>
+                                    <img src={arb} alt=""/>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    {/* 🔹 Otaq növləri */}
+                    <div className={'tours-desc'}>
+                        <div className={'header'}>
+                            <h3>{t("adminPanel.sanatoriumAdd.roomsTitle")}</h3>
+                            <p>{t("adminPanel.sanatoriumAdd.roomsDescription")}</p>
+                        </div>
 
+                        {/* Checkbox-lar */}
+                        <div style={{display: 'flex', gap: '24px', marginBottom: '16px'}}>
+                            {[
+                                {key: 'standard', label: 'Standart'},
+                                {key: 'comfort', label: 'Comfort'},
+                                {key: 'vip', label: 'VIP'},
+                            ].map(room => (
+                                <label key={room.key} style={{display:'flex', alignItems:'center', gap:'8px', cursor:'pointer', fontSize:'13px', fontWeight:'500'}}>
+                                    <input
+                                        type="checkbox"
+                                        checked={selectedRooms.includes(room.key)}
+                                        onChange={() => toggleRoom(room.key)}
+                                        className="room-checkbox"
+                                    />
+                                    {room.label}
+                                </label>
+                            ))}
+                        </div>
+
+                        {/* Standard Room Description */}
+                        {selectedRooms.includes('standard') && (
+                            <div style={{marginBottom: '20px'}}>
+                                <p style={{fontSize:'13px', fontWeight:'500', marginBottom:'10px', color:'#0A4080'}}>🛏 Standart Otaq</p>
+                                <div className={'tours-desc-data'}>
+                                    <div className={'tours-desc-texts'}>
+                                        <textarea placeholder="Standart otaq təsviri (AZ)" value={stdDescAz} onChange={e => setStdDescAz(e.target.value)}/>
+                                        <div className={'langCountry'}><img src={aze} alt=""/></div>
+                                    </div>
+                                    <div className={'tours-desc-texts'}>
+                                        <textarea placeholder="Standart otaq təsviri (RU)" value={stdDescRu} onChange={e => setStdDescRu(e.target.value)}/>
+                                        <div className={'langCountry'}><img src={rus} alt=""/></div>
+                                    </div>
+                                    <div className={'tours-desc-texts'}>
+                                        <textarea placeholder="Standart otaq təsviri (EN)" value={stdDescEn} onChange={e => setStdDescEn(e.target.value)}/>
+                                        <div className={'langCountry'}><img src={usa} alt=""/></div>
+                                    </div>
+                                    <div className={'tours-desc-texts'}>
+                                        <textarea placeholder="Standart otaq təsviri (ALM)" value={stdDescAlm} onChange={e => setStdDescAlm(e.target.value)}/>
+                                        <div className={'langCountry'}><img src={ger} alt=""/></div>
+                                    </div>
+                                    <div className={'tours-desc-texts'}>
+                                        <textarea placeholder="Standart otaq təsviri (AR)" value={stdDescArab} onChange={e => setStdDescArab(e.target.value)}/>
+                                        <div className={'langCountry'}><img src={arb} alt=""/></div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Comfort Room Description */}
+                        {selectedRooms.includes('comfort') && (
+                            <div style={{marginBottom: '20px'}}>
+                                <p style={{fontSize:'13px', fontWeight:'500', marginBottom:'10px', color:'#0A4080'}}>🛏 Comfort Otaq</p>
+                                <div className={'tours-desc-data'}>
+                                    <div className={'tours-desc-texts'}>
+                                        <textarea placeholder="Comfort otaq təsviri (AZ)" value={comfDescAz} onChange={e => setComfDescAz(e.target.value)}/>
+                                        <div className={'langCountry'}><img src={aze} alt=""/></div>
+                                    </div>
+                                    <div className={'tours-desc-texts'}>
+                                        <textarea placeholder="Comfort otaq təsviri (RU)" value={comfDescRu} onChange={e => setComfDescRu(e.target.value)}/>
+                                        <div className={'langCountry'}><img src={rus} alt=""/></div>
+                                    </div>
+                                    <div className={'tours-desc-texts'}>
+                                        <textarea placeholder="Comfort otaq təsviri (EN)" value={comfDescEn} onChange={e => setComfDescEn(e.target.value)}/>
+                                        <div className={'langCountry'}><img src={usa} alt=""/></div>
+                                    </div>
+                                    <div className={'tours-desc-texts'}>
+                                        <textarea placeholder="Comfort otaq təsviri (ALM)" value={comfDescAlm} onChange={e => setComfDescAlm(e.target.value)}/>
+                                        <div className={'langCountry'}><img src={ger} alt=""/></div>
+                                    </div>
+                                    <div className={'tours-desc-texts'}>
+                                        <textarea placeholder="Comfort otaq təsviri (AR)" value={comfDescArab} onChange={e => setComfDescArab(e.target.value)}/>
+                                        <div className={'langCountry'}><img src={arb} alt=""/></div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* VIP Room Description */}
+                        {selectedRooms.includes('vip') && (
+                            <div style={{marginBottom: '20px'}}>
+                                <p style={{fontSize:'13px', fontWeight:'500', marginBottom:'10px', color:'#0A4080'}}>👑 VIP Otaq</p>
+                                <div className={'tours-desc-data'}>
+                                    <div className={'tours-desc-texts'}>
+                                        <textarea placeholder="VIP otaq təsviri (AZ)" value={vipDescAz} onChange={e => setVipDescAz(e.target.value)}/>
+                                        <div className={'langCountry'}><img src={aze} alt=""/></div>
+                                    </div>
+                                    <div className={'tours-desc-texts'}>
+                                        <textarea placeholder="VIP otaq təsviri (RU)" value={vipDescRu} onChange={e => setVipDescRu(e.target.value)}/>
+                                        <div className={'langCountry'}><img src={rus} alt=""/></div>
+                                    </div>
+                                    <div className={'tours-desc-texts'}>
+                                        <textarea placeholder="VIP otaq təsviri (EN)" value={vipDescEn} onChange={e => setVipDescEn(e.target.value)}/>
+                                        <div className={'langCountry'}><img src={usa} alt=""/></div>
+                                    </div>
+                                    <div className={'tours-desc-texts'}>
+                                        <textarea placeholder="VIP otaq təsviri (ALM)" value={vipDescAlm} onChange={e => setVipDescAlm(e.target.value)}/>
+                                        <div className={'langCountry'}><img src={ger} alt=""/></div>
+                                    </div>
+                                    <div className={'tours-desc-texts'}>
+                                        <textarea placeholder="VIP otaq təsviri (AR)" value={vipDescArab} onChange={e => setVipDescArab(e.target.value)}/>
+                                        <div className={'langCountry'}><img src={arb} alt=""/></div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
                     {/* 🔹 Xidmətlər + Galereya + Videolar */}
                     <div className={'Sanatorium-add-data'}>
 
@@ -440,64 +603,100 @@ function SanatoriumAdd() {
                                     </div>
                                     <img src={usa} alt=""/>
                                 </div>
-                                {/*<div className="add-data">*/}
-                                {/*    <div className="add-input">*/}
-                                {/*        <input*/}
-                                {/*            placeholder={t("adminPanel.sanatoriumAdd.placeholders.serviceAlm")}*/}
-                                {/*            value={serviceForm.nameAlm}*/}
-                                {/*            onChange={(e) => setServiceForm(p => ({...p, nameAlm: e.target.value}))}*/}
-                                {/*        />*/}
-                                {/*    </div>*/}
-                                {/*    <img src={ger} alt=""/>*/}
-                                {/*</div>*/}
-                                {/*<div className="add-data">*/}
-                                {/*    <div className="add-input">*/}
-                                {/*        <input*/}
-                                {/*            placeholder={t("adminPanel.sanatoriumAdd.placeholders.serviceArab")}*/}
-                                {/*            value={serviceForm.nameArab}*/}
-                                {/*            onChange={(e) => setServiceForm(p => ({...p, nameArab: e.target.value}))}*/}
-                                {/*        />*/}
-                                {/*    </div>*/}
-                                {/*    <img src={arb} alt=""/>*/}
-                                {/*</div>*/}
-                                {/*<div className="add-data">*/}
-                                {/*    <div className="add-input">*/}
-                                {/*        <input*/}
-                                {/*            placeholder={t("adminPanel.sanatoriumAdd.placeholders.serviceAlm")}*/}
-                                {/*            value={serviceForm.nameAlm}*/}
-                                {/*            onChange={(e) => setServiceForm(p => ({...p, nameAlm: e.target.value}))}*/}
-                                {/*        />*/}
-                                {/*    </div>*/}
-                                {/*    <img src={ger} alt=""/>*/}
-                                {/*</div>*/}
-                                {/*<div className="add-data">*/}
-                                {/*    <div className="add-input">*/}
-                                {/*        <input*/}
-                                {/*            placeholder={t("adminPanel.sanatoriumAdd.placeholders.serviceArab")}*/}
-                                {/*            value={serviceForm.nameArab}*/}
-                                {/*            onChange={(e) => setServiceForm(p => ({...p, nameArab: e.target.value}))}*/}
-                                {/*        />*/}
-                                {/*    </div>*/}
-                                {/*    <img src={arb} alt=""/>*/}
-                                {/*</div>*/}
+
+                                <div className="add-data">
+                                    <div className="add-input">
+                                        <input
+                                            placeholder={t("adminPanel.sanatoriumAdd.placeholders.serviceAlm")}
+                                            value={serviceForm.nameAlm}
+                                            onChange={(e) => setServiceForm(p => ({...p, nameAlm: e.target.value}))}
+                                        />
+                                    </div>
+                                    <img src={ger} alt=""/>
+                                </div>
+                                <div className="add-data">
+                                    <div className="add-input">
+                                        <input
+                                            placeholder={t("adminPanel.sanatoriumAdd.placeholders.serviceArab")}
+                                            value={serviceForm.nameArab}
+                                            onChange={(e) => setServiceForm(p => ({...p, nameArab: e.target.value}))}
+                                        />
+                                    </div>
+                                    <img src={arb} alt=""/>
+                                </div>
                             </div>
 
                             <button type="button" className="video-add-btn" onClick={addService}>
                                 {t("adminPanel.sanatoriumAdd.buttons.addService")}
                             </button>
 
-                            {/* Əlavə edilmiş xidmətlər siyahısı */}
                             {serviceList.length > 0 && (
                                 <div className="uploadedList" style={{marginTop: "10px"}}>
                                     {serviceList.map((s, index) => (
                                         <div key={index} className="uploadedItem">
-                                            <div className="fileLeft">
-                                                <span>{index + 1}. {s.name}</span>
-                                                <span>{index + 1}. {s.nameEng} (ENG)</span>
-                                                <span>{index + 1}. {s.nameRu} (RU)</span>
-                                                {/*{s.nameEng && <span style={{color: "#999", fontSize: "11px"}}> / {s.nameEng}</span>}*/}
+                                            <div className="fileLeft" style={{width: '100%'}}>
+                                                <div style={{display:'flex', alignItems:'center', gap:'6px', width:'100%'}}>
+                                                    <img src={aze} alt="" style={{width:'18px', height:'18px', flexShrink:0}}/>
+                                                    <input
+                                                        value={s.name || ""}
+                                                        onChange={(e) => {
+                                                            const updated = [...serviceList];
+                                                            updated[index] = {...updated[index], name: e.target.value};
+                                                            setServiceList(updated);
+                                                        }}
+                                                        style={{flex:1, height:'28px', border:'0.5px solid #B7B7B7', borderRadius:'4px', padding:'0 8px', fontSize:'12px', outline:'none'}}
+                                                    />
+                                                </div>
+                                                <div style={{display:'flex', alignItems:'center', gap:'6px', width:'100%'}}>
+                                                    <img src={rus} alt="" style={{width:'18px', height:'18px', flexShrink:0}}/>
+                                                    <input
+                                                        value={s.nameRu || ""}
+                                                        onChange={(e) => {
+                                                            const updated = [...serviceList];
+                                                            updated[index] = {...updated[index], nameRu: e.target.value};
+                                                            setServiceList(updated);
+                                                        }}
+                                                        style={{flex:1, height:'28px', border:'0.5px solid #B7B7B7', borderRadius:'4px', padding:'0 8px', fontSize:'12px', outline:'none'}}
+                                                    />
+                                                </div>
+                                                <div style={{display:'flex', alignItems:'center', gap:'6px', width:'100%'}}>
+                                                    <img src={usa} alt="" style={{width:'18px', height:'18px', flexShrink:0}}/>
+                                                    <input
+                                                        value={s.nameEng || ""}
+                                                        onChange={(e) => {
+                                                            const updated = [...serviceList];
+                                                            updated[index] = {...updated[index], nameEng: e.target.value};
+                                                            setServiceList(updated);
+                                                        }}
+                                                        style={{flex:1, height:'28px', border:'0.5px solid #B7B7B7', borderRadius:'4px', padding:'0 8px', fontSize:'12px', outline:'none'}}
+                                                    />
+                                                </div>
+                                                <div style={{display:'flex', alignItems:'center', gap:'6px', width:'100%'}}>
+                                                    <img src={ger} alt="" style={{width:'18px', height:'18px', flexShrink:0}}/>
+                                                    <input
+                                                        value={s.nameAlm || ""}
+                                                        onChange={(e) => {
+                                                            const updated = [...serviceList];
+                                                            updated[index] = {...updated[index], nameAlm: e.target.value};
+                                                            setServiceList(updated);
+                                                        }}
+                                                        style={{flex:1, height:'28px', border:'0.5px solid #B7B7B7', borderRadius:'4px', padding:'0 8px', fontSize:'12px', outline:'none'}}
+                                                    />
+                                                </div>
+                                                <div style={{display:'flex', alignItems:'center', gap:'6px', width:'100%'}}>
+                                                    <img src={arb} alt="" style={{width:'18px', height:'18px', flexShrink:0}}/>
+                                                    <input
+                                                        value={s.nameArab || ""}
+                                                        onChange={(e) => {
+                                                            const updated = [...serviceList];
+                                                            updated[index] = {...updated[index], nameArab: e.target.value};
+                                                            setServiceList(updated);
+                                                        }}
+                                                        style={{flex:1, height:'28px', border:'0.5px solid #B7B7B7', borderRadius:'4px', padding:'0 8px', fontSize:'12px', outline:'none'}}
+                                                    />
+                                                </div>
                                             </div>
-                                            <button onClick={() => removeService(index)}>✕</button>
+                                            <button onClick={() => removeService(index)} style={{alignSelf:'flex-start', marginTop:'4px'}}>✕</button>
                                         </div>
                                     ))}
                                 </div>

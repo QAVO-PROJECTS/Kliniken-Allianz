@@ -51,6 +51,9 @@ import SanatoriumAdd from "../pages/AdminPagesNew/AdminSanatoriumAdd/index.jsx";
 import SanatoriumEdit from "../pages/AdminPagesNew/AdminSanatoriumEdit/index.jsx";
 import SanatoriumsPage from "../pages/UserPages/SanatoriumsPage/index.jsx";
 import SanatoriumDetail from "../pages/UserPages/SanatoriumDetail/index.jsx";
+import AdminCar from "../pages/AdminPagesNew/AdminCar/index.jsx";
+import AdminCarAdd from "../pages/AdminPagesNew/AdminCarAdd/index.jsx";
+import AdminCarEdit from "../pages/AdminPagesNew/AdminCarEdit/index.jsx";
 
 
 const router = [
@@ -227,6 +230,18 @@ const router = [
             {
                 path: "/admin/sanatorium/edit/:id",
                 element: <SanatoriumEdit/>
+            },
+            {
+                path: "/admin/car",
+                element: <AdminCar/>
+            },
+            {
+                path: "/admin/car/add",
+                element: <AdminCarAdd/>
+            },
+            {
+                path: "/admin/car/edit/:id",
+                element: <AdminCarEdit/>
             },
         ]
     },
