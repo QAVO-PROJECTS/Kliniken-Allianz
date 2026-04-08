@@ -69,7 +69,7 @@ function SanatoriumEdit() {
     const [addedServices, setAddedServices] = useState([]);      // yeni əlavə olunanlar
     const [deleteServiceIds, setDeleteServiceIds] = useState([]); // silinənlərin id-ləri
     const [serviceForm, setServiceForm] = useState({
-        name: "", nameEng: "", nameRu: "", nameAlm: "", nameArab: ""
+        name: "", nameEng: "", nameRu: "", nameAL: "", nameAR: ""
     });
 // Room type checkboxes
     const [selectedRooms, setSelectedRooms] = useState([]);
@@ -299,7 +299,7 @@ function SanatoriumEdit() {
         // 🔹 Əsas şəkil
         if (selectedFile) formData.append("SanatoriumCardImage", selectedFile);
         if (editedServices.length > 0) {
-            formData.append("editServiceJson", JSON.stringify(editedServices));
+            formData.append("serviceJson", JSON.stringify(editedServices));
         }
         // 🔹 Yeni galereya şəkilləri
         if (galereyaFiles.length > 0)
@@ -703,8 +703,8 @@ function SanatoriumEdit() {
                                     <div className="add-input">
                                         <input
                                             placeholder={t("adminPanel.sanatoriumEdit.placeholders.serviceAlm")}
-                                            value={serviceForm.nameAlm}
-                                            onChange={(e) => setServiceForm(p => ({...p, nameAlm: e.target.value}))}
+                                            value={serviceForm.nameAL}
+                                            onChange={(e) => setServiceForm(p => ({...p, nameAL: e.target.value}))}
                                         />
                                     </div>
                                     <img src={ger} alt=""/>
@@ -713,8 +713,8 @@ function SanatoriumEdit() {
                                     <div className="add-input">
                                         <input
                                             placeholder={t("adminPanel.sanatoriumEdit.placeholders.serviceArab")}
-                                            value={serviceForm.nameArab}
-                                            onChange={(e) => setServiceForm(p => ({...p, nameArab: e.target.value}))}
+                                            value={serviceForm.nameAR}
+                                            onChange={(e) => setServiceForm(p => ({...p, nameAR: e.target.value}))}
                                         />
                                     </div>
                                     <img src={arb} alt=""/>
@@ -791,16 +791,16 @@ function SanatoriumEdit() {
                                                 <div style={{display:'flex', alignItems:'center', gap:'6px', width:'100%'}}>
                                                     <img src={ger} alt="" style={{width:'18px', height:'18px', flexShrink:0}}/>
                                                     <input
-                                                        value={s.nameAlm || ""}
+                                                        value={s.nameAL || ""}
                                                         onChange={(e) => {
                                                             const updated = [...serviceList];
-                                                            updated[index] = {...updated[index], nameAlm: e.target.value};
+                                                            updated[index] = {...updated[index], nameAL: e.target.value};
                                                             setServiceList(updated);
                                                             if (s.id) {
                                                                 setEditedServices(prev => {
                                                                     const exists = prev.find(x => x.id === s.id);
-                                                                    if (exists) return prev.map(x => x.id === s.id ? {...x, nameAlm: e.target.value} : x);
-                                                                    return [...prev, {...updated[index], nameAlm: e.target.value}];
+                                                                    if (exists) return prev.map(x => x.id === s.id ? {...x, nameAL: e.target.value} : x);
+                                                                    return [...prev, {...updated[index], nameAL: e.target.value}];
                                                                 });
                                                             }
                                                         }}
@@ -810,16 +810,16 @@ function SanatoriumEdit() {
                                                 <div style={{display:'flex', alignItems:'center', gap:'6px', width:'100%'}}>
                                                     <img src={arb} alt="" style={{width:'18px', height:'18px', flexShrink:0}}/>
                                                     <input
-                                                        value={s.nameArab || ""}
+                                                        value={s.nameAR || ""}
                                                         onChange={(e) => {
                                                             const updated = [...serviceList];
-                                                            updated[index] = {...updated[index], nameArab: e.target.value};
+                                                            updated[index] = {...updated[index], nameAR: e.target.value};
                                                             setServiceList(updated);
                                                             if (s.id) {
                                                                 setEditedServices(prev => {
                                                                     const exists = prev.find(x => x.id === s.id);
-                                                                    if (exists) return prev.map(x => x.id === s.id ? {...x, nameArab: e.target.value} : x);
-                                                                    return [...prev, {...updated[index], nameArab: e.target.value}];
+                                                                    if (exists) return prev.map(x => x.id === s.id ? {...x, nameAR: e.target.value} : x);
+                                                                    return [...prev, {...updated[index], nameAR: e.target.value}];
                                                                 });
                                                             }
                                                         }}

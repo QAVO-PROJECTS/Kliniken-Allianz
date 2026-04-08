@@ -57,6 +57,10 @@ import AdminCarEdit from "../pages/AdminPagesNew/AdminCarEdit/index.jsx";
 import AdminNewspaperNew from "../pages/AdminPagesNew/AdminNewspaper/index.jsx";
 import AdminNewspaperAdd from "../pages/AdminPagesNew/AdminNewspaperAdd/index.jsx";
 import AdminNewspaperEdit from "../pages/AdminPagesNew/AdminNewspaperEdit/index.jsx";
+import Blogs from "../pages/UserPages/Blogs/index.jsx";
+import BlogDetail from "../pages/UserPages/BlogDetail/index.jsx";
+import { element } from "three/tsl";
+import CarDetail from "../pages/UserPages/CarDetail/index.jsx";
 
 const router = [
     {
@@ -122,6 +126,18 @@ const router = [
             {
                 path: "/about",
                 element: <AboutUs/>
+            },
+            {
+                path: "/blogs",
+                element: <Blogs/>
+            },
+            {
+                path: "/blogs/:id",
+                element: <BlogDetail/>
+            },
+            {
+                path:'/cars/:id',
+                element: <CarDetail/>
             }
         ]
     },

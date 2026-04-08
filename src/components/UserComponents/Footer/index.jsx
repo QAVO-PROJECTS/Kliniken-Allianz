@@ -88,7 +88,7 @@ function Footer() {
 
                                         <div className="content">
                                             <span>{t('footer.call')}</span>
-                                            <p><a href="tel:+9947076543489">{t('footer.phone')}</a></p>
+                                            <p><a href="tel:+994502164292">+994 50 216 42 92</a></p>
                                         </div>
                                     </div>
                                     <div className="foot-contact">
@@ -96,8 +96,8 @@ function Footer() {
                                         <div className="content">
                                             <span>{t('footer.mail')}</span>
                                             <p>
-                                                <a href="mailto:klinikenallianz@gmail.com">
-                                                    {t('footer.email')}
+                                                <a href="mailto:klinikenallianz.tibbiturizm@gmail.com">
+                                                   klinikenallianz.tibbiturizm@gmail.com
                                                 </a>
                                             </p>
                                         </div>
@@ -108,22 +108,22 @@ function Footer() {
                                 <div className="social">
                                     <div className="icons">
                                         <div className="icon">
-                                            <a href="https://wa.me/9947076543489" target="_blank" rel="noopener noreferrer">
+                                            <a href="https://wa.me/994502164292" target="_blank" rel="noopener noreferrer">
                                                 <IoLogoWhatsapp />
                                             </a>
                                         </div>
                                         <div className="icon">
-                                            <a href="https://www.instagram.com/klinikenallianz/" target="_blank" rel="noopener noreferrer">
+                                            <a href="https://www.instagram.com/kliniken.allianz/" target="_blank" rel="noopener noreferrer">
                                                 <AiFillInstagram />
                                             </a>
                                         </div>
                                         <div className="icon">
-                                            <a href="https://www.tiktok.com/@klinikenallianz" target="_blank" rel="noopener noreferrer">
+                                            <a href="https://www.tiktok.com/@kliniken.allianz" target="_blank" rel="noopener noreferrer">
                                                 <FaTiktok />
                                             </a>
                                         </div>
                                         <div className="icon">
-                                            <a href="https://www.facebook.com/klinikenallianz" target="_blank" rel="noopener noreferrer">
+                                            <a href="https://www.facebook.com/people/Kliniken-Allianz/61576974924307/" target="_blank" rel="noopener noreferrer">
                                                 <FaFacebook />
                                             </a>
                                         </div>
@@ -141,7 +141,7 @@ function Footer() {
                             </div>
                             <div className="col-30 col-md-60 col-sm-60 col-xs-60">
                                 <div className="createdBy">
-                                    {t('footer.createdBy')} <a href="https://qavo.az/" target="_blank" rel="noopener noreferrer">BuyonTech</a>
+                                    {t('footer.createdBy')} <a href="https://buyontech.net/" target="_blank" rel="noopener noreferrer">BuyonTech</a>
                                 </div>
                             </div>
                         </div>

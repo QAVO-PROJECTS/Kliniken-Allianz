@@ -191,6 +191,8 @@ function Navbar() {
         { to: '/tours',       key: 'tours' },
         { to: '/about',       key: 'about' },
         { to: '/contact',     key: 'contact' },
+        { to: '/blogs',     key: 'blog' },
+
     ];
 
     return (

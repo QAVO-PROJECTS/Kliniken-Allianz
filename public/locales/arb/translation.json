@@ -1776,5 +1776,35 @@
     "headerTitle": "Tibbi Tur Paketləri",
     "headerDesc": "Müalicə, yerləşmə və transfer daxil tam tibbi tur paketləri.",
     "noData": "Axtardığınız tur tapılmadı 😔"
+  },
+  "newBlog": {
+    "breadcrumb": "الصفحة الرئيسية /",
+    "pageTitle": "مدونة",
+    "title": "الأحدث",
+    "readMore": "اقرأ أكثر",
+    "noBlog": "حاليًا، لا توجد مدونات"
+  },
+  "oldBlog": {
+    "title": "المدونات السابقة"
+  },
+  "blogCard": {
+    "readMore": "اقرأ أكثر"
+  },
+  "blogDetail": {
+    "breadcrumb": "الصفحة الرئيسية / مدونة /",
+    "copySuccess": "تم نسخ الرابط!",
+    "blogHeading": "مدونة السفر Kliniken Allianz",
+    "authorLabel": "المؤلف",
+    "copyLink": "نسخ الرابط",
+    "recommendTitle": "مدونات أخرى",
+    "viewAll": "عرض الكل",
+    "recommendSubtitle": "قصص السفر، نصائح مفيدة، ومنشورات حول أماكن لا تُنسى هنا!"
+  },
+  "blogDetailCard": {
+    "button": "شاهد المزيد"
+  },
+  "pagination": {
+    "prev": "السابق",
+    "next": "التالي"
   }
 }

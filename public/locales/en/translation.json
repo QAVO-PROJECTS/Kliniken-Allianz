@@ -8,6 +8,7 @@
     "contact": "Contact",
     "categories": "Categories",
     "search": "Search",
+    "blog": "Blogs",
     "languages": {
       "az": "Azerbaijani",
       "en": "English",
@@ -32,7 +33,7 @@
   },
   "footer": {
     "logoAlt": "Kliniken Allianz Logo",
-    "description": "We handle every detail of your treatment journey — from medical care to flights, visa support, and accommodation.",
+    "description": "We refer you to the world's leading clinics and sanatoriums, selecting the most suitable organization for your treatment. Your health journey will not only consist of treatment - after surgery, consultation, rehabilitation, diagnostic and preventive services, your rest and travel will also be unforgettable.",
     "links": "Links",
     "contactTitle": "Contact Information",
     "call": "Call Us",
@@ -220,6 +221,19 @@
   "bestServCard": {
     "button": "Read More"
   },
+  "toursPage": {
+  "applyButton": "Apply"
+},
+"tourDetail": {
+  "cars": { "title": "Cars" },
+  "otels": { "title": "Hotels", "visit": "Visit hotel" }
+},
+"carsPage": {
+  "title": "Cars"
+},
+"carDetail": {
+  "perDay": "day"
+},
   "homeComment": {
     "title": "Trusted By Our Patients",
     "desc": "Experiences and feedback from people who chose us for their medical journey.",
@@ -308,15 +322,15 @@
     "contactCard": {
       "mobile": {
         "title": "Mobile",
-        "value": "+994 50 123 45 67"
+        "value": "+994 50 216 42 92"
       },
       "email": {
         "title": "Email",
-        "value": "info@kliniken-allianz.az"
+        "value": "klinikenallianz.tibbiturizm@gmail.com"
       },
       "address": {
         "title": "Address",
-        "value": "Nizami Street 45, Baku, Azerbaijan"
+        "value": "Azerbaijan, Chinar Park Business Center"
       }
     },
     "form": {
@@ -529,6 +543,10 @@
       "search": {
         "placeholder": "Axtarış edin....."
       },
+        "filter": {
+            "allLocations": "All cities",
+            "placeholder": "Filter by city"
+        },
       "breadcrumb": {
         "home": "Home",
         "sanatoriums": "Sanatoriyalar"
@@ -1822,5 +1840,35 @@
         "text": "Müalicə prosesi tamamilə stressiz və rahat keçdi. Nəqliyyat, otel və xəstəxana xidmətləri əvvəlcədən mükəmməl şəkildə təşkil olunmuşdu, bu da məni çox məmnun etdi. Həkimlər və personalın peşəkarlığı, qayğıkeş münasibəti sayəsində özümü hər an təhlükəsiz hiss etdim. Bu xidməti hamıya ürəkdən tövsiyə edirəm!"
       }
     ]
+  },
+  "newBlog": {
+    "breadcrumb": "Home /",
+    "pageTitle": "Blog",
+    "title": "Latest",
+    "readMore": "Read more",
+    "noBlog": "Currently, there are no blogs"
+  },
+  "oldBlog": {
+    "title": "Previous blogs"
+  },
+  "blogCard": {
+    "readMore": "Read more"
+  },
+  "blogDetail": {
+    "breadcrumb": "Home / Blog /",
+    "copySuccess": "Link copied!",
+    "blogHeading": "Kliniken Allianz Travel Blog",
+    "authorLabel": "Author",
+    "copyLink": "Copy link",
+    "recommendTitle": "Other Blogs",
+    "viewAll": "View all",
+    "recommendSubtitle": "Travel stories, useful tips, and posts about unforgettable places are here!"
+  },
+  "blogDetailCard": {
+    "button": "View more"
+  },
+  "pagination": {
+    "prev": "Previous",
+    "next": "Next"
   }
 }

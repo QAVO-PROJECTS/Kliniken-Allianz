@@ -8,6 +8,7 @@
     "contact": "Əlaqə",
     "categories": "Kateqoriyalar",
     "search": "Axtarış",
+    "blog": "Bloqlar",
     "languages": {
       "az": "Azərbaycan",
       "en": "İngilis",
@@ -26,13 +27,26 @@
     "services": "Xidmətlər",
     "suggestedServices": "Önerilən Xidmətlər"
   },
+  "toursPage": {
+  "applyButton": "Müraciət et"
+},
+"tourDetail": {
+  "cars": { "title": "Avtomobillər" },
+  "otels": { "title": "Otellər", "visit": "Oteli ziyarət et" }
+},
+"carsPage": {
+  "title": "Avtomobillər"
+},
+"carDetail": {
+  "perDay": "gün"
+},
   "categoriesMenu": {
     "title": "Kateqoriyalar",
     "allCategories": "Bütün kateqoriyalar"
   },
   "footer": {
     "logoAlt": "Kliniken Allianz Loqosu",
-    "description": "Müalicə prosesi, uçuş, viza dəstəyi və qalacaq yer kimi bütün detalları sizin üçün düşünür və planlayırıq.",
+    "description": "Biz sizi dünyanın lider klinikaları və sanatoriyalarına yönləndirir, müalicəniz üçün ən uyğun müəssisələri seçirik. Sağlamlıq səyahətiniz yalnız müalicədən ibarət deyil – əməliyyat, konsultasiya, reabilitasiya, diaqnostik və profilaktik xidmətlərdən sonra istirahət və səyahətiniz də unudulmaz olacaq.",
     "links": "Keçidlər",
     "contactTitle": "Əlaqə məlumatları",
     "call": "Bizə zəng edin",
@@ -305,15 +319,15 @@
     "contactCard": {
       "mobile": {
         "title": "Mobil",
-        "value": "+994 50 123 45 67"
+        "value": "+994 50 216 42 92"
       },
       "email": {
         "title": "Email",
-        "value": "info@kliniken-allianz.az"
+        "value": "klinikenallianz.tibbiturizm@gmail.com"
       },
       "address": {
         "title": "Ünvan",
-        "value": "Nizami küçəsi 45, Bakı, Azərbaycan"
+        "value": "Azərbaycan, Çinar Park Biznes Mərkəzi"
       }
     },
     "form": {
@@ -786,6 +800,10 @@
         "title": "Etibar Edilən Sağlamlıq Mərkəzləri",
         "subtitle": "Kliniken Allianz yalnız beynəlxalq standartlara cavab verən, müasir və etibarlı sanatoriyalarla əməkdaşlıq edir."
       },
+      "filter": {
+    "allLocations": "Bütün şəhərlər",
+    "placeholder": "Şəhərə görə filtr"
+},
       "search": {
         "placeholder": "Axtarış edin....."
       },
@@ -1796,6 +1814,36 @@
         "service": "Xidmət",
         "tour": "Tur"
       }
+    },
+    "newBlog": {
+      "breadcrumb": "Ana səhifə /",
+      "pageTitle": "Bloq",
+      "title": "Ən Yeni",
+      "readMore": "Ətraflı oxu",
+      "noBlog": "Hal-hazırda heç bir bloq yoxdur"
+    },
+    "oldBlog": {
+      "title": "Öncəki bloqlar"
+    },
+    "blogCard": {
+      "readMore": "Ətraflı oxu"
+    },
+    "blogDetail": {
+      "breadcrumb": "Ana səhifə / Bloq /",
+      "copySuccess": "Link kopyalandı!",
+      "blogHeading": "Kliniken Allianz Səyahət Bloqu",
+      "authorLabel": "Müəllif",
+      "copyLink": "Linki kopyala",
+      "recommendTitle": "Digər Bloqlar",
+      "viewAll": "Hamısına bax",
+      "recommendSubtitle": "Səyahət hekayələri, faydalı məsləhətlər və unudulmaz məkanlar haqqında yazılar burada!"
+    },
+    "blogDetailCard": {
+      "button": "Dahasına bax"
+    },
+    "pagination": {
+      "prev": "Əvvələ",
+      "next": "Sonra"
     }
   }
 }

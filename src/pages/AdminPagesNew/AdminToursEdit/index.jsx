@@ -64,7 +64,8 @@ function ToursEdit() {
     const [videoInput, setVideoInput] = useState("");
     const [addedTourVideos, setAddedTourVideos] = useState([]);
     const [deleteTourVideos, setDeleteTourVideos] = useState([]);
-    
+    const [deletedCarIds, setDeletedCarIds] = useState([]);
+const [deletedOtelIds, setDeletedOtelIds] = useState([]);
     // Əlaqələr
     const [selectedCars, setSelectedCars] = useState([]);
     const [selectedOtels, setSelectedOtels] = useState([]);
@@ -177,12 +178,28 @@ function ToursEdit() {
     };
     
     const toggleCarSelection = (id) => {
-        setSelectedCars(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
-    };
+    setSelectedCars(prev => {
+        if (prev.includes(id)) {
+            setDeletedCarIds(d => [...d, id]);
+            return prev.filter(x => x !== id);
+        } else {
+            setDeletedCarIds(d => d.filter(x => x !== id));
+            return [...prev, id];
+        }
+    });
+};
     
     const toggleOtelSelection = (id) => {
-        setSelectedOtels(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
-    };
+    setSelectedOtels(prev => {
+        if (prev.includes(id)) {
+            setDeletedOtelIds(d => [...d, id]);
+            return prev.filter(x => x !== id);
+        } else {
+            setDeletedOtelIds(d => d.filter(x => x !== id));
+            return [...prev, id];
+        }
+    });
+};
 
     const handleInputChange = (sectionId, index, value) => {
         setSections((prev) =>
@@ -240,13 +257,36 @@ function ToursEdit() {
         if (selectedFile) formData.append("CardImage", selectedFile);
         
         newTourImages.forEach(item => formData.append("TourImages", item.file));
-        deleteTourImageIds.forEach(delId => formData.append("DeleteTourImageIds", delId));
         
-        if (addedTourVideos.length > 0)
-            addedTourVideos.forEach(url => formData.append("TourVideos", url));
+        // Images delete
+deleteTourImageIds.forEach(id => {
+    formData.append("DeleteTourImages", id);
+});
 
-        if (deleteTourVideos.length > 0)
-            deleteTourVideos.forEach(url => formData.append("DeleteTourVideoIds", url));
+// Videos delete
+deleteTourVideos.forEach(id => {
+    formData.append("DeleteTourVideos", id);
+});
+
+// Cars add
+selectedCars.forEach(id => {
+    formData.append("CarTourIds", id);
+});
+
+// Cars delete
+deletedCarIds.forEach(id => {
+    formData.append("DeleteCarTourIds", id);
+});
+
+// Otels add
+selectedOtels.forEach(id => {
+    formData.append("otelIds", id);
+});
+
+// Otels delete
+deletedOtelIds.forEach(id => {
+    formData.append("deleteOtelds", id);
+});
         
         selectedCars.forEach(cid => formData.append("CarTourIds", cid));
         selectedOtels.forEach(oid => formData.append("otelIds", oid));

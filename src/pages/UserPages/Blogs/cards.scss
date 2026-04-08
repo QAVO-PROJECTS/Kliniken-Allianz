@@ -1,0 +1,9 @@
+// Nothing specific needed for now as we use bootstrap grid and BlogCard styles
+.row.gy-5 {
+  margin-left: -15px;
+  margin-right: -15px;
+  & > [class*='col-'] {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
