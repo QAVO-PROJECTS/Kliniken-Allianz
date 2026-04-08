@@ -187,7 +187,7 @@ function TourDetail() {
                                     <div className="car-card">
                                         {car.carImages?.[0] && (
                                             <div className="car-card__image">
-                                                <img src={`${CAR_CARD_IMAGES}${car.carImages[0]}`} alt={getName(car)} />
+                                                <img src={`${CAR_CARD_IMAGES}${car.cardImage}`} alt={getName(car)} />
                                                 <span className="car-card__type">{car.type}</span>
                                             </div>
                                         )}
