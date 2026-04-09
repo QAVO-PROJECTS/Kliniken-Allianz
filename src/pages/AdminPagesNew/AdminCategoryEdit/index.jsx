@@ -174,6 +174,7 @@ function CategoryEdit() {
                                         <img src={usa} alt="" />
                                     </div>
                                 </div>
+
                                 <div className={'add-data'}>
                                     <div className={'add-input'}>
                                         <input
