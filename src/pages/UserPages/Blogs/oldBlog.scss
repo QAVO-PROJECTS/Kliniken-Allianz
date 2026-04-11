@@ -1,15 +1,19 @@
 .oldBlog{
-  padding: 80px 0;
+  padding-bottom: var(--section-padding);
   .title{
     position: relative;
-    height: 62px;
+    height: 60px;
     padding-bottom: 12px;
-    align-content: center;
-    border-bottom: 0.75px solid #ABABAB;
+    border-bottom: 1px solid #ABABAB;
     margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    @media (max-width: 767.98px) {
+      margin-bottom: 24px;
+    }
     div{
-      width: 50px;
-      height: 50px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       background-color: #FFEBEE;
       position: absolute;
@@ -18,50 +22,57 @@
       z-index: -1;
     }
     h2{
-      margin-left: 25px;
+      margin-left: 24px;
       margin-bottom: 0;
       font-weight: 500;
       font-size: 28px;
-      line-height: 100%;
-
+      color: #1a1a1a;
       @media (max-width: 991.98px) {
-        font-size: 24px;
+        font-size: 28px;
       }
       @media (max-width: 767.98px) {
-        font-size: 20px;
+        font-size: 22px;
       }
     }
   }
-  .image{
+  .image-main{
     width: 100%;
     height: 500px;
-    border-radius: 20px;
+    border-radius: 16px;
     position: relative;
     display: flex;
     align-items: flex-end;
-    padding: 30px;
+    padding: 40px;
     cursor: pointer;
     overflow: hidden;
-    &:hover{
-      &::before {
-        transform: scale(1.1);
-      }
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    @media (max-width: 991.98px) {
+      margin-bottom: 30px;
     }
-    &::before {
+    @media (max-width: 767.98px) {
+      height: 320px;
+      padding: 20px;
+    }
+    &.has-placeholder {
+      background-color: #f8f9fa;
+    }
+    &::after {
       content: "";
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-image: inherit;
-      background-size: inherit;
-      background-position: inherit;
-      background-repeat: inherit;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%);
       z-index: 1;
-      transition: transform 0.3s ease;
     }
-    .text{
+    .center-placeholder {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 120px;
+      opacity: 0.5;
+      z-index: 1;
+    }
+    .text-overlay{
       position: relative;
       z-index: 2;
       color: white;
@@ -70,38 +81,56 @@
         padding: 4px 12px;
         background-color: #FCDDEC;
         color: #D80027;
-        border-radius: 15px;
-        font-size: 14px;
-        margin-bottom: 15px;
+        border-radius: 20px;
+        font-size: 13px;
+        margin-bottom: 12px;
       }
       h2{
-        font-weight: 700;
-        font-size: 26px;
-        line-height: 38px;
-        margin-bottom: 10px;
+        font-weight: 600;
+        font-size: 24px;
+        line-height: 1.3;
+        margin-bottom: 12px;
+        color: white;
         display: -webkit-box;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 2 ;
+        line-clamp: 2;
         overflow: hidden;
+        @media (max-width: 767.98px) {
+          font-size: 20px;
+        }
       }
       p{
         font-weight: 400;
-        font-size: 15px;
-        line-height: 24px;
+        font-size: 16px;
+        line-height: 1.5;
         opacity: 0.9;
+        margin: 0;
         display: -webkit-box;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 2 ;
+        line-clamp: 2;
         overflow: hidden;
+        @media (max-width: 767.98px) {
+          font-size: 14px;
+        }
       }
     }
   }
-  .blogs{
-    padding: 20px;
+  .side-blogs-container{
+    padding: 12px;
     height: 500px;
     border: 1px solid #DFDFDF;
-    border-radius: 12px;
+    border-radius: 16px;
     overflow-y: auto;
+    background: #ffffff;
+    @media (max-width: 991.98px) {
+      height: auto;
+      max-height: none;
+      overflow: visible;
+      border: none;
+      padding: 0;
+    }
     &::-webkit-scrollbar {
       width: 4px;
     }
@@ -111,6 +140,11 @@
     &::-webkit-scrollbar-thumb {
       background: #D80027;
       border-radius: 10px;
+    }
+    .cards-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
     }
   }
 }

@@ -5,7 +5,8 @@ import { FaUserMd, FaHospital, FaPlaneDeparture, FaStar } from 'react-icons/fa';
 function HomeFeatures() {
     const { t } = useTranslation();
 
-    const statsData = t("homeFeatures.stats", { returnObjects: true }) || [];
+    const statsDataRaw = t("homeFeatures.stats", { returnObjects: true });
+    const statsData = Array.isArray(statsDataRaw) ? statsDataRaw : [];
     const icons = [<FaHospital />, <FaUserMd />, <FaPlaneDeparture />, <FaStar />];
 
     const stats = statsData.map((stat, i) => ({

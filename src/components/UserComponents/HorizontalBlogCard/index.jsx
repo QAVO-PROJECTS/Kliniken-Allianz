@@ -1,31 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import "./index.scss";
 import { MdOutlineWatchLater } from "react-icons/md";
 import { NEWSPAPER_IMAGES } from "../../../contants.js";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { getLocalizedText } from "../../../utils/getLocalizedText.js";
+import Logo from "../../../assets/Logo.png";
 
 function HorizontalBlogCard({ blog }) {
     const navigate = useNavigate();
-    const { i18n } = useTranslation();
-    const language = i18n.language;
+    const { t } = useTranslation();
+    const [imgError, setImgError] = useState(false);
 
-    // Cari dili nəzərə alaraq title seçirik (Horizontal cardda adətən title göstərilir)
-    let title = blog?.title;
-    if (language === "en" && blog?.titleEng) {
-        title = blog?.titleEng;
-    } else if (language === "ru" && blog?.titleRu) {
-        title = blog?.titleRu;
-    } else if (language === "de" && blog?.titleAlm) {
-        title = blog?.titleAlm;
-    } else if (language === "ar" && blog?.titleArab) {
-        title = blog?.titleArab;
-    }
+    const title = getLocalizedText(blog, 'title');
 
     return (
         <div className="blogs-card" onClick={() => navigate(`/blogs/${blog.id}`)}>
             <div className="blogsimage">
-                <img src={NEWSPAPER_IMAGES + (blog.newsPaperImages?.[0] || blog.newspaperImages?.[0])} alt={title} />
+                <img 
+                    src={imgError ? Logo : NEWSPAPER_IMAGES + (blog.newsPaperImages?.[0] || blog.newspaperImages?.[0])} 
+                    alt={title} 
+                    onError={() => setImgError(true)}
+                    className={imgError ? 'placeholder-img' : ''}
+                />
             </div>
             <div className="content">
                 <h6>{title}</h6>
