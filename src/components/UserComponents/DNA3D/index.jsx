@@ -1,20 +1,19 @@
 import { useEffect, useRef, useState } from 'react';
 
-function DNA3D() {
+function DNA3D({ rotation }) {
     const mountRef = useRef(null);
-
     const [scale, setScale] = useState(2);
-    const [degree, setDegree] = useState(5);
+    const [degree, setDegree] = useState(rotation !== undefined ? rotation : 5);
 
     // 📱 responsive scale + degree
     useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth < 992) {
-                setScale(1.5);
-                setDegree(15); // mobile düz olsun
+                setScale(1);
+                if (rotation === undefined) setDegree(5);
             } else {
-                setScale(2);
-                setDegree(5); // desktop rotate
+                setScale(0.7);
+                if (rotation === undefined) setDegree(5);
             }
         };
 
