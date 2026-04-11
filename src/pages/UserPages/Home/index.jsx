@@ -1,4 +1,5 @@
 import HomeBanner from "./HomeBanner/index.jsx";
+import HomeSurvey from "./HomeSurvey/index.jsx";
 import HomeFeatures from "./HomeFeatures/index.jsx";
 import HomeAbout from "./HomeAbout/index.jsx";
 import HomeProcess from "./HomeProcess/index.jsx";
@@ -14,6 +15,7 @@ function Home() {
         <>
             <HomeBanner />
             <HomeFeatures />
+            <HomeSurvey />
             <HomeAbout />
             <HomeProcess />
             <HomeServices/>

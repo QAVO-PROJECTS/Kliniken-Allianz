@@ -1,80 +1,67 @@
-import React, { useEffect } from 'react';
-import "./oldBlog.scss";
-import HorizontalBlogCard from "../../../components/UserComponents/HorizontalBlogCard/index.jsx";
-import { useTranslation } from 'react-i18next';
-import { useGetAllNewspaperQuery } from "../../../services/userApi.jsx";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from "react-i18next";
 import { NEWSPAPER_IMAGES } from "../../../contants.js";
+import HorizontalBlogCard from "../../../components/UserComponents/HorizontalBlogCard/index.jsx";
+import "./oldBlog.scss";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { useNavigate } from "react-router-dom";
+import { getLocalizedText } from "../../../utils/getLocalizedText.js";
+import Logo from "../../../assets/Logo.png";
 
-function OldBlog() {
-    const { t, i18n } = useTranslation();
-    const language = i18n.language;
-    const { data: getAllNewspapers } = useGetAllNewspaperQuery();
-    const newspapersData = getAllNewspapers?.data;
-
-    // Siyahıdakı ilk blogu featured olaraq götürürük (və ya başqa məntiq)
-    const featuredBlog = newspapersData && newspapersData.length > 0 ? newspapersData[0] : null;
-
-    // Featured blog üçün title və context-in cari dili nəzərə alınaraq seçilməsi
-    let featuredTitle = "";
-    let featuredSubtitle = "";
-    if (featuredBlog) {
-        featuredTitle = featuredBlog?.title;
-        featuredSubtitle = featuredBlog?.subtitle;
-        if (language === "en") {
-            if (featuredBlog?.titleEng) featuredTitle = featuredBlog?.titleEng;
-            if (featuredBlog?.subtitleEng) featuredSubtitle = featuredBlog?.subtitleEng;
-        } else if (language === "ru") {
-            if (featuredBlog?.titleRu) featuredTitle = featuredBlog?.titleRu;
-            if (featuredBlog?.subtitleRu) featuredSubtitle = featuredBlog?.subtitleRu;
-        } else if (language === "de") {
-            if (featuredBlog?.titleAlm) featuredTitle = featuredBlog?.titleAlm;
-            if (featuredBlog?.subtitleAlm) featuredSubtitle = featuredBlog?.subtitleAlm;
-        } else if (language === "ar") {
-            if (featuredBlog?.titleArab) featuredTitle = featuredBlog?.titleArab;
-            if (featuredBlog?.subtitleArab) featuredSubtitle = featuredBlog?.subtitleArab;
-        }
-    }
+function OldBlog({ featuredBlog, horizontalBlogs }) {
+    const navigate = useNavigate();
+    const { t } = useTranslation();
+    const [mainImgError, setMainImgError] = useState(false);
 
     useEffect(() => {
         AOS.init({ duration: 1000 });
     }, []);
-    const navigate = useNavigate();
+
+    const featuredTitle = getLocalizedText(featuredBlog, 'title');
+    const featuredSubtitle = getLocalizedText(featuredBlog, 'subtitle');
 
     return (
         <div className="oldBlog" data-aos="fade-up">
             <div className="container" data-aos="fade-in">
-                <div className="title" data-aos="zoom-in">
-                    <div></div>
-                    <h2>{t("oldBlog.title", "Öncəki bloqlar")}</h2>
+                <div className="title" data-aos="fade-right">
+                    <div />
+                    <h2>{t("blogs.featured", "Önə Çıxanlar")}</h2>
                 </div>
                 <div className="row">
                     {featuredBlog && (
-                        <div className="col-35 col-md-60" data-aos="flip-left">
+                        <div className="col-35 col-md-60 col-sm-60 col-xs-60" data-aos="flip-left">
                             <div
-                                className="image"
+                                className={`image-main ${mainImgError ? 'has-placeholder' : ''}`}
                                 style={{
-                                    backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 100%), url("${NEWSPAPER_IMAGES + (featuredBlog?.newsPaperImages?.[0] || featuredBlog?.newspaperImages?.[0])}")`,
+                                    backgroundImage: mainImgError ? `none` : `linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%), url("${NEWSPAPER_IMAGES + (featuredBlog?.newsPaperImages?.[0] || featuredBlog?.newspaperImages?.[0])}")`,
+                                    backgroundColor: mainImgError ? '#f8f9fa' : 'transparent',
                                     backgroundRepeat: 'no-repeat',
-                                    backgroundSize: 'cover',
+                                    backgroundSize: mainImgError ? 'contain' : 'cover',
                                     backgroundPosition: 'center',
                                 }}
                                 data-aos="fade-up"
                                 onClick={() => navigate(`/blogs/${featuredBlog.id}`)}>
-                                <div className="text" data-aos="fade-right">
+                                {mainImgError && <img src={Logo} alt="Placeholder" className="center-placeholder" />}
+                                <div className="text-overlay" data-aos="fade-right">
                                     <div className="date">{featuredBlog.createDate?.split("T")[0]}</div>
                                     <h2>{featuredTitle}</h2>
-                                    <p>{featuredSubtitle?.slice(0, 200)}...</p>
+                                    <p>{featuredSubtitle?.slice(0, 150)}...</p>
                                 </div>
+                                {/* Hidden img to trigger onError */}
+                                <img 
+                                    src={NEWSPAPER_IMAGES + (featuredBlog?.newsPaperImages?.[0] || featuredBlog?.newspaperImages?.[0])}
+                                    style={{ display: 'none' }}
+                                    onError={() => setMainImgError(true)}
+                                    alt=""
+                                />
                             </div>
                         </div>
                     )}
-                    <div className="col-25 col-md-60 d-none d-lg-block" data-aos="fade-right">
-                        <div className="blogs">
-                            <div className="cards">
-                                {newspapersData?.slice(1, 6).map(blog => (
+                    <div className="col-25 col-md-60 col-sm-60 col-xs-60" data-aos="fade-right">
+                        <div className="side-blogs-container">
+                            <div className="cards-list">
+                                {horizontalBlogs.map(blog => (
                                     <HorizontalBlogCard key={blog.id} blog={blog} data-aos="flip-up" />
                                 ))}
                             </div>

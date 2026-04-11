@@ -9,6 +9,7 @@
     "categories": "Kateqoriyalar",
     "search": "Axtarış",
     "blog": "Bloqlar",
+    "blogSingular": "Bloq",
     "languages": {
       "az": "Azərbaycan",
       "en": "İngilis",
@@ -27,19 +28,6 @@
     "services": "Xidmətlər",
     "suggestedServices": "Önerilən Xidmətlər"
   },
-  "toursPage": {
-  "applyButton": "Müraciət et"
-},
-"tourDetail": {
-  "cars": { "title": "Avtomobillər" },
-  "otels": { "title": "Otellər", "visit": "Oteli ziyarət et" }
-},
-"carsPage": {
-  "title": "Avtomobillər"
-},
-"carDetail": {
-  "perDay": "gün"
-},
   "categoriesMenu": {
     "title": "Kateqoriyalar",
     "allCategories": "Bütün kateqoriyalar"
@@ -80,6 +68,18 @@
         "description": "Sağlamlığınız üçün ən yaxşı xidmətləri təklif edirik."
       }
     ]
+  },
+  "homeSurvey": {
+    "tag": "Anket",
+    "title": "Təcrübənizi Yaxşılaşdırmağa Kömək Edin",
+    "description": "Rəyinizi bölüşməklə daha yaxşı səhiyyə xidmətləri təqdim etməyimizə kömək edin. Tibbi turizmin gələcəyini formalaşdırmağa kömək etmək üçün bir neçə dəqiqə vaxt ayırın.",
+    "importance": "Bu niyə vacibdir? Rəyləriniz birbaşa təklif etdiyimiz xidmətlərin keyfiyyətinə təsir edir və ehtiyaclarınızı daha yaxşı başa düşməyimizə kömək edir.",
+    "pill1": "Anonim",
+    "pill2": "3–5 dəq",
+    "pill3": "Azərbaycan dili",
+    "metaLabel": "Platforma",
+    "metaValue": "Google Forms vasitəsilə",
+    "button": "Anketi Doldur"
   },
   "homeServices": {
     "title": "Sizə Təklif Etdiyimiz Tibbi Xidmət Kateqoriyaları",
