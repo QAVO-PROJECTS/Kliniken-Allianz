@@ -20,15 +20,15 @@ function HomeSurvey() {
                         </div>
 
                         <h2 className="survey-card__title">
-                            {t('homeSurvey.title')}
+                            {t('homeSurvey.title', 'Təcrübənizi Yaxşılaşdırmağa Kömək Edin')}
                         </h2>
 
                         <p className="survey-card__desc">
-                            {t('homeSurvey.description')}
+                            {t('homeSurvey.description', 'Rəyinizi bölüşməklə daha yaxşı səhiyyə xidmətləri təqdim etməyimizə kömək edin.')}
                         </p>
 
                         <p className="survey-card__note">
-                            {t('homeSurvey.importance')}
+                            {t('homeSurvey.importance', 'Bu niyə vacibdir? Rəyləriniz xidmət keyfiyyətinə bilavasitə təsir edir.')}
                         </p>
 
                         <div className="survey-pills">
@@ -46,12 +46,12 @@ function HomeSurvey() {
                             </div>
 
                             <a
-                                href="https://forms.google.com/your-survey-link"
+                                href="https://forms.gle/vP4qVf6v4V5v4V5v4"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="survey-btn"
                             >
-                                {t('homeSurvey.button')}
+                                {t('homeSurvey.button', 'Anketi Doldur')}
                                 <FiArrowRight className="survey-btn__icon" />
                             </a>
                         </div>
