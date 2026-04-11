@@ -6,6 +6,7 @@ function HomeSurvey() {
     const { t } = useTranslation();
 
     return (
+        
         <section id="home-survey" data-aos="fade-up">
             <div className="container">
                 <div className="survey-wrapper">
