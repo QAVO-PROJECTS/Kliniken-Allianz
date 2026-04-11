@@ -12,6 +12,7 @@ import mobileBanner from "../../../assets/MobileBanner.png";
 import {useMediaQuery} from "react-responsive";
 import showToast from "../../../components/ToastMessage.js";
 import SanatoriumCardMain from "../../../components/UserComponents/SanatoriumCardMain/index.jsx";
+import DNA3D from "../../../components/UserComponents/DNA3D/index.jsx";
 
 function SanatoriumDetail() {
     const {id} = useParams();
@@ -175,9 +176,9 @@ function SanatoriumDetail() {
                                 <svg className="icon3" xmlns="http://www.w3.org/2000/svg" width="37" height="37" viewBox="0 0 37 37" fill="none">
                                     <circle cx="18.5" cy="18.5" r="18.5" fill="#003778" fillOpacity="0.1"/>
                                 </svg>
-                                <svg className="icon4" xmlns="http://www.w3.org/2000/svg" width="243" height="243" viewBox="0 0 243 243" fill="none">
-                                    <circle cx="121.5" cy="121.5" r="121.5" fill="#003778" fillOpacity="0.1"/>
-                                </svg>
+                                <div className="icon4">
+                                    <DNA3D rotation={45} />
+                                </div>
                             </div>
                             <h3>{getLocalizedText(sanatorium, "name")}</h3>
                             <p className="loc-text">{getLocalizedText(sanatorium, "location")}</p>
