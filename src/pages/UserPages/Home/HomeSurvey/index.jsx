@@ -2,11 +2,20 @@ import './index.scss';
 import { useTranslation } from 'react-i18next';
 import { FiArrowRight } from 'react-icons/fi';
 
+const surveyLinks = {
+    az: 'https://docs.google.com/forms/d/e/1FAIpQLSeRngYQUtZwFbfVPl4sVR6RKumhf0DpqgTJQUaxaXwVsGn0Yw/viewform',
+    ru: 'https://docs.google.com/forms/d/e/1FAIpQLSdCyyD5fsi2xYa_VgL8P19_vIDz6RaZCi_nDlT_obmvYpIj1Q/viewform',
+    en: 'https://docs.google.com/forms/d/e/1FAIpQLSfU1HLO3x2tupLHWFlDwA5kxY1huJ6lMsXf2KYn8rTDbJKy1w/viewform',
+    de: 'https://docs.google.com/forms/d/e/1FAIpQLSeAHkrn22jsBZiQ1lc_TpJgpfmG4FrhjEIk-m3RiKTvBPo49Q/viewform',
+    ar: 'https://docs.google.com/forms/d/e/1FAIpQLSfQdTrhCVJ2_zJclHxfrs7-jzJ3SQLCWCB_dAA7zUQam6K1iA/viewform',
+};
+
 function HomeSurvey() {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
+
+    const currentSurveyLink = surveyLinks[i18n.language] || surveyLinks.az;
 
     return (
-        
         <section id="home-survey" data-aos="fade-up">
             <div className="container">
                 <div className="survey-wrapper">
@@ -47,7 +56,7 @@ function HomeSurvey() {
                             </div>
 
                             <a
-                                href="https://forms.gle/vP4qVf6v4V5v4V5v4"
+                                href={currentSurveyLink}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="survey-btn"
