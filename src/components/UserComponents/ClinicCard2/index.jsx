@@ -7,7 +7,7 @@ import {getLocalizedText} from "../../../utils/getLocalizedText.js";
 function ClinicCard2({item}) {
     const navigate = useNavigate();
     return (
-       <div className={"col-12 col-md-30 col-sm-30 col-xs-30"} style={{padding:'4px'}} onClick={()=>navigate(`/clinics/${item.id}`)}>
+       <div className={"col-20 col-md-30 col-sm-30 col-xs-30"} style={{padding:'4px'}} onClick={()=>navigate(`/clinics/${item.id}`)}>
            <div id={"clinicCard2"}>
                 <div className={"cardImage"}>
                     <img src={CLINIC_CARD_IMAGES+item.clinicCardImage} />
