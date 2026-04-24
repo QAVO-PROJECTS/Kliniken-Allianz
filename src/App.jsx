@@ -11,11 +11,14 @@ import {useState} from "react";
 import SplashScreen from "./components/UserComponents/SplashScreen/index.jsx";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import {useDispatch} from "react-redux";
+import {setLoading as setGlobalLoading} from "./services/uiSlice.jsx";
 
 function App() {
     const [loading, setLoading] = useState(true);
     const [isFading, setIsFading] = useState(false);
     const token = Cookies.get("klinikenToken");
+    const dispatch = useDispatch();
 
     if (!token) {
         Cookies.set("klinikenToken", "null");
@@ -39,6 +42,7 @@ function App() {
 
         const removeTimer = setTimeout(() => {
             setLoading(false);
+            dispatch(setGlobalLoading(false));
         }, 1800); // After fade (0.6s), remove component
 
         // RTL/LTR ve dil ayarı

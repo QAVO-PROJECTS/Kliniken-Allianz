@@ -48,21 +48,36 @@
     "description": "Regain your health with the most advanced medical services and comfortable travel options.",
     "button": "Explore",
     "imageAlt": "Home Page Image",
-    "bannerAlt": "Home Banner",
     "slides": [
       {
         "title": "Access the World’s Best Hospitals",
         "description": "Regain your health with the most advanced medical services and comfortable travel options."
       },
       {
-        "title": "Modern Medical Opportunities in Germany",
-        "description": "We are by your side with the latest technologies and professional medical staff."
+        "title": "Advanced Medical Care",
+        "description": "Experience cutting-edge treatments and personalized healthcare solutions."
       },
       {
-        "title": "Your Health is Our Priority",
-        "description": "We offer personalized approaches and high-quality care to our patients."
+        "title": "Comfortable Travel Options",
+        "description": "Seamless travel arrangements to ensure your journey is as comfortable as possible."
+      },
+      {
+        "title": "Holistic Health Journey",
+        "description": "From diagnosis to recovery, we support you every step of the way."
       }
     ]
+  },
+  "homeSurvey": {
+    "tag": "Survey",
+    "title": "Help Us Improve Your Experience",
+    "description": "Your feedback is crucial for us to provide better healthcare services. Take a few minutes to share your thoughts and help shape the future of medical tourism.",
+    "importance": "Why is this important? Your opinions directly influence the quality of services we offer and help us better understand your needs.",
+    "pill1": "Anonymous",
+    "pill2": "3–5 min",
+    "pill3": "Azerbaijani language",
+    "metaLabel": "Platform",
+    "metaValue": "Via Google Forms",
+    "button": "Take Survey"
   },
   "homeFeatures": {
     "stats": [
