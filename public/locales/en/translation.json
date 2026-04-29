@@ -77,6 +77,8 @@
     "pill3": "Azerbaijani language",
     "metaLabel": "Platform",
     "metaValue": "Via Google Forms",
+    "clinicButton": "Clinic Survey",
+    "sanatoriumButton": "Sanatorium Survey",
     "button": "Take Survey"
   },
   "homeFeatures": {

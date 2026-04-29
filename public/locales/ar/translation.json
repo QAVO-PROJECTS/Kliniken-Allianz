@@ -73,6 +73,8 @@
     "pill3": "اللغة الأذربيجانية",
     "metaLabel": "المنصة",
     "metaValue": "عبر Google Forms",
+    "clinicButton": "استطلاع العيادات",
+    "sanatoriumButton": "استطلاع المصحات",
     "button": "املأ الاستطلاع"
   },
   "homeServices": {

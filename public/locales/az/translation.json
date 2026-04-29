@@ -79,6 +79,8 @@
     "pill3": "Azərbaycan dili",
     "metaLabel": "Platforma",
     "metaValue": "Google Forms vasitəsilə",
+    "clinicButton": "Klinika Anketi",
+    "sanatoriumButton": "Sanatoriya Anketi",
     "button": "Anketi Doldur"
   },
   "homeServices": {

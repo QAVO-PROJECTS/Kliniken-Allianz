@@ -78,6 +78,8 @@
     "pill3": "Азербайджанский язык",
     "metaLabel": "Платформа",
     "metaValue": "Через Google Forms",
+    "clinicButton": "Опрос по клиникам",
+    "sanatoriumButton": "Опрос по санаториям",
     "button": "Пройти опрос"
   },
   "homeFeatures": {

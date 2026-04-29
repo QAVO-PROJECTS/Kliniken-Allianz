@@ -163,13 +163,24 @@
   }
 }
 
+.survey-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+
+  @media (max-width: 576px) {
+    width: 100%;
+    flex-direction: column;
+  }
+}
+
 .survey-btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   background: #0d0d0d;
   color: #ffffff;
-  border: none;
+  border: 1px solid #0d0d0d;
   border-radius: 8px;
   padding: 11px 22px;
   font-size: 14px;
@@ -178,10 +189,26 @@
   text-decoration: none;
   letter-spacing: -0.1px;
   white-space: nowrap;
-  transition: opacity 0.15s ease;
+  transition: all 0.2s ease;
 
   &:hover {
-    opacity: 0.82;
+    background: rgba(13, 13, 13, 0.9);
+  }
+
+  &--secondary {
+    background: transparent;
+    color: #0d0d0d;
+    border-color: rgba(0, 0, 0, 0.1);
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.04);
+      border-color: #0d0d0d;
+    }
+  }
+
+  @media (max-width: 576px) {
+    width: 100%;
+    justify-content: center;
   }
 
   &__icon {

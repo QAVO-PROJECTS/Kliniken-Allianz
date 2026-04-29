@@ -2,18 +2,27 @@ import './index.scss';
 import { useTranslation } from 'react-i18next';
 import { FiArrowRight } from 'react-icons/fi';
 
-const surveyLinks = {
-    az: 'https://docs.google.com/forms/d/e/1FAIpQLSeRngYQUtZwFbfVPl4sVR6RKumhf0DpqgTJQUaxaXwVsGn0Yw/viewform',
-    ru: 'https://docs.google.com/forms/d/e/1FAIpQLSdCyyD5fsi2xYa_VgL8P19_vIDz6RaZCi_nDlT_obmvYpIj1Q/viewform',
-    en: 'https://docs.google.com/forms/d/e/1FAIpQLSfU1HLO3x2tupLHWFlDwA5kxY1huJ6lMsXf2KYn8rTDbJKy1w/viewform',
-    de: 'https://docs.google.com/forms/d/e/1FAIpQLSeAHkrn22jsBZiQ1lc_TpJgpfmG4FrhjEIk-m3RiKTvBPo49Q/viewform',
-    ar: 'https://docs.google.com/forms/d/e/1FAIpQLSfQdTrhCVJ2_zJclHxfrs7-jzJ3SQLCWCB_dAA7zUQam6K1iA/viewform',
+const clinicSurveyLinks = {
+    az: 'https://forms.gle/dSrm97WREuuz6m6cA',
+    ru: 'https://forms.gle/tWyAXa1JwuqvteKu5',
+    en: 'https://forms.gle/C7u5Wxpn5Xdthi5x9',
+    de: 'https://forms.gle/JKh48nVaPgoD4FLt7',
+    ar: 'https://forms.gle/9gsaHP6WscqPimoBA',
+};
+
+const sanatoriumSurveyLinks = {
+    az: 'https://forms.gle/wRaZExfhwaZUe2HJA', // Replace with Sanatorium AZ link
+    ru: 'https://forms.gle/6isgzCMuRWHBo9wo8', // Replace with Sanatorium RU link
+    en: 'https://forms.gle/q9uJHDSLUqGtqWnSA', // Replace with Sanatorium EN link
+    de: 'https://forms.gle/AfM3XfipXT2DceZ36', // Replace with Sanatorium DE link
+    ar: 'https://forms.gle/9gsaHP6WscqPimoBA', // Replace with Sanatorium AR link
 };
 
 function HomeSurvey() {
     const { t, i18n } = useTranslation();
 
-    const currentSurveyLink = surveyLinks[i18n.language] || surveyLinks.az;
+    const currentClinicLink = clinicSurveyLinks[i18n.language] || clinicSurveyLinks.az;
+    const currentSanatoriumLink = sanatoriumSurveyLinks[i18n.language] || sanatoriumSurveyLinks.az;
 
     return (
         <section id="home-survey" data-aos="fade-up">
@@ -55,15 +64,26 @@ function HomeSurvey() {
                                 <span className="survey-meta__value">{t('homeSurvey.metaValue', 'Google Forms vasitəsilə')}</span>
                             </div>
 
-                            <a
-                                href={currentSurveyLink}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="survey-btn"
-                            >
-                                {t('homeSurvey.button', 'Anketi Doldur')}
-                                <FiArrowRight className="survey-btn__icon" />
-                            </a>
+                            <div className="survey-actions">
+                                <a
+                                    href={currentClinicLink}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="survey-btn"
+                                >
+                                    {t('homeSurvey.clinicButton', 'Klinika Anketi')}
+                                    <FiArrowRight className="survey-btn__icon" />
+                                </a>
+                                <a
+                                    href={currentSanatoriumLink}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="survey-btn survey-btn--secondary"
+                                >
+                                    {t('homeSurvey.sanatoriumButton', 'Sanatoriya Anketi')}
+                                    <FiArrowRight className="survey-btn__icon" />
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
