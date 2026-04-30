@@ -1752,16 +1752,24 @@
             "de": "Məzmun (DE)",
             "ar": "Məzmun (AR)"
           }
+        },
+        "videos": {
+          "title": "YouTube Videolar",
+          "desc": "Xəbərə aid YouTube video linklərini əlavə edin"
         }
       },
       "buttons": {
         "save": "Yadda saxla",
-        "saving": "Yüklənir..."
+        "saving": "Yüklənir...",
+        "addVideo": "Əlavə et"
       },
       "toast": {
         "success": "Xəbər uğurla əlavə edildi",
         "error": "Xəta baş verdi",
         "warnAz": "Başlıq daxil edin (AZ)"
+      },
+      "placeholders": {
+        "videoUrl": "https://www.youtube.com/watch?v=..."
       },
       "uploadHint": "Şəkil seçin və ya sürükləyin"
     },
@@ -1799,16 +1807,24 @@
             "de": "Məzmun (DE)",
             "ar": "Məzmun (AR)"
           }
+        },
+        "videos": {
+          "title": "YouTube Videolar",
+          "desc": "Xəbərə aid YouTube video linklərini əlavə edin"
         }
       },
       "buttons": {
         "save": "Yadda saxla",
-        "saving": "Yüklənir..."
+        "saving": "Yüklənir...",
+        "addVideo": "Əlavə et"
       },
       "toast": {
         "success": "Dəyişikliklər uğurla yadda saxlanıldı",
         "error": "Xəta baş verdi",
         "warnAz": "Başlıq daxil edin (AZ)"
+      },
+      "placeholders": {
+        "videoUrl": "https://www.youtube.com/watch?v=..."
       },
       "uploadHint": "Şəkil seçin və ya sürükləyin"
     },

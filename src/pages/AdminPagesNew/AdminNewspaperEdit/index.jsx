@@ -41,6 +41,11 @@ function NewspaperEdit() {
     const [newImages, setNewImages] = useState([]);
     const [oldImages, setOldImages] = useState([]);
     const [deleteImages, setDeleteImages] = useState([]);
+
+    const [videos, setVideos] = useState([]);
+    const [videoInput, setVideoInput] = useState("");
+    const [addedVideos, setAddedVideos] = useState([]);
+    const [deleteVideos, setDeleteVideos] = useState([]);
     const [imagesOpen, setImagesOpen] = useState(false);
 
     useEffect(() => { refetch(); }, []);
@@ -60,6 +65,7 @@ function NewspaperEdit() {
             setSubtitleArab(newspaper.subtitleArab || "");
 
             setOldImages(newspaper.newspaperImages || newspaper.newsPaperImages || []);
+            setVideos(newspaper.newspaperVideos || newspaper.newsPaperVideos || []);
             setIsLoaded(true);
         }
     }, [newspaper, isLoaded]);
@@ -87,35 +93,55 @@ function NewspaperEdit() {
         setDeleteImages((prev) => [...prev, fileName]);
     };
 
-    const appendIfChanged = (formData, key, newVal, oldVal) => {
-        if (newVal !== oldVal && newVal !== undefined && newVal !== null && newVal !== "") {
-            formData.append(key, newVal);
+    const addVideo = () => {
+        const trimmed = videoInput.trim();
+        if (!trimmed) return;
+        setVideos((prev) => [...prev, trimmed]);
+        setAddedVideos((prev) => [...prev, trimmed]);
+        setVideoInput("");
+    };
+
+    const removeVideo = (index) => {
+        const url = videos[index];
+        if (addedVideos.includes(url)) {
+            setAddedVideos((prev) => prev.filter((v) => v !== url));
+        } else {
+            setDeleteVideos((prev) => [...prev, url]);
         }
+        setVideos((prev) => prev.filter((_, i) => i !== index));
     };
 
     const handleEdit = async () => {
         if (!newspaper) return;
 
         const formData = new FormData();
-        formData.append("id", newspaper.id);
+        // Use 'Id' (PascalCase) for consistency with common .NET model binding
+        formData.append("Id", id);
 
-        appendIfChanged(formData, "Title", titleAz, newspaper.title);
-        appendIfChanged(formData, "TitleEng", titleEn, newspaper.titleEng);
-        appendIfChanged(formData, "TitleRu", titleRu, newspaper.titleRu);
-        appendIfChanged(formData, "TitleAlm", titleAlm, newspaper.titleAlm);
-        appendIfChanged(formData, "TitleArab", titleArab, newspaper.titleArab);
+        formData.append("Title", titleAz);
+        formData.append("TitleEng", titleEn);
+        formData.append("TitleRu", titleRu);
+        formData.append("TitleAlm", titleAlm);
+        formData.append("TitleArab", titleArab);
 
-        appendIfChanged(formData, "Subtitle", subtitleAz, newspaper.subtitle);
-        appendIfChanged(formData, "SubtitleEng", subtitleEn, newspaper.subtitleEng);
-        appendIfChanged(formData, "SubtitleRu", subtitleRu, newspaper.subtitleRu);
-        appendIfChanged(formData, "SubtitleAlm", subtitleAlm, newspaper.subtitleAlm);
-        appendIfChanged(formData, "SubtitleArab", subtitleArab, newspaper.subtitleArab);
+        formData.append("Subtitle", subtitleAz);
+        formData.append("SubtitleEng", subtitleEn);
+        formData.append("SubtitleRu", subtitleRu);
+        formData.append("SubtitleAlm", subtitleAlm);
+        formData.append("SubtitleArab", subtitleArab);
 
         if (newImages.length > 0)
             newImages.forEach(f => formData.append("NewsPaperImages", f.file));
 
         if (deleteImages.length > 0)
             deleteImages.forEach(f => formData.append("DeleteNewsPaperImages", f));
+
+        // Handle videos
+        if (addedVideos.length > 0)
+            addedVideos.forEach(url => formData.append("NewspaperVideos", url));
+
+        if (deleteVideos.length > 0)
+            deleteVideos.forEach(url => formData.append("DeleteNewspaperVideos", url));
 
         try {
             await editNewspaper(formData).unwrap();
@@ -232,6 +258,42 @@ function NewspaperEdit() {
                                                 <span>{item.file.name}</span>
                                             </div>
                                             <button onClick={() => removeNewImage(index)}>✕</button>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Videolar */}
+                        <div className="dataDiv images multi">
+                            <div className="header">
+                                <h3>{t("adminPanel.newspaperEdit.sections.videos.title", "YouTube Videolar")}</h3>
+                                <p>{t("adminPanel.newspaperEdit.sections.videos.desc", "Xəbərə aid YouTube video linklərini əlavə edin")}</p>
+                            </div>
+
+                            <div className="video-input-row">
+                                <div className="add-input">
+                                    <input
+                                        placeholder={t("adminPanel.newspaperEdit.placeholders.videoUrl", "https://youtube.com/...")}
+                                        value={videoInput}
+                                        onChange={(e) => setVideoInput(e.target.value)}
+                                        onKeyDown={(e) => e.key === "Enter" && addVideo()}
+                                    />
+                                </div>
+                                <button type="button" className="video-add-btn" onClick={addVideo}>
+                                    {t("adminPanel.newspaperEdit.buttons.addVideo", "Əlavə et")}
+                                </button>
+                            </div>
+
+                            {videos.length > 0 && (
+                                <div className="uploadedList">
+                                    {videos.map((url, index) => (
+                                        <div key={index} className="uploadedItem">
+                                            <div className="fileLeft">
+                                                <span className="video-icon">▶</span>
+                                                <span>{url}</span>
+                                            </div>
+                                            <button onClick={() => removeVideo(index)}>✕</button>
                                         </div>
                                     ))}
                                 </div>

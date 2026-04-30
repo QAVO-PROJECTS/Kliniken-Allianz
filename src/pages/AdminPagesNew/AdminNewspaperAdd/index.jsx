@@ -35,6 +35,9 @@ function NewspaperAdd() {
     const [imagesOpen, setImagesOpen] = useState(false);
     const [isDragging, setIsDragging] = useState(false);
 
+    const [videos, setVideos] = useState([]);
+    const [videoInput, setVideoInput] = useState("");
+
     const handleImagesChange = (e) => {
         const newFiles = Array.from(e.target.files);
         const withPreview = newFiles.map((file) => ({
@@ -51,6 +54,17 @@ function NewspaperAdd() {
             updated.splice(index, 1);
             return updated;
         });
+    };
+
+    const addVideo = () => {
+        const trimmed = videoInput.trim();
+        if (!trimmed) return;
+        setVideos((prev) => [...prev, trimmed]);
+        setVideoInput("");
+    };
+
+    const removeVideo = (index) => {
+        setVideos((prev) => prev.filter((_, i) => i !== index));
     };
 
     const handleSubmit = async () => {
@@ -78,6 +92,11 @@ function NewspaperAdd() {
             formData.append("NewsPaperImages", item.file);
         });
 
+        // Add videos
+        videos.forEach((url) => {
+            formData.append("NewspaperVideos", url);
+        });
+
         try {
             await postNewspaper(formData).unwrap();
             showToast(t("adminPanel.newspaperAdd.toast.success"), "success");
@@ -85,6 +104,7 @@ function NewspaperAdd() {
             setTitleAz(""); setTitleEn(""); setTitleRu(""); setTitleAlm(""); setTitleArab("");
             setSubtitleAz(""); setSubtitleEn(""); setSubtitleRu(""); setSubtitleAlm(""); setSubtitleArab("");
             setNewspaperImages([]);
+            setVideos([]);
             navigate('/admin/newspaper');
         } catch (err) {
             console.error("Xəta:", err);
@@ -187,6 +207,42 @@ function NewspaperAdd() {
                                                 <span>{item.file.name}</span>
                                             </div>
                                             <button onClick={() => removeImage(index)}>✕</button>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Videolar */}
+                        <div className="dataDiv images multi">
+                            <div className="header">
+                                <h3>{t("adminPanel.newspaperAdd.sections.videos.title", "YouTube Videolar")}</h3>
+                                <p>{t("adminPanel.newspaperAdd.sections.videos.desc", "Xəbərə aid YouTube video linklərini əlavə edin")}</p>
+                            </div>
+
+                            <div className="video-input-row">
+                                <div className="add-input">
+                                    <input
+                                        placeholder={t("adminPanel.newspaperAdd.placeholders.videoUrl", "https://youtube.com/...")}
+                                        value={videoInput}
+                                        onChange={(e) => setVideoInput(e.target.value)}
+                                        onKeyDown={(e) => e.key === "Enter" && addVideo()}
+                                    />
+                                </div>
+                                <button type="button" className="video-add-btn" onClick={addVideo}>
+                                    {t("adminPanel.newspaperAdd.buttons.addVideo", "Əlavə et")}
+                                </button>
+                            </div>
+
+                            {videos.length > 0 && (
+                                <div className="uploadedList">
+                                    {videos.map((url, index) => (
+                                        <div key={index} className="uploadedItem">
+                                            <div className="fileLeft">
+                                                <span className="video-icon">▶</span>
+                                                <span>{url}</span>
+                                            </div>
+                                            <button onClick={() => removeVideo(index)}>✕</button>
                                         </div>
                                     ))}
                                 </div>
