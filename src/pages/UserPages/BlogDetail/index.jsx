@@ -199,11 +199,11 @@ function BlogDetail() {
 
                                             return (
                                                 <div className="gallery-slide" key={idx} onClick={() => setActiveVideo(embedUrl)}>
-                                                    <img
-                                                        src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
-                                                        onError={(e) => { e.target.src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`; }}
-                                                        alt={`video-${idx}`}
-                                                    />
+                                                   <img
+    src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
+    onError={(e) => { e.target.src = defaultBlogImg; }}
+    alt={`video-${idx}`}
+/>
                                                     <div className="video-play-overlay">
                                                         <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                             <circle cx="30" cy="30" r="30" fill="rgba(0,0,0,0.45)"/>
@@ -238,20 +238,7 @@ function BlogDetail() {
                                 )}
                             </div>
 
-                            {activeVideo && (
-                                <div className="video-modal" onClick={() => setActiveVideo(null)}>
-                                    <div className="video-modal-inner" onClick={(e) => e.stopPropagation()}>
-                                        <button className="video-modal-close" onClick={() => setActiveVideo(null)}>✕</button>
-                                        <iframe
-                                            src={activeVideo + "?autoplay=1"}
-                                            title="video"
-                                            frameBorder="0"
-                                            allow="autoplay; fullscreen"
-                                            allowFullScreen
-                                        />
-                                    </div>
-                                </div>
-                            )}
+
                         </div>
                     )}
 
@@ -291,7 +278,14 @@ function BlogDetail() {
                     </div>
                 )}
 
-                
+                {activeImage && (
+                    <div className="image-preview-modal" onClick={() => setActiveImage(null)}>
+                        <div className="image-preview-inner" onClick={(e) => e.stopPropagation()}>
+                            <button className="modal-close" onClick={() => setActiveImage(null)}>✕</button>
+                            <img src={activeImage} alt="preview" />
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );
