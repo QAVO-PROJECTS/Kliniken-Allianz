@@ -16,7 +16,7 @@ i18n
             escapeValue: false
         },
         backend: {
-            loadPath: '/locales/{{lng}}/translation.json' // JSON fayl yolları
+            loadPath: '/locales/{{lng}}/translation.json?v=1.0.1' // JSON fayl yolları
         }
     });
 
