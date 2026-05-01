@@ -6,6 +6,7 @@ function AddBtn({nav}) {
     const { t } = useTranslation();
     const navigate = useNavigate();
     return (
+        
         <div id={'add-btn'} onClick={()=>navigate(nav)}>
             <img src={addIcon} alt="addIcon"/>
             {t("adminPanel.addBtn.text")}
