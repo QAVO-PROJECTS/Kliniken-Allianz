@@ -1,6 +1,7 @@
 {
   "navbar": {
     "clinics": "Klinikalar",
+    "germanyClinics": "Almaniya klinikaları",
     "doctors": "Həkimlər",
     "sanatoriums": "Sanatoriyalar",
     "tours": "Turlar",
@@ -10,6 +11,7 @@
     "search": "Axtarış",
     "blog": "Bloqlar",
     "blogSingular": "Bloq",
+    "more": "Daha çox",
     "languages": {
       "az": "Azərbaycan",
       "en": "İngilis",
@@ -1524,6 +1526,7 @@
       "menu": {
         "category": "Kateqoriya",
         "clinic": "Klinika",
+        "clinicGermany": "Klinika (Almaniya)",
         "doctor": "Həkim",
         "tours": "Xidmət paketi",
         "hotel": "Otel",

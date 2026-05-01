@@ -42,6 +42,7 @@ import ToursEdit from "../pages/AdminPagesNew/AdminToursEdit/index.jsx";
 import AdminClinicNew from "../pages/AdminPagesNew/AdminClinicaNew/index.jsx";
 import ClinicAdd from "../pages/AdminPagesNew/AdminClinicAdd/index.jsx";
 import ClinicEdit from "../pages/AdminPagesNew/AdminClinicEdit/index.jsx";
+import AdminGermanyClinicNew from "../pages/AdminPagesNew/AdminGermanyClinicNew/index.jsx";
 import AdminDoctorNew from "../pages/AdminPagesNew/AdminDoctorNew/index.jsx";
 import DoctorAdd from "../pages/AdminPagesNew/AdminDoctorAdd/index.jsx";
 import DoctorEdit from "../pages/AdminPagesNew/AdminDoctorEdit/index.jsx";
@@ -77,7 +78,11 @@ const router = [
             },
             {
                 path: "/clinics",
-                element: <ClinicsPage/>
+                element: <ClinicsPage isGermany={false}/>
+            },
+            {
+                path: "/germany-clinics",
+                element: <ClinicsPage isGermany={true}/>
             },
             {
                 path: "/sanatoriums",
@@ -219,11 +224,23 @@ const router = [
             },
             {
                 path: "/admin/clinic/add",
-                element: <ClinicAdd/>
+                element: <ClinicAdd isGermany={false}/>
             },
             {
                 path: "/admin/clinic/edit/:id",
-                element: <ClinicEdit/>
+                element: <ClinicEdit isGermany={false}/>
+            },
+            {
+                path: "/admin/germany-clinic",
+                element: <AdminGermanyClinicNew/>
+            },
+            {
+                path: "/admin/germany-clinic/add",
+                element: <ClinicAdd isGermany={true}/>
+            },
+            {
+                path: "/admin/germany-clinic/edit/:id",
+                element: <ClinicEdit isGermany={true}/>
             },
             {
                 path: "/admin/doctors",

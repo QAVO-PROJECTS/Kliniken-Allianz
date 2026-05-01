@@ -98,6 +98,12 @@
       padding: 6px 12px;
       border-radius: 8px;
       transition: color 0.18s, background 0.18s;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      border: none;
+      background: transparent;
 
       &:hover { color: #003778; background: #f0f5fc; }
 
@@ -105,6 +111,67 @@
         color: #003778;
         background: #e6eef9;
         font-weight: 400;
+      }
+    }
+
+    .nb-more-wrap {
+      position: relative;
+
+      .nb-more-btn {
+        svg {
+          transition: transform 0.2s;
+        }
+      }
+
+      &.open {
+        .nb-more-btn {
+          color: #003778;
+          background: #f0f5fc;
+          svg { transform: rotate(180deg); }
+        }
+        .nb-more-dropdown {
+          opacity: 1;
+          pointer-events: auto;
+          transform: translateY(0);
+        }
+      }
+
+      .nb-more-dropdown {
+        position: absolute;
+        top: calc(100% + 8px);
+        right: 0;
+        min-width: 160px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+        border: 1px solid #ebebeb;
+        padding: 6px;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-6px);
+        transition: opacity 0.2s, transform 0.2s;
+        z-index: 10;
+
+        .nb-more-item {
+          display: block;
+          padding: 8px 12px;
+          border-radius: 6px;
+          font-size: 13.5px;
+          color: #444;
+          text-decoration: none;
+          transition: all 0.18s;
+
+          &:hover {
+            background: #f0f5fc;
+            color: #003778;
+          }
+
+          &.active {
+            color: #003778;
+            background: #e6eef9;
+            font-weight: 500;
+          }
+        }
       }
     }
   }
@@ -589,6 +656,40 @@
       &.active {
         background: #003778;
         color: #fff;
+      }
+
+      &.sub-link {
+        box-shadow: none;
+        background: transparent;
+        padding: 10px 20px;
+        margin-left: 20px;
+        border-radius: 0;
+        border-left: 2px solid #ddd;
+        
+        &.active {
+          background: #eef3fb;
+          color: #003778;
+          border-left-color: #003778;
+        }
+      }
+    }
+
+    .nb-drawer-more {
+      margin-top: 8px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      overflow: hidden;
+
+      .nb-drawer-row {
+        border-bottom: none;
+        padding: 14px 20px;
+      }
+
+      .nb-drawer-sub {
+        background: #fff;
+        padding: 0 0 12px 0;
+        border-bottom: none;
       }
     }
   }

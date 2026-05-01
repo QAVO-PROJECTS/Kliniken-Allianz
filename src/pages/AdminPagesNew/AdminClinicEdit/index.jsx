@@ -24,7 +24,7 @@ import {
 import showToast from "../../../components/ToastMessage.js";
 import {useTranslation} from "react-i18next";
 
-function ClinicEdit() {
+function ClinicEdit({isGermany}) {
     const { t } = useTranslation();
     const {id} = useParams()
     const [isLoaded, setIsLoaded] = useState(false);
@@ -295,7 +295,7 @@ function ClinicEdit() {
             await editClinic(formData).unwrap();
             showToast(t("adminPanel.clinicEdit.toast.success"), 'success');
             refetch()
-            navigate('/admin/clinic')
+            navigate(isGermany ? '/admin/germany-clinic' : '/admin/clinic')
         } catch (err) {
             console.error("Error:", err);
             showToast(t("adminPanel.clinicEdit.toast.error"), 'error');
@@ -307,13 +307,13 @@ function ClinicEdit() {
             <div className={'clinic-edit'}>
                 <div className={"root"}>
                     <h2>
-                        <NavLink className="link" to="/admin/clinic">{t("adminPanel.clinicEdit.breadcrumb.main")}</NavLink>
+                        <NavLink className="link" to={isGermany ? "/admin/germany-clinic" : "/admin/clinic"}>{isGermany ? t("adminPanel.leftBar.menu.clinicGermany") : t("adminPanel.clinicEdit.breadcrumb.main")}</NavLink>
                         <img src={rootIcon} alt="" />
                         {t("adminPanel.clinicEdit.breadcrumb.sub")}
                     </h2>
                 </div>
                 <div className={'clinic-edit-head'}>
-                    <h1>{t("adminPanel.clinicEdit.title")}</h1>
+                    <h1>{isGermany ? t("adminPanel.leftBar.menu.clinicGermany") : t("adminPanel.clinicEdit.title")}</h1>
                     <p>{t("adminPanel.clinicEdit.description")}</p>
                 </div>
                 <div className={'clinic-edit-main'}>

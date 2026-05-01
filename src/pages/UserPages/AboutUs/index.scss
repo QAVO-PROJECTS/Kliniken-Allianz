@@ -78,10 +78,8 @@
     }
   }
   .firstRow{
-    align-items: center;
-    margin-bottom: 100px;
     @media screen and (max-width: 576px) {
-      margin-bottom: 70px;
+      margin-bottom: 30px;
     }
     .col-7 {
       order: 1;
@@ -101,7 +99,11 @@
       }
     }
     .content{
+      margin-top: 25px;
       width: 90%;
+      @media screen and (max-width: 992px) {
+        width: 100%;
+      }
       position: relative;
       h2{
         font-weight: 600;
@@ -202,9 +204,13 @@
     .image{
       width: 100%;
       height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: -30px;
       img{
-        width: 100%;
-        height: 100%;
+        width: 75%;
+        flex-shrink: 0;
       }
     }
   }
@@ -413,7 +419,7 @@
     }
     .icon3{
       position: absolute;
-      top: -170px;
+      top: -120px;
       right:20px;
     }
     .icon4{
