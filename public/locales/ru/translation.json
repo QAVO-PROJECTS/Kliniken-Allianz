@@ -1,6 +1,7 @@
 {
   "navbar": {
     "clinics": "Клиники",
+    "germanyClinics": "Клиники Германии",
     "doctors": "Врачи",
     "sanatoriums": "Санатории",
     "tours": "Туры",
@@ -9,6 +10,7 @@
     "categories": "Категории",
     "search": "Поиск",
     "blog":"Блоги",
+    "more": "Ещё",
     "languages": {
       "az": "Азербайджанский",
       "en": "Английский",
@@ -1601,6 +1603,7 @@
       "menu": {
         "category": "Категория",
         "clinic": "Клиника",
+        "clinicGermany": "Клиника (Германия)",
         "doctor": "Врач",
         "tours": "Пакет услуг",
         "hotel": "Отель",

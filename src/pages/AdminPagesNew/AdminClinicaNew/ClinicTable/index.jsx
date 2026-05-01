@@ -11,10 +11,16 @@ import {useDeleteClinicMutation, useGetAllClinicQuery} from "../../../../service
 import {CLINIC_CARD_IMAGES} from "../../../../contants.js";
 import showToast from "../../../../components/ToastMessage.js";
 import {useTranslation} from "react-i18next";
-function ClinicTableNew({language}) {
+function ClinicTableNew({language, isGermany}) {
     const { t } = useTranslation();
     const {data:getAllClinic,refetch} = useGetAllClinicQuery()
-    const clinics = getAllClinic?.data
+    const clinics = getAllClinic?.data?.filter(item => {
+        if (isGermany) {
+            return item.location === "Almaniya";
+        } else {
+            return item.location !== "Almaniya";
+        }
+    });
     const [deleteClinic, { isLoading: isDeleting }] = useDeleteClinicMutation();    const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
@@ -108,14 +114,14 @@ function ClinicTableNew({language}) {
                                </div>
 
                                {/* --- Actions --- */}
-                               <div className="actions">
-                                   <div className="action edit" onClick={() => navigate(`/admin/clinic/edit/${item.id}`)}>
-                                       <img src={editIcon} />
-                                   </div>
-                                   <div className="action trash" onClick={() => openDeleteModal(item)}>
-                                       <img src={delIcon} />
-                                   </div>
-                               </div>
+                                <div className="actions">
+                                    <div className="action edit" onClick={() => navigate(`${isGermany ? '/admin/germany-clinic/edit' : '/admin/clinic/edit'}/${item.id}`)}>
+                                        <img src={editIcon} />
+                                    </div>
+                                    <div className="action trash" onClick={() => openDeleteModal(item)}>
+                                        <img src={delIcon} />
+                                    </div>
+                                </div>
                            </div>
                        );
                    })}

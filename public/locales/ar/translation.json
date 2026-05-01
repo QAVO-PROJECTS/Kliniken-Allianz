@@ -3,8 +3,11 @@
     "home": "الرئيسية",
     "services": "الخدمات",
     "clinics": "العيادات",
+    "germanyClinics": "عيادات ألمانيا",
     "about": "معلومات عنا",
     "contact": "اتصل بنا",
+    "blog": "المدونات",
+    "more": "أكثر",
     "languages": {
       "az": "الأذربيجانية",
       "en": "الإنجليزية",
@@ -1262,6 +1265,7 @@
       "menu": {
         "category": "فئة",
         "clinic": "عيادة",
+        "clinicGermany": "عيادة (ألمانيا)",
         "doctor": "طبيب",
         "tours": "جولات",
         "hotel": "فندق",

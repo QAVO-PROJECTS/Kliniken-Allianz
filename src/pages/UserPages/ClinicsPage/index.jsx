@@ -12,17 +12,24 @@ import img1 from "/src/assets/dSamer.png"
 import {useMediaQuery} from "react-responsive";
 import mobileBanner from "../../../assets/MobileBanner.png";
 import ClinicCard2 from "../../../components/UserComponents/ClinicCard2/index.jsx";
-function ClinicsPage() {
+function ClinicsPage({ isGermany }) {
     const {data:getAllClinic} = useGetAllClinicQuery()
-    const clinics = getAllClinic?.data
+    const allClinics = getAllClinic?.data
     const { t } = useTranslation();
 
     const isMobile = useMediaQuery({maxWidth:768})
     const [searchTerm, setSearchTerm] = useState("");
 
-    const filteredClinics = clinics?.filter((clinic) => {
+    const filteredClinics = allClinics?.filter((clinic) => {
         const localizedName = getLocalizedText(clinic, 'name')?.toLowerCase() || "";
-        return localizedName.includes(searchTerm);
+        const matchesSearch = localizedName.includes(searchTerm);
+        const isAlm = clinic.location === "Almaniya";
+        
+        if (isGermany) {
+            return matchesSearch && isAlm;
+        } else {
+            return matchesSearch && !isAlm;
+        }
     });
 
 
@@ -31,11 +38,11 @@ function ClinicsPage() {
             <div className="container">
                 <div className="clinics-page">
                     <div className="head">
-                        <h1>{t("navbar.clinics")}</h1>
+                        <h1>{isGermany ? t("navbar.germanyClinics") : t("navbar.clinics")}</h1>
                         <p data-aos="fade-up" data-aos-delay="100">
                             <Link to="/">{t("contact.breadcrumb.home")}</Link>
                             <div className="dot"></div>
-                            <Link to="/clinics">{t("navbar.clinics")}</Link>
+                            <Link to={isGermany ? "/germany-clinics" : "/clinics"}>{isGermany ? t("navbar.germanyClinics") : t("navbar.clinics")}</Link>
                         </p>
 
                         <div className={'search'}>

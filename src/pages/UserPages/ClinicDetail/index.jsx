@@ -157,7 +157,9 @@ const {data:getClinicById} = useGetClinicByIdQuery(id)
                     <p>
                         <Link to="/">{t("contact.breadcrumb.home")}</Link>
                         <div className="dot"/>
-                        <Link to={`/clinics/${clinic?.id}`}>{getLocalizedText(clinic, "name")}</Link>
+                        <Link to={clinic?.location === "Almaniya" ? "/germany-clinics" : "/clinics"}>{clinic?.location === "Almaniya" ? t("navbar.germanyClinics") : t("navbar.clinics")}</Link>
+                        <div className="dot"/>
+                        <span className="current">{getLocalizedText(clinic, "name")}</span>
                     </p>
                 </div>
 

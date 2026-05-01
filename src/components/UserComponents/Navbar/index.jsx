@@ -184,16 +184,30 @@ function Navbar() {
         setSearchQuery('');
     };
 
-    const NAV_LINKS = [
-        { to: '/clinics',     key: 'clinics' },
-        { to: '/sanatoriums', key: 'sanatoriums' },
-        { to: '/doctors',     key: 'doctors' },
-        { to: '/tours',       key: 'tours' },
-        { to: '/about',       key: 'about' },
-        { to: '/contact',     key: 'contact' },
-        { to: '/blogs',     key: 'blog' },
-
+    const MAIN_NAV_LINKS = [
+        { to: '/clinics',         key: 'clinics' },
+        { to: '/germany-clinics', key: 'germanyClinics' },
+        { to: '/sanatoriums',     key: 'sanatoriums' },
+        { to: '/doctors',         key: 'doctors' },
+        { to: '/tours',           key: 'tours' },
     ];
+
+    const MORE_NAV_LINKS = [
+        { to: '/about',   key: 'about' },
+        { to: '/contact', key: 'contact' },
+        { to: '/blogs',   key: 'blog' },
+    ];
+
+    const [moreOpen, setMoreOpen] = useState(false);
+    const moreRef = useRef(null);
+
+    useEffect(() => {
+        const handler = (e) => {
+            if (moreRef.current && !moreRef.current.contains(e.target)) setMoreOpen(false);
+        };
+        document.addEventListener('mousedown', handler);
+        return () => document.removeEventListener('mousedown', handler);
+    }, []);
 
     return (
         <>
@@ -211,7 +225,7 @@ function Navbar() {
                     {/* DESKTOP NAV */}
                     <nav className="nb-desktop-nav">
                         <CategoriesMenuAntd />
-                        {NAV_LINKS.map(({ to, key }) => (
+                        {MAIN_NAV_LINKS.map(({ to, key }) => (
                             <Link
                                 key={key}
                                 to={to}
@@ -220,6 +234,25 @@ function Navbar() {
                                 {t(`navbar.${key}`)}
                             </Link>
                         ))}
+                        
+                        <div className={`nb-more-wrap${moreOpen ? ' open' : ''}`} ref={moreRef}>
+                            <button className="nb-link nb-more-btn" onClick={() => setMoreOpen(!moreOpen)}>
+                                {t('navbar.more')}
+                                <ChevronDown />
+                            </button>
+                            <div className="nb-more-dropdown">
+                                {MORE_NAV_LINKS.map(({ to, key }) => (
+                                    <Link
+                                        key={key}
+                                        to={to}
+                                        className={`nb-more-item${location.pathname === to ? ' active' : ''}`}
+                                        onClick={() => setMoreOpen(false)}
+                                    >
+                                        {t(`navbar.${key}`)}
+                                    </Link>
+                                ))}
+                            </div>
+                        </div>
                     </nav>
 
                     {/* RIGHT ACTIONS */}
@@ -476,7 +509,7 @@ function Navbar() {
 
                 {/* Nav links */}
                 <div className="nb-drawer-links">
-                    {NAV_LINKS.map(({ to, key }) => (
+                    {MAIN_NAV_LINKS.map(({ to, key }) => (
                         <Link
                             key={key}
                             to={to}
@@ -486,6 +519,29 @@ function Navbar() {
                             {t(`navbar.${key}`)}
                         </Link>
                     ))}
+                    
+                    <div className="nb-drawer-more">
+                        <div className="nb-drawer-row" onClick={() => setMoreOpen(!moreOpen)}>
+                            <div className="nb-drawer-row-left">
+                                <span>{t('navbar.more')}</span>
+                            </div>
+                            <span className={`nb-drawer-chevron${moreOpen ? ' open' : ''}`}><ChevronDown /></span>
+                        </div>
+                        {moreOpen && (
+                            <div className="nb-drawer-sub">
+                                {MORE_NAV_LINKS.map(({ to, key }) => (
+                                    <Link
+                                        key={key}
+                                        to={to}
+                                        className={`nb-drawer-link sub-link${location.pathname === to ? ' active' : ''}`}
+                                        onClick={closeMenu}
+                                    >
+                                        {t(`navbar.${key}`)}
+                                    </Link>
+                                ))}
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
         </>

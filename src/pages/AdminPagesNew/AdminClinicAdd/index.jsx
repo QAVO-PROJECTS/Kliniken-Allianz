@@ -19,7 +19,7 @@ import {
 import showToast from "../../../components/ToastMessage.js";
 import {useTranslation} from "react-i18next";
 
-function ClinicAdd() {
+function ClinicAdd({isGermany}) {
     const {t} = useTranslation();
     const [selectedFile, setSelectedFile] = useState(null);
     const [isDragging, setIsDragging] = useState(false);
@@ -59,11 +59,11 @@ function ClinicAdd() {
     const removeVideo = (index) => {
         setClinicVideos((prev) => prev.filter((_, i) => i !== index));
     };
-    const [locationAz, setLocationAz] = useState("");
-    const [locationEn, setLocationEn] = useState("");
-    const [locationRu, setLocationRu] = useState("");
-    const [locationAlm, setLocationAlm] = useState("");
-    const [locationArab, setLocationArab] = useState("");
+    const [locationAz, setLocationAz] = useState(isGermany ? "Almaniya" : "");
+    const [locationEn, setLocationEn] = useState(isGermany ? "Germany" : "");
+    const [locationRu, setLocationRu] = useState(isGermany ? "Германия" : "");
+    const [locationAlm, setLocationAlm] = useState(isGermany ? "Deutschland" : "");
+    const [locationArab, setLocationArab] = useState(isGermany ? "ألمانيا" : "");
 
 // Checkbox seçilən elementlər
     const [selectedServices, setSelectedServices] = useState([]);
@@ -190,7 +190,7 @@ function ClinicAdd() {
             setSelectedOtels([]);
             setClinicVideos([]);
             setVideoInput("");
-            navigate('/admin/clinic')
+            navigate(isGermany ? '/admin/germany-clinic' : '/admin/clinic')
         } catch (err) {
             console.error("Xəta:", err);
             showToast(t("adminPanel.clinicAdd.toast.error"), "error");
@@ -202,13 +202,13 @@ function ClinicAdd() {
                 <div className={"root"}>
                     <h2>
                         <NavLink className="link"
-                                 to="/admin/clinic"> {t("adminPanel.clinicAdd.breadcrumb.main")}</NavLink>
+                                 to={isGermany ? "/admin/germany-clinic" : "/admin/clinic"}> {isGermany ? t("adminPanel.leftBar.menu.clinicGermany") : t("adminPanel.clinicAdd.breadcrumb.main")}</NavLink>
                         <img src={rootIcon} alt=""/>
                         {t("adminPanel.clinicAdd.breadcrumb.sub")}
                     </h2>
                 </div>
                 <div className={'clinic-add-head'}>
-                    <h1>{t("adminPanel.clinicAdd.title")}</h1>
+                    <h1>{isGermany ? t("adminPanel.leftBar.menu.clinicGermany") : t("adminPanel.clinicAdd.title")}</h1>
                     <p>{t("adminPanel.clinicAdd.description")}</p>
                 </div>
                 <div className={'clinic-add-main'}>

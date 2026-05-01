@@ -1,6 +1,7 @@
 {
   "navbar": {
     "clinics": "Clinics",
+    "germanyClinics": "Germany Clinics",
     "doctors": "Doctors",
     "sanatoriums": "Sanatoriums",
     "tours": "Tours",
@@ -9,6 +10,7 @@
     "categories": "Categories",
     "search": "Search",
     "blog": "Blogs",
+    "more": "More",
     "languages": {
       "az": "Azerbaijani",
       "en": "English",
@@ -1536,6 +1538,7 @@
       "menu": {
         "category": "Categories",
         "clinic": "Clinic",
+        "clinicGermany": "Clinic (Germany)",
         "doctor": "Doctor",
         "tours": "Tours",
         "hotel": "Hotel",
