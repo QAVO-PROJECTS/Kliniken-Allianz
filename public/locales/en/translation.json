@@ -11,6 +11,7 @@
     "categories": "Categories",
     "search": "Search",
     "blog": "Blogs",
+    "blogSingular": "Blog",
     "more": "More",
     "languages": {
       "az": "Azerbaijani",
@@ -245,8 +246,15 @@
   "applyButton": "Apply"
 },
 "tourDetail": {
-  "cars": { "title": "Cars" },
-  "otels": { "title": "Hotels", "visit": "Visit hotel" }
+  "cars": {
+    "title": "Cars",
+    "apply": "Apply",
+    "details": "Details →"
+  },
+  "otels": {
+    "title": "Hotels",
+    "visit": "Visit hotel"
+  }
 },
 "carsPage": {
   "title": "Cars"
@@ -385,6 +393,7 @@
   },
   "categoryDetail": {
     "pageTitle": "Service",
+    "features": "Features",
     "breadcrumb": {
       "home": "Home"
     },
@@ -555,13 +564,13 @@
     "sanatoriumPage": {
       "title": "Sanatorium",
       "description": "Here you can manage sanatoriums and create new ones.",
-      "noSanatoriumFound": "Uyğun sanatoriya tapılmadı",
+      "noSanatoriumFound": "No matching sanatorium found",
       "headers": {
-        "title": "Etibar Edilən Sağlamlıq Mərkəzləri",
-        "subtitle": "Kliniken Allianz yalnız beynəlxalq standartlara cavab verən, müasir və etibarlı sanatoriyalarla əməkdaşlıq edir."
+        "title": "Trusted Health Centers",
+        "subtitle": "Kliniken Allianz only cooperates with modern and reliable sanatoriums that meet international standards."
       },
       "search": {
-        "placeholder": "Axtarış edin....."
+        "placeholder": "Search..."
       },
         "filter": {
             "allLocations": "All cities",
@@ -569,9 +578,9 @@
         },
       "breadcrumb": {
         "home": "Home",
-        "sanatoriums": "Sanatoriyalar"
+        "sanatoriums": "Sanatoriums"
       },
-      "bannerAlt": "Haqqımızda banner"
+      "bannerAlt": "About Us Banner"
     },
     "sanatoriumTable": {
       "image": "Image",

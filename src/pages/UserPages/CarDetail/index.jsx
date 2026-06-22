@@ -4,7 +4,7 @@ import banners from "/src/assets/AboutBanner.png";
 import mobileBanners from "/src/assets/MobileBanner.png";
 import { useTranslation } from "react-i18next";
 import { useMediaQuery } from "react-responsive";
-import { useGetCarByIdQuery } from "../../../services/userApi.jsx";
+import { useGetCarByIdQuery, usePostContactMutation } from "../../../services/userApi.jsx";
 import i18n from "../../../i18n.js";
 import image from "../../../assets/CatgoryContantOrange.png";
 import image1 from "../../../assets/blueIcon.png";
@@ -22,6 +22,7 @@ function CarDetail() {
     const car = getCarById?.data;
     const currentLang = i18n.language;
     const contactRef = useRef(null);
+    const [postContact] = usePostContactMutation();
 
     const [activeImg, setActiveImg] = useState(0);
     const [lightbox, setLightbox] = useState(null);
@@ -35,6 +36,20 @@ function CarDetail() {
 
     const scrollToContact = () => {
         contactRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+
+    const handleApplyClick = () => {
+        if (!description) {
+            const carName = getName(car);
+            const messageTemplate = {
+                az: `Mən "${carName}" avtomobili üçün müraciət etmək istəyirəm.`,
+                en: `I would like to apply for the car "${carName}".`,
+                ru: `Я хотел бы подать заявку на автомобиль "${carName}".`,
+                ar: `أود التقدم بطلب للحصول على السيارة "${carName}".`
+            };
+            setDescription(messageTemplate[currentLang] || messageTemplate['az']);
+        }
+        scrollToContact();
     };
 
     const getName = (item) => {
@@ -72,7 +87,22 @@ function CarDetail() {
         return newErrors;
     };
 
- 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const newErrors = validate();
+        setErrors(newErrors);
+        if (Object.keys(newErrors).length === 0) {
+            const payload = { name, surname, email, phoneNumber, description };
+            try {
+                await postContact(payload).unwrap();
+                showToast(t("contact.succesToast"), "success");
+                setName(""); setSurname(""); setEmail(""); setPhoneNumber(""); setDescription(""); setErrors({});
+            } catch (error) {
+                console.error("Contact error:", error);
+                showToast(t("contact.errorToast"), "error");
+            }
+        }
+    };
 
     return (
         <div id="car-detail">
@@ -151,14 +181,62 @@ function CarDetail() {
                                 <p>{getDescription(car)}</p>
                             </div>
 
-                            <button className="car-info__btn" onClick={scrollToContact}>
+                            <button className="car-info__btn" onClick={handleApplyClick}>
                                 {t("toursPage.applyButton") || "Müraciət et"}
                             </button>
                         </div>
                     </div>
                 </div>
 
-           
+                {/* ── CONTACT FORM ── */}
+                <div className="contact" ref={contactRef}>
+                    <div className="orange"><img src={image} /></div>
+                    <div className="blueIcon"><img src={image1} /></div>
+                    <div className="whiteIcon"><img src={image3} /></div>
+                    <div className="row" style={{ justifyContent: "space-between" }}>
+                        <div className="col-32 col-md-60 col-sm-60 col-xs-60">
+                            <div className="form">
+                                <div className="form-head">
+                                    <h2>{t("contact.form.title")}</h2>
+                                </div>
+                                <div className="form-body">
+                                    <form onSubmit={handleSubmit}>
+                                        <div className="row" style={{ justifyContent: "space-between" }}>
+                                            <div className="col-29" style={{ padding: "12px 0" }}>
+                                                <input type="text" placeholder={t("contact.form.placeholders.name")} value={name} onChange={(e) => setName(e.target.value)} />
+                                                {errors.name && <span className="error-message">{errors.name}</span>}
+                                            </div>
+                                            <div className="col-29" style={{ padding: "12px 0" }}>
+                                                <input type="text" placeholder={t("contact.form.placeholders.surname")} value={surname} onChange={(e) => setSurname(e.target.value)} />
+                                                {errors.surname && <span className="error-message">{errors.surname}</span>}
+                                            </div>
+                                            <div className="col-60" style={{ padding: "12px 0" }}>
+                                                <input type="email" placeholder={t("contact.form.placeholders.email")} value={email} onChange={(e) => setEmail(e.target.value)} />
+                                                {errors.email && <span className="error-message">{errors.email}</span>}
+                                            </div>
+                                            <div className="col-60" style={{ padding: "12px 0" }}>
+                                                <input type="number" placeholder={t("contact.form.placeholders.phone")} value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
+                                                {errors.phoneNumber && <span className="error-message">{errors.phoneNumber}</span>}
+                                            </div>
+                                            <div className="col-60" style={{ padding: "12px 0" }}>
+                                                <textarea rows={5} placeholder={t("contact.form.placeholders.description")} value={description} onChange={(e) => setDescription(e.target.value)} />
+                                                {errors.description && <span className="error-message">{errors.description}</span>}
+                                            </div>
+                                            <div className="col-60" style={{ padding: "12px 0" }}>
+                                                <button type="submit">{t("contact.form.button")}</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-25 col-md-60 col-sm-60 col-xs-60">
+                            <div className="image">
+                                <img src={image2} alt={t("categoryDetail.contact.imageAlt")} />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             {/* ── BANNER ── */}

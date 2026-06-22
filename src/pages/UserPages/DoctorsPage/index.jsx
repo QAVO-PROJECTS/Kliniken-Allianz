@@ -216,7 +216,7 @@ function DoctorsPage() {
                                                 <label key={i}>
                                                     <input
                                                         type="checkbox"
-                                                        checked={selectedClinics.includes(clinic.name)}
+                                                        checked={selectedClinics.includes(getLocalizedText(clinic, 'name'))}
                                                         onChange={() => toggleClinic(getLocalizedText(clinic, 'name'))}
                                                     />
                                                     {getLocalizedText(clinic, 'name')}
@@ -353,16 +353,16 @@ function DoctorsPage() {
                             <button onClick={resetClinics}>{t("doctorsPage.filters.reset")}</button>
                         </div>
                         <div className="filter-options">
-                            {clinics.map((clinic, i) => (
-                                <label key={i}>
-                                    <input
-                                        type="checkbox"
-                                        checked={selectedClinics.includes(clinic.name)}
-                                        onChange={() => toggleClinic(clinic.name)}
-                                    />
-                                    {clinic.name}
-                                </label>
-                            ))}
+                             {clinics.map((clinic, i) => (
+                                 <label key={i}>
+                                     <input
+                                         type="checkbox"
+                                         checked={selectedClinics.includes(getLocalizedText(clinic, 'name'))}
+                                         onChange={() => toggleClinic(getLocalizedText(clinic, 'name'))}
+                                     />
+                                     {getLocalizedText(clinic, 'name')}
+                                 </label>
+                             ))}
 
                         </div>
                     </div>

@@ -371,6 +371,7 @@
   },
   "categoryDetail": {
     "pageTitle": "Xidmət",
+    "features": "Xüsusiyyətlər",
     "breadcrumb": {
       "home": "Ana səhifə"
     },
@@ -494,6 +495,17 @@
     "headerTitle": "Tibbi Tur Paketləri",
     "headerDesc": "Müalicə, yerləşmə və transfer daxil tam tibbi tur paketləri.",
     "noData": "Axtardığınız tur tapılmadı 😔"
+  },
+  "tourDetail": {
+    "cars": {
+      "title": "Avtomobillər",
+      "apply": "Müraciət et",
+      "details": "Ətraflı →"
+    },
+    "otels": {
+      "title": "Otellər",
+      "visit": "Oteli ziyarət et"
+    }
   },
   "adminPanel": {
     "categoryPage": {

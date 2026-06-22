@@ -7,9 +7,12 @@ import { HiOutlineArrowLeft, HiOutlineArrowRight } from "react-icons/hi";
 import ServiceDetailCard from "../../../components/UserComponents/ServicesDetailCard/index.jsx";
 import { useEffect, useRef, useState } from "react";
 import { useGetServiceByIdQuery, useGetClinicByIdQuery } from "../../../services/userApi.jsx";
+import { useTranslation } from "react-i18next";
+import { getLocalizedText } from "../../../utils/getLocalizedText.js";
 
 function ServiceDetail() {
     const { id } = useParams();
+    const { t } = useTranslation();
     const { data: getServiceById, isLoading: serviceLoading } = useGetServiceByIdQuery(id);
     const service = getServiceById?.data;
 
@@ -24,8 +27,9 @@ function ServiceDetail() {
             const clinic = query?.data?.data;
             if (!clinic) return null;
             return {
-                name: clinic.name || "Bilinmeyen Klinik",
-                description: clinic.description || "Açıklama yok",
+                id: clinic.id,
+                name: getLocalizedText(clinic, 'name') || "Klinika",
+                description: getLocalizedText(clinic, 'description') || "",
                 imageUrl: clinic.imageUrl || "/src/assets/placeholder.png",
             };
         })
@@ -138,24 +142,22 @@ function ServiceDetail() {
 
         currentTranslate.current = prevTranslate.current + movePercentage;
         sliderRef.current.style.transform = `translateX(${currentTranslate.current}%)`;
-    };
-
-    return (
+    };    return (
         <div id={"serviceDetail"}>
             <div className={"container"}>
                 <div className={"head"}>
-                    <h1>{service?.name}</h1>
+                    <h1>{getLocalizedText(service, 'name')}</h1>
                     <p data-aos="fade-up" data-aos-delay="100">
-                        <Link to={"/"}>Ana səhifə</Link>
+                        <Link to={"/"}>{t("contact.breadcrumb.home")}</Link>
                         <div className={"dot active"}></div>
-                        <Link to={`/services/${id}`}>{service?.name}</Link>
+                        <Link to={`/services/${id}`}>{getLocalizedText(service, 'name')}</Link>
                     </p>
                 </div>
                 <div className={"row first-section"}>
                     <div className={"col-6 col-md-12 col-sm-12 col-xs-12 second"}>
                         <div className={"content"}>
-                            <p>{service?.description}</p>
-                            <button>Müraciət et</button>
+                            <p>{getLocalizedText(service, 'description')}</p>
+                            <button>{t("toursPage.applyButton")}</button>
                             <img src={arrow} alt="" className="arrow" />
                         </div>
                     </div>
@@ -170,12 +172,12 @@ function ServiceDetail() {
                 </div>
                 {service?.options?.length > 0 && (
                     <div className="second-section">
-                        <h2>Xüsusiyyətlər</h2>
+                        <h2>{t("categoryDetail.features", "Xüsusiyyətlər")}</h2>
                         <div className="row">
                             {service.options.map((opt) => (
                                 <div className={"col-3"} key={opt.id}>
                                     <li>
-                                        <img src={image1} alt="" /> {opt.name}
+                                        <img src={image1} alt="" /> {getLocalizedText(opt, 'name')}
                                     </li>
                                 </div>
                             ))}
@@ -185,11 +187,8 @@ function ServiceDetail() {
                 <div className="third-section">
                     <div className="header">
                         <div className="content">
-                            <h2>Etibar Edilən Sağlamlıq Mərkəzləri</h2>
-                            <p>
-                                Kliniken Allianz yalnız beynəlxalq standartlara cavab verən,
-                                müasir və etibarlı klinikalarla əməkdaşlıq edir.
-                            </p>
+                            <h2>{t("homeClinic.title")}</h2>
+                            <p>{t("homeClinic.description")}</p>
                         </div>
                         <div className="navigationBtn">
                             <button className="prev" onClick={handlePrev} disabled={currentIndex === 0}>
@@ -201,11 +200,11 @@ function ServiceDetail() {
                         </div>
                     </div>
                     {serviceLoading || clinicQueries.some((query) => query.isLoading) ? (
-                        <p>Klinikler yükleniyor...</p>
+                        <p>{t("serviceDetail.loading", "Kliniklər yüklənir...")}</p>
                     ) : clinicQueries.some((query) => query.error) ? (
-                        <p>Klinikler yüklenirken hata oluştu. Lütfen tekrar deneyin.</p>
+                        <p>{t("serviceDetail.error", "Kliniklər yüklənərkən xəta baş verdi. Zəhmət olmasa yenidən cəhd edin.")}</p>
                     ) : cards.length === 0 ? (
-                        <p>Klinik bulunamadı.</p>
+                        <p>{t("serviceDetail.noClinics", "Klinika tapılmadı.")}</p>
                     ) : (
                         <>
                             <div
@@ -222,6 +221,7 @@ function ServiceDetail() {
                                     {cards.map((item, index) => (
                                         <ServiceDetailCard
                                             key={index}
+                                            id={item.id}
                                             name={item.name}
                                             desc={item.description}
                                             img={item.imageUrl}
@@ -229,17 +229,19 @@ function ServiceDetail() {
                                     ))}
                                 </div>
                             </div>
-                            <div className="custom-pagination">
-                                {Array.from({ length: maxIndex + 1 }).map((_, index) => (
-                                    <span
-                                        key={index}
-                                        className={`custom-bullet ${currentIndex === index ? "active" : ""}`}
-                                        onClick={() => handleBulletClick(index)}
-                                        aria-label={`Slayt ${index + 1}'e git`}
-                                        role="button"
-                                    />
-                                ))}
-                            </div>
+                            {maxIndex > 0 && (
+                                <div className="custom-pagination">
+                                    {Array.from({ length: maxIndex + 1 }).map((_, index) => (
+                                        <span
+                                            key={index}
+                                            className={`custom-bullet ${currentIndex === index ? "active" : ""}`}
+                                            onClick={() => handleBulletClick(index)}
+                                            aria-label={`Slayt ${index + 1}'e git`}
+                                            role="button"
+                                        />
+                                    ))}
+                                </div>
+                            )}
                         </>
                     )}
                 </div>

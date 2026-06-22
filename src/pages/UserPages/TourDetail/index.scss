@@ -230,6 +230,24 @@
       white-space: nowrap;
       &:hover { background-color: #002a5c; }
     }
+
+    &__details {
+      margin-top: 12px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    &__link {
+      display: inline-block;
+      color: #003778;
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s ease;
+      cursor: pointer;
+      &:hover { border-color: #003778; }
+    }
   }
 
   // ── OTELS SECTION ───────────────────────────────────────────────────

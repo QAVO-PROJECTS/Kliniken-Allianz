@@ -8,6 +8,7 @@ import {CATEGORY_IMAGES} from "../../contants.js";
 import {useTranslation} from "react-i18next";
 import {useNavigate} from "react-router-dom";
 import {FaChevronDown} from "react-icons/fa";
+import { getLocalizedText } from "../../utils/getLocalizedText.js";
 
 export default function CategoriesMenuAntd() {
     const { data: getAllCategory } = useGetAllCategoryQuery();
@@ -50,11 +51,11 @@ export default function CategoriesMenuAntd() {
                             {category.categoryImage && (
                                 <img
                                     src={CATEGORY_IMAGES + category.categoryImage}
-                                    alt={category.name}
+                                    alt={getLocalizedText(category, 'name')}
                                     style={{ width: "22px", height: "22px", objectFit: "cover", borderRadius: "4px" }}
                                 />
                             )}
-                            <span style={{ fontSize: "14px", fontWeight: 500 }}>{category.name}</span>
+                            <span style={{ fontSize: "14px", fontWeight: 500 }}>{getLocalizedText(category, 'name')}</span>
                         </div>
                         {category.services?.length > 0 && (
                             <img src={rightIcon} alt=">" style={{ width: "16px" }} />
@@ -96,7 +97,7 @@ export default function CategoriesMenuAntd() {
                                 e.currentTarget.style.color = "#333";
                             }}
                         >
-                            {service.name}
+                            {getLocalizedText(service, 'name')}
                         </div>
                     ))}
                 </div>

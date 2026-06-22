@@ -22,7 +22,7 @@ function HomeHotel() {
 const {data:getAllOtels} = useGetAllOtelsQuery()
     const cardss = getAllOtels?.data
 
-    const maxIndex = cardss?.length - visibleCards;
+    const maxIndex = cardss && cardss.length > visibleCards ? cardss.length - visibleCards : 0;
 
     useEffect(() => {
         const updateVisibleCards = () => {
@@ -39,14 +39,16 @@ const {data:getAllOtels} = useGetAllOtelsQuery()
     }, []);
 
     useEffect(() => {
-        const newMaxIndex = cardss?.length - visibleCards;
+        const newMaxIndex = cardss && cardss.length > visibleCards ? cardss.length - visibleCards : 0;
         if (currentIndex > newMaxIndex) {
             setCurrentIndex(newMaxIndex);
-            sliderRef.current.style.transform = `translateX(-${newMaxIndex * (100 / visibleCards)}%)`;
-            currentTranslate.current = -newMaxIndex * (100 / visibleCards);
-            prevTranslate.current = currentTranslate.current;
+            if (sliderRef.current) {
+                sliderRef.current.style.transform = `translateX(-${newMaxIndex * (100 / visibleCards)}%)`;
+                currentTranslate.current = -newMaxIndex * (100 / visibleCards);
+                prevTranslate.current = currentTranslate.current;
+            }
         }
-    }, [visibleCards, currentIndex]);
+    }, [visibleCards, currentIndex, cardss?.length]);
 
     const handleBulletClick = (index) => {
         if (index <= maxIndex) {
@@ -129,17 +131,19 @@ const {data:getAllOtels} = useGetAllOtelsQuery()
                         ))}
                     </div>
                 </div>
-                <div className="custom-pagination">
-                    {Array.from({ length: maxIndex + 1 }).map((_, index) => (
-                        <span
-                            key={index}
-                            className={`custom-bullet ${currentIndex === index ? 'active' : ''}`}
-                            onClick={() => handleBulletClick(index)}
-                            aria-label={t('homeHotel.slideAriaLabel', { slideNumber: index + 1 })}
-                            role="button"
-                        />
-                    ))}
-                </div>
+                {maxIndex > 0 && (
+                    <div className="custom-pagination">
+                        {Array.from({ length: maxIndex + 1 }).map((_, index) => (
+                            <span
+                                key={index}
+                                className={`custom-bullet ${currentIndex === index ? 'active' : ''}`}
+                                onClick={() => handleBulletClick(index)}
+                                aria-label={t('homeHotel.slideAriaLabel', { slideNumber: index + 1 })}
+                                role="button"
+                            />
+                        ))}
+                    </div>
+                )}
             </div>
         </div>
     );

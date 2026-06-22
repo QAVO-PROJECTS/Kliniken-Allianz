@@ -8,6 +8,7 @@
     "about": "معلومات عنا",
     "contact": "اتصل بنا",
     "blog": "المدونات",
+    "blogSingular": "مدونة",
     "more": "أكثر",
     "languages": {
       "az": "الأذربيجانية",
@@ -329,19 +330,23 @@
     "sanatoriumPage": {
       "title": "المصحة",
       "description": "هنا يمكنك إدارة المصحات وإنشاء مصحات جديدة.",
-      "noSanatoriumFound": "Uyğun sanatoriya tapılmadı",
+      "noSanatoriumFound": "لم يتم العثور على مصحات مناسبة",
       "headers": {
-        "title": "Etibar Edilən Sağlamlıq Mərkəzləri",
-        "subtitle": "Kliniken Allianz yalnız beynəlxalq standartlara cavab verən, müasir və etibarlı sanatoriyalarla əməkdaşlıq edir."
+        "title": "المراكز الصحية الموثوقة",
+        "subtitle": "تتعاون Kliniken Allianz فقط مع المصحات الحديثة والموثوقة التي تلبي المعايير الدولية."
+      },
+      "filter": {
+        "allLocations": "جميع المدن",
+        "placeholder": "تصفية حسب المدينة"
       },
       "search": {
-        "placeholder": "Axtarış edin....."
+        "placeholder": "البحث..."
       },
       "breadcrumb": {
-        "home": "Ana səhifə",
-        "sanatoriums": "Sanatoriyalar"
+        "home": "الرئيسية",
+        "sanatoriums": "المصحات"
       },
-      "bannerAlt": "Haqqımızda banner"
+      "bannerAlt": "شعار معلومات عنا"
     },
     "sanatoriumTable": {
       "image": "الصورة",
@@ -1670,126 +1675,127 @@
     }
   },
   "categoriesMenu": {
-    "title": "Kateqoriyalar",
-    "allCategories": "Bütün kateqoriyalar"
+    "title": "الفئات",
+    "allCategories": "جميع الفئات"
   },
   "tourCard": {
-    "hotel": "Otel",
-    "visa": "Viza",
-    "flight": "Aviabilet",
-    "apply": "Müraciət et"
+    "hotel": "فندق",
+    "visa": "تأشيرة",
+    "flight": "طيران",
+    "apply": "طلب"
   },
   "homeTour": {
-    "title": "Tibbi Tur Paketləri",
-    "description": "Müalicə, yerləşmə və transfer daxil tam tibbi tur paketləri.",
-    "slideAriaLabel": "{slideNumber}-ci slayda keç",
-    "cardImgAlt": "{name} Şəkli"
+    "title": "الباقات السياحية الطبية",
+    "description": "باقات سياحية طبية كاملة تشمل العلاج والإقامة والانتقالات.",
+    "slideAriaLabel": "الانتقال إلى الشريحة {slideNumber}",
+    "cardImgAlt": "صورة {name}"
   },
   "contact": {
-    "title": "Əlaqə",
+    "title": "اتصل بنا",
     "breadcrumb": {
-      "home": "Ana səhifə",
-      "contact": "Əlaqə"
+      "home": "الصفحة الرئيسية",
+      "contact": "اتصل بنا"
     },
     "main": {
-      "title": "Kömək etməyə hazırıq",
-      "desc": "Tibbi turizmlə bağlı bütün suallarınız üçün bizimlə rahatlıqla əlaqə saxlaya bilərsiniz. Mütəxəssis komandamız sizə uyğun həll yollarını təqdim edəcək."
+      "title": "نحن هنا للمساعدة",
+      "desc": "يسعدنا الإجابة على جميع استفساراتكم المتعلقة بالسياحة العلاجية. سيقدم لكم فريقنا المتخصص الحلول الأنسب لكافة احتياجاتكم."
     },
     "contactCard": {
       "mobile": {
-        "title": "Mobil",
+        "title": "الهاتف",
         "value": "+994 50 123 45 67"
       },
       "email": {
-        "title": "Email",
+        "title": "البريد الإلكتروني",
         "value": "info@kliniken-allianz.az"
       },
       "address": {
-        "title": "Ünvan",
-        "value": "Nizami küçəsi 45, Bakı, Azərbaycan"
+        "title": "العنوان",
+        "value": "شارع نظامي 45، باكو، أذربيجان"
       }
     },
     "form": {
-      "title": "Formu dolduraraq bizimlə əlaqə saxlayın",
+      "title": "اتصل بنا عن طريق ملء الاستمارة",
       "labels": {
-        "name": "Ad",
-        "surname": "Soyad",
-        "email": "Email",
-        "phone": "Nömrə",
-        "description": "Qeyd"
+        "name": "الاسم الأول",
+        "surname": "الاسم الأخير",
+        "email": "البريد الإلكتروني",
+        "phone": "رقم الهاتف",
+        "description": "ملاحظة"
       },
       "placeholders": {
-        "name": "Adınızı daxil edin",
-        "surname": "Soyadınızı daxil edin",
-        "email": "examle@gmail.com",
+        "name": "أدخل اسمك الأول",
+        "surname": "أدخل اسمك الأخير",
+        "email": "example@gmail.com",
         "phone": "+994 99 999 99 99",
         "description": ""
       },
-      "button": "Göndər",
+      "button": "إرسال",
       "errors": {
-        "firstNameRequired": "Adınızı daxil edin",
-        "lastNameRequired": "Soyadınızı daxil edin",
-        "emailRequired": "Emailinizi daxil edin",
-        "emailInvalid": "Düzgün email daxil edin",
-        "phoneRequired": "Telefon nömrənizi daxil edin",
-        "descriptionRequired": "Mesajınızı daxil edin"
+        "firstNameRequired": "الرجاء إدخال اسمك الأول",
+        "lastNameRequired": "الرجاء إدخال اسمك الأخير",
+        "emailRequired": "الرجاء إدخال بريدك الإلكتروني",
+        "emailInvalid": "الرجاء إدخال بريد إلكتروني صالح",
+        "phoneRequired": "الرجاء إدخال رقم هاتفك",
+        "descriptionRequired": "الرجاء إدخال رسالتك"
       }
     },
-    "bannerAlt": "Əlaqə Banneri",
-    "succesToast": "Əlaqə məlumatları uğurla göndərildi!",
-    "errorToast": "Xəta baş verdi"
+    "bannerAlt": "شعار الاتصال",
+    "succesToast": "تم إرسال معلومات الاتصال بنجاح!",
+    "errorToast": "حدث خطأ أثناء الإرسال"
   },
   "categoryDetail": {
-    "pageTitle": "Xidmət",
+    "pageTitle": "الخدمة",
+    "features": "الميزات",
     "breadcrumb": {
-      "home": "Ana səhifə"
+      "home": "الصفحة الرئيسية"
     },
     "firstSection": {
-      "bannerAlt": "Kateqoriya banneri"
+      "bannerAlt": "شعار الفئة"
     },
     "secondSection": {
-      "button": "Hamısına bax"
+      "button": "عرض الكل"
     },
     "form": {
-      "title": "Əlaqə Formu",
+      "title": "نموذج الاتصال",
       "errors": {
-        "nameRequired": "Ad tələb olunur",
-        "surnameRequired": "Soyad tələb olunur",
-        "emailRequired": "Email tələb olunur",
-        "emailInvalid": "Email düzgün formatda deyil",
-        "phoneRequired": "Telefon nömrəsi tələb olunur",
-        "descriptionRequired": "Qeyd sahəsi boş ola bilməz"
+        "nameRequired": "الاسم مطلوب",
+        "surnameRequired": "الاسم الأخير مطلوب",
+        "emailRequired": "البريد الإلكتروني مطلوب",
+        "emailInvalid": "البريد الإلكتروني غير صالح",
+        "phoneRequired": "رقم الهاتف مطلوب",
+        "descriptionRequired": "حقل الملاحظات مطلوب"
       },
-      "button": "Göndər",
-      "success": "Mesajınız uğurla göndərildi!",
-      "error": "Mesaj göndərilərkən xəta baş verdi!",
-      "imageAlt": "Əlaqə şəkli"
+      "button": "إرسال",
+      "success": "تم إرسال رسالتك بنجاح!",
+      "error": "حدث خطأ أثناء إرسال الرسالة!",
+      "imageAlt": "صورة الاتصال"
     }
   },
   "clinicHotel": {
-    "title": "Tibbi Səfər üçün Otellər",
-    "description": "Sizin rahatlığınız üçün seçilmiş, beynəlxalq standartlara uyğun otellər.",
-    "slideAriaLabel": "{slideNumber}-ci slayda keç"
+    "title": "الفنادق المتاحة للرحلات العلاجية",
+    "description": "فنادق مختارة بعناية لراحتكم وتتوافق مع المعايير الدولية.",
+    "slideAriaLabel": "الانتقال إلى الشريحة {slideNumber}"
   },
   "doctorsPage": {
-    "title": "Həkimlər",
-    "searchPlaceholder": "Axtarış edin.....",
-    "breadcrumbDoctors": "Həkimlər",
+    "title": "الأطباء",
+    "searchPlaceholder": "البحث عن طبيب...",
+    "breadcrumbDoctors": "الأطباء",
     "header": {
-      "title": "Sağlamlığınız üçün ən doğru seçim",
-      "desc": "Müxtəlif sahələr üzrə ixtisaslaşmış həkimlərdən özünüzə uyğun olanı seçin"
+      "title": "الخيار الأفضل لصحتكم",
+      "desc": "اختر الطبيب الأنسب لك من بين نخبة من الأطباء المتخصصين في مختلف المجالات"
     },
     "noDoctors": "لم يتم العثور على أطباء.",
     "filters": {
-      "title": "Filtr",
-      "experience": "İş təcrübəsi",
-      "clinics": "Klinika",
-      "rating": "Reytinq",
-      "area": "İxtisas sahəsi",
-      "reset": "Sıfırlayın",
-      "mobileApply": "Tətbiq et",
-      "mobileClear": "Təmizlə",
-      "mobileFilter": "Filtrlə",
+      "title": "تصفية",
+      "experience": "سنوات الخبرة",
+      "clinics": "العيادة",
+      "rating": "التقييم",
+      "area": "التخصص",
+      "reset": "إعادة ضبط",
+      "mobileApply": "تطبيق",
+      "mobileClear": "مسح",
+      "mobileFilter": "تصفية",
       "experienceSuffix": "سنوات من الخبرة"
     }
   },
@@ -1804,15 +1810,26 @@
     "empty": "—"
   },
   "toursPage": {
-    "title": "Tur",
+    "title": "جولة",
     "breadcrumb": {
-      "tours": "Tur"
+      "tours": "جولة"
     },
-    "applyButton": "Müraciət et",
-    "searchPlaceholder": "Axtarış edin...",
-    "headerTitle": "Tibbi Tur Paketləri",
-    "headerDesc": "Müalicə, yerləşmə və transfer daxil tam tibbi tur paketləri.",
-    "noData": "Axtardığınız tur tapılmadı 😔"
+    "applyButton": "طلب",
+    "searchPlaceholder": "البحث...",
+    "headerTitle": "الباقات السياحية الطبية",
+    "headerDesc": "باقات سياحية طبية كاملة تشمل العلاج والإقامة والانتقالات.",
+    "noData": "لم يتم العثور على جولات 😔"
+  },
+  "tourDetail": {
+    "cars": {
+      "title": "سيارات",
+      "apply": "طلب",
+      "details": "التفاصيل →"
+    },
+    "otels": {
+      "title": "الفنادق",
+      "visit": "زيارة الفندق"
+    }
   },
   "newBlog": {
     "breadcrumb": "الصفحة الرئيسية /",

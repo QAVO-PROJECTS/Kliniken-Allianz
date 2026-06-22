@@ -119,7 +119,7 @@ function CategoryDetail() {
                     <p data-aos="fade-up" data-aos-delay="100">
                         <Link to="/">{t("categoryDetail.breadcrumb.home")}</Link>
                         <div className="dot dot2"></div>
-                        <Link to="/clinics">{category?.name}</Link>
+                        <Link to="/clinics">{getLocalizedText(category, 'name')}</Link>
                     </p>
 
 
@@ -127,8 +127,8 @@ function CategoryDetail() {
                 <div className="first-section row">
                     <div className="col-30 col-md-60 col-sm-60 col-xs-60 second">
                         <div className="content">
-                            <h2>{category?.name}</h2>
-                            <p>{category?.description}</p>
+                            <h2>{getLocalizedText(category, 'name')}</h2>
+                            <p>{getLocalizedText(category, 'description')}</p>
                             <div className={"muraciet"} onClick={() => navigate('/contact')}>
                                 {t("contact.form.button")}
                                 <img src={glass} className={'glass-image'}/>

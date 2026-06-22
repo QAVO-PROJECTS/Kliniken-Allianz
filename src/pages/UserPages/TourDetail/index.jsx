@@ -54,6 +54,17 @@ function TourDetail() {
         contactRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     };
 
+    const handleApplyCar = (carName) => {
+        const messageTemplate = {
+            az: `Mən "${carName}" avtomobili üçün müraciət etmək istəyirəm.`,
+            en: `I would like to apply for the car "${carName}".`,
+            ru: `Я хотел бы подать заявку на автомобиль "${carName}".`,
+            ar: `أود التقدم بطلب للحصول على السيارة "${carName}".`
+        };
+        setDescription(messageTemplate[currentLang] || messageTemplate['az']);
+        scrollToContact();
+    };
+
     // Multilang helpers
     const getName = (item) => {
         if (!item) return "";
@@ -184,7 +195,7 @@ function TourDetail() {
                         <div className="row cars-row">
                             {uniqueCars.map((car) => (
                                 <div className="col-15 col-md-30 col-sm-60 col-xs-60" key={car.id}>
-                                    <div className="car-card">
+                                    <div className="car-card" onClick={() => navigate(`/cars/${car.id}`)} style={{ cursor: 'pointer' }}>
                                         {car.carImages?.[0] && (
                                             <div className="car-card__image">
                                                 <img src={`${CAR_CARD_IMAGES}${car.cardImage}`} alt={getName(car)} />
@@ -196,7 +207,14 @@ function TourDetail() {
                                             <p>{getDescription(car)}</p>
                                             <div className="car-card__footer">
                                                 <span className="car-card__price">{car.price} <small>AZN</small></span>
-                                                <button onClick={()=>navigate(`/cars/${car.id}`)}>{t("toursPage.applyButton") || "Müraciət"}</button>
+                                                <button onClick={(e) => { e.stopPropagation(); handleApplyCar(getName(car)); }}>
+                                                    {t("tourDetail.cars.apply") || "Müraciət et"}
+                                                </button>
+                                            </div>
+                                            <div className="car-card__details">
+                                                <span className="car-card__link">
+                                                    {t("tourDetail.cars.details") || "Ətraflı →"}
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
