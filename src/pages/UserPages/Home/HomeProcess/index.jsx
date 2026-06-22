@@ -12,7 +12,7 @@ function HomeProcess() {
         <section id="home-process" data-aos="fade-up">
             <div className="container">
                 <div className="head" data-aos="fade-up" data-aos-delay="50">
-                    <span className="subtitle">Mərhələlər</span>
+                    <span className="subtitle">{t("homeProcess.subtitle")}</span>
                     <h2 data-aos="fade-up" data-aos-delay="100">{t("homeProcess.title")}</h2>
                     <p data-aos="fade-up" data-aos-delay="150">{t("homeProcess.description")}</p>
                 </div>
