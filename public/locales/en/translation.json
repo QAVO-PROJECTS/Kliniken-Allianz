@@ -1,5 +1,4 @@
 {
-  "_version": "1.0.1",
   "navbar": {
     "clinics": "Clinics",
     "germanyClinics": "Germany Clinics",
@@ -29,7 +28,8 @@
     "category": "Category",
     "service": "Service",
     "services": "Services",
-    "suggestedServices": "Suggested Services"
+    "suggestedServices": "Suggested Services",
+    "home": "Home"
   },
   "categoriesMenu": {
     "title": "Categories",
@@ -87,10 +87,22 @@
   },
   "homeFeatures": {
     "stats": [
-      { "value": "150+", "label": "Partner Clinics" },
-      { "value": "500+", "label": "Expert Doctors" },
-      { "value": "2000+", "label": "Successful Journeys" },
-      { "value": "98%", "label": "Customer Satisfaction" }
+      {
+        "value": "150+",
+        "label": "Partner Clinics"
+      },
+      {
+        "value": "500+",
+        "label": "Expert Doctors"
+      },
+      {
+        "value": "2000+",
+        "label": "Successful Journeys"
+      },
+      {
+        "value": "98%",
+        "label": "Customer Satisfaction"
+      }
     ]
   },
   "homeAbout": {
@@ -164,7 +176,7 @@
   "homeServiceCard": {
     "description": "The latest cancer treatment methods to improve your quality of life.",
     "button": "View Details",
-    "iconAlt": "{name} Icon"
+    "iconAlt": "{{name}} Icon"
   },
   "homeClinic": {
     "title": "Trusted Health Centers",
@@ -177,8 +189,8 @@
   "homeHotel": {
     "title": "Hotels Near Clinics",
     "desc": "Hotels selected for your comfort, meeting international standards.",
-    "slideAriaLabel": "Go to slide {slideNumber}",
-    "cardImgAlt": "{name} Image",
+    "slideAriaLabel": "Go to slide {{slideNumber}}",
+    "cardImgAlt": "{{name}} Image",
     "cards": {
       "ritzCarlton": {
         "name": "The Ritz-Carlton",
@@ -210,9 +222,9 @@
     "title": "Most Chosen Services",
     "prevButton": "Previous Slide",
     "nextButton": "Next Slide",
-    "slideAriaLabel": "Go to slide {slideNumber}",
-    "cardImgAlt": "{name} Image",
-    "cardIconAlt": "{name} Icon",
+    "slideAriaLabel": "Go to slide {{slideNumber}}",
+    "cardImgAlt": "{{name}} Image",
+    "cardIconAlt": "{{name}} Icon",
     "cards": {
       "cancer": {
         "name": "Cancer Treatment",
@@ -244,25 +256,52 @@
     "button": "Read More"
   },
   "toursPage": {
-  "applyButton": "Apply"
-},
-"tourDetail": {
-  "cars": {
-    "title": "Cars",
-    "apply": "Apply",
-    "details": "Details →"
+    "title": "Tour",
+    "breadcrumb": {
+      "tours": "Tour"
+    },
+    "applyButton": "Apply",
+    "searchPlaceholder": "Search...",
+    "headerTitle": "Medical Tour Packages",
+    "headerDesc": "Complete medical tour packages including treatment, accommodation, and transfer.",
+    "noData": "No tours found 😔"
   },
-  "otels": {
-    "title": "Hotels",
-    "visit": "Visit hotel"
-  }
-},
-"carsPage": {
-  "title": "Cars"
-},
-"carDetail": {
-  "perDay": "day"
-},
+  "tourDetail": {
+    "cars": {
+      "title": "Cars",
+      "apply": "Apply",
+      "details": "Details →"
+    },
+    "otels": {
+      "title": "Hotels",
+      "visit": "Visit hotel"
+    },
+    "badge": "Tour package",
+    "overview": "Overview",
+    "included": "Included",
+    "includedTitle": "What's included",
+    "hotelsCount": "{{count}} hotels to choose from",
+    "carsCount": "{{count}} vehicles available",
+    "visaSupport": "Visa support",
+    "flightBooking": "Flight booking assistance",
+    "priceLabel": "Price",
+    "priceOnRequest": "Price on request",
+    "freeConsultation": "Free consultation, no obligation",
+    "bookingAria": "Booking summary",
+    "formSubtitle": "Leave your details and our travel coordinator will contact you about this tour."
+  },
+  "carsPage": {
+    "title": "Cars"
+  },
+  "carDetail": {
+    "perDay": "day",
+    "back": "Back",
+    "eyebrow": "Vehicle",
+    "type": "Body type",
+    "pricing": "Pricing",
+    "pricingNote": "Daily price range — exact quote on request",
+    "formSubtitle": "Tell us your dates and route — we will confirm availability and the final price."
+  },
   "homeComment": {
     "title": "Trusted By Our Patients",
     "desc": "Experiences and feedback from people who chose us for their medical journey.",
@@ -278,8 +317,8 @@
   "homeTour": {
     "title": "Medical Tour Packages",
     "description": "Complete medical tour packages including treatment, accommodation, and transfer.",
-    "slideAriaLabel": "Go to slide {slideNumber}",
-    "cardImgAlt": "{name} Image"
+    "slideAriaLabel": "Go to slide {{slideNumber}}",
+    "cardImgAlt": "{{name}} Image"
   },
   "tourCard": {
     "hotel": "Hotel",
@@ -336,7 +375,21 @@
       "Placement in a hotel, clinic, or sanatorium",
       "Interpreter and accompaniment service",
       "Continuous support during and after the treatment period"
-    ]
+    ],
+    "eyebrow": "Who we are",
+    "badge": {
+      "title": "Official office in Germany",
+      "text": "Plus partner clinics across Azerbaijan"
+    },
+    "serviceEyebrow": "Full service package",
+    "serviceTitle": "From the first consultation to your return home",
+    "valuesEyebrow": "Why choose us",
+    "stats": {
+      "specialities": "Medical specialities",
+      "sanatoriums": "Partner sanatoriums",
+      "tours": "Tour packages",
+      "languages": "Languages we speak"
+    }
   },
   "contact": {
     "title": "Contact",
@@ -390,7 +443,12 @@
     },
     "bannerAlt": "Contact Banner",
     "succesToast": "Contact information sent successfully!",
-    "errorToast": "An error occurred"
+    "errorToast": "An error occurred",
+    "imageAlt": "Kliniken Allianz office",
+    "eyebrow": "Get in touch",
+    "lead": "Call, write or visit us — a coordinator will answer your questions about clinics, treatment and travel.",
+    "mapTitle": "Office location on Google Maps",
+    "responseTime": "We usually reply within one business day."
   },
   "categoryDetail": {
     "pageTitle": "Service",
@@ -418,6 +476,10 @@
       "success": "Your message has been sent successfully!",
       "error": "An error occurred while sending!",
       "imageAlt": "Contact Image"
+    },
+    "services": {
+      "title": "Services",
+      "description": "Treatment and diagnostic services we offer in this speciality."
     }
   },
   "clinicDetail": {
@@ -448,7 +510,7 @@
       "title": "Image Gallery",
       "prevAria": "Previous image",
       "nextAria": "Next image",
-      "goToImageAria": "Go to image {number}"
+      "goToImageAria": "Go to image {{number}}"
     },
     "videos": {
       "title": "Videolar"
@@ -469,12 +531,21 @@
     },
     "videos": {
       "title": "Videos"
-    }
+    },
+    "locationLabel": "Location",
+    "servicesCount": "{{count}} treatments & services",
+    "rooms": {
+      "title": "Room types",
+      "standard": "Standard room",
+      "comfort": "Comfort room",
+      "vip": "VIP room"
+    },
+    "formSubtitle": "Ask about availability, treatment programmes and prices — we will get back to you shortly."
   },
   "clinicHotel": {
     "title": "Hotels for Medical Travel",
     "description": "Hotels selected for your comfort, meeting international standards.",
-    "slideAriaLabel": "Go to slide {slideNumber}"
+    "slideAriaLabel": "Go to slide {{slideNumber}}"
   },
   "doctorsPage": {
     "title": "Doctors",
@@ -496,7 +567,8 @@
       "mobileClear": "Clear",
       "mobileFilter": "Filter",
       "experienceSuffix": "years experience"
-    }
+    },
+    "experienceSuffix": "years experience"
   },
   "doctorDetail": {
     "title": "Doctor",
@@ -507,17 +579,6 @@
       "certificates": "Certificates"
     },
     "empty": "—"
-  },
-  "toursPage": {
-    "title": "Tour",
-    "breadcrumb": {
-      "tours": "Tour"
-    },
-    "applyButton": "Apply",
-    "searchPlaceholder": "Search...",
-    "headerTitle": "Medical Tour Packages",
-    "headerDesc": "Complete medical tour packages including treatment, accommodation, and transfer.",
-    "noData": "No tours found 😔"
   },
   "adminPanel": {
     "categoryPage": {
@@ -573,10 +634,10 @@
       "search": {
         "placeholder": "Search..."
       },
-        "filter": {
-            "allLocations": "All cities",
-            "placeholder": "Filter by city"
-        },
+      "filter": {
+        "allLocations": "All cities",
+        "placeholder": "Filter by city"
+      },
       "breadcrumb": {
         "home": "Home",
         "sanatoriums": "Sanatoriums"
@@ -669,7 +730,9 @@
       "toast": {
         "notFound": "Xidmət tapılmadı ❌",
         "deleteSuccess": "Xidmət uğurla silindi ✅",
-        "deleteError": "Xidməti silmək mümkün olmadı ❌"
+        "deleteError": "Xidməti silmək mümkün olmadı ❌",
+        "success": "Service deleted successfully",
+        "error": "Could not delete the service"
       }
     },
     "categoryServisAdd": {
@@ -692,7 +755,11 @@
         "nameEn": "Traumatology",
         "descAz": "Təsvir əlavə edin...",
         "descRu": "Добавьте описание...",
-        "descEn": "Add description..."
+        "descEn": "Add description...",
+        "nameDe": "Traumatologie",
+        "nameAr": "طب الإصابات",
+        "descDe": "Beschreibung hinzufügen...",
+        "descAr": "أضف وصفًا..."
       },
       "buttons": {
         "save": "Save",
@@ -725,7 +792,11 @@
         "nameEn": "Traumatology",
         "descAz": "Təsvir əlavə edin...",
         "descRu": "Добавьте описание...",
-        "descEn": "Add description..."
+        "descEn": "Add description...",
+        "nameDe": "Traumatologie",
+        "nameAr": "طب الإصابات",
+        "descDe": "Beschreibung hinzufügen...",
+        "descAr": "أضف وصفًا..."
       },
       "buttons": {
         "save": "Save",
@@ -918,7 +989,9 @@
         "serviceEn": "Xidmət adı (EN)",
         "serviceAlm": "Xidmət adı (DE)",
         "serviceArab": "Xidmət adı (AR)"
-      }
+      },
+      "roomsTitle": "Room types",
+      "roomsDescription": "Describe the standard, comfort and VIP rooms in all languages"
     },
     "sanatoriumEdit": {
       "breadcrumb": {
@@ -1021,7 +1094,16 @@
       "deleting": "Silinir...",
       "toast": {
         "deleteSuccess": "Həkim uğurla silindi ✅",
-        "deleteError": "Silinmə zamanı xəta baş verdi ❌"
+        "deleteError": "Silinmə zamanı xəta baş verdi ❌",
+        "success": "Doctor deleted successfully",
+        "error": "An error occurred while deleting"
+      },
+      "modal": {
+        "confirm": "Are you sure you want to delete this doctor?",
+        "confirmWithName": "Are you sure you want to delete {{name}}?",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "deleting": "Deleting..."
       }
     },
     "doctorAdd": {
@@ -1084,7 +1166,13 @@
         "surnameEn": "Soyad (EN)",
         "roleAz": "Vəzifə (AZ)",
         "roleRu": "Vəzifə (RU)",
-        "roleEn": "Vəzifə (EN)"
+        "roleEn": "Vəzifə (EN)",
+        "nameAlm": "Name (DE)",
+        "nameArab": "Name (AR)",
+        "surnameAlm": "Surname (DE)",
+        "surnameArab": "Surname (AR)",
+        "roleAlm": "Position (DE)",
+        "roleArab": "Position (AR)"
       },
       "buttons": {
         "save": "Save",
@@ -1780,18 +1868,27 @@
             "de": "Content (DE)",
             "ar": "Content (AR)"
           }
+        },
+        "videos": {
+          "title": "YouTube videos",
+          "desc": "Add YouTube video links related to the article"
         }
       },
       "buttons": {
         "save": "Save",
-        "saving": "Saving..."
+        "saving": "Saving...",
+        "addVideo": "Add"
       },
       "toast": {
         "success": "News added successfully",
         "error": "An error occurred",
-        "warnAz": "Enter title (AZ)"
+        "warnAz": "Enter title (AZ)",
+        "warnTitleAz": "Enter title (AZ)"
       },
-      "uploadHint": "Click or drag to upload"
+      "uploadHint": "Click or drag to upload",
+      "placeholders": {
+        "videoUrl": "https://www.youtube.com/watch?v=..."
+      }
     },
     "newspaperEdit": {
       "breadcrumb": {
@@ -1827,18 +1924,26 @@
             "de": "Content (DE)",
             "ar": "Content (AR)"
           }
+        },
+        "videos": {
+          "title": "YouTube videos",
+          "desc": "Add YouTube video links related to the article"
         }
       },
       "buttons": {
         "save": "Save",
-        "saving": "Saving..."
+        "saving": "Saving...",
+        "addVideo": "Add"
       },
       "toast": {
         "success": "Changes saved successfully",
         "error": "An error occurred",
         "warnAz": "Enter title (AZ)"
       },
-      "uploadHint": "Click or drag to upload"
+      "uploadHint": "Click or drag to upload",
+      "placeholders": {
+        "videoUrl": "https://www.youtube.com/watch?v=..."
+      }
     },
     "filterDropdown": {
       "label": "Filter",
@@ -1893,13 +1998,100 @@
     "copyLink": "Copy link",
     "recommendTitle": "Other Blogs",
     "viewAll": "View all",
-    "recommendSubtitle": "Travel stories, useful tips, and posts about unforgettable places are here!"
+    "recommendSubtitle": "Travel stories, useful tips, and posts about unforgettable places are here!",
+    "copied": "Copied",
+    "share": "Share",
+    "videos": {
+      "title": "Videos"
+    }
   },
   "blogDetailCard": {
     "button": "View more"
   },
   "pagination": {
     "prev": "Previous",
-    "next": "Next"
+    "next": "Next",
+    "first": "First page",
+    "last": "Last page",
+    "label": "Pagination",
+    "page": "Page"
+  },
+  "common": {
+    "loading": "Loading...",
+    "noData": "No data",
+    "showLess": "Show less",
+    "showMore": "Show more"
+  },
+  "errorPage": {
+    "title": "Something went wrong",
+    "text": "An unexpected error occurred. Please reload the page or return to the home page.",
+    "notFoundTitle": "Page not found",
+    "notFoundText": "The page you are looking for does not exist or has been moved.",
+    "updateTitle": "A new version is available",
+    "updateText": "The site has been updated. Please reload the page to continue.",
+    "reload": "Reload",
+    "home": "Home"
+  },
+  "listing": {
+    "count": "{{count}} results",
+    "count_one": "{{count}} result",
+    "count_other": "{{count}} results",
+    "clearFilters": "Clear filters",
+    "clearSearch": "Clear search",
+    "tryAnother": "Try a different search term."
+  },
+  "gallery": {
+    "open": "Open photo gallery",
+    "close": "Close",
+    "prev": "Previous photo",
+    "next": "Next photo",
+    "photo": "Photo"
+  },
+  "video": {
+    "play": "Play video"
+  },
+  "ctaBand": {
+    "title": "Ready to plan your treatment journey?",
+    "desc": "Tell us what you need — our coordinators will prepare a personalised plan with clinics, travel and accommodation.",
+    "button": "Get a free consultation"
+  },
+  "enquiryForm": {
+    "privacyNote": "Your details are only used to answer your request."
+  },
+  "blogs": {
+    "readMore": "Read more",
+    "new": "Latest",
+    "featured": "Featured",
+    "allArticles": "All articles",
+    "views": "{{count}} views",
+    "views_one": "{{count}} view",
+    "views_other": "{{count}} views"
+  },
+  "notFound": {
+    "eyebrow": "Error 404",
+    "title": "We can’t find that page",
+    "desc": "The link may be broken or the page may have moved. Let’s get you back on track.",
+    "home": "Back to home",
+    "back": "Previous page",
+    "popular": "Popular pages",
+    "help": "Need help? Contact our team"
+  },
+  "medicalPages": {
+    "noCertificates": "No certificates have been added yet",
+    "noBio": "Biography has not been added yet",
+    "overview": "Overview",
+    "clinicsOffering": "Clinics offering this service",
+    "servicesInCategory": "Services in this category",
+    "consultTitle": "Get a free consultation",
+    "consultText": "Send a request and our coordinator will get back to you shortly.",
+    "showLess": "Show less",
+    "noServices": "No services found",
+    "noClinics": "No clinics have been added for this service yet",
+    "notFound": "Nothing was found",
+    "sending": "Sending...",
+    "servicesCount": "{{n}} services",
+    "results": "{{n}} results",
+    "callUs": "Call us",
+    "activeFilters": "Active filters"
   }
 }

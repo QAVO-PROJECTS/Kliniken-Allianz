@@ -1,0 +1,55 @@
+@use '../../../styles/mixins' as *;
+
+.clinic-detail {
+  background: var(--bg-page);
+
+  &__skel-hero {
+    aspect-ratio: 16 / 10;
+    height: auto !important;
+  }
+
+  &__aside-title {
+    margin-top: var(--space-3);
+  }
+
+  &__aside-text {
+    color: var(--text-secondary);
+    font-size: var(--fs-sm);
+    margin-bottom: var(--space-4);
+  }
+
+  &__inquiry-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: var(--space-8);
+    align-items: stretch;
+
+    @include down($bp-lg) { grid-template-columns: minmax(0, 1fr); }
+  }
+
+  &__inquiry .md-contact-card__head h2 {
+    font-size: var(--fs-2xl);
+  }
+
+  &__map {
+    overflow: hidden;
+    min-height: 420px;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-xs);
+    background: var(--bg-muted);
+
+    iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 420px;
+      border: 0;
+    }
+
+    @include down($bp-sm) {
+      min-height: 300px;
+      iframe { min-height: 300px; }
+    }
+  }
+}

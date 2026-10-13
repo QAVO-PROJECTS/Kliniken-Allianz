@@ -1,0 +1,142 @@
+// Building blocks shared by every card in components/cards.
+// Usage: `@use '../base' as kc;` then `@include kc.surface;` etc.
+@use '../../styles/mixins' as *;
+
+// Root of a card: surface, radius, hover lift. Works on <a>, <article>, <div>.
+@mixin surface($radius: var(--radius-lg)) {
+  @include card-surface($radius);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  color: inherit;
+  isolation: isolate;
+  @include card-hover;
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring), var(--shadow-md);
+  }
+}
+
+// Media frame with fixed aspect ratio + zoom on card hover.
+@mixin media($ratio: 4 / 3) {
+  position: relative;
+  aspect-ratio: $ratio;
+  overflow: hidden;
+  background: var(--bg-muted);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--duration-slow) var(--ease-out);
+  }
+}
+
+@mixin media-zoom($media-selector, $scale: 1.06) {
+  &:hover #{$media-selector} img,
+  &:focus-visible #{$media-selector} img {
+    transform: scale($scale);
+  }
+}
+
+@mixin body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  flex: 1;
+  padding: var(--space-4) var(--space-5) var(--space-5);
+}
+
+@mixin title($lines: 2, $size: var(--fs-lg)) {
+  font-size: $size;
+  font-weight: 600;
+  line-height: var(--lh-snug);
+  letter-spacing: -0.01em;
+  color: var(--text);
+  @include line-clamp($lines);
+}
+
+@mixin text($lines: 2) {
+  font-size: var(--fs-sm);
+  line-height: var(--lh-normal);
+  color: var(--text-secondary);
+  @include line-clamp($lines);
+}
+
+@mixin meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-4);
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+
+  > span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  svg {
+    flex-shrink: 0;
+    color: var(--c-primary-500);
+  }
+}
+
+// Small glass badge sitting on top of an image.
+@mixin media-badge {
+  position: absolute;
+  top: var(--space-3);
+  inset-inline-start: var(--space-3);
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: var(--radius-full);
+  @include glass(0.88);
+  color: var(--c-primary-700);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  box-shadow: var(--shadow-sm);
+}
+
+// Round arrow affordance in the card footer.
+@mixin arrow-chip {
+  display: grid;
+  place-items: center;
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border);
+  color: var(--brand);
+  transition: background var(--duration) var(--ease-out),
+              color var(--duration) var(--ease-out),
+              border-color var(--duration) var(--ease-out),
+              transform var(--duration) var(--ease-out);
+
+  html[dir='rtl'] & svg { transform: scaleX(-1); }
+}
+
+@mixin arrow-chip-active {
+  background: var(--brand);
+  border-color: var(--brand);
+  color: var(--text-on-brand);
+}
+
+// Placeholder shown when an image is missing or fails to load.
+@mixin placeholder {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(70% 70% at 50% 40%, var(--c-primary-50) 0%, var(--bg-muted) 100%);
+  color: var(--c-primary-300);
+}

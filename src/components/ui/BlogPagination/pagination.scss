@@ -1,0 +1,16 @@
+@use '../../../styles/mixins' as *;
+
+// Layout tweaks on top of the shared `.pager` styles (see ../Pagination/index.scss).
+.blog-pagination.pager {
+  margin-top: 0;
+  width: 100%;
+  justify-content: space-between;
+
+  .blog-pagination__button svg {
+    html[dir='rtl'] & { transform: scaleX(-1); }
+  }
+
+  @include down($bp-sm) {
+    justify-content: center;
+  }
+}

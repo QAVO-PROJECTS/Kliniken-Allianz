@@ -1,0 +1,80 @@
+@use '../../../styles/mixins' as *;
+
+.service-view {
+  &__intro {
+    display: flex;
+    gap: var(--space-6);
+    align-items: flex-start;
+    padding: var(--space-8);
+    background: var(--gradient-soft), var(--surface);
+
+    @include down($bp-sm) {
+      flex-direction: column;
+      gap: var(--space-4);
+      padding: var(--space-6);
+    }
+  }
+
+  &__icon {
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    width: 88px;
+    height: 88px;
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    border: 1px solid var(--c-primary-100);
+    box-shadow: var(--shadow-sm);
+
+    img {
+      width: 52px;
+      height: 52px;
+      object-fit: contain;
+    }
+
+    @include down($bp-sm) {
+      width: 64px;
+      height: 64px;
+      img { width: 38px; height: 38px; }
+    }
+  }
+
+  &__intro-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+    min-width: 0;
+
+    h2 {
+      font-size: var(--fs-2xl);
+      line-height: var(--lh-snug);
+      font-weight: 700;
+      letter-spacing: var(--tracking-tight);
+    }
+    .md-prose { font-size: var(--fs-lg); }
+  }
+
+  &__features {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 1fr));
+    gap: var(--space-3);
+
+    li {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+      padding: var(--space-4);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font-size: var(--fs-sm);
+      font-weight: 500;
+
+      svg { flex-shrink: 0; color: var(--c-success); }
+    }
+  }
+
+  .md-contact-card__head h2 { font-size: var(--fs-xl); }
+}

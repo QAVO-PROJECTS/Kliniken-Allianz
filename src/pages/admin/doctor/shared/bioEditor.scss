@@ -1,0 +1,44 @@
+// Repeatable bio blocks (DoctorCreate / DoctorEdit). Tokens only.
+.doctor-bio-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+
+  &__add {
+    align-self: flex-start;
+  }
+}
+
+.doctor-bio {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  overflow: hidden;
+
+  &__head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding-block: var(--space-1);
+    padding-inline: var(--space-3) var(--space-2);
+    background: var(--bg-subtle);
+
+    .adm-collapse-toggle {
+      flex: 1;
+      min-height: 44px;
+      color: var(--text);
+      font-weight: 600;
+    }
+  }
+
+  &__body {
+    padding: var(--space-4);
+    border-top: 1px solid var(--border);
+  }
+}
+
+// Arabic editor: RTL text, but keep Quill's toolbar (pickers) laid out LTR.
+.doctor-bio .adm-quill[dir='rtl'] {
+  .ql-toolbar { direction: ltr; }
+  .ql-editor { text-align: right; }
+}

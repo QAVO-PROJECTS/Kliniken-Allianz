@@ -1,5 +1,4 @@
 {
-  "_version": "1.0.1",
   "navbar": {
     "clinics": "Клиники",
     "germanyClinics": "Клиники Германии",
@@ -10,7 +9,7 @@
     "contact": "Контакты",
     "categories": "Категории",
     "search": "Поиск",
-    "blog":"Блоги",
+    "blog": "Блоги",
     "blogSingular": "Блог",
     "more": "Ещё",
     "languages": {
@@ -29,7 +28,8 @@
     "category": "Категория",
     "service": "Услуга",
     "services": "Услуги",
-    "suggestedServices": "Рекомендуемые услуги"
+    "suggestedServices": "Рекомендуемые услуги",
+    "home": "Главная"
   },
   "categoriesMenu": {
     "title": "Категории",
@@ -88,10 +88,22 @@
   },
   "homeFeatures": {
     "stats": [
-      { "value": "150+", "label": "Партнерские клиники" },
-      { "value": "500+", "label": "Экспертные врачи" },
-      { "value": "2000+", "label": "Успешные поездки" },
-      { "value": "98%", "label": "Удовлетворенность клиентов" }
+      {
+        "value": "150+",
+        "label": "Партнерские клиники"
+      },
+      {
+        "value": "500+",
+        "label": "Экспертные врачи"
+      },
+      {
+        "value": "2000+",
+        "label": "Успешные поездки"
+      },
+      {
+        "value": "98%",
+        "label": "Удовлетворенность клиентов"
+      }
     ]
   },
   "homeAbout": {
@@ -165,7 +177,7 @@
   "homeServiceCard": {
     "description": "Современные методы лечения рака для улучшения качества жизни.",
     "button": "Подробнее",
-    "iconAlt": "Иконка {name}"
+    "iconAlt": "Иконка {{name}}"
   },
   "homeClinic": {
     "title": "Надежные Медицинские Центры",
@@ -178,8 +190,8 @@
   "homeHotel": {
     "title": "Отели Рядом с Клиниками",
     "desc": "Отели, отобранные для вашего удобства, соответствующие международным стандартам.",
-    "slideAriaLabel": "Перейти к слайду {slideNumber}",
-    "cardImgAlt": "Изображение {name}",
+    "slideAriaLabel": "Перейти к слайду {{slideNumber}}",
+    "cardImgAlt": "Изображение {{name}}",
     "cards": {
       "ritzCarlton": {
         "name": "The Ritz-Carlton",
@@ -211,9 +223,9 @@
     "title": "Самые Популярные Услуги",
     "prevButton": "Предыдущий слайд",
     "nextButton": "Следующий слайд",
-    "slideAriaLabel": "Перейти к слайду {slideNumber}",
-    "cardImgAlt": "Изображение {name}",
-    "cardIconAlt": "Иконка {name}",
+    "slideAriaLabel": "Перейти к слайду {{slideNumber}}",
+    "cardImgAlt": "Изображение {{name}}",
+    "cardIconAlt": "Иконка {{name}}",
     "cards": {
       "cancer": {
         "name": "Лечение рака",
@@ -245,25 +257,52 @@
     "button": "Читать далее"
   },
   "toursPage": {
-  "applyButton": "Подать заявку"
-},
-"tourDetail": {
-  "cars": {
-    "title": "Автомобили",
-    "apply": "Подать заявку",
-    "details": "Подробнее →"
+    "title": "Тур",
+    "breadcrumb": {
+      "tours": "Тур"
+    },
+    "applyButton": "Применять",
+    "searchPlaceholder": "Поиск...",
+    "headerTitle": "Медицинские Турпакеты",
+    "headerDesc": "Полные турпакеты: лечение, проживание, трансфер.",
+    "noData": "Туры не найдены 😔"
   },
-  "otels": {
-    "title": "Отели",
-    "visit": "Посетить отель"
-  }
-},
-"carsPage": {
-  "title": "Автомобили"
-},
-"carDetail": {
-  "perDay": "день"
-},
+  "tourDetail": {
+    "cars": {
+      "title": "Автомобили",
+      "apply": "Подать заявку",
+      "details": "Подробнее →"
+    },
+    "otels": {
+      "title": "Отели",
+      "visit": "Посетить отель"
+    },
+    "badge": "Турпакет",
+    "overview": "Обзор",
+    "included": "Включено",
+    "includedTitle": "Что входит",
+    "hotelsCount": "Отелей на выбор: {{count}}",
+    "carsCount": "Доступно автомобилей: {{count}}",
+    "visaSupport": "Визовая поддержка",
+    "flightBooking": "Помощь с бронированием авиабилетов",
+    "priceLabel": "Цена",
+    "priceOnRequest": "Цена по запросу",
+    "freeConsultation": "Бесплатная консультация без обязательств",
+    "bookingAria": "Сводка бронирования",
+    "formSubtitle": "Оставьте свои данные, и наш координатор свяжется с вами по поводу этого тура."
+  },
+  "carsPage": {
+    "title": "Автомобили"
+  },
+  "carDetail": {
+    "perDay": "день",
+    "back": "Назад",
+    "eyebrow": "Автомобиль",
+    "type": "Тип кузова",
+    "pricing": "Стоимость",
+    "pricingNote": "Диапазон цены за день — точная стоимость по запросу",
+    "formSubtitle": "Сообщите даты и маршрут — мы подтвердим наличие и итоговую стоимость."
+  },
   "homeComment": {
     "title": "Нам Доверяют",
     "desc": "Отзывы пациентов, выбравших нас для своего лечения.",
@@ -279,8 +318,8 @@
   "homeTour": {
     "title": "Медицинские Турпакеты",
     "description": "Полные медицинские турпакеты: лечение, проживание и трансфер.",
-    "slideAriaLabel": "Перейти к слайду {slideNumber}",
-    "cardImgAlt": "Изображение {name}"
+    "slideAriaLabel": "Перейти к слайду {{slideNumber}}",
+    "cardImgAlt": "Изображение {{name}}"
   },
   "translation": {
     "comments": [
@@ -353,7 +392,21 @@
       "Размещение в отеле, клинике или санатории",
       "Услуги переводчика и сопровождение",
       "Постоянная поддержка во время и после периода лечения"
-    ]
+    ],
+    "eyebrow": "Кто мы",
+    "badge": {
+      "title": "Официальный офис в Германии",
+      "text": "А также клиники-партнёры по всему Азербайджану"
+    },
+    "serviceEyebrow": "Полный пакет услуг",
+    "serviceTitle": "От первой консультации до возвращения домой",
+    "valuesEyebrow": "Почему выбирают нас",
+    "stats": {
+      "specialities": "Медицинских направлений",
+      "sanatoriums": "Санаториев-партнёров",
+      "tours": "Турпакетов",
+      "languages": "Языков общения"
+    }
   },
   "contact": {
     "title": "Контакты",
@@ -407,7 +460,12 @@
     },
     "bannerAlt": "Баннер Контакты",
     "succesToast": "Контактная информация успешно отправлена!",
-    "errorToast": "Произошла ошибка"
+    "errorToast": "Произошла ошибка",
+    "imageAlt": "Офис Kliniken Allianz",
+    "eyebrow": "Свяжитесь с нами",
+    "lead": "Позвоните, напишите или приходите к нам — координатор ответит на ваши вопросы о клиниках, лечении и поездке.",
+    "mapTitle": "Расположение офиса на Google Картах",
+    "responseTime": "Обычно мы отвечаем в течение одного рабочего дня."
   },
   "categoryDetail": {
     "pageTitle": "Услуга",
@@ -435,6 +493,10 @@
       "success": "Ваше сообщение успешно отправлено!",
       "error": "Произошла ошибка при отправке!",
       "imageAlt": "Изображение формы"
+    },
+    "services": {
+      "title": "Услуги",
+      "description": "Услуги лечения и диагностики, которые мы предлагаем по этому направлению."
     }
   },
   "tourCard": {
@@ -471,10 +533,10 @@
       "title": "Фотогалерея",
       "prevAria": "Предыдущее изображение",
       "nextAria": "Следующее изображение",
-      "goToImageAria": "Перейти к изображению {number}"
+      "goToImageAria": "Перейти к изображению {{number}}"
     },
     "videos": {
-      "title": "Videolar"
+      "title": "Видео"
     }
   },
   "sanatoriumDetail": {
@@ -492,12 +554,21 @@
     },
     "videos": {
       "title": "Видео"
-    }
+    },
+    "locationLabel": "Расположение",
+    "servicesCount": "Процедур и услуг: {{count}}",
+    "rooms": {
+      "title": "Типы номеров",
+      "standard": "Стандартный номер",
+      "comfort": "Номер «Комфорт»",
+      "vip": "VIP-номер"
+    },
+    "formSubtitle": "Узнайте о наличии мест, программах лечения и ценах — мы скоро с вами свяжемся."
   },
   "clinicHotel": {
     "title": "Отели для Медицинского Путешествия",
     "description": "Отели, отобранные для вашего комфорта, соответствуют международным стандартам.",
-    "slideAriaLabel": "Перейти к слайду {slideNumber}"
+    "slideAriaLabel": "Перейти к слайду {{slideNumber}}"
   },
   "doctorsPage": {
     "title": "Врачи",
@@ -519,7 +590,8 @@
       "mobileClear": "Очистить",
       "mobileFilter": "Фильтр",
       "experienceSuffix": "лет опыта"
-    }
+    },
+    "experienceSuffix": "лет опыта"
   },
   "doctorDetail": {
     "title": "Врач",
@@ -530,17 +602,6 @@
       "certificates": "Сертификаты"
     },
     "empty": "—"
-  },
-  "toursPage": {
-    "title": "Тур",
-    "breadcrumb": {
-      "tours": "Тур"
-    },
-    "applyButton": "Применять",
-    "searchPlaceholder": "Поиск...",
-    "headerTitle": "Медицинские Турпакеты",
-    "headerDesc": "Полные турпакеты: лечение, проживание, трансфер.",
-    "noData": "Туры не найдены 😔"
   },
   "adminPanel": {
     "categoryPage": {
@@ -631,7 +692,9 @@
       "toast": {
         "notFound": "Услуга не найдена ❌",
         "deleteSuccess": "Услуга успешно удалена ✅",
-        "deleteError": "Не удалось удалить услугу ❌"
+        "deleteError": "Не удалось удалить услугу ❌",
+        "success": "Услуга успешно удалена",
+        "error": "Не удалось удалить услугу"
       }
     },
     "categoryServisAdd": {
@@ -654,7 +717,11 @@
         "nameEn": "Traumatology",
         "descAz": "Добавьте описание...",
         "descRu": "Добавьте описание...",
-        "descEn": "Add description..."
+        "descEn": "Add description...",
+        "nameDe": "Traumatologie",
+        "nameAr": "طب الإصابات",
+        "descDe": "Beschreibung hinzufügen...",
+        "descAr": "أضف وصفًا..."
       },
       "buttons": {
         "save": "Сохранить",
@@ -687,7 +754,11 @@
         "nameEn": "Traumatology",
         "descAz": "Добавьте описание...",
         "descRu": "Добавьте описание...",
-        "descEn": "Add description..."
+        "descEn": "Add description...",
+        "nameDe": "Traumatologie",
+        "nameAr": "طب الإصابات",
+        "descDe": "Beschreibung hinzufügen...",
+        "descAr": "أضف وصفًا..."
       },
       "buttons": {
         "save": "Сохранить",
@@ -893,7 +964,16 @@
       "deleting": "Удаляется...",
       "toast": {
         "deleteSuccess": "Врач успешно удален ✅",
-        "deleteError": "Ошибка при удалении ❌"
+        "deleteError": "Ошибка при удалении ❌",
+        "success": "Врач успешно удалён",
+        "error": "Ошибка при удалении"
+      },
+      "modal": {
+        "confirm": "Вы уверены, что хотите удалить врача?",
+        "confirmWithName": "Вы уверены, что хотите удалить врача {{name}}?",
+        "cancel": "Отменить",
+        "delete": "Удалить",
+        "deleting": "Удаляется..."
       }
     },
     "doctorAdd": {
@@ -956,7 +1036,13 @@
         "surnameEn": "Фамилия (EN)",
         "roleAz": "Должность (AZ)",
         "roleRu": "Должность (RU)",
-        "roleEn": "Должность (EN)"
+        "roleEn": "Должность (EN)",
+        "nameAlm": "Имя (DE)",
+        "nameArab": "Имя (AR)",
+        "surnameAlm": "Фамилия (DE)",
+        "surnameArab": "Фамилия (AR)",
+        "roleAlm": "Должность (DE)",
+        "roleArab": "Должность (AR)"
       },
       "buttons": {
         "save": "Сохранить",
@@ -1450,10 +1536,10 @@
         "title": "Надёжные Оздоровительные Центры",
         "subtitle": "Kliniken Allianz сотрудничает только с современными и надёжными санаториями, соответствующими международным стандартам."
       },
-       "filter": {
-            "allLocations": "Все города",
-            "placeholder": "Фильтр по городу"
-        },
+      "filter": {
+        "allLocations": "Все города",
+        "placeholder": "Фильтр по городу"
+      },
       "search": {
         "placeholder": "Поиск....."
       },
@@ -1541,7 +1627,9 @@
         "serviceEn": "Название услуги (EN)",
         "serviceAlm": "Название услуги (DE)",
         "serviceArab": "Название услуги (AR)"
-      }
+      },
+      "roomsTitle": "Типы номеров",
+      "roomsDescription": "Опишите стандартные, комфортные и VIP-номера на всех языках"
     },
     "sanatoriumEdit": {
       "breadcrumb": {
@@ -1845,18 +1933,27 @@
             "de": "Контент (DE)",
             "ar": "Контент (AR)"
           }
+        },
+        "videos": {
+          "title": "Видео YouTube",
+          "desc": "Добавьте ссылки на видео YouTube, связанные с новостью"
         }
       },
       "buttons": {
         "save": "Сохранить",
-        "saving": "Загрузка..."
+        "saving": "Загрузка...",
+        "addVideo": "Добавить"
       },
       "toast": {
         "success": "Успешно добавлено",
         "error": "Ошибка",
-        "warnAz": "Введите Заголовок (AZ)"
+        "warnAz": "Введите Заголовок (AZ)",
+        "warnTitleAz": "Введите заголовок (AZ)"
       },
-      "uploadHint": "Перетащите файлы"
+      "uploadHint": "Перетащите файлы",
+      "placeholders": {
+        "videoUrl": "https://www.youtube.com/watch?v=..."
+      }
     },
     "newspaperEdit": {
       "breadcrumb": {
@@ -1892,18 +1989,26 @@
             "de": "Контент (DE)",
             "ar": "Контент (AR)"
           }
+        },
+        "videos": {
+          "title": "Видео YouTube",
+          "desc": "Добавьте ссылки на видео YouTube, связанные с новостью"
         }
       },
       "buttons": {
         "save": "Сохранить",
-        "saving": "Загрузка..."
+        "saving": "Загрузка...",
+        "addVideo": "Добавить"
       },
       "toast": {
         "success": "Успешно сохранено",
         "error": "Ошибка",
         "warnAz": "Заголовок (AZ)"
       },
-      "uploadHint": "Перетащите файлы"
+      "uploadHint": "Перетащите файлы",
+      "placeholders": {
+        "videoUrl": "https://www.youtube.com/watch?v=..."
+      }
     },
     "filterDropdown": {
       "label": "Фильтр",
@@ -1944,5 +2049,118 @@
       "prev": "Назад",
       "next": "Вперед"
     }
+  },
+  "common": {
+    "loading": "Загрузка...",
+    "noData": "Нет данных",
+    "showLess": "Свернуть",
+    "showMore": "Показать больше"
+  },
+  "errorPage": {
+    "title": "Что-то пошло не так",
+    "text": "Произошла непредвиденная ошибка. Обновите страницу или вернитесь на главную.",
+    "notFoundTitle": "Страница не найдена",
+    "notFoundText": "Страница, которую вы ищете, не существует или была перемещена.",
+    "updateTitle": "Доступна новая версия",
+    "updateText": "Сайт был обновлён. Обновите страницу, чтобы продолжить.",
+    "reload": "Обновить",
+    "home": "На главную"
+  },
+  "pagination": {
+    "prev": "Назад",
+    "next": "Далее",
+    "first": "Первая страница",
+    "last": "Последняя страница",
+    "label": "Пагинация",
+    "page": "Страница"
+  },
+  "listing": {
+    "count": "Найдено: {{count}}",
+    "clearFilters": "Сбросить фильтры",
+    "clearSearch": "Очистить поиск",
+    "tryAnother": "Попробуйте другой запрос."
+  },
+  "gallery": {
+    "open": "Открыть фотогалерею",
+    "close": "Закрыть",
+    "prev": "Предыдущее фото",
+    "next": "Следующее фото",
+    "photo": "Фото"
+  },
+  "video": {
+    "play": "Воспроизвести видео"
+  },
+  "ctaBand": {
+    "title": "Готовы спланировать поездку на лечение?",
+    "desc": "Расскажите, что вам нужно, — наши координаторы подготовят индивидуальный план с клиниками, перелётом и проживанием.",
+    "button": "Получить бесплатную консультацию"
+  },
+  "enquiryForm": {
+    "privacyNote": "Ваши данные используются только для ответа на ваш запрос."
+  },
+  "blogs": {
+    "readMore": "Читать далее",
+    "new": "Новые",
+    "featured": "Избранное",
+    "allArticles": "Все статьи",
+    "views": "Просмотров: {{count}}"
+  },
+  "newBlog": {
+    "breadcrumb": "Главная /",
+    "pageTitle": "Блог",
+    "title": "Новые",
+    "readMore": "Читать далее",
+    "noBlog": "Пока нет публикаций"
+  },
+  "oldBlog": {
+    "title": "Предыдущие публикации"
+  },
+  "blogCard": {
+    "readMore": "Читать далее"
+  },
+  "blogDetailCard": {
+    "button": "Подробнее"
+  },
+  "blogDetail": {
+    "breadcrumb": "Главная / Блог /",
+    "blogHeading": "Блог о путешествиях Kliniken Allianz",
+    "authorLabel": "Автор",
+    "copyLink": "Копировать ссылку",
+    "copySuccess": "Ссылка скопирована!",
+    "copied": "Скопировано",
+    "share": "Поделиться",
+    "recommendTitle": "Другие публикации",
+    "recommendSubtitle": "Истории путешествий, полезные советы и рассказы о незабываемых местах — здесь!",
+    "viewAll": "Смотреть все",
+    "videos": {
+      "title": "Видео"
+    }
+  },
+  "notFound": {
+    "eyebrow": "Ошибка 404",
+    "title": "Мы не можем найти эту страницу",
+    "desc": "Возможно, ссылка неверна или страница была перемещена. Давайте вернём вас на правильный путь.",
+    "home": "Вернуться на главную",
+    "back": "Предыдущая страница",
+    "popular": "Популярные страницы",
+    "help": "Нужна помощь? Свяжитесь с нашей командой"
+  },
+  "medicalPages": {
+    "noCertificates": "Сертификаты пока не добавлены",
+    "noBio": "Биография пока не добавлена",
+    "overview": "Обзор",
+    "clinicsOffering": "Клиники, предлагающие эту услугу",
+    "servicesInCategory": "Услуги в этой категории",
+    "consultTitle": "Получите бесплатную консультацию",
+    "consultText": "Оставьте заявку — наш координатор скоро свяжется с вами.",
+    "showLess": "Свернуть",
+    "noServices": "Услуги не найдены",
+    "noClinics": "Для этой услуги пока не добавлены клиники",
+    "notFound": "Ничего не найдено",
+    "sending": "Отправка...",
+    "servicesCount": "Услуг: {{n}}",
+    "results": "Найдено: {{n}}",
+    "callUs": "Позвонить",
+    "activeFilters": "Выбранные фильтры"
   }
 }

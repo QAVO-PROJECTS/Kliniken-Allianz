@@ -1,0 +1,73 @@
+// Shared Sass helpers. Import with `@use '<relative>/styles/mixins' as *;`
+
+$bp-sm: 576px;
+$bp-md: 768px;
+$bp-lg: 992px;
+$bp-xl: 1200px;
+
+@mixin down($bp) {
+  @media (max-width: ($bp - 0.02px)) { @content; }
+}
+
+@mixin up($bp) {
+  @media (min-width: $bp) { @content; }
+}
+
+@mixin focus-ring {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+@mixin card-surface($radius: var(--radius-lg)) {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: $radius;
+  box-shadow: var(--shadow-xs);
+  transition: transform var(--duration) var(--ease-out),
+              box-shadow var(--duration) var(--ease-out),
+              border-color var(--duration) var(--ease-out);
+}
+
+@mixin card-hover {
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: transparent;
+  }
+}
+
+@mixin image-zoom($scale: 1.06) {
+  img {
+    transition: transform var(--duration-slow) var(--ease-out);
+  }
+  &:hover img {
+    transform: scale($scale);
+  }
+}
+
+@mixin line-clamp($lines) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@mixin eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  background: var(--bg-brand-soft);
+  color: var(--c-primary-600);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+@mixin glass($alpha: 0.78) {
+  background: rgba(255, 255, 255, $alpha);
+  backdrop-filter: saturate(180%) blur(14px);
+  -webkit-backdrop-filter: saturate(180%) blur(14px);
+}

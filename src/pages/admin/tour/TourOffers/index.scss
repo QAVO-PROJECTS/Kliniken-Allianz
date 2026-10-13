@@ -1,0 +1,49 @@
+// Repeatable offer groups on the tour create/edit forms (tokens only).
+.tour-offers {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+
+  &__add { align-self: flex-start; }
+}
+
+.tour-offer {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  overflow: hidden;
+
+  &__head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding-block: 4px;
+    padding-inline: var(--space-3) 6px;
+    background: var(--bg-subtle);
+
+    .adm-collapse-toggle { flex: 1; min-width: 0; gap: var(--space-3); }
+  }
+
+  &__title {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
+    min-width: 0;
+    text-align: start;
+
+    strong { flex-shrink: 0; color: var(--text); font-weight: 600; }
+    span {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+  }
+
+  &__body {
+    padding: var(--space-4);
+    border-top: 1px solid var(--border);
+  }
+}

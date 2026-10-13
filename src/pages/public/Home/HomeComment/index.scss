@@ -1,0 +1,115 @@
+@use '../../../../styles/mixins' as *;
+
+.home-reviews {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+
+  &__bg,
+  &__veil {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  &__bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.7;
+  }
+
+  &__veil {
+    background: linear-gradient(180deg, var(--bg-page) 0%, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 0) 70%, var(--bg-page) 100%);
+  }
+
+  &__stage {
+    position: relative;
+
+    @include up($bp-xl) {
+      min-height: 400px;
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  &__card {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 760px;
+    margin-inline: auto;
+
+    @include up($bp-xl) { max-width: min(760px, 60%); }
+  }
+
+  &__avatars {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-4);
+    display: flex;
+    gap: var(--space-2);
+    // single swipeable row on small screens; centred when it fits
+    overflow-x: auto;
+    padding: var(--space-2) var(--space-1) var(--space-3);
+    scrollbar-width: none;
+    &::-webkit-scrollbar { display: none; }
+
+    li { flex-shrink: 0; }
+    li:first-child { margin-inline-start: auto; }
+    li:last-child { margin-inline-end: auto; }
+
+    @include up($bp-xl) {
+      position: absolute;
+      inset: 0;
+      margin: 0;
+      padding: 0;
+      overflow: visible;
+      display: block;
+
+      li {
+        position: absolute;
+        left: var(--x);
+        top: var(--y);
+        transform: translate(-50%, -50%);
+        margin: 0;
+      }
+    }
+  }
+
+  &__avatar {
+    display: block;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    border-radius: var(--radius-full);
+    border: 3px solid var(--surface);
+    background: var(--bg-muted);
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+    transition: transform var(--duration) var(--ease-out),
+                box-shadow var(--duration) var(--ease-out),
+                border-color var(--duration) var(--ease-out);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    &:hover { transform: scale(1.08); }
+    &:focus-visible { @include focus-ring; }
+    &.is-active {
+      border-color: var(--brand);
+      box-shadow: 0 0 0 4px var(--c-primary-100), var(--shadow-md);
+    }
+
+    @include up($bp-xl) {
+      width: 60px;
+      height: 60px;
+    }
+  }
+}

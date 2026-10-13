@@ -1,5 +1,4 @@
 {
-  "_version": "1.0.1",
   "navbar": {
     "clinics": "Klinikalar",
     "germanyClinics": "Almaniya klinikaları",
@@ -29,7 +28,8 @@
     "category": "Kateqoriya",
     "service": "Xidmət",
     "services": "Xidmətlər",
-    "suggestedServices": "Önerilən Xidmətlər"
+    "suggestedServices": "Önerilən Xidmətlər",
+    "home": "Ana səhifə"
   },
   "categoriesMenu": {
     "title": "Kateqoriyalar",
@@ -93,10 +93,22 @@
   },
   "homeFeatures": {
     "stats": [
-      { "value": "150+", "label": "Tərəfdaş Klinikalar" },
-      { "value": "500+", "label": "Peşəkar Həkimlər" },
-      { "value": "2000+", "label": "Uğurlu Səyahətlər" },
-      { "value": "98%", "label": "Müştəri Məmnuniyyəti" }
+      {
+        "value": "150+",
+        "label": "Tərəfdaş Klinikalar"
+      },
+      {
+        "value": "500+",
+        "label": "Peşəkar Həkimlər"
+      },
+      {
+        "value": "2000+",
+        "label": "Uğurlu Səyahətlər"
+      },
+      {
+        "value": "98%",
+        "label": "Müştəri Məmnuniyyəti"
+      }
     ]
   },
   "homeAbout": {
@@ -142,11 +154,10 @@
     "flight": "Aviabilet",
     "apply": "Müraciət et"
   },
-
   "homeServiceCard": {
     "description": "Həyat keyfiyyətinizi yüksəltmək üçün ən yeni xərçəng müalicə üsulları.",
     "button": "Ətraflı bax",
-    "iconAlt": "{name} İkonu"
+    "iconAlt": "{{name}} İkonu"
   },
   "homeClinic": {
     "title": "Etibar Edilən Sağlamlıq Mərkəzləri",
@@ -159,8 +170,8 @@
   "homeHotel": {
     "title": "Klinikalara Yaxın Otel Seçimləri",
     "desc": "Sizin rahatlığınız üçün seçilmiş, beynəlxalq standartlara uyğun otellər.",
-    "slideAriaLabel": "{slideNumber}-ci slayda keç",
-    "cardImgAlt": "{name} Şəkli",
+    "slideAriaLabel": "{{slideNumber}}-ci slayda keç",
+    "cardImgAlt": "{{name}} Şəkli",
     "cards": {
       "ritzCarlton": {
         "name": "The Ritz-Carlton",
@@ -192,9 +203,9 @@
     "title": "Ən çox seçilən xidmətlər",
     "prevButton": "Əvvəlki Slayd",
     "nextButton": "Növbəti Slayd",
-    "slideAriaLabel": "{slideNumber}-ci slayda keç",
-    "cardImgAlt": "{name} Şəkli",
-    "cardIconAlt": "{name} İkonu",
+    "slideAriaLabel": "{{slideNumber}}-ci slayda keç",
+    "cardImgAlt": "{{name}} Şəkli",
+    "cardIconAlt": "{{name}} İkonu",
     "cards": {
       "cancer": {
         "name": "Xərçəng müalicəsi",
@@ -240,8 +251,8 @@
   "homeTour": {
     "title": "Tibbi Tur Paketləri",
     "description": "Müalicə, yerləşmə və transfer daxil tam tibbi tur paketləri.",
-    "slideAriaLabel": "{slideNumber}-ci slayda keç",
-    "cardImgAlt": "{name} Şəkli"
+    "slideAriaLabel": "{{slideNumber}}-ci slayda keç",
+    "cardImgAlt": "{{name}} Şəkli"
   },
   "translation": {
     "comments": [
@@ -314,7 +325,21 @@
       "Otel, klinika və ya sanatoriyada yerləşdirmə",
       "Tərcüməçi və müşayiət xidməti",
       "Müalicə müddətində və sonrasında davamlı dəstək"
-    ]
+    ],
+    "eyebrow": "Biz kimik",
+    "badge": {
+      "title": "Almaniyada rəsmi ofis",
+      "text": "Həmçinin Azərbaycan üzrə tərəfdaş klinikalar"
+    },
+    "serviceEyebrow": "Tam xidmət paketi",
+    "serviceTitle": "İlk konsultasiyadan evə qayıdışınıza qədər",
+    "valuesEyebrow": "Niyə bizi seçməlisiniz",
+    "stats": {
+      "specialities": "Tibbi ixtisas",
+      "sanatoriums": "Tərəfdaş sanatoriya",
+      "tours": "Tur paketi",
+      "languages": "Danışdığımız dillər"
+    }
   },
   "contact": {
     "title": "Əlaqə",
@@ -368,7 +393,12 @@
     },
     "bannerAlt": "Əlaqə Banneri",
     "succesToast": "Əlaqə məlumatları uğurla göndərildi!",
-    "errorToast": "Xəta baş verdi"
+    "errorToast": "Xəta baş verdi",
+    "imageAlt": "Kliniken Allianz ofisi",
+    "eyebrow": "Bizimlə əlaqə",
+    "lead": "Zəng edin, yazın və ya ofisimizə gəlin — koordinatorumuz klinikalar, müalicə və səyahət barədə suallarınızı cavablandıracaq.",
+    "mapTitle": "Ofisin Google Xəritədə yeri",
+    "responseTime": "Adətən bir iş günü ərzində cavab veririk."
   },
   "categoryDetail": {
     "pageTitle": "Xidmət",
@@ -396,6 +426,10 @@
       "success": "Mesajınız uğurla göndərildi!",
       "error": "Mesaj göndərilərkən xəta baş verdi!",
       "imageAlt": "Əlaqə şəkli"
+    },
+    "services": {
+      "title": "Xidmətlər",
+      "description": "Bu istiqamət üzrə təqdim etdiyimiz müalicə və diaqnostika xidmətləri."
     }
   },
   "clinicDetail": {
@@ -426,7 +460,7 @@
       "title": "Şəkil qalereyası",
       "prevAria": "Əvvəlki şəkil",
       "nextAria": "Növbəti şəkil",
-      "goToImageAria": "Şəkilə keç {number}"
+      "goToImageAria": "Şəkilə keç {{number}}"
     },
     "videos": {
       "title": "Videolar"
@@ -447,12 +481,21 @@
     },
     "videos": {
       "title": "Videolar"
-    }
+    },
+    "locationLabel": "Ünvan",
+    "servicesCount": "{{count}} müalicə və xidmət",
+    "rooms": {
+      "title": "Otaq növləri",
+      "standard": "Standart otaq",
+      "comfort": "Komfort otaq",
+      "vip": "VIP otaq"
+    },
+    "formSubtitle": "Boş yerlər, müalicə proqramları və qiymətlər barədə soruşun — qısa zamanda sizə cavab verəcəyik."
   },
   "clinicHotel": {
     "title": "Tibbi Səfər üçün Otellər",
     "description": "Sizin rahatlığınız üçün seçilmiş, beynəlxalq standartlara uyğun otellər.",
-    "slideAriaLabel": "{slideNumber}-ci slayda keç"
+    "slideAriaLabel": "{{slideNumber}}-ci slayda keç"
   },
   "doctorsPage": {
     "title": "Həkimlər",
@@ -474,7 +517,8 @@
       "mobileClear": "Təmizlə",
       "mobileFilter": "Filtrlə",
       "experienceSuffix": "illik təcrübə"
-    }
+    },
+    "experienceSuffix": "illik təcrübə"
   },
   "doctorDetail": {
     "title": "Həkim",
@@ -506,7 +550,20 @@
     "otels": {
       "title": "Otellər",
       "visit": "Oteli ziyarət et"
-    }
+    },
+    "badge": "Tur paketi",
+    "overview": "Ümumi məlumat",
+    "included": "Daxildir",
+    "includedTitle": "Paketə nələr daxildir",
+    "hotelsCount": "Seçim üçün {{count}} otel",
+    "carsCount": "{{count}} avtomobil mövcuddur",
+    "visaSupport": "Viza dəstəyi",
+    "flightBooking": "Aviabilet sifarişində yardım",
+    "priceLabel": "Qiymət",
+    "priceOnRequest": "Qiymət sorğu əsasında",
+    "freeConsultation": "Pulsuz konsultasiya, heç bir öhdəlik olmadan",
+    "bookingAria": "Sifariş xülasəsi",
+    "formSubtitle": "Məlumatlarınızı qoyun — səyahət koordinatorumuz bu tur barədə sizinlə əlaqə saxlayacaq."
   },
   "adminPanel": {
     "categoryPage": {
@@ -623,7 +680,9 @@
       "toast": {
         "notFound": "Xidmət tapılmadı ❌",
         "deleteSuccess": "Xidmət uğurla silindi ✅",
-        "deleteError": "Xidməti silmək mümkün olmadı ❌"
+        "deleteError": "Xidməti silmək mümkün olmadı ❌",
+        "success": "Xidmət uğurla silindi",
+        "error": "Xidməti silmək mümkün olmadı"
       }
     },
     "categoryServisAdd": {
@@ -646,7 +705,11 @@
         "nameEn": "Traumatology",
         "descAz": "Təsvir əlavə edin...",
         "descRu": "Добавьте описание...",
-        "descEn": "Add description..."
+        "descEn": "Add description...",
+        "nameDe": "Traumatologie",
+        "nameAr": "طب الإصابات",
+        "descDe": "Beschreibung hinzufügen...",
+        "descAr": "أضف وصفًا..."
       },
       "buttons": {
         "save": "Yadda saxla",
@@ -679,7 +742,11 @@
         "nameEn": "Traumatology",
         "descAz": "Təsvir əlavə edin...",
         "descRu": "Добавьте описание...",
-        "descEn": "Add description..."
+        "descEn": "Add description...",
+        "nameDe": "Traumatologie",
+        "nameAr": "طب الإصابات",
+        "descDe": "Beschreibung hinzufügen...",
+        "descAr": "أضف وصفًا..."
       },
       "buttons": {
         "save": "Yadda saxla",
@@ -823,9 +890,9 @@
         "subtitle": "Kliniken Allianz yalnız beynəlxalq standartlara cavab verən, müasir və etibarlı sanatoriyalarla əməkdaşlıq edir."
       },
       "filter": {
-    "allLocations": "Bütün şəhərlər",
-    "placeholder": "Şəhərə görə filtr"
-},
+        "allLocations": "Bütün şəhərlər",
+        "placeholder": "Şəhərə görə filtr"
+      },
       "search": {
         "placeholder": "Axtarış edin....."
       },
@@ -907,7 +974,9 @@
         "serviceEn": "Xidmət adı (EN)",
         "serviceAlm": "Xidmət adı (DE)",
         "serviceArab": "Xidmət adı (AR)"
-      }
+      },
+      "roomsTitle": "Otaq növləri",
+      "roomsDescription": "Standart, komfort və VIP otaqların təsvirini bütün dillərdə daxil edin"
     },
     "sanatoriumEdit": {
       "breadcrumb": {
@@ -1010,7 +1079,16 @@
       "deleting": "Silinir...",
       "toast": {
         "deleteSuccess": "Həkim uğurla silindi ✅",
-        "deleteError": "Silinmə zamanı xəta baş verdi ❌"
+        "deleteError": "Silinmə zamanı xəta baş verdi ❌",
+        "success": "Həkim uğurla silindi",
+        "error": "Silinmə zamanı xəta baş verdi"
+      },
+      "modal": {
+        "confirm": "Həkimi silmək istədiyinizə əminsiniz?",
+        "confirmWithName": "{{name}} adlı həkimi silmək istədiyinizə əminsiniz?",
+        "cancel": "Ləğv et",
+        "delete": "Sil",
+        "deleting": "Silinir..."
       }
     },
     "doctorAdd": {
@@ -1073,7 +1151,13 @@
         "surnameEn": "Soyad (EN)",
         "roleAz": "Vəzifə (AZ)",
         "roleRu": "Vəzifə (RU)",
-        "roleEn": "Vəzifə (EN)"
+        "roleEn": "Vəzifə (EN)",
+        "nameAlm": "Ad (DE)",
+        "nameArab": "Ad (AR)",
+        "surnameAlm": "Soyad (DE)",
+        "surnameArab": "Soyad (AR)",
+        "roleAlm": "Vəzifə (DE)",
+        "roleArab": "Vəzifə (AR)"
       },
       "buttons": {
         "save": "Yadda saxla",
@@ -1783,7 +1867,8 @@
       "toast": {
         "success": "Xəbər uğurla əlavə edildi",
         "error": "Xəta baş verdi",
-        "warnAz": "Başlıq daxil edin (AZ)"
+        "warnAz": "Başlıq daxil edin (AZ)",
+        "warnTitleAz": "Başlıq daxil edin (AZ)"
       },
       "placeholders": {
         "videoUrl": "https://www.youtube.com/watch?v=..."
@@ -1884,5 +1969,132 @@
       "prev": "Əvvələ",
       "next": "Sonra"
     }
+  },
+  "common": {
+    "loading": "Yüklənir...",
+    "noData": "Məlumat yoxdur",
+    "showLess": "Daha az göstər",
+    "showMore": "Daha çox göstər"
+  },
+  "errorPage": {
+    "title": "Nə isə səhv getdi",
+    "text": "Gözlənilməz xəta baş verdi. Səhifəni yeniləyin və ya ana səhifəyə qayıdın.",
+    "notFoundTitle": "Səhifə tapılmadı",
+    "notFoundText": "Axtardığınız səhifə mövcud deyil və ya köçürülüb.",
+    "updateTitle": "Yeni versiya mövcuddur",
+    "updateText": "Sayt yenilənib. Davam etmək üçün səhifəni yeniləyin.",
+    "reload": "Yenilə",
+    "home": "Ana səhifə"
+  },
+  "pagination": {
+    "prev": "Əvvəlki",
+    "next": "Növbəti",
+    "first": "İlk səhifə",
+    "last": "Son səhifə",
+    "label": "Səhifələmə",
+    "page": "Səhifə"
+  },
+  "listing": {
+    "count": "{{count}} nəticə",
+    "count_one": "{{count}} nəticə",
+    "count_other": "{{count}} nəticə",
+    "clearFilters": "Filtrləri təmizlə",
+    "clearSearch": "Axtarışı təmizlə",
+    "tryAnother": "Başqa açar söz ilə axtarın."
+  },
+  "gallery": {
+    "open": "Foto qalereyanı aç",
+    "close": "Bağla",
+    "prev": "Əvvəlki şəkil",
+    "next": "Növbəti şəkil",
+    "photo": "Şəkil"
+  },
+  "video": {
+    "play": "Videonu oynat"
+  },
+  "ctaBand": {
+    "title": "Müalicə səyahətinizi planlaşdırmağa hazırsınız?",
+    "desc": "Ehtiyacınızı bizə bildirin — koordinatorlarımız klinika, səyahət və qonaqlama daxil olmaqla fərdi plan hazırlayacaq.",
+    "button": "Pulsuz konsultasiya alın"
+  },
+  "enquiryForm": {
+    "privacyNote": "Məlumatlarınız yalnız sorğunuzu cavablandırmaq üçün istifadə olunur."
+  },
+  "blogs": {
+    "readMore": "Ətraflı oxu",
+    "new": "Ən yeni",
+    "featured": "Önə çıxanlar",
+    "allArticles": "Bütün məqalələr",
+    "views": "{{count}} baxış"
+  },
+  "newBlog": {
+    "breadcrumb": "Ana səhifə /",
+    "pageTitle": "Bloq",
+    "title": "Ən yeni",
+    "readMore": "Ətraflı oxu",
+    "noBlog": "Hazırda bloq yazısı yoxdur"
+  },
+  "oldBlog": {
+    "title": "Əvvəlki bloqlar"
+  },
+  "blogCard": {
+    "readMore": "Ətraflı oxu"
+  },
+  "blogDetailCard": {
+    "button": "Daha çox bax"
+  },
+  "blogDetail": {
+    "breadcrumb": "Ana səhifə / Bloq /",
+    "blogHeading": "Kliniken Allianz Səyahət Bloqu",
+    "authorLabel": "Müəllif",
+    "copyLink": "Linki kopyala",
+    "copySuccess": "Link kopyalandı!",
+    "copied": "Kopyalandı",
+    "share": "Paylaş",
+    "recommendTitle": "Digər bloqlar",
+    "recommendSubtitle": "Səyahət hekayələri, faydalı məsləhətlər və unudulmaz məkanlar haqqında yazılar buradadır!",
+    "viewAll": "Hamısına bax",
+    "videos": {
+      "title": "Videolar"
+    }
+  },
+  "carsPage": {
+    "title": "Avtomobillər"
+  },
+  "carDetail": {
+    "perDay": "gün",
+    "back": "Geri",
+    "eyebrow": "Avtomobil",
+    "type": "Kuzov növü",
+    "pricing": "Qiymət",
+    "pricingNote": "Günlük qiymət aralığı — dəqiq qiymət sorğu əsasında",
+    "formSubtitle": "Tarixləri və marşrutu bizə bildirin — mövcudluğu və yekun qiyməti təsdiqləyəcəyik."
+  },
+  "notFound": {
+    "eyebrow": "Xəta 404",
+    "title": "Bu səhifəni tapa bilmədik",
+    "desc": "Keçid səhv ola bilər və ya səhifə köçürülüb. Gəlin, sizi düzgün yola qaytaraq.",
+    "home": "Ana səhifəyə qayıt",
+    "back": "Əvvəlki səhifə",
+    "popular": "Populyar səhifələr",
+    "help": "Kömək lazımdır? Komandamızla əlaqə saxlayın"
+  },
+  "medicalPages": {
+    "noCertificates": "Hələ sertifikat əlavə edilməyib",
+    "noBio": "Bioqrafiya məlumatı hələ əlavə edilməyib",
+    "overview": "Ümumi məlumat",
+    "clinicsOffering": "Bu xidməti təqdim edən klinikalar",
+    "servicesInCategory": "Bu kateqoriyadakı xidmətlər",
+    "consultTitle": "Pulsuz konsultasiya alın",
+    "consultText": "Müraciətinizi göndərin — koordinatorumuz qısa zamanda sizinlə əlaqə saxlayacaq.",
+    "showLess": "Daha az göstər",
+    "noServices": "Xidmət tapılmadı",
+    "noClinics": "Bu xidmət üçün hələ klinika əlavə edilməyib",
+    "notFound": "Məlumat tapılmadı",
+    "sending": "Göndərilir...",
+    "servicesCount": "{{n}} xidmət",
+    "results": "{{n}} nəticə",
+    "callUs": "Zəng edin",
+    "activeFilters": "Seçilmiş filtrlər"
   }
 }

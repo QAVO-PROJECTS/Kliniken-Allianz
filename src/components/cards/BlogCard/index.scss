@@ -1,0 +1,53 @@
+@use '../base' as kc;
+@use '../../../styles/mixins' as *;
+
+.blog-card {
+  @include kc.surface;
+  @include kc.media-zoom('.blog-card__media');
+
+  &__media { @include kc.media(16 / 10); }
+
+  &__placeholder { @include kc.placeholder; }
+
+  &__body {
+    @include kc.body;
+    gap: var(--space-3);
+  }
+
+  &__meta {
+    @include kc.meta;
+    font-size: var(--fs-xs);
+    color: var(--text-muted);
+    svg { color: var(--text-muted); }
+  }
+
+  &__title { @include kc.title(2); }
+
+  &__excerpt {
+    @include kc.text(3);
+    white-space: pre-line;
+  }
+
+  &__more {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: auto;
+    padding-top: var(--space-2);
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    color: var(--brand);
+
+    svg {
+      transition: transform var(--duration) var(--ease-out);
+      html[dir='rtl'] & { transform: scaleX(-1); }
+    }
+  }
+
+  &:hover &__more svg { transform: translateX(4px); }
+  html[dir='rtl'] &:hover &__more svg { transform: scaleX(-1) translateX(4px); }
+
+  &--compact {
+    .blog-card__title { font-size: var(--fs-md); }
+  }
+}

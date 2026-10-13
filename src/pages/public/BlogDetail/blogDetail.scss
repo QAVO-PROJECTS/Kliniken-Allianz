@@ -1,0 +1,148 @@
+@use '../../../styles/mixins' as *;
+
+.blog-detail {
+  &__meta { justify-content: center; }
+
+  .page-header__title {
+    max-width: 900px;
+    font-size: var(--fs-3xl);
+  }
+}
+
+.article {
+  padding: var(--space-12) 0 var(--section-padding);
+
+  &__hero {
+    width: 100%;
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+  }
+
+  &__hero-btn {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    background: var(--bg-muted);
+    cursor: zoom-in;
+
+    &:disabled { cursor: default; }
+    &:focus-visible { @include focus-ring; }
+  }
+
+  &__hero-img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: var(--radius-xl);
+  }
+
+  &__container {
+    max-width: calc(720px + 2 * var(--container-padding));
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+  }
+
+  &__share {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+    margin: var(--space-8) 0 var(--space-10);
+    padding-bottom: var(--space-6);
+    border-bottom: 1px solid var(--border);
+  }
+
+  &__share-label {
+    margin-inline-end: var(--space-2);
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+
+  &__body {
+    color: var(--text);
+    font-size: var(--fs-lg);
+    line-height: 1.8;
+    overflow-wrap: break-word;
+
+    p + p { margin-top: 1.25em; }
+
+    p:first-child {
+      font-size: var(--fs-xl);
+      line-height: 1.7;
+      color: var(--text);
+      font-weight: 500;
+    }
+  }
+
+  &__block {
+    margin-top: var(--space-12);
+
+    h2 {
+      margin-bottom: var(--space-5);
+      font-size: var(--fs-2xl);
+      font-weight: 700;
+      letter-spacing: var(--tracking-tight);
+    }
+  }
+
+  &__gallery {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-4);
+  }
+
+  &__gallery-item {
+    padding: 0;
+    border: 0;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    background: var(--bg-muted);
+    cursor: zoom-in;
+    @include image-zoom(1.05);
+
+    img, .blog-fallback { width: 100%; height: 100%; object-fit: cover; }
+    &:focus-visible { @include focus-ring; }
+  }
+
+  @include down($bp-sm) {
+    padding-top: var(--space-6);
+
+    &__hero { padding: 0; }
+    &__hero-btn, &__hero-img { border-radius: 0; }
+    &__body {
+      font-size: 17px;
+      p:first-child { font-size: var(--fs-lg); }
+    }
+    &__gallery { grid-template-columns: minmax(0, 1fr); }
+  }
+}
+
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-width: 44px;
+  height: 44px;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: var(--surface);
+  color: var(--text-secondary);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: color var(--duration-fast), border-color var(--duration-fast), background var(--duration-fast);
+
+  &:hover { color: var(--brand); border-color: var(--c-primary-200); background: var(--bg-brand-soft); }
+  &:focus-visible { @include focus-ring; }
+
+  &--copy { padding: 0 var(--space-4); }
+}

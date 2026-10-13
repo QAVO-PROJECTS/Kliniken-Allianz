@@ -1,0 +1,164 @@
+@use 'mixins' as *;
+
+// Reusable UI primitives. Use these classes in new markup instead of
+// re-declaring button/badge/section styles per component.
+
+.btn {
+  --btn-bg: var(--brand);
+  --btn-fg: var(--text-on-brand);
+  --btn-border: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  height: 48px;
+  padding: 0 var(--space-6);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--btn-border);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font-size: var(--fs-md);
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+
+  svg { flex-shrink: 0; }
+
+  &:hover { transform: translateY(-1px); }
+  &:active { transform: translateY(0); }
+  &:focus-visible { @include focus-ring; }
+  &:disabled,
+  &[aria-disabled='true'] {
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  &--primary {
+    box-shadow: var(--shadow-brand);
+    &:hover { --btn-bg: var(--brand-hover); }
+  }
+  &--secondary {
+    --btn-bg: var(--surface);
+    --btn-fg: var(--text);
+    --btn-border: var(--border-strong);
+    box-shadow: var(--shadow-xs);
+    &:hover { --btn-bg: var(--bg-subtle); }
+  }
+  &--ghost {
+    --btn-bg: transparent;
+    --btn-fg: var(--brand);
+    &:hover { --btn-bg: var(--bg-brand-soft); }
+  }
+  &--light {
+    --btn-bg: #fff;
+    --btn-fg: var(--brand);
+    &:hover { --btn-bg: var(--c-primary-50); }
+  }
+  &--danger {
+    --btn-bg: var(--c-danger);
+    &:hover { filter: brightness(0.95); }
+  }
+  &--sm {
+    height: 38px;
+    padding: 0 var(--space-4);
+    font-size: var(--fs-sm);
+  }
+  &--lg {
+    height: 56px;
+    padding: 0 var(--space-8);
+    font-size: var(--fs-lg);
+  }
+  &--block { width: 100%; }
+}
+
+.eyebrow {
+  @include eyebrow;
+}
+
+.section {
+  padding: var(--section-padding) 0;
+
+  &--subtle { background: var(--bg-subtle); }
+  &--brand-soft { background: var(--gradient-soft); }
+}
+
+.section-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  max-width: 720px;
+  margin-bottom: var(--space-12);
+
+  &--center {
+    align-items: center;
+    text-align: center;
+    margin-inline: auto;
+  }
+
+  h2 {
+    font-size: var(--fs-4xl);
+    line-height: var(--lh-tight);
+    font-weight: 700;
+  }
+  p {
+    font-size: var(--fs-lg);
+    color: var(--text-secondary);
+  }
+
+  @include down($bp-sm) {
+    margin-bottom: var(--space-8);
+    p { font-size: var(--fs-md); }
+  }
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  background: var(--bg-muted);
+  color: var(--text-secondary);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+
+  &--brand { background: var(--bg-brand-soft); color: var(--c-primary-600); }
+  &--success { background: var(--c-success-bg); color: var(--c-success); }
+}
+
+.card {
+  @include card-surface;
+  overflow: hidden;
+
+  &--interactive { @include card-hover; }
+}
+
+// Legacy 60-col wrapper rendered by components/cards (see CardSlot.jsx):
+// stretches the card to the slot height so grid rows line up.
+.card-slot {
+  display: flex;
+  min-width: 0;
+
+  > * { flex: 1; min-width: 0; }
+}
+
+.text-muted { color: var(--text-muted); }
+.text-secondary { color: var(--text-secondary); }
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+// Toast skin (react-toastify)
+.Toastify__toast {
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  font-family: var(--font-sans);
+  font-size: var(--fs-sm);
+}

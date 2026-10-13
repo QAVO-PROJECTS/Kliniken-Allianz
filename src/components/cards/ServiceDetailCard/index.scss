@@ -1,0 +1,5 @@
+@use '../base' as kc;
+
+.service-detail-card__desc {
+  @include kc.text(2);
+}

@@ -1,0 +1,70 @@
+@use '../../../styles/mixins' as *;
+
+.doctor-detail {
+  // On small screens show the profile card before the bio.
+  .md-aside {
+    @include down($bp-lg) { order: -1; }
+  }
+
+  &__bio {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+
+    .md-prose { white-space: normal; }
+  }
+
+  &__photo {
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+    margin-bottom: var(--space-5);
+    border-radius: var(--radius-lg);
+    background: var(--gradient-soft), var(--bg-subtle);
+    color: var(--c-primary-300);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    @include down($bp-lg) {
+      aspect-ratio: auto;
+      height: 320px;
+    }
+  }
+
+  &__identity {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+    margin-bottom: var(--space-5);
+
+    h2 {
+      font-size: var(--fs-xl);
+      line-height: var(--lh-snug);
+      font-weight: 700;
+    }
+  }
+
+  &__stars {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    color: var(--c-gray-300);
+
+    svg { fill: currentColor; }
+    .is-on { color: var(--c-star); }
+    strong { margin-inline-start: var(--space-2); color: var(--text); }
+  }
+
+  &__cta-text {
+    color: var(--text-secondary);
+    font-size: var(--fs-sm);
+    margin-bottom: var(--space-4);
+  }
+}

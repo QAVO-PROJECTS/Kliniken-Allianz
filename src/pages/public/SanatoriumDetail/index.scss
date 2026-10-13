@@ -1,0 +1,56 @@
+@use '../../../styles/mixins' as *;
+
+.sanatorium-detail {
+  &__location {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 6px 14px;
+    border-radius: var(--radius-full);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    font-size: var(--fs-sm);
+    font-weight: 600;
+
+    svg { color: var(--brand); }
+  }
+
+  &__cta { padding-top: var(--section-padding); }
+}
+
+.room-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-4);
+}
+
+.room-card {
+  @include card-surface;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-6);
+
+  &__icon {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-md);
+    background: var(--bg-brand-soft);
+    color: var(--brand);
+  }
+
+  h3 {
+    font-size: var(--fs-lg);
+    font-weight: 700;
+  }
+
+  p {
+    color: var(--text-secondary);
+    font-size: var(--fs-sm);
+    line-height: var(--lh-normal);
+    white-space: pre-line;
+  }
+}

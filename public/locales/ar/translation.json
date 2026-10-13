@@ -1,5 +1,4 @@
 {
-  "_version": "1.0.1",
   "navbar": {
     "home": "الرئيسية",
     "services": "الخدمات",
@@ -16,23 +15,24 @@
       "ru": "الروسية",
       "ar": "العربية"
     },
-    "doctors": "Həkimlər",
-    "sanatoriums": "Sanatoriyalar",
-    "tours": "Turlar",
-    "categories": "Kateqoriyalar",
-    "search": "Axtarış",
-    "searchPlaceholder": "Axtar...",
-    "noResults": "Nəticə tapılmadı",
-    "clinic": "Klinika",
-    "doctor": "Həkim",
-    "sanatorium": "Sanatoriya",
-    "tour": "Tur",
-    "suggestedCategories": "Önerilən Kateqoriyalar",
-    "category": "Kateqoriya",
-    "service": "Xidmət"
+    "doctors": "الأطباء",
+    "sanatoriums": "المصحات",
+    "tours": "الجولات",
+    "categories": "الفئات",
+    "search": "بحث",
+    "searchPlaceholder": "ابحث...",
+    "noResults": "لم يتم العثور على نتائج",
+    "clinic": "عيادة",
+    "doctor": "طبيب",
+    "sanatorium": "مصحة",
+    "tour": "جولة",
+    "suggestedCategories": "الفئات المقترحة",
+    "category": "الفئة",
+    "service": "خدمة",
+    "suggestedServices": "الخدمات المقترحة"
   },
   "footer": {
-    "logoAlt": "شعار تحالف العيادات",
+    "logoAlt": "شعار Kliniken Allianz",
     "description": "نحن نفكر ونخطط لكل التفاصيل نيابة عنك، مثل عملية العلاج، الرحلات الجوية، دعم التأشيرة، والإقامة.",
     "links": "الروابط",
     "contactTitle": "معلومات التواصل",
@@ -40,7 +40,7 @@
     "phone": "+994 70 765 43 89",
     "mail": "اكتب لنا",
     "email": "klinikenallianz@gmail.com",
-    "copyright": "© 2025 تحالف العيادات. جميع الحقوق محفوظة.",
+    "copyright": "© 2025 Kliniken Allianz. جميع الحقوق محفوظة.",
     "createdBy": "تم الإنشاء بواسطة:"
   },
   "homeBanner": {
@@ -116,15 +116,15 @@
   "homeServiceCard": {
     "description": "أحدث طرق العلاج لتحسين جودة حياتك.",
     "button": "معرفة المزيد",
-    "iconAlt": "أيقونة {name}"
+    "iconAlt": "أيقونة {{name}}"
   },
   "homeClinic": {
     "title": "مراكز طبية موثوقة",
-    "description": "يتعاون تحالف العيادات فقط مع عيادات حديثة وموثوقة تتوافق مع المعايير الدولية.",
+    "description": "يتعاون Kliniken Allianz فقط مع عيادات حديثة وموثوقة تتوافق مع المعايير الدولية.",
     "prevButton": "الشريحة السابقة",
     "nextButton": "الشريحة التالية",
-    "slideAriaLabel": "الانتقال إلى الشريحة {slideNumber}",
-    "cardImgAlt": "صورة {name}",
+    "slideAriaLabel": "الانتقال إلى الشريحة {{slideNumber}}",
+    "cardImgAlt": "صورة {{name}}",
     "cards": {
       "universitatsklinikum": {
         "name": "Universitätsklinikum",
@@ -151,12 +151,12 @@
         "description": "سنغافورة"
       }
     },
-    "moreButton": "Daha çox"
+    "moreButton": "المزيد"
   },
   "homeHotel": {
     "title": "خيارات الفنادق القريبة من العيادات",
-    "slideAriaLabel": "الانتقال إلى الشريحة {slideNumber}",
-    "cardImgAlt": "صورة {name}",
+    "slideAriaLabel": "الانتقال إلى الشريحة {{slideNumber}}",
+    "cardImgAlt": "صورة {{name}}",
     "cards": {
       "ritzCarlton": {
         "name": "The Ritz-Carlton",
@@ -183,15 +183,15 @@
         "description": "بانكوك"
       }
     },
-    "desc": "Sizin rahatlığınız üçün seçilmiş, beynəlxalq standartlara uyğun otellər."
+    "desc": "فنادق مختارة لراحتك ومطابقة للمعايير الدولية."
   },
   "homeBestServ": {
     "title": "الخدمات الأكثر شيوعًا",
     "prevButton": "الشريحة السابقة",
     "nextButton": "الشريحة التالية",
-    "slideAriaLabel": "الانتقال إلى الشريحة {slideNumber}",
-    "cardImgAlt": "صورة {name}",
-    "cardIconAlt": "أيقونة {name}",
+    "slideAriaLabel": "الانتقال إلى الشريحة {{slideNumber}}",
+    "cardImgAlt": "صورة {{name}}",
+    "cardIconAlt": "أيقونة {{name}}",
     "cards": {
       "cancer": {
         "name": "علاج السرطان",
@@ -450,7 +450,9 @@
       "toast": {
         "notFound": "Xidmət tapılmadı ❌",
         "deleteSuccess": "Xidmət uğurla silindi ✅",
-        "deleteError": "Xidməti silmək mümkün olmadı ❌"
+        "deleteError": "Xidməti silmək mümkün olmadı ❌",
+        "success": "تم حذف الخدمة بنجاح",
+        "error": "تعذّر حذف الخدمة"
       }
     },
     "categoryServisAdd": {
@@ -473,7 +475,11 @@
         "nameEn": "Traumatology",
         "descAz": "Təsvir əlavə edin...",
         "descRu": "Добавьте описание...",
-        "descEn": "Add description..."
+        "descEn": "Add description...",
+        "nameDe": "Traumatologie",
+        "nameAr": "طب الإصابات",
+        "descDe": "Beschreibung hinzufügen...",
+        "descAr": "أضف وصفًا..."
       },
       "buttons": {
         "save": "Yadda saxla",
@@ -506,7 +512,11 @@
         "nameEn": "Traumatology",
         "descAz": "Təsvir əlavə edin...",
         "descRu": "Добавьте описание...",
-        "descEn": "Add description..."
+        "descEn": "Add description...",
+        "nameDe": "Traumatologie",
+        "nameAr": "طب الإصابات",
+        "descDe": "Beschreibung hinzufügen...",
+        "descAr": "أضف وصفًا..."
       },
       "buttons": {
         "save": "Yadda saxla",
@@ -640,7 +650,9 @@
         "serviceEn": "Xidmət adı (EN)",
         "serviceAlm": "Xidmət adı (DE)",
         "serviceArab": "Xidmət adı (AR)"
-      }
+      },
+      "roomsTitle": "أنواع الغرف",
+      "roomsDescription": "أدخل وصف الغرف القياسية والمريحة وغرف VIP بجميع اللغات"
     },
     "sanatoriumEdit": {
       "breadcrumb": {
@@ -743,7 +755,16 @@
       "deleting": "Silinir...",
       "toast": {
         "deleteSuccess": "Həkim uğurla silindi ✅",
-        "deleteError": "Silinmə zamanı xəta baş verdi ❌"
+        "deleteError": "Silinmə zamanı xəta baş verdi ❌",
+        "success": "تم حذف الطبيب بنجاح",
+        "error": "حدث خطأ أثناء الحذف"
+      },
+      "modal": {
+        "confirm": "هل أنت متأكد من حذف هذا الطبيب؟",
+        "confirmWithName": "هل أنت متأكد من حذف الطبيب {{name}}؟",
+        "cancel": "إلغاء",
+        "delete": "حذف",
+        "deleting": "جارٍ الحذف..."
       }
     },
     "doctorAdd": {
@@ -806,7 +827,13 @@
         "surnameEn": "Soyad (EN)",
         "roleAz": "Vəzifə (AZ)",
         "roleRu": "Vəzifə (RU)",
-        "roleEn": "Vəzifə (EN)"
+        "roleEn": "Vəzifə (EN)",
+        "nameAlm": "الاسم (DE)",
+        "nameArab": "الاسم (AR)",
+        "surnameAlm": "اسم العائلة (DE)",
+        "surnameArab": "اسم العائلة (AR)",
+        "roleAlm": "المنصب (DE)",
+        "roleArab": "المنصب (AR)"
       },
       "buttons": {
         "save": "Yadda saxla",
@@ -1502,18 +1529,27 @@
             "de": "المحتوى",
             "ar": "المحتوى"
           }
+        },
+        "videos": {
+          "title": "مقاطع YouTube",
+          "desc": "أضف روابط فيديو YouTube المتعلقة بالمقال"
         }
       },
       "buttons": {
         "save": "حفظ",
-        "saving": "يتم الرفع..."
+        "saving": "يتم الرفع...",
+        "addVideo": "إضافة"
       },
       "toast": {
         "success": "تم بنجاح",
         "error": "خطأ",
-        "warnAz": "أدخل العنوان"
+        "warnAz": "أدخل العنوان",
+        "warnTitleAz": "أدخل العنوان (AZ)"
       },
-      "uploadHint": "اسحب ملفا"
+      "uploadHint": "اسحب ملفا",
+      "placeholders": {
+        "videoUrl": "https://www.youtube.com/watch?v=..."
+      }
     },
     "newspaperEdit": {
       "breadcrumb": {
@@ -1549,18 +1585,26 @@
             "de": "المحتوى",
             "ar": "المحتوى"
           }
+        },
+        "videos": {
+          "title": "مقاطع YouTube",
+          "desc": "أضف روابط فيديو YouTube المتعلقة بالمقال"
         }
       },
       "buttons": {
         "save": "حفظ",
-        "saving": "يتم الحفظ..."
+        "saving": "يتم الحفظ...",
+        "addVideo": "إضافة"
       },
       "toast": {
         "success": "تم بنجاح",
         "error": "خطأ",
         "warnAz": "العنوان"
       },
-      "uploadHint": "اسحب ملفا"
+      "uploadHint": "اسحب ملفا",
+      "placeholders": {
+        "videoUrl": "https://www.youtube.com/watch?v=..."
+      }
     },
     "filterDropdown": {
       "label": "Filter",
@@ -1584,8 +1628,8 @@
       "button": "اتصل بنا"
     },
     "section2": {
-      "title": "لماذا تحالف العيادات؟",
-      "desc": "بصفتنا تحالف العيادات، نحن نتعاون مع أفضل المؤسسات الطبية في مختلف البلدان في مجال السياحة الصحية.",
+      "title": "لماذا Kliniken Allianz؟",
+      "desc": "بصفتنا Kliniken Allianz، نحن نتعاون مع أفضل المؤسسات الطبية في مختلف البلدان في مجال السياحة الصحية.",
       "cards": {
         "consultation": {
           "title": "استشارة مجانية"
@@ -1621,7 +1665,21 @@
       "الإقامة في فندق أو عيادة أو مصحة",
       "خدمة الترجمة والمرافقة",
       "الدعم المستمر خلال وفترة ما بعد العلاج"
-    ]
+    ],
+    "eyebrow": "من نحن",
+    "badge": {
+      "title": "مكتب رسمي في ألمانيا",
+      "text": "بالإضافة إلى عيادات شريكة في جميع أنحاء أذربيجان"
+    },
+    "serviceEyebrow": "باقة خدمات متكاملة",
+    "serviceTitle": "من الاستشارة الأولى حتى عودتك إلى الوطن",
+    "valuesEyebrow": "لماذا تختارنا",
+    "stats": {
+      "specialities": "تخصصات طبية",
+      "sanatoriums": "مصحات شريكة",
+      "tours": "باقات سياحية",
+      "languages": "لغات نتحدثها"
+    }
   },
   "clinicDetail": {
     "breadcrumb": {
@@ -1651,10 +1709,10 @@
       "title": "معرض الصور",
       "prevAria": "الصورة السابقة",
       "nextAria": "الصورة التالية",
-      "goToImageAria": "انتقال إلى الصورة {number}"
+      "goToImageAria": "انتقال إلى الصورة {{number}}"
     },
     "videos": {
-      "title": "Videolar"
+      "title": "مقاطع الفيديو"
     }
   },
   "sanatoriumDetail": {
@@ -1672,7 +1730,16 @@
     },
     "videos": {
       "title": "فيديوهات"
-    }
+    },
+    "locationLabel": "الموقع",
+    "servicesCount": "العلاجات والخدمات: {{count}}",
+    "rooms": {
+      "title": "أنواع الغرف",
+      "standard": "غرفة قياسية",
+      "comfort": "غرفة مريحة",
+      "vip": "غرفة VIP"
+    },
+    "formSubtitle": "استفسر عن التوفر وبرامج العلاج والأسعار — وسنعاود الاتصال بك قريبًا."
   },
   "categoriesMenu": {
     "title": "الفئات",
@@ -1687,8 +1754,8 @@
   "homeTour": {
     "title": "الباقات السياحية الطبية",
     "description": "باقات سياحية طبية كاملة تشمل العلاج والإقامة والانتقالات.",
-    "slideAriaLabel": "الانتقال إلى الشريحة {slideNumber}",
-    "cardImgAlt": "صورة {name}"
+    "slideAriaLabel": "الانتقال إلى الشريحة {{slideNumber}}",
+    "cardImgAlt": "صورة {{name}}"
   },
   "contact": {
     "title": "اتصل بنا",
@@ -1703,7 +1770,7 @@
     "contactCard": {
       "mobile": {
         "title": "الهاتف",
-        "value": "+994 50 123 45 67"
+        "value": "+994 50 216 42 92"
       },
       "email": {
         "title": "البريد الإلكتروني",
@@ -1742,7 +1809,12 @@
     },
     "bannerAlt": "شعار الاتصال",
     "succesToast": "تم إرسال معلومات الاتصال بنجاح!",
-    "errorToast": "حدث خطأ أثناء الإرسال"
+    "errorToast": "حدث خطأ أثناء الإرسال",
+    "imageAlt": "مكتب Kliniken Allianz",
+    "eyebrow": "تواصل معنا",
+    "lead": "اتصل بنا أو راسلنا أو قم بزيارتنا — سيجيب منسقنا على أسئلتك حول العيادات والعلاج والسفر.",
+    "mapTitle": "موقع المكتب على خرائط Google",
+    "responseTime": "نرد عادةً خلال يوم عمل واحد."
   },
   "categoryDetail": {
     "pageTitle": "الخدمة",
@@ -1770,12 +1842,16 @@
       "success": "تم إرسال رسالتك بنجاح!",
       "error": "حدث خطأ أثناء إرسال الرسالة!",
       "imageAlt": "صورة الاتصال"
+    },
+    "services": {
+      "title": "الخدمات",
+      "description": "خدمات العلاج والتشخيص التي نقدمها في هذا التخصص."
     }
   },
   "clinicHotel": {
     "title": "الفنادق المتاحة للرحلات العلاجية",
     "description": "فنادق مختارة بعناية لراحتكم وتتوافق مع المعايير الدولية.",
-    "slideAriaLabel": "الانتقال إلى الشريحة {slideNumber}"
+    "slideAriaLabel": "الانتقال إلى الشريحة {{slideNumber}}"
   },
   "doctorsPage": {
     "title": "الأطباء",
@@ -1797,15 +1873,16 @@
       "mobileClear": "مسح",
       "mobileFilter": "تصفية",
       "experienceSuffix": "سنوات من الخبرة"
-    }
+    },
+    "experienceSuffix": "سنوات من الخبرة"
   },
   "doctorDetail": {
-    "title": "Həkim",
-    "breadcrumbDoctors": "Həkimlər",
-    "experienceSuffix": "illik təcrübə",
+    "title": "الطبيب",
+    "breadcrumbDoctors": "الأطباء",
+    "experienceSuffix": "سنوات من الخبرة",
     "sections": {
-      "bio": "Bio",
-      "certificates": "Sertifikatlar"
+      "bio": "نبذة",
+      "certificates": "الشهادات"
     },
     "empty": "—"
   },
@@ -1829,7 +1906,20 @@
     "otels": {
       "title": "الفنادق",
       "visit": "زيارة الفندق"
-    }
+    },
+    "badge": "باقة سياحية",
+    "overview": "نظرة عامة",
+    "included": "مشمول",
+    "includedTitle": "ما الذي يتضمنه",
+    "hotelsCount": "فنادق للاختيار: {{count}}",
+    "carsCount": "السيارات المتاحة: {{count}}",
+    "visaSupport": "دعم التأشيرة",
+    "flightBooking": "المساعدة في حجز الطيران",
+    "priceLabel": "السعر",
+    "priceOnRequest": "السعر عند الطلب",
+    "freeConsultation": "استشارة مجانية دون أي التزام",
+    "bookingAria": "ملخص الحجز",
+    "formSubtitle": "اترك بياناتك وسيتواصل معك منسق السفر لدينا بخصوص هذه الجولة."
   },
   "newBlog": {
     "breadcrumb": "الصفحة الرئيسية /",
@@ -1852,13 +1942,165 @@
     "copyLink": "نسخ الرابط",
     "recommendTitle": "مدونات أخرى",
     "viewAll": "عرض الكل",
-    "recommendSubtitle": "قصص السفر، نصائح مفيدة، ومنشورات حول أماكن لا تُنسى هنا!"
+    "recommendSubtitle": "قصص السفر، نصائح مفيدة، ومنشورات حول أماكن لا تُنسى هنا!",
+    "copied": "تم النسخ",
+    "share": "مشاركة",
+    "videos": {
+      "title": "مقاطع الفيديو"
+    }
   },
   "blogDetailCard": {
     "button": "شاهد المزيد"
   },
   "pagination": {
     "prev": "السابق",
-    "next": "التالي"
+    "next": "التالي",
+    "first": "الصفحة الأولى",
+    "last": "الصفحة الأخيرة",
+    "label": "ترقيم الصفحات",
+    "page": "صفحة"
+  },
+  "common": {
+    "loading": "جارٍ التحميل...",
+    "noData": "لا توجد بيانات",
+    "showLess": "عرض أقل",
+    "showMore": "عرض المزيد"
+  },
+  "errorPage": {
+    "title": "حدث خطأ ما",
+    "text": "حدث خطأ غير متوقع. يرجى إعادة تحميل الصفحة أو العودة إلى الصفحة الرئيسية.",
+    "notFoundTitle": "الصفحة غير موجودة",
+    "notFoundText": "الصفحة التي تبحث عنها غير موجودة أو تم نقلها.",
+    "updateTitle": "يتوفر إصدار جديد",
+    "updateText": "تم تحديث الموقع. يرجى إعادة تحميل الصفحة للمتابعة.",
+    "reload": "إعادة التحميل",
+    "home": "الصفحة الرئيسية"
+  },
+  "listing": {
+    "count": "النتائج: {{count}}",
+    "clearFilters": "مسح عوامل التصفية",
+    "clearSearch": "مسح البحث",
+    "tryAnother": "جرّب كلمة بحث مختلفة."
+  },
+  "gallery": {
+    "open": "فتح معرض الصور",
+    "close": "إغلاق",
+    "prev": "الصورة السابقة",
+    "next": "الصورة التالية",
+    "photo": "صورة"
+  },
+  "video": {
+    "play": "تشغيل الفيديو"
+  },
+  "ctaBand": {
+    "title": "هل أنت مستعد للتخطيط لرحلتك العلاجية؟",
+    "desc": "أخبرنا بما تحتاجه — سيُعدّ منسقونا خطة مخصصة تشمل العيادات والسفر والإقامة.",
+    "button": "احصل على استشارة مجانية"
+  },
+  "enquiryForm": {
+    "privacyNote": "تُستخدم بياناتك فقط للرد على طلبك."
+  },
+  "blogs": {
+    "readMore": "اقرأ المزيد",
+    "new": "الأحدث",
+    "featured": "مميزة",
+    "allArticles": "كل المقالات",
+    "views": "المشاهدات: {{count}}"
+  },
+  "carsPage": {
+    "title": "السيارات"
+  },
+  "carDetail": {
+    "perDay": "يوم",
+    "back": "رجوع",
+    "eyebrow": "سيارة",
+    "type": "نوع الهيكل",
+    "pricing": "الأسعار",
+    "pricingNote": "نطاق السعر اليومي — السعر الدقيق عند الطلب",
+    "formSubtitle": "أخبرنا بالتواريخ والمسار — وسنؤكد التوفر والسعر النهائي."
+  },
+  "notFound": {
+    "eyebrow": "خطأ 404",
+    "title": "لم نتمكن من العثور على هذه الصفحة",
+    "desc": "ربما يكون الرابط معطلاً أو تم نقل الصفحة. دعنا نعيدك إلى المسار الصحيح.",
+    "home": "العودة إلى الرئيسية",
+    "back": "الصفحة السابقة",
+    "popular": "الصفحات الشائعة",
+    "help": "تحتاج إلى مساعدة؟ تواصل مع فريقنا"
+  },
+  "homeProcess": {
+    "subtitle": "المراحل",
+    "title": "كيف نعمل؟",
+    "description": "نحن معك في كل خطوة من رحلتك الصحية. عمليتنا بسيطة وفعّالة.",
+    "steps": [
+      {
+        "title": "الاستشارة",
+        "description": "نستمع إلى احتياجاتك ونحصل على رأي طبي أولي."
+      },
+      {
+        "title": "التخطيط",
+        "description": "نُعدّ لك العيادة وخطة العلاج الأنسب."
+      },
+      {
+        "title": "السفر والعلاج",
+        "description": "نتولى إجراءات التأشيرة والتذاكر والدخول إلى المستشفى."
+      },
+      {
+        "title": "المتابعة",
+        "description": "نبقى على تواصل معك حتى بعد انتهاء العلاج."
+      }
+    ]
+  },
+  "homeAbout": {
+    "tag": "من نحن",
+    "title": "معايير دولية من أجل صحتك",
+    "description": "في Kliniken Allianz نقدم دعمًا احترافيًا لمرضانا لتلقي العلاج في أفضل عيادات العالم. وبفضل تعاوننا المباشر مع المراكز الطبية الرائدة في ألمانيا، نوفر لك أدق التشخيصات وأكثر طرق العلاج فعالية.",
+    "features": [
+      "طاقم طبي محترف",
+      "تقنيات طبية حديثة",
+      "دعم التأشيرة والسفر",
+      "مرافقة المريض على مدار الساعة"
+    ],
+    "experienceValue": "10+",
+    "experienceLabel": "سنوات من الخبرة",
+    "button": "اقرأ المزيد"
+  },
+  "homeFeatures": {
+    "stats": [
+      {
+        "value": "150+",
+        "label": "عيادة شريكة"
+      },
+      {
+        "value": "500+",
+        "label": "طبيب خبير"
+      },
+      {
+        "value": "2000+",
+        "label": "رحلة علاجية ناجحة"
+      },
+      {
+        "value": "98%",
+        "label": "رضا العملاء"
+      }
+    ]
+  },
+  "medicalPages": {
+    "noCertificates": "لم تتم إضافة شهادات بعد",
+    "noBio": "لم تتم إضافة السيرة الذاتية بعد",
+    "overview": "نظرة عامة",
+    "clinicsOffering": "العيادات التي تقدم هذه الخدمة",
+    "servicesInCategory": "الخدمات في هذه الفئة",
+    "consultTitle": "احصل على استشارة مجانية",
+    "consultText": "أرسل طلبك وسيتواصل معك منسقنا قريبًا.",
+    "showLess": "عرض أقل",
+    "noServices": "لم يتم العثور على خدمات",
+    "noClinics": "لم تتم إضافة عيادات لهذه الخدمة بعد",
+    "notFound": "لم يتم العثور على شيء",
+    "sending": "جارٍ الإرسال...",
+    "servicesCount": "{{n}} خدمات",
+    "results": "{{n}} نتيجة",
+    "callUs": "اتصل بنا",
+    "activeFilters": "عوامل التصفية النشطة"
   }
 }

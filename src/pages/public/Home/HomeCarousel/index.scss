@@ -1,0 +1,189 @@
+@use '../../../../styles/mixins' as *;
+
+.home-carousel {
+  --carousel-gap: var(--space-6);
+  --pv: var(--per-view-lg, 3);
+
+  @include down($bp-lg) {
+    --pv: var(--per-view-md, 2);
+    --carousel-gap: var(--space-5);
+  }
+  @include down($bp-sm) {
+    --pv: var(--per-view-sm, 1.15);
+    --carousel-gap: var(--space-4);
+  }
+
+  &__header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-6);
+    margin-bottom: var(--space-10);
+
+    .section-title {
+      margin-bottom: 0;
+    }
+
+    @include down($bp-md) {
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--space-5);
+      margin-bottom: var(--space-6);
+    }
+  }
+
+  &__controls {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-shrink: 0;
+
+    @include down($bp-md) {
+      justify-content: space-between;
+    }
+  }
+
+  &__all {
+    height: 44px;
+    svg { transition: transform var(--duration) var(--ease-out); }
+    &:hover svg { transform: translateX(3px); }
+    [dir='rtl'] & svg { transform: scaleX(-1); }
+    [dir='rtl'] &:hover svg { transform: scaleX(-1) translateX(3px); }
+  }
+
+  &__arrows {
+    display: flex;
+    gap: var(--space-2);
+    margin-inline-start: auto;
+  }
+
+  &__arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border-strong);
+    background: var(--surface);
+    color: var(--brand);
+    cursor: pointer;
+    box-shadow: var(--shadow-xs);
+    transition: background-color var(--duration-fast) var(--ease-out),
+                border-color var(--duration-fast) var(--ease-out),
+                color var(--duration-fast) var(--ease-out);
+
+    &:hover:not(:disabled) {
+      background: var(--brand);
+      border-color: var(--brand);
+      color: var(--text-on-brand);
+    }
+    &:focus-visible { @include focus-ring; }
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    [dir='rtl'] & svg { transform: scaleX(-1); }
+  }
+
+  &__track {
+    display: flex;
+    gap: var(--carousel-gap);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    // room for card hover lift / shadow without clipping
+    padding-block: var(--space-2) var(--space-6);
+    margin-block: calc(var(--space-2) * -1) calc(var(--space-6) * -1);
+    cursor: grab;
+
+    &::-webkit-scrollbar { display: none; }
+    &:focus-visible {
+      outline: none;
+      box-shadow: var(--focus-ring);
+      border-radius: var(--radius-lg);
+    }
+    &.is-dragging {
+      scroll-snap-type: none;
+      cursor: grabbing;
+      user-select: none;
+      * { pointer-events: none; }
+    }
+
+    img { -webkit-user-drag: none; }
+  }
+
+  &__slide {
+    flex: 0 0 calc((100% - (var(--pv) - 1) * var(--carousel-gap)) / var(--pv));
+    min-width: 0;
+    scroll-snap-align: start;
+    display: flex;
+  }
+
+  // Card components ship with legacy grid-column wrappers (.col-*); let them
+  // fill the slide. Two classes so this beats the global .col-* rules.
+  & &__slide > * {
+    width: 100%;
+    max-width: none;
+    flex: 1 1 auto;
+    padding: 0 !important; // overrides the cards' legacy inline padding
+  }
+
+  &__dots {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--space-1);
+    margin-top: var(--space-8);
+  }
+
+  &__progress {
+    position: relative;
+    width: min(240px, 60%);
+    height: 4px;
+    margin: var(--space-8) auto 0;
+    border-radius: var(--radius-full);
+    background: var(--border);
+    overflow: hidden;
+
+    span {
+      position: absolute;
+      inset-block: 0;
+      inset-inline-start: 0;
+      border-radius: inherit;
+      background: var(--brand);
+      transition: width var(--duration) var(--ease-out);
+    }
+  }
+
+  &__dot {
+    position: relative;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    border-radius: var(--radius-full);
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 50% auto auto 50%;
+      width: 8px;
+      height: 8px;
+      border-radius: var(--radius-full);
+      background: var(--border-strong);
+      transform: translate(-50%, -50%);
+      transition: width var(--duration) var(--ease-out),
+                  background-color var(--duration) var(--ease-out);
+    }
+    &:hover::before { background: var(--c-gray-400); }
+    &.is-active::before {
+      width: 22px;
+      background: var(--brand);
+    }
+    &:focus-visible { @include focus-ring; }
+  }
+}

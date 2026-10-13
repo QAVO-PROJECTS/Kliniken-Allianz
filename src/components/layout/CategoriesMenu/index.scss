@@ -1,0 +1,190 @@
+@use '../../../styles/mixins' as *;
+
+.cm {
+  position: relative;
+
+  .cm-trigger {
+    svg:first-child { color: var(--c-primary-500); }
+  }
+
+  .cm-caret {
+    transition: transform var(--duration) var(--ease-out);
+  }
+
+  &.is-open .cm-caret { transform: rotate(180deg); }
+  &.is-open .cm-trigger {
+    background: var(--bg-brand-soft);
+    color: var(--brand);
+  }
+}
+
+.cm-panel {
+  position: absolute;
+  top: calc(100% + 14px);
+  inset-inline-start: 0;
+  z-index: var(--z-dropdown);
+  display: flex;
+  width: min(680px, calc(100vw - 48px));
+  max-height: min(520px, calc(100vh - 140px));
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  animation: cm-in var(--duration) var(--ease-out);
+
+  // hover bridge so the pointer can travel from trigger to panel
+  &::before {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    top: -16px;
+    height: 16px;
+  }
+
+  &[hidden] { display: none; }
+}
+
+@keyframes cm-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: none; }
+}
+
+.cm-cats {
+  flex: 0 0 300px;
+  padding: var(--space-2);
+  overflow-y: auto;
+  border-inline-end: 1px solid var(--border);
+  scrollbar-width: thin;
+  scrollbar-color: var(--c-gray-300) transparent;
+}
+
+.cm-cat {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  min-height: 44px;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: var(--text);
+  text-align: start;
+  transition: background var(--duration-fast), color var(--duration-fast);
+
+  &__icon {
+    display: grid;
+    place-items: center;
+    flex: 0 0 32px;
+    height: 32px;
+    border-radius: var(--radius-sm);
+    background: var(--bg-brand-soft);
+    color: var(--c-primary-500);
+
+    img {
+      width: 18px;
+      height: 18px;
+      object-fit: contain;
+    }
+  }
+
+  &__name {
+    flex: 1;
+    line-height: var(--lh-snug);
+    @include line-clamp(2);
+  }
+
+  &__arrow {
+    color: var(--text-muted);
+    flex-shrink: 0;
+    html[dir='rtl'] & { transform: scaleX(-1); }
+  }
+
+  &:hover,
+  &.is-active {
+    background: var(--bg-subtle);
+    color: var(--brand);
+    .cm-cat__arrow { color: var(--brand); }
+  }
+
+  &:focus-visible { @include focus-ring; }
+}
+
+.cm-services {
+  flex: 1;
+  min-width: 0;
+  padding: var(--space-4) var(--space-3);
+  overflow-y: auto;
+  background: var(--bg-subtle);
+  scrollbar-width: thin;
+  scrollbar-color: var(--c-gray-300) transparent;
+
+  &__title {
+    padding: 0 var(--space-3) var(--space-3);
+    font-size: var(--fs-xs);
+    font-weight: 600;
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  &__empty {
+    padding: 0 var(--space-3);
+    font-size: var(--fs-sm);
+    color: var(--text-muted);
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+}
+
+.cm-service {
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+  transition: background var(--duration-fast), color var(--duration-fast);
+
+  &:hover {
+    background: var(--surface);
+    color: var(--brand);
+    box-shadow: var(--shadow-xs);
+  }
+
+  &:focus-visible { @include focus-ring; }
+}
+
+.cm-empty {
+  flex: 1;
+  padding: var(--space-6);
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+
+.cm-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+
+  span {
+    height: 14px;
+    border-radius: var(--radius-full);
+    background: linear-gradient(90deg, var(--c-gray-100), var(--c-gray-200), var(--c-gray-100));
+    background-size: 200% 100%;
+    animation: cm-shimmer 1.2s linear infinite;
+
+    &:nth-child(2n) { width: 70%; }
+  }
+}
+
+@keyframes cm-shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}

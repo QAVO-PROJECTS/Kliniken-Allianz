@@ -1,0 +1,5 @@
+@use '../base' as kc;
+
+.clinic-doctor-card__desc {
+  @include kc.text(2);
+}

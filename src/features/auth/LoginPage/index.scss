@@ -1,0 +1,162 @@
+@use '../../../styles/mixins' as *;
+
+.login {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  min-height: 100vh;
+  background: var(--bg-page);
+
+  @include down($bp-lg) { grid-template-columns: minmax(0, 1fr); }
+
+  &__panel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-10) var(--space-6);
+
+    @include down($bp-sm) { padding: var(--space-8) var(--space-4); align-items: flex-start; }
+  }
+
+  &__inner {
+    width: min(400px, 100%);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  &__logo { height: 50px; width: auto; align-self: flex-start; }
+
+  &__heading {
+    h1 {
+      font-size: var(--fs-3xl);
+      font-weight: 700;
+      letter-spacing: var(--tracking-tight);
+      line-height: var(--lh-tight);
+    }
+    p {
+      margin-top: var(--space-2);
+      color: var(--text-secondary);
+      font-size: var(--fs-md);
+    }
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  &__control {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    > svg {
+      position: absolute;
+      inset-inline-start: 14px;
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+    .adm-input {
+      min-height: 50px;
+      padding-inline-start: 44px;
+      font-size: var(--fs-md);
+    }
+    .adm-input[aria-invalid='true'] { border-color: var(--c-danger); }
+  }
+
+  &__toggle {
+    position: absolute;
+    inset-inline-end: 6px;
+    width: 40px;
+    height: 40px;
+  }
+  &__control:has(.login__toggle) .adm-input { padding-inline-end: 52px; }
+
+  &__error {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid rgba(229, 72, 77, 0.25);
+    border-radius: var(--radius-md);
+    background: var(--c-danger-bg);
+    color: var(--text);
+    font-size: var(--fs-sm);
+    line-height: 1.5;
+
+    svg { flex-shrink: 0; margin-top: 1px; color: var(--c-danger); }
+  }
+
+  &__submit.btn {
+    height: 50px;
+    margin-top: var(--space-2);
+    border-radius: var(--radius-md);
+    font-size: var(--fs-md);
+    &:hover:not(:disabled) { transform: none; }
+  }
+
+  &__foot {
+    font-size: var(--fs-xs);
+    color: var(--text-muted);
+  }
+
+  &__aside {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    margin: var(--space-4);
+    margin-inline-start: 0;
+    padding: var(--space-12);
+    border-radius: var(--radius-2xl);
+    background: var(--gradient-brand);
+    color: var(--text-on-brand);
+    overflow: hidden;
+    isolation: isolate;
+
+    // soft decorative rings
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      z-index: -1;
+    }
+    &::before { width: 520px; height: 520px; top: -160px; inset-inline-end: -160px; box-shadow: inset 0 0 0 60px rgba(255, 255, 255, 0.03); }
+    &::after { width: 300px; height: 300px; top: 40px; inset-inline-end: 40px; background: radial-gradient(circle, rgba(63, 193, 216, 0.35), transparent 70%); border: 0; }
+
+    @include down($bp-lg) { display: none; }
+  }
+
+  &__aside-content {
+    max-width: 520px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+
+    h2 {
+      color: inherit;
+      font-size: var(--fs-3xl);
+      font-weight: 700;
+      line-height: var(--lh-tight);
+      letter-spacing: var(--tracking-tight);
+    }
+    p { color: rgba(255, 255, 255, 0.82); font-size: var(--fs-lg); }
+  }
+
+  &__badge {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 6px 12px;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    font-size: var(--fs-xs);
+    font-weight: 600;
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+  }
+}

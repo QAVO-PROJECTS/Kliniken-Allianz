@@ -1,0 +1,57 @@
+@use '../base' as kc;
+@use '../../../styles/mixins' as *;
+
+.mcard {
+  @include kc.surface;
+  @include kc.media-zoom('.mcard__media');
+
+  &__media { @include kc.media(4 / 3); }
+
+  &__placeholder { @include kc.placeholder; }
+
+  &__badge { @include kc.media-badge; }
+
+  &__overlay {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    z-index: 1;
+    padding: var(--space-8) var(--space-4) var(--space-3);
+    background: linear-gradient(180deg, rgba(4, 28, 59, 0) 0%, rgba(4, 28, 59, 0.72) 100%);
+    color: #fff;
+  }
+
+  &__body { @include kc.body; }
+
+  &__title { @include kc.title(2); }
+
+  &__meta {
+    @include kc.meta;
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__meta-text { @include line-clamp(1); }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    margin-top: auto;
+    padding-top: var(--space-2);
+
+    > :only-child:not(.mcard__meta) { margin-inline-start: auto; }
+  }
+
+  &__arrow { @include kc.arrow-chip; }
+
+  &:hover &__arrow,
+  &:focus-visible &__arrow {
+    @include kc.arrow-chip-active;
+  }
+
+  &--static {
+    transform: none !important;
+  }
+}

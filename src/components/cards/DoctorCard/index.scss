@@ -1,0 +1,19 @@
+@use '../../../styles/mixins' as *;
+
+.doctor-card {
+  .mcard__media img { object-position: top center; }
+
+  &__star {
+    color: var(--c-star);
+    fill: var(--c-star);
+  }
+
+  &__role {
+    align-self: flex-start;
+    max-width: 100%;
+    @include line-clamp(1);
+    display: inline-block;
+  }
+
+  .mcard__title { -webkit-line-clamp: 1; }
+}

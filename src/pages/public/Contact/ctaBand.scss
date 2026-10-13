@@ -1,0 +1,107 @@
+@use '../../../styles/mixins' as *;
+
+.cta-band-section {
+  padding: 0 0 var(--section-padding);
+}
+
+.cta-band {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-8);
+  padding: var(--space-12) var(--space-12);
+  border-radius: var(--radius-2xl);
+  background: var(--gradient-brand);
+  color: var(--text-on-brand);
+  box-shadow: var(--shadow-brand);
+
+  // soft decorative rings
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    pointer-events: none;
+  }
+  &::before {
+    width: 360px;
+    height: 360px;
+    inset-inline-end: -120px;
+    top: -180px;
+  }
+  &::after {
+    width: 220px;
+    height: 220px;
+    inset-inline-end: 120px;
+    bottom: -150px;
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  &__text {
+    position: relative;
+    z-index: 1;
+    max-width: 640px;
+
+    h2 {
+      color: inherit;
+      font-size: var(--fs-3xl);
+      line-height: var(--lh-tight);
+      font-weight: 700;
+      letter-spacing: var(--tracking-tight);
+    }
+
+    p {
+      margin-top: var(--space-3);
+      color: rgba(255, 255, 255, 0.86);
+      font-size: var(--fs-lg);
+    }
+  }
+
+  &__actions {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+    flex-shrink: 0;
+  }
+
+  &__arrow {
+    transition: transform var(--duration) var(--ease-out);
+    html[dir='rtl'] & { transform: scaleX(-1); }
+  }
+  .btn:hover &__arrow { transform: translateX(3px); }
+  html[dir='rtl'] .btn:hover &__arrow { transform: scaleX(-1) translateX(3px); }
+
+  &__phone {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: 44px;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 600;
+    font-size: var(--fs-sm);
+
+    &:hover { color: #fff; text-decoration: underline; }
+  }
+
+  @include down($bp-lg) {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: var(--space-10) var(--space-8);
+    &__actions { align-items: flex-start; }
+  }
+
+  @include down($bp-sm) {
+    padding: var(--space-8) var(--space-6);
+    border-radius: var(--radius-xl);
+    &__text p { font-size: var(--fs-md); }
+    &__actions { width: 100%; align-items: stretch; }
+    &__actions .btn { width: 100%; white-space: normal; }
+    &__phone { justify-content: center; }
+  }
+}

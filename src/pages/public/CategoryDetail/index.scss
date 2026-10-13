@@ -1,0 +1,5 @@
+// /category/:id — the service view lives in ServiceDetail/ServiceView; the
+// category view only uses shared md-* classes.
+.category-detail {
+  background: var(--bg-page);
+}
