@@ -4,8 +4,8 @@ import { useTranslation } from "react-i18next";
 import { ChevronDown, ChevronRight, LayoutGrid } from "lucide-react";
 import "./index.scss";
 import { useGetAllCategoryQuery } from "../../../api/userApi.js";
-import { CATEGORY_IMAGES } from "../../../config/mediaUrls.js";
 import { getLocalizedText } from "../../../i18n/getLocalizedText.js";
+import CategoryIcon from "./CategoryIcon.jsx";
 
 const CLOSE_DELAY = 140;
 
@@ -31,6 +31,8 @@ export default function CategoriesMenu({ className = "", onNavigate }) {
     const rootRef = useRef(null);
     const triggerRef = useRef(null);
     const closeTimer = useRef(null);
+    // When the pointer opened the menu a moment ago, the click that follows must not close it again.
+    const hoverOpenedAt = useRef(0);
     const panelId = useId();
 
     const clearTimer = () => {
@@ -132,7 +134,11 @@ export default function CategoriesMenu({ className = "", onNavigate }) {
         <div
             ref={rootRef}
             className={`cm ${open ? "is-open" : ""} ${className}`.trim()}
-            onPointerEnter={(e) => e.pointerType === "mouse" && openMenu()}
+            onPointerEnter={(e) => {
+                if (e.pointerType !== "mouse") return;
+                if (!open) hoverOpenedAt.current = Date.now();
+                openMenu();
+            }}
             onPointerLeave={(e) => e.pointerType === "mouse" && scheduleClose()}
             onFocus={() => setRequested(true)}
         >
@@ -143,12 +149,16 @@ export default function CategoriesMenu({ className = "", onNavigate }) {
                 aria-haspopup="true"
                 aria-expanded={open}
                 aria-controls={panelId}
-                onClick={() => (open ? closeMenu() : openMenu())}
+                onClick={() => {
+                    if (open && Date.now() - hoverOpenedAt.current < 600) return;
+                    if (open) closeMenu();
+                    else openMenu();
+                }}
                 onKeyDown={onTriggerKeyDown}
             >
-                <LayoutGrid size={16} strokeWidth={2} aria-hidden="true" />
+                <LayoutGrid size={16} strokeWidth={1.75} aria-hidden="true" />
                 {t("categoriesMenu.title")}
-                <ChevronDown className="cm-caret" size={15} strokeWidth={2} aria-hidden="true" />
+                <ChevronDown className="cm-caret" size={15} strokeWidth={1.75} aria-hidden="true" />
             </button>
 
             <div id={panelId} className="cm-panel" hidden={!open}>
@@ -180,21 +190,12 @@ export default function CategoriesMenu({ className = "", onNavigate }) {
                                             onClick={() => setActiveId(category.id)}
                                             onKeyDown={(e) => onCategoryKeyDown(e, index, category)}
                                         >
-                                            <span className="cm-cat__icon">
-                                                {category.categoryImage ? (
-                                                    <img
-                                                        src={CATEGORY_IMAGES + category.categoryImage}
-                                                        alt=""
-                                                        loading="lazy"
-                                                        decoding="async"
-                                                    />
-                                                ) : (
-                                                    <LayoutGrid size={16} aria-hidden="true" />
-                                                )}
+                                            <span className="cm-cat__icon" aria-hidden="true">
+                                                <CategoryIcon file={category.categoryImage} />
                                             </span>
                                             <span className="cm-cat__name">{name}</span>
                                             {category.services?.length > 0 && (
-                                                <ChevronRight className="cm-cat__arrow" size={16} aria-hidden="true" />
+                                                <ChevronRight className="cm-cat__arrow" size={16} strokeWidth={1.75} aria-hidden="true" />
                                             )}
                                         </button>
                                     </li>

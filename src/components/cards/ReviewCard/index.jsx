@@ -10,7 +10,7 @@ function Avatar({ src, alt }) {
     return (
         <span className="review-card__avatar">
             {src && !failed ? (
-                <img src={src} alt={alt} loading="lazy" decoding="async" onError={() => setFailed(true)} />
+                <img src={src} alt={alt} width="52" height="52" loading="lazy" decoding="async" onError={() => setFailed(true)} />
             ) : (
                 <UserRound size={22} strokeWidth={1.75} aria-hidden="true" />
             )}
@@ -49,13 +49,14 @@ function CommentCard({ currentIndex, setCurrentIndex, fakeComments }) {
                             >
                             <figure className="review-card comment-card">
                                 <span className="review-card__quote" aria-hidden="true">
-                                    <Quote size={22} strokeWidth={2} />
+                                    <Quote size={20} strokeWidth={1.75} />
                                 </span>
                                 <blockquote className="review-card__text">
                                     <p>{getLocalizedText(comment, "reviewText")}</p>
                                 </blockquote>
                                 <figcaption className="review-card__author">
-                                    <Avatar src={comment.profilImage && VIEW_CARD_IMAGES + comment.profilImage} alt={name} />
+                                    {/* The name is printed right next to the photo, so the image itself is decorative. */}
+                                    <Avatar src={comment.profilImage && VIEW_CARD_IMAGES + comment.profilImage} alt="" />
                                     <span>
                                         <span className="review-card__name">{name}</span>
                                         <span className="review-card__country">{getLocalizedText(comment, "country")}</span>
@@ -77,7 +78,7 @@ function CommentCard({ currentIndex, setCurrentIndex, fakeComments }) {
                         disabled={currentIndex === 0}
                         aria-label={t("pagination.prev", "Previous")}
                     >
-                        <ChevronLeft size={20} strokeWidth={2} aria-hidden="true" />
+                        <ChevronLeft size={20} strokeWidth={1.75} aria-hidden="true" />
                     </button>
                     <span className="review-slider__count" aria-live="polite">
                         <strong>{currentIndex + 1}</strong> / {total}
@@ -89,7 +90,7 @@ function CommentCard({ currentIndex, setCurrentIndex, fakeComments }) {
                         disabled={currentIndex === total - 1}
                         aria-label={t("pagination.next", "Next")}
                     >
-                        <ChevronRight size={20} strokeWidth={2} aria-hidden="true" />
+                        <ChevronRight size={20} strokeWidth={1.75} aria-hidden="true" />
                     </button>
                 </div>
             )}

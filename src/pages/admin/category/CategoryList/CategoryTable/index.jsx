@@ -73,7 +73,7 @@ function CategoryTableNew({ language }) {
             <ConfirmDialog
                 open={del.isOpen}
                 title={t("adminPanel.categoryTable.deleteConfirmTitle")}
-                description={del.target ? `${name(del.target)} — ${at("deleteHint")}` : undefined}
+                description={del.target ? `${name(del.target)}: ${at("deleteHint")}` : undefined}
                 cancelLabel={t("adminPanel.categoryTable.cancel")}
                 confirmLabel={t("adminPanel.categoryTable.delete")}
                 loadingLabel={t("adminPanel.categoryTable.deleting")}

@@ -1,7 +1,7 @@
 import "./index.scss";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Briefcase, Building2, GraduationCap, Search, SlidersHorizontal, Star, UserRound, X } from "lucide-react";
+import { Search, SlidersHorizontal, Star, UserRound, X } from "lucide-react";
 import { getLocalizedText } from "../../../i18n/getLocalizedText.js";
 import DoctorCard from "../../../components/cards/DoctorCard/index.jsx";
 import Pagination from "../../../components/ui/Pagination/index.jsx";
@@ -18,25 +18,34 @@ const EMPTY_FILTERS = { experience: [], clinics: [], ratings: [], areas: [] };
 
 function Stars({ value }) {
     return (
-        <span className="doctors-page__stars" aria-label={`${value}/5`}>
-            {Array.from({ length: 5 }).map((_, i) => (
-                <Star key={i} size={14} strokeWidth={1.75} className={i < value ? "is-on" : ""} aria-hidden="true" />
-            ))}
+        <span className="doctors-page__stars">
+            <span aria-hidden="true">
+                {Array.from({ length: 5 }).map((_, i) => (
+                    <Star key={i} size={14} strokeWidth={1.75} className={i < value ? "is-on" : ""} />
+                ))}
+            </span>
+            <span className="visually-hidden">{value} / 5</span>
         </span>
     );
 }
 
-function FilterGroup({ icon: Icon, title, onReset, resetLabel, children }) {
+/** One filter group: heading + per-group reset, options in a labelled role=group. */
+function FilterGroup({ id, title, onReset, resetLabel, canReset, children }) {
+    const headingId = `${id}-title`;
     return (
-        <fieldset className="doctors-filter__group">
+        <div className="doctors-filter__group">
             <div className="doctors-filter__group-head">
-                <legend>
-                    <Icon size={16} aria-hidden="true" /> {title}
-                </legend>
-                <button type="button" onClick={onReset}>{resetLabel}</button>
+                <h3 id={headingId}>{title}</h3>
+                {canReset && (
+                    <button type="button" onClick={onReset} aria-label={`${resetLabel}: ${title}`}>
+                        {resetLabel}
+                    </button>
+                )}
             </div>
-            <div className="doctors-filter__options">{children}</div>
-        </fieldset>
+            <div className="doctors-filter__options" role="group" aria-labelledby={headingId}>
+                {children}
+            </div>
+        </div>
     );
 }
 
@@ -51,6 +60,9 @@ function DoctorsPage() {
     const [searchQuery, setSearchQuery] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const [filterOpen, setFilterOpen] = useState(false);
+    const resultsRef = useRef(null);
+    const drawerCloseRef = useRef(null);
+    const filterBtnRef = useRef(null);
 
     // Any change to the criteria jumps back to page 1.
     const toggle = (group, val) => {
@@ -72,16 +84,24 @@ function DoctorsPage() {
         setSearchQuery(e.target.value);
         setCurrentPage(1);
     };
+    const changePage = (p) => {
+        setCurrentPage(p);
+        resultsRef.current?.scrollIntoView({ block: "start" });
+    };
 
+    // Drawer: lock page scroll, close on Escape, move focus in and back out.
     useEffect(() => {
         if (!filterOpen) return undefined;
+        const trigger = filterBtnRef.current;
         const prev = document.body.style.overflow;
         document.body.style.overflow = "hidden";
+        drawerCloseRef.current?.focus();
         const onKey = (e) => e.key === "Escape" && setFilterOpen(false);
         document.addEventListener("keydown", onKey);
         return () => {
             document.body.style.overflow = prev;
             document.removeEventListener("keydown", onKey);
+            trigger?.focus();
         };
     }, [filterOpen]);
 
@@ -122,30 +142,56 @@ function DoctorsPage() {
     const activeChips = [
         ...filters.experience.map((v) => ({ group: "experience", value: v, label: `${v} ${t("doctorsPage.filters.experienceSuffix")}` })),
         ...filters.clinics.map((v) => ({ group: "clinics", value: v, label: v })),
-        ...filters.ratings.map((v) => ({ group: "ratings", value: v, label: `${v} ★` })),
+        ...filters.ratings.map((v) => ({
+            group: "ratings",
+            value: v,
+            label: (
+                <>
+                    <span className="md-num">{v}</span>
+                    <Star size={13} strokeWidth={1.75} className="doctors-page__chip-star" aria-hidden="true" />
+                    <span className="visually-hidden">/ 5</span>
+                </>
+            ),
+        })),
         ...filters.areas.map((v) => ({ group: "areas", value: v, label: v })),
     ];
 
     const resetLabel = t("doctorsPage.filters.reset");
-    const filterPanel = (
+
+    // Rendered twice (sidebar and drawer); `prefix` keeps ids unique.
+    const renderFilters = (prefix) => (
         <>
-            <FilterGroup icon={Briefcase} title={t("doctorsPage.filters.experience")} onReset={() => resetGroup("experience")} resetLabel={resetLabel}>
+            <FilterGroup
+                id={`${prefix}-exp`}
+                title={t("doctorsPage.filters.experience")}
+                onReset={() => resetGroup("experience")}
+                resetLabel={resetLabel}
+                canReset={filters.experience.length > 0}
+            >
                 <div className="doctors-filter__pills">
                     {EXPERIENCE.map((year) => (
                         <label key={year} className="doctors-filter__pill">
                             <input
                                 type="checkbox"
+                                name="experience"
+                                value={year}
                                 checked={filters.experience.includes(year)}
                                 onChange={() => toggle("experience", year)}
                             />
-                            <span>{year}</span>
+                            <span className="md-num">{year}</span>
                         </label>
                     ))}
                 </div>
             </FilterGroup>
 
             {clinics.length > 0 && (
-                <FilterGroup icon={Building2} title={t("doctorsPage.filters.clinics")} onReset={() => resetGroup("clinics")} resetLabel={resetLabel}>
+                <FilterGroup
+                    id={`${prefix}-clinic`}
+                    title={t("doctorsPage.filters.clinics")}
+                    onReset={() => resetGroup("clinics")}
+                    resetLabel={resetLabel}
+                    canReset={filters.clinics.length > 0}
+                >
                     <div className="doctors-filter__scroll">
                         {clinics.map((clinic) => {
                             const name = getLocalizedText(clinic, "name");
@@ -153,6 +199,8 @@ function DoctorsPage() {
                                 <label key={clinic.id} className="doctors-filter__check">
                                     <input
                                         type="checkbox"
+                                        name="clinic"
+                                        value={name}
                                         checked={filters.clinics.includes(name)}
                                         onChange={() => toggle("clinics", name)}
                                     />
@@ -164,11 +212,19 @@ function DoctorsPage() {
                 </FilterGroup>
             )}
 
-            <FilterGroup icon={Star} title={t("doctorsPage.filters.rating")} onReset={() => resetGroup("ratings")} resetLabel={resetLabel}>
+            <FilterGroup
+                id={`${prefix}-rating`}
+                title={t("doctorsPage.filters.rating")}
+                onReset={() => resetGroup("ratings")}
+                resetLabel={resetLabel}
+                canReset={filters.ratings.length > 0}
+            >
                 {RATINGS.map((stars) => (
                     <label key={stars} className="doctors-filter__check">
                         <input
                             type="checkbox"
+                            name="rating"
+                            value={stars}
                             checked={filters.ratings.includes(stars)}
                             onChange={() => toggle("ratings", stars)}
                         />
@@ -178,12 +234,20 @@ function DoctorsPage() {
             </FilterGroup>
 
             {areas.length > 0 && (
-                <FilterGroup icon={GraduationCap} title={t("doctorsPage.filters.area")} onReset={() => resetGroup("areas")} resetLabel={resetLabel}>
+                <FilterGroup
+                    id={`${prefix}-area`}
+                    title={t("doctorsPage.filters.area")}
+                    onReset={() => resetGroup("areas")}
+                    resetLabel={resetLabel}
+                    canReset={filters.areas.length > 0}
+                >
                     <div className="doctors-filter__scroll">
                         {areas.map((role) => (
                             <label key={role} className="doctors-filter__check">
                                 <input
                                     type="checkbox"
+                                    name="area"
+                                    value={role}
                                     checked={filters.areas.includes(role)}
                                     onChange={() => toggle("areas", role)}
                                 />
@@ -207,57 +271,66 @@ function DoctorsPage() {
                     <span className="visually-hidden">{t("navbar.search")}</span>
                     <input
                         type="search"
+                        name="q"
+                        autoComplete="off"
+                        enterKeyHint="search"
                         placeholder={t("doctorsPage.searchPlaceholder")}
                         value={searchQuery}
                         onChange={onSearch}
                     />
-                    <Search size={20} aria-hidden="true" />
+                    <Search size={20} strokeWidth={1.75} aria-hidden="true" />
                 </label>
             </PageHeader>
 
-            <section className="md-section">
+            <section className="md-section md-section--flush-top">
                 <div className="container doctors-page__layout">
-                    <aside className="doctors-filter" aria-label={t("doctorsPage.filters.title")}>
+                    <aside className="doctors-filter" aria-labelledby="doctors-filter-title">
                         <div className="doctors-filter__head">
-                            <h2>{t("doctorsPage.filters.title")}</h2>
+                            <h2 id="doctors-filter-title">{t("doctorsPage.filters.title")}</h2>
                             {activeChips.length > 0 && (
                                 <button type="button" className="md-chip md-chip--ghost" onClick={clearAll}>
                                     {t("doctorsPage.filters.mobileClear")}
                                 </button>
                             )}
                         </div>
-                        {filterPanel}
+                        {renderFilters("side")}
                     </aside>
 
-                    <div className="doctors-page__results">
+                    <div className="doctors-page__results" ref={resultsRef}>
                         <div className="md-toolbar">
-                            <span className="md-toolbar__count">
+                            <p className="md-toolbar__count" aria-live="polite">
                                 {!isLoading && tx(t, "medicalPages.results", { n: filteredDoctors.length })}
-                            </span>
-                            <button type="button" className="btn btn--secondary btn--sm doctors-page__filter-btn" onClick={() => setFilterOpen(true)}>
-                                <SlidersHorizontal size={16} aria-hidden="true" />
+                            </p>
+                            <button
+                                ref={filterBtnRef}
+                                type="button"
+                                className="btn btn--secondary btn--sm doctors-page__filter-btn"
+                                onClick={() => setFilterOpen(true)}
+                                aria-haspopup="dialog"
+                                aria-expanded={filterOpen}
+                            >
+                                <SlidersHorizontal size={16} strokeWidth={1.75} aria-hidden="true" />
                                 {t("doctorsPage.filters.mobileFilter")}
-                                {activeChips.length > 0 && <span className="doctors-page__count">{activeChips.length}</span>}
+                                {activeChips.length > 0 && <span className="doctors-page__count md-num">{activeChips.length}</span>}
                             </button>
                         </div>
 
                         {activeChips.length > 0 && (
-                            <div className="md-chips doctors-page__chips" aria-label={tx(t, "medicalPages.activeFilters")}>
+                            <ul className="md-chips doctors-page__chips" aria-label={tx(t, "medicalPages.activeFilters")}>
                                 {activeChips.map((chip) => (
-                                    <button
-                                        type="button"
-                                        key={`${chip.group}-${chip.value}`}
-                                        className="md-chip"
-                                        onClick={() => toggle(chip.group, chip.value)}
-                                    >
-                                        {chip.label}
-                                        <X size={14} aria-hidden="true" />
-                                    </button>
+                                    <li key={`${chip.group}-${chip.value}`}>
+                                        <button type="button" className="md-chip" onClick={() => toggle(chip.group, chip.value)}>
+                                            {chip.label}
+                                            <X size={14} strokeWidth={1.75} aria-hidden="true" />
+                                        </button>
+                                    </li>
                                 ))}
-                                <button type="button" className="md-chip md-chip--ghost" onClick={clearAll}>
-                                    {t("doctorsPage.filters.mobileClear")}
-                                </button>
-                            </div>
+                                <li>
+                                    <button type="button" className="md-chip md-chip--ghost" onClick={clearAll}>
+                                        {t("doctorsPage.filters.mobileClear")}
+                                    </button>
+                                </li>
+                            </ul>
                         )}
 
                         {isLoading ? (
@@ -265,13 +338,15 @@ function DoctorsPage() {
                         ) : paginatedDoctors.length > 0 ? (
                             <>
                                 <div className="md-grid md-grid--sm">
-                                    {paginatedDoctors.map((item) => (
-                                        <DoctorCard key={item.id} item={item} />
+                                    {paginatedDoctors.map((item, i) => (
+                                        <div key={item.id} className="md-grid__item" data-reveal style={{ "--reveal-delay": `${(i % 3) * 60}ms` }}>
+                                            <DoctorCard item={item} bare />
+                                        </div>
                                     ))}
                                 </div>
                                 {totalPages > 1 && (
                                     <div className="md-pagination">
-                                        <Pagination currentPage={page} totalPages={totalPages} onPageChange={setCurrentPage} />
+                                        <Pagination currentPage={page} totalPages={totalPages} onPageChange={changePage} align="center" />
                                     </div>
                                 )}
                             </>
@@ -295,30 +370,27 @@ function DoctorsPage() {
                 </div>
             </section>
 
-            {/* Mobile filter drawer */}
-            <div
-                className={`doctors-drawer${filterOpen ? " is-open" : ""}`}
-                aria-hidden={!filterOpen}
-                inert={!filterOpen}
-                onClick={() => setFilterOpen(false)}
-            >
-                <div
-                    className="doctors-drawer__panel"
-                    role="dialog"
-                    aria-modal="true"
-                    aria-label={t("doctorsPage.filters.title")}
-                    onClick={(e) => e.stopPropagation()}
-                >
+            {/* Mobile filter drawer (bottom sheet) */}
+            <div className={`doctors-drawer${filterOpen ? " is-open" : ""}`} inert={!filterOpen}>
+                {/* Backdrop click is a pointer shortcut; Escape and the close button cover keyboard users. */}
+                <div className="doctors-drawer__backdrop" onClick={() => setFilterOpen(false)} aria-hidden="true" />
+                <div className="doctors-drawer__panel" role="dialog" aria-modal="true" aria-labelledby="doctors-drawer-title">
                     <div className="doctors-drawer__head">
-                        <h2>
+                        <h2 id="doctors-drawer-title">
                             {t("doctorsPage.filters.title")}
-                            {activeChips.length > 0 && <span> ({activeChips.length})</span>}
+                            {activeChips.length > 0 && <span className="md-num"> ({activeChips.length})</span>}
                         </h2>
-                        <button type="button" className="doctors-drawer__close" onClick={() => setFilterOpen(false)} aria-label="Close">
-                            <X size={20} />
+                        <button
+                            ref={drawerCloseRef}
+                            type="button"
+                            className="doctors-drawer__close"
+                            onClick={() => setFilterOpen(false)}
+                            aria-label={t("gallery.close")}
+                        >
+                            <X size={20} strokeWidth={1.75} aria-hidden="true" />
                         </button>
                     </div>
-                    <div className="doctors-drawer__body">{filterOpen && filterPanel}</div>
+                    <div className="doctors-drawer__body">{filterOpen && renderFilters("drawer")}</div>
                     <div className="doctors-drawer__foot">
                         <button type="button" className="btn btn--secondary" onClick={clearAll}>
                             {t("doctorsPage.filters.mobileClear")}

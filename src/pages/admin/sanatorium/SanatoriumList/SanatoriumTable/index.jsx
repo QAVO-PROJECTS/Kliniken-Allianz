@@ -84,7 +84,7 @@ function SanatoriumTableNew({ language }) {
             <ConfirmDialog
                 open={del.isOpen}
                 title={t("adminPanel.sanatoriumTable.deleteConfirmTitle")}
-                description={del.target ? `${name(del.target)} — ${at("deleteHint")}` : undefined}
+                description={del.target ? `${name(del.target)}: ${at("deleteHint")}` : undefined}
                 cancelLabel={t("adminPanel.sanatoriumTable.cancel")}
                 confirmLabel={t("adminPanel.sanatoriumTable.delete")}
                 loadingLabel={t("adminPanel.sanatoriumTable.deleting")}

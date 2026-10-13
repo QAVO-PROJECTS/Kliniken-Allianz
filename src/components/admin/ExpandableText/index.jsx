@@ -3,7 +3,7 @@ import { ChevronDown } from "lucide-react";
 import { useAdminT } from "../shared/adminStrings.js";
 
 /** Two-line clamped text with a toggle to reveal the rest (table cells). */
-function ExpandableText({ text, fallback = "—" }) {
+function ExpandableText({ text, fallback = "-" }) {
     const at = useAdminT();
     const [open, setOpen] = useState(false);
     const value = typeof text === "string" ? text.trim() : text;

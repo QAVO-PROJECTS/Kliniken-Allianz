@@ -4,13 +4,16 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#003778" />
-    <meta name="description" content="Kliniken Allianz — dünyanın aparıcı klinika və sanatoriyalarında müalicə, tibbi turizm və tam dəstək." />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0a1120" media="(prefers-color-scheme: dark)" />
+    <meta name="color-scheme" content="light dark" />
+    <script>
+      // Apply the saved theme before first paint (no light/dark flash).
+      try { var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+    </script>
+    <meta name="description" content="Kliniken Allianz Almaniya və digər ölkələrin aparıcı klinika və sanatoriyalarında müalicəni təşkil edir: həkim seçimi, viza, səyahət və yerləşmə." />
     <link rel="icon" type="image/png" href="/src/assets/favicon.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://api.kliniken-allianz.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" />
     <title>Kliniken Allianz</title>
 </head>
 

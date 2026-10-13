@@ -17,3 +17,14 @@ export const blogImageUrl = (blog, index = 0) => {
 };
 
 export const sortBlogs = (list = []) => [...list].sort((a, b) => blogTime(b.createDate) - blogTime(a.createDate));
+
+/**
+ * Column span (of 6) for item `index` in a grid of `count` cards, so rows are
+ * always full and not all the same: leftovers become rows of two wide cards
+ * (span 3) ahead of the rows of three (span 2).
+ */
+export const gridSpan = (index, count) => {
+    const remainder = count % 3;
+    const wide = remainder === 1 ? Math.min(4, count) : remainder === 2 ? 2 : 0;
+    return index < wide ? 3 : 2;
+};

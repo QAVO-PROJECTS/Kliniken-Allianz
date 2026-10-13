@@ -81,7 +81,7 @@ function ServiceRow({ service, index, onChange, onRemove }) {
                     onClick={() => setOpen((v) => !v)}
                 >
                     <span className="san-service__index">{index + 1}</span>
-                    <span className="san-service__name">{service.name || "—"}</span>
+                    <span className="san-service__name">{service.name || "-"}</span>
                     <span className="san-service__langs">{filled}/{SAN_LANGS.length}</span>
                     <ChevronDown size={16} aria-hidden="true" />
                 </button>

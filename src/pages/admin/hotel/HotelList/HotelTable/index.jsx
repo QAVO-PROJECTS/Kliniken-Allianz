@@ -56,7 +56,7 @@ function OtelTableNew({ language }) {
         {
             key: "location",
             header: t("adminPanel.hotelTable.headers.location"),
-            render: (item) => pickLocalized(item, "location", language) || <span className="adm-cell-muted">—</span>,
+            render: (item) => pickLocalized(item, "location", language) || <span className="adm-cell-muted">-</span>,
         },
         {
             key: "rating",
@@ -88,7 +88,7 @@ function OtelTableNew({ language }) {
             <ConfirmDialog
                 open={del.isOpen}
                 title={t("adminPanel.hotelTable.modal.confirmDelete")}
-                description={del.target ? `${name(del.target)} — ${at("deleteHint")}` : undefined}
+                description={del.target ? `${name(del.target)}: ${at("deleteHint")}` : undefined}
                 cancelLabel={t("adminPanel.hotelTable.modal.cancel")}
                 confirmLabel={t("adminPanel.hotelTable.modal.delete")}
                 loadingLabel={t("adminPanel.hotelTable.modal.deleting")}

@@ -1,4 +1,6 @@
-// Clinics listing — layout comes from ./shared/shared.scss (md-* classes).
+// Clinics listing: layout comes from ./shared/shared.scss (md-* classes).
 .clinics-page {
   background: var(--bg-page);
+
+  &__title { margin-bottom: var(--space-6); }
 }

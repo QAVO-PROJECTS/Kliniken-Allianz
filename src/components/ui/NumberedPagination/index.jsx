@@ -27,7 +27,7 @@ function NumberedPagination({ currentPage, totalPages, onPageChange, align = "ce
                 disabled={currentPage <= 1}
                 aria-label={t("pagination.prev", "Previous")}
             >
-                <ChevronLeft size={18} strokeWidth={2} aria-hidden="true" />
+                <ChevronLeft size={18} strokeWidth={1.75} aria-hidden="true" />
             </button>
             {getPageRange(currentPage, totalPages).map((page) =>
                 typeof page === "string" ? (
@@ -52,7 +52,7 @@ function NumberedPagination({ currentPage, totalPages, onPageChange, align = "ce
                 disabled={currentPage >= totalPages}
                 aria-label={t("pagination.next", "Next")}
             >
-                <ChevronRight size={18} strokeWidth={2} aria-hidden="true" />
+                <ChevronRight size={18} strokeWidth={1.75} aria-hidden="true" />
             </button>
         </nav>
     );

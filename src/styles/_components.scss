@@ -22,11 +22,20 @@
   line-height: 1;
   white-space: nowrap;
   cursor: pointer;
+  touch-action: manipulation;
+  user-select: none;
+  transition: background-color var(--duration-fast) ease,
+              border-color var(--duration-fast) ease,
+              color var(--duration-fast) ease,
+              box-shadow var(--duration-fast) ease,
+              transform var(--duration-fast) var(--ease-out);
 
   svg { flex-shrink: 0; }
 
-  &:hover { transform: translateY(-1px); }
-  &:active { transform: translateY(0); }
+  @media (hover: hover) and (pointer: fine) {
+    &:hover { transform: translateY(-1px); }
+  }
+  &:active { transform: scale(0.98); }
   &:focus-visible { @include focus-ring; }
   &:disabled,
   &[aria-disabled='true'] {
@@ -35,6 +44,7 @@
     transform: none;
   }
 
+  // Brand fill + white label: AA in both themes (light 11:1, dark 4.5:1+).
   &--primary {
     box-shadow: var(--shadow-brand);
     &:hover { --btn-bg: var(--brand-hover); }
@@ -44,24 +54,28 @@
     --btn-fg: var(--text);
     --btn-border: var(--border-strong);
     box-shadow: var(--shadow-xs);
-    &:hover { --btn-bg: var(--bg-subtle); }
+    &:hover { --btn-bg: var(--bg-muted); }
   }
+  // --link (not --brand) keeps the label readable on the dark page background.
   &--ghost {
     --btn-bg: transparent;
-    --btn-fg: var(--brand);
+    --btn-fg: var(--link);
     &:hover { --btn-bg: var(--bg-brand-soft); }
   }
+  // For photos / the navy brand band only: a fixed white chip with navy text,
+  // identical in both themes because its backdrop does not change.
   &--light {
     --btn-bg: #fff;
-    --btn-fg: var(--brand);
+    --btn-fg: var(--c-primary-700);
     &:hover { --btn-bg: var(--c-primary-50); }
   }
   &--danger {
-    --btn-bg: var(--c-danger);
-    &:hover { filter: brightness(0.95); }
+    --btn-bg: color-mix(in srgb, var(--c-danger), var(--c-gray-900) 22%);
+    --btn-fg: var(--text-on-brand);
+    &:hover { --btn-bg: color-mix(in srgb, var(--c-danger), var(--c-gray-900) 34%); }
   }
   &--sm {
-    height: 38px;
+    height: 40px;
     padding: 0 var(--space-4);
     font-size: var(--fs-sm);
   }
@@ -124,8 +138,11 @@
   font-size: var(--fs-xs);
   font-weight: 600;
 
-  &--brand { background: var(--bg-brand-soft); color: var(--c-primary-600); }
-  &--success { background: var(--c-success-bg); color: var(--c-success); }
+  &--brand { background: var(--bg-brand-soft); color: var(--link); }
+  &--success {
+    background: color-mix(in srgb, var(--c-success) 14%, transparent);
+    color: color-mix(in srgb, var(--c-success) 60%, var(--text));
+  }
 }
 
 .card {
@@ -145,6 +162,7 @@
 }
 
 .text-muted { color: var(--text-muted); }
+.tabular { font-variant-numeric: tabular-nums; }
 .text-secondary { color: var(--text-secondary); }
 .visually-hidden {
   position: absolute !important;
@@ -155,9 +173,41 @@
   white-space: nowrap;
 }
 
-// Toast skin (react-toastify)
+// "Skip to main content": hidden until it receives keyboard focus.
+.skip-link {
+  position: fixed;
+  inset-block-start: var(--space-3);
+  inset-inline-start: var(--space-3);
+  z-index: calc(var(--z-toast) + 1);
+  display: inline-flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 var(--space-5);
+  border-radius: var(--radius-full);
+  background: var(--brand);
+  color: var(--text-on-brand);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  opacity: 0;
+  transform: translateY(-200%);
+  transition: transform var(--duration) var(--ease-out), opacity var(--duration) var(--ease-out);
+
+  &:focus-visible,
+  &:focus {
+    opacity: 1;
+    transform: none;
+    @include focus-ring;
+    box-shadow: var(--focus-ring), var(--shadow-lg);
+  }
+}
+
+// Toast skin (react-toastify), follows the theme.
+.Toastify {
+  --toastify-color-light: var(--surface-raised);
+  --toastify-text-color-light: var(--text);
+}
 .Toastify__toast {
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
   font-family: var(--font-sans);
   font-size: var(--fs-sm);

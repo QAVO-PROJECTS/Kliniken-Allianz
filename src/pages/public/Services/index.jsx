@@ -18,11 +18,14 @@ function ServicesPage() {
                     <span className="visually-hidden">{t("navbar.search")}</span>
                     <input
                         type="search"
+                        name="q"
+                        autoComplete="off"
+                        enterKeyHint="search"
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
                         placeholder={t("navbar.searchPlaceholder")}
                     />
-                    <Search size={20} aria-hidden="true" />
+                    <Search size={20} strokeWidth={1.75} aria-hidden="true" />
                 </label>
             </PageHeader>
             <ServicesGrid query={query} onClear={() => setQuery("")} />

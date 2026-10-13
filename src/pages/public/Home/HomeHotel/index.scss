@@ -1,0 +1,95 @@
+@use '../../../../styles/mixins' as *;
+
+.home-hotel {
+  display: grid;
+  grid-template-columns: 80px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-4);
+  width: 100%;
+  padding: var(--space-3);
+  padding-inline-end: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  text-decoration: none;
+  transition: transform var(--duration) var(--ease-out),
+              box-shadow var(--duration) var(--ease-out),
+              border-color var(--duration) var(--ease-out);
+
+  &.is-link {
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--border-strong);
+    }
+    &:active { transform: scale(0.98); }
+    &:focus-visible { @include focus-ring; }
+  }
+
+  &__thumb {
+    display: block;
+    width: 80px;
+    height: 80px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--bg-muted);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+  }
+
+  &__name {
+    font-size: var(--fs-md);
+    font-weight: 600;
+    line-height: var(--lh-snug);
+    color: var(--text);
+    @include line-clamp(2);
+  }
+
+  &__stars {
+    display: inline-flex;
+    gap: 2px;
+    color: var(--border-strong);
+
+    .is-on {
+      color: var(--c-star);
+      fill: var(--c-star);
+    }
+  }
+
+  &__loc {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: var(--fs-sm);
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__go {
+    display: flex;
+    color: var(--text-muted);
+    transition: color var(--duration) var(--ease-out),
+                transform var(--duration) var(--ease-out);
+
+    .home-hotel:hover & {
+      color: var(--link);
+      transform: translate(2px, -2px);
+    }
+    [dir='rtl'] & svg { transform: scaleX(-1); }
+  }
+}

@@ -27,18 +27,17 @@ function TourCard({ item, bare = false, wrapperClassName = "col-12 col-md-30 col
                 image={item?.cardImage && TOUR_CARD_IMG + item.cardImage}
                 imageAlt={title}
                 title={title}
-                badge={<><Plane size={14} strokeWidth={2} aria-hidden="true" />{t("navbar.tour")}</>}
                 footer={
                     <span className="tour-card__cta">
                         {t("tourCard.apply")}
-                        <ArrowRight size={16} strokeWidth={2} aria-hidden="true" />
+                        <ArrowRight size={16} strokeWidth={1.75} aria-hidden="true" />
                     </span>
                 }
             >
                 <ul className="tour-card__includes">
                     {includes.map(({ Icon, label }) => (
                         <li key={label}>
-                            <Icon size={15} strokeWidth={1.9} aria-hidden="true" />
+                            <Icon size={15} strokeWidth={1.75} aria-hidden="true" />
                             {label}
                         </li>
                     ))}

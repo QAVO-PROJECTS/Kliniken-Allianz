@@ -42,7 +42,7 @@ function AdminLogin() {
     };
 
     return (
-        <div className="login">
+        <div className="login" data-theme="light">
             <main className="login__panel">
                 <div className="login__inner">
                     <img src={logo} alt="Kliniken Allianz" className="login__logo" width="148" height="50" />
@@ -68,6 +68,9 @@ function AdminLogin() {
                                     id={emailId}
                                     className="adm-input"
                                     type="email"
+                                    name="email"
+                                    inputMode="email"
+                                    spellCheck={false}
                                     autoComplete="username"
                                     placeholder="admin@kliniken-allianz.com"
                                     value={email}
@@ -87,6 +90,7 @@ function AdminLogin() {
                                 <input
                                     id={passwordId}
                                     className="adm-input"
+                                    name="password"
                                     type={showPassword ? "text" : "password"}
                                     autoComplete="current-password"
                                     placeholder="••••••••"
@@ -110,7 +114,7 @@ function AdminLogin() {
 
                         <button type="submit" className="btn btn--primary btn--block login__submit" disabled={isLoading} aria-busy={isLoading || undefined}>
                             {isLoading && <Loader2 size={18} className="adm-spin" aria-hidden="true" />}
-                            {isLoading ? "Yoxlanılır..." : "Daxil ol"}
+                            {isLoading ? "Yoxlanılır…" : "Daxil ol"}
                         </button>
                     </form>
 
@@ -121,10 +125,10 @@ function AdminLogin() {
             <aside className="login__aside" aria-hidden="true">
                 <div className="login__aside-content">
                     <span className="login__badge">
-                        <ShieldCheck size={16} />
+                        <ShieldCheck size={16} strokeWidth={1.75} aria-hidden="true" />
                         İdarə paneli
                     </span>
-                    <h2>Klinikalar, həkimlər və xidmət paketləri — hamısı bir yerdə.</h2>
+                    <h2>Klinikalar, həkimlər və xidmət paketləri bir yerdə.</h2>
                     <p>Kateqoriyaları, klinikaları, turları və müraciətləri vahid paneldən idarə edin.</p>
                 </div>
             </aside>

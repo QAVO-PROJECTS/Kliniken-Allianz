@@ -24,7 +24,7 @@ function AdminPage() {
     }, [menuOpen]);
 
     return (
-        <div className="adm-shell">
+        <div className="adm-shell" data-theme="light">
             <AdminLeftBar id={SIDEBAR_ID} open={menuOpen} onClose={() => setMenuOpen(false)} />
             {menuOpen && <div className="adm-backdrop" onClick={() => setMenuOpen(false)} aria-hidden="true" />}
             <div className="adm-main">

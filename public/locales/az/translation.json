@@ -18,18 +18,21 @@
       "ru": "Rus",
       "ar": "Ərəb"
     },
-    "searchPlaceholder": "Axtar...",
+    "searchPlaceholder": "Axtar…",
     "noResults": "Nəticə tapılmadı",
     "clinic": "Klinika",
     "doctor": "Həkim",
     "sanatorium": "Sanatoriya",
     "tour": "Tur",
-    "suggestedCategories": "Önerilən Kateqoriyalar",
+    "suggestedCategories": "Təklif olunan kateqoriyalar",
     "category": "Kateqoriya",
     "service": "Xidmət",
     "services": "Xidmətlər",
-    "suggestedServices": "Önerilən Xidmətlər",
-    "home": "Ana səhifə"
+    "suggestedServices": "Təklif olunan xidmətlər",
+    "home": "Ana səhifə",
+    "language": "Dil",
+    "mainNav": "Əsas menyu",
+    "menu": "Menyu"
   },
   "categoriesMenu": {
     "title": "Kateqoriyalar",
@@ -37,7 +40,7 @@
   },
   "footer": {
     "logoAlt": "Kliniken Allianz Loqosu",
-    "description": "Biz sizi dünyanın lider klinikaları və sanatoriyalarına yönləndirir, müalicəniz üçün ən uyğun müəssisələri seçirik. Sağlamlıq səyahətiniz yalnız müalicədən ibarət deyil – əməliyyat, konsultasiya, reabilitasiya, diaqnostik və profilaktik xidmətlərdən sonra istirahət və səyahətiniz də unudulmaz olacaq.",
+    "description": "Sizi dünyanın aparıcı klinika və sanatoriyalarına yönləndirir, müalicəniz üçün ən uyğun müəssisəni seçirik. Əməliyyat, konsultasiya, reabilitasiya, diaqnostika və profilaktik xidmətlərlə yanaşı, istirahətinizi və səyahətinizi də təşkil edirik.",
     "links": "Keçidlər",
     "contactTitle": "Əlaqə məlumatları",
     "call": "Bizə zəng edin",
@@ -45,7 +48,8 @@
     "mail": "Bizə yazın",
     "email": "klinikenallianz@gmail.com",
     "copyright": "© 2025 Kliniken Allianz. Bütün hüquqlar qorunur.",
-    "createdBy": "Yaradılıb:"
+    "createdBy": "Yaradılıb:",
+    "social": "Sosial şəbəkələr"
   },
   "homeBanner": {
     "title": "Dünyanın Ən Yaxşı Klinikalarına Yol Açın",
@@ -70,15 +74,17 @@
         "title": "Peşəkar Tibbi Dəstək və Qayğı",
         "description": "Sağlamlığınız üçün ən yaxşı xidmətləri təklif edirik."
       }
-    ]
+    ],
+    "pause": "Slayd şousunu dayandır",
+    "play": "Slayd şousunu başlat"
   },
   "homeSurvey": {
     "tag": "Anket",
     "title": "Təcrübənizi Yaxşılaşdırmağa Kömək Edin",
-    "description": "Rəyinizi bölüşməklə daha yaxşı səhiyyə xidmətləri təqdim etməyimizə kömək edin. Tibbi turizmin gələcəyini formalaşdırmağa kömək etmək üçün bir neçə dəqiqə vaxt ayırın.",
+    "description": "Rəyinizi bölüşməklə daha yaxşı səhiyyə xidmətləri təqdim etməyimizə kömək edin. Anket cəmi bir neçə dəqiqə çəkir.",
     "importance": "Bu niyə vacibdir? Rəyləriniz birbaşa təklif etdiyimiz xidmətlərin keyfiyyətinə təsir edir və ehtiyaclarınızı daha yaxşı başa düşməyimizə kömək edir.",
     "pill1": "Anonim",
-    "pill2": "3–5 dəq",
+    "pill2": "3-5 dəq",
     "pill3": "Azərbaycan dili",
     "metaLabel": "Platforma",
     "metaValue": "Google Forms vasitəsilə",
@@ -216,11 +222,11 @@
         "description": "Berlin"
       },
       "realibitasiya": {
-        "name": "Realibitasiya",
+        "name": "Reabilitasiya",
         "description": "İstanbul"
       },
       "oftamologiya": {
-        "name": "Oftamologiya",
+        "name": "Oftalmologiya",
         "description": "Banqkok"
       },
       "hepatologiya": {
@@ -244,7 +250,7 @@
       "aytacM": {
         "name": "Aytaç M",
         "country": "Azərbaycan",
-        "text": "Müalicə prosesi çox rahat və stressiz keçdi. Hər şey əvvəlcədən təşkil olunmuşdu – transfer, otel, xəstəxana. Həkimlər və personal çox diqqətli idi! Ən əsası özümü təhlükəsiz hiss etdim."
+        "text": "Müalicə prosesi çox rahat və stressiz keçdi. Hər şey əvvəlcədən təşkil olunmuşdu: transfer, otel, xəstəxana. Həkimlər və personal çox diqqətli idi! Ən əsası özümü təhlükəsiz hiss etdim."
       }
     }
   },
@@ -311,7 +317,7 @@
       "p2": "Şirkətimizin Almaniyada rəsmi nümayəndəliyi fəaliyyət göstərir. Bu sayədə pasiyentlərimizi Almaniyanın qabaqcıl və yüksək ixtisaslaşmış klinikalarına yönləndirir, diaqnostika və müalicə proseslərini beynəlxalq standartlara uyğun şəkildə təşkil edirik. Eyni zamanda, Azərbaycan daxilində də ən yaxşı klinikalar, tibb mərkəzləri və sanatoriyalar ilə sıx əməkdaşlıq edərək müayinə, müalicə, reabilitasiya və istirahət proqramları təqdim edirik.",
       "p3": "Bundan əlavə, biz check-up xidmətləri də təşkil edirik. Müasir tibbi avadanlıqlar vasitəsilə həyata keçirilən bu müayinələr xəstəliklərin erkən aşkarlanmasına, sağlamlıq vəziyyətinin ümumi qiymətləndirilməsinə və vaxtında müdaxiləyə imkan yaradır.",
       "p4": "Biz xidmətlərimizi yalnız tibbi yönləndirmə ilə məhdudlaşdırmırıq. Pasiyentlərimiz üçün “tam xidmət paketi” təqdim edərək bütün prosesi başdan sona qədər peşəkar şəkildə təşkil edirik:",
-      "p5": "Hər bir pasiyent bizim üçün fərdidir. Biz onların istəklərini, tibbi vəziyyətini və büdcəsini nəzərə alaraq ən optimal həll yollarını təqdim edirik. Məqsədimiz yalnız müalicə prosesini təşkil etmək deyil, eyni zamanda pasiyentlərimizin özlərini rahat, güvənli və diqqət mərkedində hiss etmələrini təmin etməkdir.",
+      "p5": "Hər bir pasiyent bizim üçün fərdidir. Biz onların istəklərini, tibbi vəziyyətini və büdcəsini nəzərə alaraq ən uyğun həll yollarını təqdim edirik. Məqsədimiz yalnız müalicə prosesini təşkil etmək deyil, eyni zamanda pasiyentlərimizin özlərini rahat, güvənli və diqqət mərkəzində hiss etmələrini təmin etməkdir.",
       "p6": "Peşəkarlıq, şəffaflıq və etibarlılıq prinsiplərinə əsaslanaraq fəaliyyət göstərən Kliniken Allianz Tibbi Turizm Şirkəti, sağlamlığınıza gedən yolda sizin güvənli tərəfdaşınızdır."
     },
     "servicesList": [
@@ -377,7 +383,7 @@
       "placeholders": {
         "name": "Adınızı daxil edin",
         "surname": "Soyadınızı daxil edin",
-        "email": "examle@gmail.com",
+        "email": "example@gmail.com",
         "phone": "+994 99 999 99 99",
         "description": ""
       },
@@ -396,7 +402,7 @@
     "errorToast": "Xəta baş verdi",
     "imageAlt": "Kliniken Allianz ofisi",
     "eyebrow": "Bizimlə əlaqə",
-    "lead": "Zəng edin, yazın və ya ofisimizə gəlin — koordinatorumuz klinikalar, müalicə və səyahət barədə suallarınızı cavablandıracaq.",
+    "lead": "Zəng edin, yazın və ya ofisimizə gəlin. Koordinatorumuz klinikalar, müalicə və səyahət barədə suallarınızı cavablandıracaq.",
     "mapTitle": "Ofisin Google Xəritədə yeri",
     "responseTime": "Adətən bir iş günü ərzində cavab veririk."
   },
@@ -460,7 +466,7 @@
       "title": "Şəkil qalereyası",
       "prevAria": "Əvvəlki şəkil",
       "nextAria": "Növbəti şəkil",
-      "goToImageAria": "Şəkilə keç {{number}}"
+      "goToImageAria": "{{number}} nömrəli şəklə keç"
     },
     "videos": {
       "title": "Videolar"
@@ -490,7 +496,7 @@
       "comfort": "Komfort otaq",
       "vip": "VIP otaq"
     },
-    "formSubtitle": "Boş yerlər, müalicə proqramları və qiymətlər barədə soruşun — qısa zamanda sizə cavab verəcəyik."
+    "formSubtitle": "Boş yerlər, müalicə proqramları və qiymətlər barədə soruşun. Qısa zamanda sizə cavab verəcəyik."
   },
   "clinicHotel": {
     "title": "Tibbi Səfər üçün Otellər",
@@ -499,7 +505,7 @@
   },
   "doctorsPage": {
     "title": "Həkimlər",
-    "searchPlaceholder": "Axtarış edin.....",
+    "searchPlaceholder": "Axtarış edin…",
     "breadcrumbDoctors": "Həkimlər",
     "header": {
       "title": "Sağlamlığınız üçün ən doğru seçim",
@@ -528,7 +534,7 @@
       "bio": "Bio",
       "certificates": "Sertifikatlar"
     },
-    "empty": "—"
+    "empty": "-"
   },
   "toursPage": {
     "title": "Tur",
@@ -536,10 +542,10 @@
       "tours": "Tur"
     },
     "applyButton": "Müraciət et",
-    "searchPlaceholder": "Axtarış edin...",
+    "searchPlaceholder": "Axtarış edin…",
     "headerTitle": "Tibbi Tur Paketləri",
     "headerDesc": "Müalicə, yerləşmə və transfer daxil tam tibbi tur paketləri.",
-    "noData": "Axtardığınız tur tapılmadı 😔"
+    "noData": "Axtardığınız tur tapılmadı"
   },
   "tourDetail": {
     "cars": {
@@ -563,7 +569,7 @@
     "priceOnRequest": "Qiymət sorğu əsasında",
     "freeConsultation": "Pulsuz konsultasiya, heç bir öhdəlik olmadan",
     "bookingAria": "Sifariş xülasəsi",
-    "formSubtitle": "Məlumatlarınızı qoyun — səyahət koordinatorumuz bu tur barədə sizinlə əlaqə saxlayacaq."
+    "formSubtitle": "Məlumatlarınızı qoyun, səyahət koordinatorumuz bu tur barədə sizinlə əlaqə saxlayacaq."
   },
   "adminPanel": {
     "categoryPage": {
@@ -578,9 +584,9 @@
         "subtitle": "Kliniken Allianz yalnız beynəlxalq standartlara cavab verən, müasir və etibarlı klinikalarla əməkdaşlıq edir."
       },
       "search": {
-        "placeholder": "Axtarış edin....."
+        "placeholder": "Axtarış edin…"
       },
-      "noClinicFound": "Klinika tapılmadı 😔"
+      "noClinicFound": "Klinika tapılmadı"
     },
     "categoryTable": {
       "icon": "İcon",
@@ -590,9 +596,9 @@
       "deleteConfirmTitle": "Kateqoriyanı silmək istədiyinizə əminsiz?",
       "cancel": "Ləğv et",
       "delete": "Sil",
-      "deleting": "Silinir...",
-      "deleteSuccess": "Kateqoriya uğurla silindi ✅",
-      "deleteError": "Kateqoriyanı silmək mümkün olmadı ❌"
+      "deleting": "Silinir…",
+      "deleteSuccess": "Kateqoriya uğurla silindi",
+      "deleteError": "Kateqoriyanı silmək mümkün olmadı"
     },
     "clinicTable": {
       "image": "Şəkil",
@@ -602,10 +608,10 @@
       "deleteConfirmTitle": "Klinikanı silmək istədiyinizə əminsiz?",
       "cancel": "Ləğv et",
       "delete": "Sil",
-      "deleting": "Silinir...",
+      "deleting": "Silinir…",
       "toast": {
-        "deleteSuccess": "✅ Klinika uğurla silindi!",
-        "deleteError": "❌ Klinika silinərkən xəta baş verdi!"
+        "deleteSuccess": "Klinika uğurla silindi!",
+        "deleteError": "Klinika silinərkən xəta baş verdi!"
       }
     },
     "categoryAdd": {
@@ -626,13 +632,13 @@
       },
       "buttons": {
         "save": "Yadda saxla",
-        "loading": "Yüklənir..."
+        "loading": "Yüklənir…"
       },
       "toast": {
         "emptyName": "Azərbaycan dilində kateqoriya adı boş ola bilməz!",
         "noIcon": "Zəhmət olmasa ikon seçin!",
-        "success": "Kateqoriya uğurla əlavə olundu ✅",
-        "error": "Xəta baş verdi ❌"
+        "success": "Kateqoriya uğurla əlavə olundu",
+        "error": "Xəta baş verdi"
       }
     },
     "categoryEdit": {
@@ -653,14 +659,14 @@
       },
       "buttons": {
         "save": "Yadda saxla",
-        "updating": "Yenilənir..."
+        "updating": "Yenilənir…"
       },
       "toast": {
         "emptyName": "Azərbaycan dilində kateqoriya adı boş ola bilməz!",
-        "success": "Kateqoriya uğurla yeniləndi ✅",
-        "error": "Xəta baş verdi ❌"
+        "success": "Kateqoriya uğurla yeniləndi",
+        "error": "Xəta baş verdi"
       },
-      "loading": "Yüklənir..."
+      "loading": "Yüklənir…"
     },
     "categoryService": {
       "main": "Kateqoriya",
@@ -675,12 +681,12 @@
       "deleteConfirmTitle": "Servisi silmək istədiyinizə əminsiz?",
       "cancel": "Ləğv et",
       "delete": "Sil",
-      "deleting": "Silinir...",
-      "loading": "Yüklənir...",
+      "deleting": "Silinir…",
+      "loading": "Yüklənir…",
       "toast": {
-        "notFound": "Xidmət tapılmadı ❌",
-        "deleteSuccess": "Xidmət uğurla silindi ✅",
-        "deleteError": "Xidməti silmək mümkün olmadı ❌",
+        "notFound": "Xidmət tapılmadı",
+        "deleteSuccess": "Xidmət uğurla silindi",
+        "deleteError": "Xidməti silmək mümkün olmadı",
         "success": "Xidmət uğurla silindi",
         "error": "Xidməti silmək mümkün olmadı"
       }
@@ -703,24 +709,24 @@
         "nameAz": "Travmatologiya",
         "nameRu": "Травматология",
         "nameEn": "Traumatology",
-        "descAz": "Təsvir əlavə edin...",
-        "descRu": "Добавьте описание...",
-        "descEn": "Add description...",
+        "descAz": "Təsvir əlavə edin…",
+        "descRu": "Добавьте описание…",
+        "descEn": "Add description…",
         "nameDe": "Traumatologie",
         "nameAr": "طب الإصابات",
-        "descDe": "Beschreibung hinzufügen...",
-        "descAr": "أضف وصفًا..."
+        "descDe": "Beschreibung hinzufügen…",
+        "descAr": "أضف وصفًا…"
       },
       "buttons": {
         "save": "Yadda saxla",
-        "loading": "Yüklənir..."
+        "loading": "Yüklənir…"
       },
       "toast": {
         "emptyName": "Azərbaycan dilində xidmət adı boş ola bilməz!",
         "noCategoryId": "Kateqoriya ID tapılmadı!",
         "noClinic": "Ən azı bir klinika seçin!",
-        "success": "Xidmət uğurla əlavə olundu ✅",
-        "error": "Xidmət əlavə edilərkən xəta baş verdi ❌"
+        "success": "Xidmət uğurla əlavə olundu",
+        "error": "Xidmət əlavə edilərkən xəta baş verdi"
       }
     },
     "categoryServiceEdit": {
@@ -740,25 +746,25 @@
         "nameAz": "Travmatologiya",
         "nameRu": "Травматология",
         "nameEn": "Traumatology",
-        "descAz": "Təsvir əlavə edin...",
-        "descRu": "Добавьте описание...",
-        "descEn": "Add description...",
+        "descAz": "Təsvir əlavə edin…",
+        "descRu": "Добавьте описание…",
+        "descEn": "Add description…",
         "nameDe": "Traumatologie",
         "nameAr": "طب الإصابات",
-        "descDe": "Beschreibung hinzufügen...",
-        "descAr": "أضف وصفًا..."
+        "descDe": "Beschreibung hinzufügen…",
+        "descAr": "أضف وصفًا…"
       },
       "buttons": {
         "save": "Yadda saxla",
-        "updating": "Yenilənir..."
+        "updating": "Yenilənir…"
       },
       "toast": {
         "emptyName": "Azərbaycan dilində xidmət adı boş ola bilməz!",
         "noCategoryId": "Kateqoriya ID tapılmadı!",
-        "success": "Xidmət uğurla yeniləndi ✅",
-        "error": "Xidmət yenilənərkən xəta baş verdi ❌"
+        "success": "Xidmət uğurla yeniləndi",
+        "error": "Xidmət yenilənərkən xəta baş verdi"
       },
-      "loading": "Yüklənir..."
+      "loading": "Yüklənir…"
     },
     "clinicAdd": {
       "breadcrumb": {
@@ -791,14 +797,14 @@
       "videosDescription": "Klinikaya aid YouTube video linklərini əlavə edin.",
       "buttons": {
         "save": "Yadda saxla",
-        "loading": "Yüklənir...",
+        "loading": "Yüklənir…",
         "addVideo": "Əlavə et"
       },
       "toast": {
         "noMainImage": "Zəhmət olmasa əsas şəkli əlavə edin.",
-        "success": "Klinika uğurla əlavə olundu ✅",
-        "error": "Klinika əlavə olunarkən xəta baş verdi ❌",
-        "invalidVideo": "Düzgün YouTube linki daxil edin ⚠️"
+        "success": "Klinika uğurla əlavə olundu",
+        "error": "Klinika əlavə olunarkən xəta baş verdi",
+        "invalidVideo": "Düzgün YouTube linki daxil edin"
       },
       "placeholders": {
         "nameAz": "Ad (AZ)",
@@ -854,13 +860,13 @@
       },
       "buttons": {
         "save": "Yadda saxla",
-        "loading": "Yüklənir...",
+        "loading": "Yüklənir…",
         "addVideo": "Əlavə et"
       },
       "toast": {
-        "success": "Yalnız dəyişən məlumatlar uğurla göndərildi ✅",
-        "error": "Xəta baş verdi ❌",
-        "invalidVideo": "Düzgün YouTube linki daxil edin ⚠️"
+        "success": "Yalnız dəyişən məlumatlar uğurla göndərildi",
+        "error": "Xəta baş verdi",
+        "invalidVideo": "Düzgün YouTube linki daxil edin"
       },
       "placeholders": {
         "nameAz": "Ad (AZ)",
@@ -894,7 +900,7 @@
         "placeholder": "Şəhərə görə filtr"
       },
       "search": {
-        "placeholder": "Axtarış edin....."
+        "placeholder": "Axtarış edin…"
       },
       "breadcrumb": {
         "home": "Ana səhifə",
@@ -910,10 +916,10 @@
       "deleteConfirmTitle": "Sanatoriyani silmək istədiyinizə əminsiz?",
       "cancel": "Ləğv et",
       "delete": "Sil",
-      "deleting": "Silinir...",
+      "deleting": "Silinir…",
       "toast": {
-        "deleteSuccess": "✅ Sanatoriya uğurla silindi!",
-        "deleteError": "❌ Sanatoriya silinərkən xəta baş verdi!"
+        "deleteSuccess": "Sanatoriya uğurla silindi!",
+        "deleteError": "Sanatoriya silinərkən xəta baş verdi!"
       }
     },
     "sanatoriumAdd": {
@@ -941,15 +947,15 @@
       "videosDescription": "Sanatoriyaya aid YouTube video linklərini əlavə edin.",
       "buttons": {
         "save": "Yadda saxla",
-        "loading": "Yüklənir...",
+        "loading": "Yüklənir…",
         "addVideo": "Əlavə et",
         "addService": "Xidmət əlavə et"
       },
       "toast": {
         "noMainImage": "Zəhmət olmasa əsas şəkli əlavə edin.",
-        "success": "Sanatoriya uğurla əlavə olundu ✅",
-        "error": "Sanatoriya əlavə olunarkən xəta baş verdi ❌",
-        "invalidVideo": "Düzgün YouTube linki daxil edin ⚠️",
+        "success": "Sanatoriya uğurla əlavə olundu",
+        "error": "Sanatoriya əlavə olunarkən xəta baş verdi",
+        "invalidVideo": "Düzgün YouTube linki daxil edin",
         "emptyService": "Azərbaycan dilində xidmət adı boş ola bilməz!"
       },
       "placeholders": {
@@ -1006,13 +1012,13 @@
       "videosDescription": "Sanatoriyaya aid YouTube videolarını idarə edin.",
       "buttons": {
         "save": "Yadda saxla",
-        "loading": "Yüklənir...",
+        "loading": "Yüklənir…",
         "addVideo": "Əlavə et",
         "addService": "Xidmət əlavə et"
       },
       "toast": {
-        "success": "Məlumatlar uğurla yeniləndi ✅",
-        "error": "Xəta baş verdi ❌",
+        "success": "Məlumatlar uğurla yeniləndi",
+        "error": "Xəta baş verdi",
         "emptyService": "Azərbaycan dilində xidmət adı boş ola bilməz!"
       },
       "placeholders": {
@@ -1070,16 +1076,16 @@
         "description": "Təsvir",
         "actions": "Fəaliyyətlər"
       },
-      "loading": "Yüklənir...",
+      "loading": "Yüklənir…",
       "noData": "Həkim tapılmadı",
       "notAssigned": "Təyin olunmayıb",
       "deleteConfirm": "Həkimi silmək istədiyinizə əminsiniz?",
       "cancel": "Ləğv et",
       "delete": "Sil",
-      "deleting": "Silinir...",
+      "deleting": "Silinir…",
       "toast": {
-        "deleteSuccess": "Həkim uğurla silindi ✅",
-        "deleteError": "Silinmə zamanı xəta baş verdi ❌",
+        "deleteSuccess": "Həkim uğurla silindi",
+        "deleteError": "Silinmə zamanı xəta baş verdi",
         "success": "Həkim uğurla silindi",
         "error": "Silinmə zamanı xəta baş verdi"
       },
@@ -1088,7 +1094,7 @@
         "confirmWithName": "{{name}} adlı həkimi silmək istədiyinizə əminsiniz?",
         "cancel": "Ləğv et",
         "delete": "Sil",
-        "deleting": "Silinir..."
+        "deleting": "Silinir…"
       }
     },
     "doctorAdd": {
@@ -1138,7 +1144,7 @@
           "title": "Bio",
           "desc": "Həkimin sistemdə görünəcək bioqrafiyasını daxil edin.",
           "section": "Bio bölməsi #",
-          "placeholder": "Buraya yaz...",
+          "placeholder": "Buraya yaz…",
           "addButton": "Əlavə et"
         }
       },
@@ -1161,13 +1167,13 @@
       },
       "buttons": {
         "save": "Yadda saxla",
-        "loading": "Yadda saxlanılır...",
+        "loading": "Yadda saxlanılır…",
         "addBio": "Yeni bio əlavə et"
       },
       "uploadHint": "Faylı yükləmək üçün bu sahəyə klikləyin və ya sürükləyin",
       "toast": {
-        "success": "Həkim uğurla əlavə olundu ✅",
-        "error": "Xəta baş verdi, yenidən cəhd edin ❌"
+        "success": "Həkim uğurla əlavə olundu",
+        "error": "Xəta baş verdi, yenidən cəhd edin"
       }
     },
     "doctorEdit": {
@@ -1216,19 +1222,19 @@
         "bio": {
           "title": "Bio",
           "desc": "Həkimin sistemdə görünəcək bioqrafiyasını daxil edin.",
-          "placeholder": "Buraya yaz...",
+          "placeholder": "Buraya yaz…",
           "addButton": "Əlavə et"
         }
       },
       "buttons": {
         "save": "Yadda saxla",
-        "saving": "Yadda saxlanılır..."
+        "saving": "Yadda saxlanılır…"
       },
       "toast": {
-        "success": "Həkim məlumatları uğurla yeniləndi ✅",
-        "error": "Dəyişiklik zamanı xəta baş verdi ❌"
+        "success": "Həkim məlumatları uğurla yeniləndi",
+        "error": "Dəyişiklik zamanı xəta baş verdi"
       },
-      "loading": "Yüklənir..."
+      "loading": "Yüklənir…"
     },
     "hotelPage": {
       "title": "Otel",
@@ -1246,11 +1252,11 @@
         "confirmDelete": "Oteli silmək istədiyinizə əminsiz?",
         "cancel": "Ləğv et",
         "delete": "Sil",
-        "deleting": "Silinir..."
+        "deleting": "Silinir…"
       },
       "toast": {
-        "deleteSuccess": "Otel uğurla silindi ✅",
-        "deleteError": "Oteli silmək mümkün olmadı ❌"
+        "deleteSuccess": "Otel uğurla silindi",
+        "deleteError": "Oteli silmək mümkün olmadı"
       }
     },
     "hotelAdd": {
@@ -1296,7 +1302,7 @@
       },
       "buttons": {
         "save": "Yadda saxla",
-        "saving": "Yüklənir..."
+        "saving": "Yüklənir…"
       },
       "toast": {
         "success": "Otel uğurla əlavə olundu!",
@@ -1347,11 +1353,11 @@
       },
       "buttons": {
         "save": "Yadda saxla",
-        "saving": "Yenilənir..."
+        "saving": "Yenilənir…"
       },
       "toast": {
-        "success": "Otel uğurla redaktə olundu ✅",
-        "error": "Redaktə zamanı xəta baş verdi ❌",
+        "success": "Otel uğurla redaktə olundu",
+        "error": "Redaktə zamanı xəta baş verdi",
         "warning": "Zəhmət olmasa əsas sahələri doldurun."
       }
     },
@@ -1375,16 +1381,16 @@
         },
         "noData": "Şərh tapılmadı.",
         "deleteConfirm": "Şərhi silmək istədiyinizə əminsiz?",
-        "loading": "Yüklənir..."
+        "loading": "Yüklənir…"
       },
       "modal": {
         "cancel": "Ləğv et",
         "confirm": "Sil",
-        "deleting": "Silinir..."
+        "deleting": "Silinir…"
       },
       "toast": {
-        "success": "Şərh uğurla silindi ✅",
-        "error": "Şərh silinərkən xəta baş verdi ❌"
+        "success": "Şərh uğurla silindi",
+        "error": "Şərh silinərkən xəta baş verdi"
       }
     },
     "commentAdd": {
@@ -1422,11 +1428,11 @@
       },
       "buttons": {
         "save": "Yadda saxla",
-        "saving": "Yüklənir..."
+        "saving": "Yüklənir…"
       },
       "toast": {
-        "success": "Şərh uğurla əlavə olundu ✅",
-        "error": "Şərh əlavə edilərkən xəta baş verdi ❌",
+        "success": "Şərh uğurla əlavə olundu",
+        "error": "Şərh əlavə edilərkən xəta baş verdi",
         "warning": "Azərbaycan dilində sahələr boş ola bilməz!"
       }
     },
@@ -1465,14 +1471,14 @@
       },
       "buttons": {
         "save": "Yadda saxla",
-        "saving": "Yenilənir..."
+        "saving": "Yenilənir…"
       },
       "toast": {
-        "success": "Şərh uğurla yeniləndi ✅",
-        "error": "Yeniləmə zamanı xəta baş verdi ❌",
+        "success": "Şərh uğurla yeniləndi",
+        "error": "Yeniləmə zamanı xəta baş verdi",
         "warning": "Bütün əsas sahələr doldurulmalıdır!"
       },
-      "loading": "Yüklənir..."
+      "loading": "Yüklənir…"
     },
     "toursPagee": {
       "header": {
@@ -1529,10 +1535,10 @@
       },
       "buttons": {
         "save": "Yadda saxla",
-        "saving": "Yüklənir..."
+        "saving": "Yüklənir…"
       },
       "toast": {
-        "success": "✅ Xidmət paketi uğurla əlavə olundu!",
+        "success": "Xidmət paketi uğurla əlavə olundu!",
         "error": "Xidmət paketi əlavə edilərkən xəta baş verdi!"
       }
     },
@@ -1583,10 +1589,10 @@
       },
       "buttons": {
         "save": "Yadda saxla",
-        "saving": "Yenilənir..."
+        "saving": "Yenilənir…"
       },
       "toast": {
-        "success": "✅ Xidmət paketi uğurla yeniləndi!",
+        "success": "Xidmət paketi uğurla yeniləndi!",
         "error": "Xidmət paketi yenilənərkən xəta baş verdi!"
       }
     },
@@ -1609,11 +1615,11 @@
         "title": "Xidmət paketini silmək istədiyinizə əminsiz?",
         "cancel": "Ləğv et",
         "confirm": "Sil",
-        "deleting": "Silinir..."
+        "deleting": "Silinir…"
       },
       "toast": {
-        "deleteSuccess": "Tur uğurla silindi ✅",
-        "deleteError": "Xəta baş verdi. Zəhmət olmasa yenidən cəhd edin ❌"
+        "deleteSuccess": "Tur uğurla silindi",
+        "deleteError": "Xəta baş verdi. Zəhmət olmasa yenidən cəhd edin"
       },
       "pagination": {
         "next": "Növbəti",
@@ -1659,7 +1665,7 @@
         "confirmDelete": "Bu avtomobili silmək istədiyinizə əminsiniz?",
         "cancel": "Ləğv et",
         "delete": "Sil",
-        "deleting": "Silinir..."
+        "deleting": "Silinir…"
       },
       "toast": {
         "deleteSuccess": "Avtomobil uğurla silindi",
@@ -1689,7 +1695,7 @@
           "title": "Tip və Qiymət",
           "desc": "Avtomobilin növünü və qiymətini daxil edin",
           "placeholders": {
-            "type": "Tip (məs: Sedan, SUV, Van...)",
+            "type": "Tip (məs: Sedan, SUV, Van…)",
             "price": "Qiymət (məs: 150 AZN/gün)"
           }
         },
@@ -1722,7 +1728,7 @@
       },
       "buttons": {
         "save": "Yadda saxla",
-        "saving": "Yüklənir..."
+        "saving": "Yüklənir…"
       },
       "toast": {
         "success": "Avtomobil uğurla əlavə edildi",
@@ -1788,7 +1794,7 @@
       },
       "buttons": {
         "save": "Yadda saxla",
-        "saving": "Yüklənir..."
+        "saving": "Yüklənir…"
       },
       "toast": {
         "success": "Yalnız dəyişən məlumatlar uğurla göndərildi",
@@ -1812,7 +1818,7 @@
         "confirmDelete": "Bu xəbəri silmək istədiyinizə əminsiniz?",
         "cancel": "Ləğv et",
         "delete": "Sil",
-        "deleting": "Silinir..."
+        "deleting": "Silinir…"
       },
       "toast": {
         "deleteSuccess": "Xəbər uğurla silindi",
@@ -1861,7 +1867,7 @@
       },
       "buttons": {
         "save": "Yadda saxla",
-        "saving": "Yüklənir...",
+        "saving": "Yüklənir…",
         "addVideo": "Əlavə et"
       },
       "toast": {
@@ -1917,7 +1923,7 @@
       },
       "buttons": {
         "save": "Yadda saxla",
-        "saving": "Yüklənir...",
+        "saving": "Yüklənir…",
         "addVideo": "Əlavə et"
       },
       "toast": {
@@ -1971,10 +1977,13 @@
     }
   },
   "common": {
-    "loading": "Yüklənir...",
+    "loading": "Yüklənir…",
     "noData": "Məlumat yoxdur",
     "showLess": "Daha az göstər",
-    "showMore": "Daha çox göstər"
+    "showMore": "Daha çox göstər",
+    "close": "Bağla",
+    "skipToContent": "Əsas məzmuna keç",
+    "breadcrumb": "Naviqasiya yolu"
   },
   "errorPage": {
     "title": "Nə isə səhv getdi",
@@ -2014,7 +2023,7 @@
   },
   "ctaBand": {
     "title": "Müalicə səyahətinizi planlaşdırmağa hazırsınız?",
-    "desc": "Ehtiyacınızı bizə bildirin — koordinatorlarımız klinika, səyahət və qonaqlama daxil olmaqla fərdi plan hazırlayacaq.",
+    "desc": "Ehtiyacınızı bizə bildirin. Koordinatorlarımız klinika, səyahət və qonaqlama daxil olmaqla fərdi plan hazırlayacaq.",
     "button": "Pulsuz konsultasiya alın"
   },
   "enquiryForm": {
@@ -2067,13 +2076,13 @@
     "eyebrow": "Avtomobil",
     "type": "Kuzov növü",
     "pricing": "Qiymət",
-    "pricingNote": "Günlük qiymət aralığı — dəqiq qiymət sorğu əsasında",
-    "formSubtitle": "Tarixləri və marşrutu bizə bildirin — mövcudluğu və yekun qiyməti təsdiqləyəcəyik."
+    "pricingNote": "Günlük qiymət aralığı. Dəqiq qiymət sorğu əsasında.",
+    "formSubtitle": "Tarixləri və marşrutu bizə bildirin, mövcudluğu və yekun qiyməti təsdiqləyəcəyik."
   },
   "notFound": {
     "eyebrow": "Xəta 404",
     "title": "Bu səhifəni tapa bilmədik",
-    "desc": "Keçid səhv ola bilər və ya səhifə köçürülüb. Gəlin, sizi düzgün yola qaytaraq.",
+    "desc": "Keçid səhv ola bilər və ya səhifə köçürülüb. Aşağıdakı keçidlərlə davam edin.",
     "home": "Ana səhifəyə qayıt",
     "back": "Əvvəlki səhifə",
     "popular": "Populyar səhifələr",
@@ -2086,15 +2095,30 @@
     "clinicsOffering": "Bu xidməti təqdim edən klinikalar",
     "servicesInCategory": "Bu kateqoriyadakı xidmətlər",
     "consultTitle": "Pulsuz konsultasiya alın",
-    "consultText": "Müraciətinizi göndərin — koordinatorumuz qısa zamanda sizinlə əlaqə saxlayacaq.",
+    "consultText": "Müraciətinizi göndərin, koordinatorumuz qısa zamanda sizinlə əlaqə saxlayacaq.",
     "showLess": "Daha az göstər",
     "noServices": "Xidmət tapılmadı",
     "noClinics": "Bu xidmət üçün hələ klinika əlavə edilməyib",
     "notFound": "Məlumat tapılmadı",
-    "sending": "Göndərilir...",
+    "sending": "Göndərilir…",
     "servicesCount": "{{n}} xidmət",
     "results": "{{n}} nəticə",
     "callUs": "Zəng edin",
-    "activeFilters": "Seçilmiş filtrlər"
+    "activeFilters": "Seçilmiş filtrlər",
+    "clinicsCount": "{{n}} klinika",
+    "otherServices": "Digər xidmətlər",
+    "pauseVideo": "Videonu dayandır",
+    "playVideo": "Videonu oynat",
+    "charCount": "{{n}} / {{max}} simvol"
+  },
+  "theme": {
+    "toLight": "İşıqlı rejimə keç",
+    "toDark": "Qaranlıq rejimə keç"
+  },
+  "a11y": {
+    "skipToContent": "Əsas məzmuna keç"
+  },
+  "certificate": {
+    "label": "Sertifikat"
   }
 }

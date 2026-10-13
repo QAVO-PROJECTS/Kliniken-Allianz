@@ -11,11 +11,22 @@ $adm-topbar-h: 64px;
 // Shell: sidebar + topbar + content
 // ---------------------------------------------------------------------------
 
+// Admin + login are pinned to the light theme (data-theme="light" on their
+// root). Keep the page canvas light too, so overscroll, the scrollbar and any
+// area outside the shell never show the dark-mode body background. Raw
+// palette values are intentional here: they do not switch with the OS theme.
+html:has(.adm-shell[data-theme='light'], .login[data-theme='light']) {
+  color-scheme: light;
+}
+body:has(.adm-shell[data-theme='light']) { background: var(--c-gray-50); }
+body:has(.login[data-theme='light']) { background: var(--c-gray-0); }
+
 .adm-shell {
   --adm-gutter: var(--space-8);
   display: grid;
   grid-template-columns: $adm-sidebar-w minmax(0, 1fr);
   min-height: 100vh;
+  min-height: 100dvh;
   background: var(--bg-subtle);
   color: var(--text);
 
@@ -63,6 +74,7 @@ $adm-topbar-h: 64px;
   display: flex;
   flex-direction: column;
   height: 100vh;
+  height: 100dvh;
   background: var(--surface);
   border-inline-end: 1px solid var(--border);
   z-index: var(--z-overlay);

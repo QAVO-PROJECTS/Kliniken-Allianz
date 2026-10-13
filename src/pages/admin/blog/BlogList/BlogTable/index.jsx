@@ -42,14 +42,14 @@ function NewspaperTableNew({ language }) {
                 return image ? (
                     <img className="adm-thumb adm-thumb--wide" src={NEWSPAPER_IMAGES + image} alt="" loading="lazy" decoding="async" />
                 ) : (
-                    <span className="adm-cell-muted">—</span>
+                    <span className="adm-cell-muted">-</span>
                 );
             },
         },
         {
             key: "title",
             header: t("adminPanel.newspaperTable.headers.title"),
-            render: (item) => <span className="adm-cell-title">{title(item) || "—"}</span>,
+            render: (item) => <span className="adm-cell-title">{title(item) || "-"}</span>,
         },
         {
             key: "subtitle",
@@ -81,7 +81,7 @@ function NewspaperTableNew({ language }) {
             <ConfirmDialog
                 open={del.isOpen}
                 title={t("adminPanel.newspaperTable.modal.confirmDelete")}
-                description={del.target ? `${title(del.target)} — ${at("deleteHint")}` : undefined}
+                description={del.target ? `${title(del.target)}: ${at("deleteHint")}` : undefined}
                 cancelLabel={t("adminPanel.newspaperTable.modal.cancel")}
                 confirmLabel={t("adminPanel.newspaperTable.modal.delete")}
                 loadingLabel={t("adminPanel.newspaperTable.modal.deleting")}

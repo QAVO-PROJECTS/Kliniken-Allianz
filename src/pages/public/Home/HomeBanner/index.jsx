@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useMediaQuery } from 'react-responsive';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Pause, Play } from 'lucide-react';
 import heroWebm from '../../../../assets/video/hero.webm';
 import heroMp4 from '../../../../assets/video/hero.mp4';
 import heroPoster from '../../../../assets/video/hero-poster.jpg';
@@ -24,7 +24,9 @@ function HomeBanner() {
     const reduceMotion = useMediaQuery({ query: '(prefers-reduced-motion: reduce)' });
     const showVideo = !isMobile && !reduceMotion;
     const [current, setCurrent] = useState(0);
+    const [paused, setPaused] = useState(false);
     const videoRef = useRef(null);
+    const autoplay = !loading && !reduceMotion && !paused;
 
     const slides = SLIDE_MEDIA.map((img, i) => ({
         img,
@@ -32,32 +34,35 @@ function HomeBanner() {
         desc: t(`homeBanner.slides.${i}.description`),
     }));
 
-    // Auto-advance (paused while the global loader is visible or motion is reduced).
+    // Auto-advance (paused by the user, while the global loader is visible, or with reduced motion).
     useEffect(() => {
-        if (loading || reduceMotion) return undefined;
+        if (!autoplay) return undefined;
         const timer = setTimeout(
             () => setCurrent((c) => (c + 1) % SLIDE_MEDIA.length),
             current === 0 ? VIDEO_SLIDE_MS : IMAGE_SLIDE_MS,
         );
         return () => clearTimeout(timer);
-    }, [current, loading, reduceMotion]);
+    }, [current, autoplay]);
 
-    // Only play the video while its slide is visible.
+    // Only play the decorative video while its slide is visible and motion is allowed.
     useEffect(() => {
         const video = videoRef.current;
         if (!video) return;
-        if (current === 0 && !loading) video.play().catch(() => {});
+        if (current === 0 && autoplay) video.play().catch(() => {});
         else video.pause();
-    }, [current, loading, showVideo]);
+    }, [current, autoplay, showVideo]);
 
     const scrollToClinics = () => {
-        const element = document.getElementById('home-clinic');
-        if (!element) return;
-        const top = element.getBoundingClientRect().top + window.scrollY - 80;
-        window.scrollTo({ top, behavior: reduceMotion ? 'auto' : 'smooth' });
+        document.getElementById('home-clinic')?.scrollIntoView({
+            behavior: reduceMotion ? 'auto' : 'smooth',
+            block: 'start',
+        });
     };
 
     const slide = slides[current];
+    const pauseLabel = paused
+        ? t('homeBanner.play', 'Play slideshow')
+        : t('homeBanner.pause', 'Pause slideshow');
 
     return (
         <section id="home-banner" className="home-hero">
@@ -67,12 +72,12 @@ function HomeBanner() {
                         {i === 0 && showVideo ? (
                             <video
                                 ref={videoRef}
-                                autoPlay
                                 muted
                                 loop
                                 playsInline
                                 preload="metadata"
                                 poster={heroPoster}
+                                tabIndex={-1}
                             >
                                 <source src={heroWebm} type="video/webm" />
                                 <source src={heroMp4} type="video/mp4" />
@@ -81,6 +86,8 @@ function HomeBanner() {
                             <img
                                 src={s.img}
                                 alt=""
+                                width={1600}
+                                height={900}
                                 decoding="async"
                                 loading={i === 0 ? 'eager' : 'lazy'}
                                 fetchPriority={i === 0 ? 'high' : 'low'}
@@ -99,23 +106,38 @@ function HomeBanner() {
                 <div className="home-hero__actions">
                     <button type="button" className="btn btn--light btn--lg" onClick={scrollToClinics}>
                         {t('homeBanner.button')}
-                        <ArrowRight size={20} strokeWidth={2} aria-hidden="true" />
+                        <ArrowRight size={20} strokeWidth={1.75} aria-hidden="true" />
                     </button>
                     <Link to="/contact" className="btn btn--lg home-hero__ghost">
                         {t('navbar.contact')}
                     </Link>
                 </div>
-                <div className="home-hero__dots">
-                    {slides.map((s, i) => (
+                <div className="home-hero__controls">
+                    <div className="home-hero__dots">
+                        {slides.map((s, i) => (
+                            <button
+                                key={i}
+                                type="button"
+                                className={`home-hero__dot${i === current ? ' is-active' : ''}`}
+                                onClick={() => setCurrent(i)}
+                                aria-label={t('homeClinic.slideAriaLabel', { slideNumber: i + 1, defaultValue: `Slide ${i + 1}` })}
+                                aria-current={i === current ? 'true' : undefined}
+                            />
+                        ))}
+                    </div>
+                    {!reduceMotion && (
                         <button
-                            key={i}
                             type="button"
-                            className={`home-hero__dot${i === current ? ' is-active' : ''}`}
-                            onClick={() => setCurrent(i)}
-                            aria-label={t('homeClinic.slideAriaLabel', { slideNumber: i + 1, defaultValue: `Slide ${i + 1}` })}
-                            aria-current={i === current ? 'true' : undefined}
-                        />
-                    ))}
+                            className="home-hero__pause"
+                            onClick={() => setPaused((p) => !p)}
+                            aria-label={pauseLabel}
+                            aria-pressed={paused}
+                        >
+                            {paused
+                                ? <Play size={16} strokeWidth={1.75} aria-hidden="true" />
+                                : <Pause size={16} strokeWidth={1.75} aria-hidden="true" />}
+                        </button>
+                    )}
                 </div>
             </div>
         </section>

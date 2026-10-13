@@ -19,11 +19,13 @@ function HomeServiceCard({ name, desc, icon, id, isService, bare = false, wrappe
     return (
         <CardSlot bare={bare} className={wrapperClassName}>
             <Link to={`/category/${id}`} className="service-card">
-                <span className="service-card__icon">
+                <span className="service-card__icon" aria-hidden="true">
                     {icon && !iconFailed ? (
                         <img
                             src={CATEGORY_IMAGES + icon}
                             alt=""
+                            width="30"
+                            height="30"
                             loading="lazy"
                             decoding="async"
                             onError={() => setIconFailed(true)}
@@ -36,7 +38,7 @@ function HomeServiceCard({ name, desc, icon, id, isService, bare = false, wrappe
                 {desc && <p className="service-card__desc">{desc}</p>}
                 <span className="service-card__more">
                     {t('homeServiceCard.button')}
-                    <ArrowRight size={16} strokeWidth={2} aria-hidden="true" />
+                    <ArrowRight size={16} strokeWidth={1.75} aria-hidden="true" />
                 </span>
             </Link>
         </CardSlot>

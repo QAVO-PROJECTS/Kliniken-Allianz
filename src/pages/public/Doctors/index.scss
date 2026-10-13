@@ -1,16 +1,20 @@
 @use '../../../styles/mixins' as *;
 
 .doctors-page {
+  // Sidebar + results; below 992px the sidebar becomes a bottom-sheet drawer.
   &__layout {
     display: grid;
-    grid-template-columns: 280px minmax(0, 1fr);
-    gap: var(--space-8);
+    grid-template-columns: 272px minmax(0, 1fr);
+    gap: var(--space-10);
     align-items: start;
 
     @include down($bp-lg) { grid-template-columns: minmax(0, 1fr); }
   }
 
-  &__results { min-width: 0; }
+  &__results {
+    min-width: 0;
+    scroll-margin-top: calc(var(--navbar-height) + var(--space-6));
+  }
 
   &__chips { margin-bottom: var(--space-6); }
 
@@ -31,25 +35,29 @@
     font-size: var(--fs-xs);
   }
 
-  &__stars {
+  &__stars > span[aria-hidden] {
     display: inline-flex;
     gap: 2px;
-    color: var(--c-gray-300);
+    color: var(--border-strong);
 
     svg { fill: currentColor; }
     .is-on { color: var(--c-star); }
+  }
+
+  &__chip-star {
+    color: var(--c-star);
+    fill: currentColor;
   }
 }
 
 // ---------- Filter panel (desktop sidebar + drawer content) ----------
 .doctors-filter {
-  @include card-surface(var(--radius-xl));
   position: sticky;
   top: calc(var(--navbar-height) + var(--space-6));
-  max-height: calc(100vh - var(--navbar-height) - var(--space-12));
+  max-height: calc(100dvh - var(--navbar-height) - var(--space-12));
   overflow-y: auto;
-  padding: var(--space-5);
-  scrollbar-width: thin;
+  overscroll-behavior: contain;
+  padding-inline-end: var(--space-2);
 
   @include down($bp-lg) { display: none; }
 
@@ -57,20 +65,17 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-bottom: var(--space-4);
+    min-height: 40px;
     margin-bottom: var(--space-2);
-    border-bottom: 1px solid var(--border);
 
     h2 {
       font-size: var(--fs-lg);
-      font-weight: 700;
+      font-weight: 650;
     }
   }
 
   &__group {
-    border: 0;
-    margin: 0;
-    padding: var(--space-4) 0;
+    padding: var(--space-5) 0;
     min-width: 0;
 
     & + & { border-top: 1px solid var(--border); }
@@ -81,29 +86,23 @@
     align-items: center;
     justify-content: space-between;
     gap: var(--space-2);
+    min-height: 32px;
     margin-bottom: var(--space-3);
 
-    legend {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--space-2);
-      padding: 0;
+    h3 {
       font-size: var(--fs-sm);
       font-weight: 600;
       color: var(--text);
-
-      svg { color: var(--c-primary-500); }
     }
 
     button {
-      border: 0;
-      background: none;
-      padding: 4px 6px;
-      border-radius: var(--radius-xs);
+      min-height: 32px;
+      padding: 0 var(--space-3);
+      border-radius: var(--radius-full);
       color: var(--link);
       font-size: var(--fs-xs);
       font-weight: 600;
-      cursor: pointer;
+      touch-action: manipulation;
 
       &:hover { background: var(--bg-brand-soft); }
       &:focus-visible { @include focus-ring; }
@@ -113,40 +112,48 @@
   &__options {
     display: flex;
     flex-direction: column;
-    gap: var(--space-1);
+    gap: 2px;
   }
 
   &__scroll {
     display: flex;
     flex-direction: column;
-    gap: var(--space-1);
-    max-height: 220px;
+    gap: 2px;
+    max-height: 232px;
     overflow-y: auto;
+    overscroll-behavior: contain;
     padding-inline-end: var(--space-1);
-    scrollbar-width: thin;
   }
 
+  // Whole row is the hit target; the native checkbox keeps keyboard + AT semantics.
   &__check {
     display: flex;
     align-items: center;
     gap: var(--space-3);
-    min-height: 36px;
-    padding: 4px var(--space-2);
-    border-radius: var(--radius-sm);
+    min-height: 40px;
+    padding: 4px var(--space-3);
+    border-radius: var(--radius-full);
     color: var(--text-secondary);
     font-size: var(--fs-sm);
     cursor: pointer;
+    touch-action: manipulation;
+    transition: background-color var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out);
 
-    &:hover { background: var(--bg-subtle); color: var(--text); }
+    &:hover { background: var(--bg-muted); color: var(--text); }
+    &:has(input:checked) { color: var(--text); font-weight: 500; }
+    &:has(input:focus-visible) { box-shadow: var(--focus-ring); }
 
     input {
       flex-shrink: 0;
       width: 18px;
       height: 18px;
+      margin: 0;
       accent-color: var(--brand);
       cursor: pointer;
+
+      &:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
     }
-    span { min-width: 0; overflow-wrap: anywhere; }
+    > span { min-width: 0; overflow-wrap: anywhere; }
   }
 
   &__pills {
@@ -158,18 +165,21 @@
   &__pill {
     position: relative;
     cursor: pointer;
+    touch-action: manipulation;
 
     input {
       position: absolute;
+      inset: 0;
       opacity: 0;
-      pointer-events: none;
+      margin: 0;
+      cursor: pointer;
     }
 
     span {
       display: inline-grid;
       place-items: center;
-      min-width: 44px;
-      height: 36px;
+      min-width: 48px;
+      height: 40px;
       padding: 0 var(--space-3);
       border-radius: var(--radius-full);
       border: 1px solid var(--border-strong);
@@ -177,10 +187,14 @@
       color: var(--text-secondary);
       font-size: var(--fs-sm);
       font-weight: 600;
-      transition: all var(--duration-fast) var(--ease-out);
+      transition: background-color var(--duration-fast) var(--ease-out),
+                  border-color var(--duration-fast) var(--ease-out),
+                  color var(--duration-fast) var(--ease-out),
+                  transform var(--duration-fast) var(--ease-out);
     }
 
-    &:hover span { border-color: var(--c-primary-300); color: var(--brand); }
+    &:hover span { border-color: var(--link); color: var(--link); }
+    &:active span { transform: scale(0.96); }
     input:checked + span {
       background: var(--brand);
       border-color: var(--brand);
@@ -190,22 +204,29 @@
   }
 }
 
-// ---------- Mobile drawer ----------
+// ---------- Mobile drawer (bottom sheet) ----------
 .doctors-drawer {
   position: fixed;
   inset: 0;
   z-index: var(--z-modal);
-  background: rgba(4, 28, 59, 0.45);
-  opacity: 0;
   visibility: hidden;
-  transition: opacity var(--duration) var(--ease-out), visibility var(--duration);
+  transition: visibility 0s linear var(--duration-slow);
 
   &.is-open {
-    opacity: 1;
     visibility: visible;
+    transition: none;
   }
 
   @include up($bp-lg) { display: none; }
+
+  &__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(4, 12, 28, 0.5);
+    opacity: 0;
+    transition: opacity var(--duration) var(--ease-out);
+  }
+  &.is-open &__backdrop { opacity: 1; }
 
   &__panel {
     position: absolute;
@@ -213,8 +234,9 @@
     bottom: 0;
     display: flex;
     flex-direction: column;
-    max-height: 88vh;
+    max-height: 88dvh;
     border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    border-top: 1px solid var(--border);
     background: var(--surface);
     box-shadow: var(--shadow-lg);
     transform: translateY(100%);
@@ -231,7 +253,7 @@
 
     h2 {
       font-size: var(--fs-lg);
-      font-weight: 700;
+      font-weight: 650;
       span { color: var(--text-muted); font-weight: 500; }
     }
   }
@@ -241,21 +263,20 @@
     place-items: center;
     width: 44px;
     height: 44px;
-    border: 0;
-    border-radius: 50%;
-    background: var(--bg-subtle);
+    border-radius: var(--radius-full);
+    background: var(--bg-muted);
     color: var(--text);
-    cursor: pointer;
+    touch-action: manipulation;
+
+    &:hover { background: var(--border); }
     &:focus-visible { @include focus-ring; }
   }
 
   &__body {
     flex: 1;
     overflow-y: auto;
+    overscroll-behavior: contain;
     padding: 0 var(--space-5);
-
-    .doctors-filter__group { padding: var(--space-4) 0; }
-    .doctors-filter__group + .doctors-filter__group { border-top: 1px solid var(--border); }
   }
 
   &__foot {

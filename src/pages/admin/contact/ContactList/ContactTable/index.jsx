@@ -33,12 +33,12 @@ function ContactTableNew({ filter, onFilterChange }) {
             key: "name",
             header: t("adminPanel.contactTable.headers.name"),
             className: "is-nowrap",
-            render: (item) => <span className="adm-cell-title">{fullName(item) || "—"}</span>,
+            render: (item) => <span className="adm-cell-title">{fullName(item) || "-"}</span>,
         },
         {
             key: "email",
             header: t("adminPanel.contactTable.headers.email"),
-            render: (item) => (item.email ? <a className="adm-link" href={`mailto:${item.email}`}>{item.email}</a> : "—"),
+            render: (item) => (item.email ? <a className="adm-link" href={`mailto:${item.email}`}>{item.email}</a> : "-"),
         },
         {
             key: "note",
@@ -48,13 +48,13 @@ function ContactTableNew({ filter, onFilterChange }) {
         {
             key: "subject",
             header: t("adminPanel.contactTable.headers.tourName"),
-            render: (item) => (subject(item) ? <span className="badge badge--brand">{subject(item)}</span> : <span className="adm-cell-muted">—</span>),
+            render: (item) => (subject(item) ? <span className="badge badge--brand">{subject(item)}</span> : <span className="adm-cell-muted">-</span>),
         },
         {
             key: "phone",
             header: t("adminPanel.contactTable.headers.phone"),
             className: "is-nowrap",
-            render: (item) => (item.phoneNumber ? <a className="adm-link" href={`tel:${item.phoneNumber.replace(/\s+/g, "")}`}>{item.phoneNumber}</a> : "—"),
+            render: (item) => (item.phoneNumber ? <a className="adm-link" href={`tel:${item.phoneNumber.replace(/\s+/g, "")}`}>{item.phoneNumber}</a> : "-"),
         },
     ];
 

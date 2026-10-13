@@ -1,8 +1,9 @@
 import "./index.scss";
+import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import DOMPurify from "dompurify";
-import { Briefcase, Building2, FileText, Star, UserRound } from "lucide-react";
+import { ArrowRight, Briefcase, Building2, FileText, Phone, Star, UserRound } from "lucide-react";
 import { useGetClinicByIdQuery, useGetDoctorsByIdQuery } from "../../../api/userApi.js";
 import { CERT_DOKTOR_URL, DOCTOR_IMG_URL } from "../../../config/mediaUrls.js";
 import { getLocalizedText } from "../../../i18n/getLocalizedText.js";
@@ -10,6 +11,27 @@ import PageHeader from "../../../components/ui/PageHeader/index.jsx";
 import CertificateGallery from "../Clinics/shared/CertificateGallery.jsx";
 import { EmptyState, SkeletonBlock } from "../Clinics/shared/Feedback.jsx";
 import { tx } from "../Clinics/shared/texts.js";
+
+function Portrait({ src, alt }) {
+    const [failed, setFailed] = useState(false);
+    return (
+        <div className="doctor-detail__photo">
+            {src && !failed ? (
+                <img
+                    src={src}
+                    alt={alt}
+                    width="640"
+                    height="800"
+                    fetchPriority="high"
+                    decoding="async"
+                    onError={() => setFailed(true)}
+                />
+            ) : (
+                <UserRound size={72} strokeWidth={1.75} aria-hidden="true" />
+            )}
+        </div>
+    );
+}
 
 function DoctorDetail() {
     const { id } = useParams();
@@ -24,14 +46,20 @@ function DoctorDetail() {
         return (
             <div className="doctor-detail">
                 <PageHeader title={" "} crumbs={[...crumbsBase, { label: "…" }]} />
-                <section className="md-section">
+                <section className="md-section md-section--flush-top">
                     <div className="container md-layout">
                         <div className="md-main">
-                            <SkeletonBlock height={24} width="30%" />
-                            <SkeletonBlock height={14} />
-                            <SkeletonBlock height={14} width="80%" />
+                            <div className="doctor-detail__hero">
+                                <SkeletonBlock variant="block" className="doctor-detail__photo" />
+                                <div className="doctor-detail__skel-lines">
+                                    <SkeletonBlock height={26} width="70%" />
+                                    <SkeletonBlock height={14} width="40%" />
+                                    <SkeletonBlock height={14} width="55%" />
+                                </div>
+                            </div>
+                            <SkeletonBlock height={160} variant="block" />
                         </div>
-                        <SkeletonBlock height={480} radius="var(--radius-xl)" />
+                        <SkeletonBlock height={280} variant="block" />
                     </div>
                 </section>
             </div>
@@ -44,7 +72,11 @@ function DoctorDetail() {
                 <PageHeader title={t("doctorDetail.title")} crumbs={crumbsBase} />
                 <section className="md-section">
                     <div className="container">
-                        <EmptyState icon={UserRound} title={tx(t, "medicalPages.notFound")} />
+                        <EmptyState icon={UserRound} title={tx(t, "medicalPages.notFound")}>
+                            <Link to="/doctors" className="btn btn--secondary btn--sm">
+                                {t("doctorDetail.breadcrumbDoctors")}
+                            </Link>
+                        </EmptyState>
                     </div>
                 </section>
             </div>
@@ -53,24 +85,66 @@ function DoctorDetail() {
 
     const fullName = `${getLocalizedText(doctor, "name")} ${getLocalizedText(doctor, "surName")}`.trim();
     const role = getLocalizedText(doctor, "role");
-    const rate = Math.max(0, Math.min(5, Math.round(Number(doctor.rate) || 0)));
+    const rateNum = Number(doctor.rate) || 0;
+    const rate = Math.max(0, Math.min(5, Math.round(rateNum)));
     const clinic = clinicData?.data || doctor.clinics?.[0];
     const bios = (Array.isArray(doctor.bio) ? doctor.bio : [])
         .map((b) => DOMPurify.sanitize(getLocalizedText(b, "name") || ""))
         .filter((html) => html.replace(/<[^>]*>/g, "").trim());
     const certificates = (doctor.doctorSertificates || []).map((img) => CERT_DOKTOR_URL + img);
+    const hasExperience = doctor.experience != null && doctor.experience !== "";
+    const phone = t("contact.contactCard.mobile.value");
 
     return (
         <div className="doctor-detail">
             <PageHeader title={fullName} subtitle={role} crumbs={[...crumbsBase, { label: fullName }]} />
 
-            <section className="md-section">
+            <section className="md-section md-section--flush-top">
                 <div className="container md-layout">
                     <div className="md-main">
-                        <div className="md-block">
+                        {/* Profile: portrait + key facts */}
+                        <div className="doctor-detail__hero">
+                            <Portrait src={doctor.doctorImage && DOCTOR_IMG_URL + doctor.doctorImage} alt={fullName} />
+                            <div className="doctor-detail__identity">
+                                <dl className="doctor-detail__stats">
+                                    {rate > 0 && (
+                                        <div>
+                                            <dt>{t("doctorsPage.filters.rating")}</dt>
+                                            <dd>
+                                                <Star size={18} strokeWidth={1.75} className="doctor-detail__star" aria-hidden="true" />
+                                                <span className="md-num">{rateNum.toFixed(1)}</span>
+                                                <span className="doctor-detail__of">/ 5</span>
+                                            </dd>
+                                        </div>
+                                    )}
+                                    {hasExperience && (
+                                        <div>
+                                            <dt>{t("doctorsPage.filters.experience")}</dt>
+                                            <dd>
+                                                <Briefcase size={18} strokeWidth={1.75} aria-hidden="true" />
+                                                <span>
+                                                    <span className="md-num">{doctor.experience}</span> {t("doctorDetail.experienceSuffix")}
+                                                </span>
+                                            </dd>
+                                        </div>
+                                    )}
+                                    {clinic && (
+                                        <div>
+                                            <dt>{t("doctorsPage.filters.clinics")}</dt>
+                                            <dd>
+                                                <Building2 size={18} strokeWidth={1.75} aria-hidden="true" />
+                                                <Link to={`/clinics/${clinic.id}`}>{getLocalizedText(clinic, "name")}</Link>
+                                            </dd>
+                                        </div>
+                                    )}
+                                </dl>
+                            </div>
+                        </div>
+
+                        <div className="md-block" data-reveal>
                             <h2>{t("doctorDetail.sections.bio")}</h2>
                             {bios.length > 0 ? (
-                                <div className="md-card doctor-detail__bio">
+                                <div className="doctor-detail__bio">
                                     {bios.map((html, i) => (
                                         <div key={i} className="md-prose" dangerouslySetInnerHTML={{ __html: html }} />
                                     ))}
@@ -80,55 +154,28 @@ function DoctorDetail() {
                             )}
                         </div>
 
-                        <div className="md-block">
+                        <div className="md-block" data-reveal>
                             <h2>{t("doctorDetail.sections.certificates")}</h2>
                             <CertificateGallery images={certificates} />
                         </div>
                     </div>
 
-                    <aside className="md-aside">
-                        <div className="md-contact-card doctor-detail__profile">
-                            <div className="doctor-detail__photo">
-                                {doctor.doctorImage ? (
-                                    <img src={DOCTOR_IMG_URL + doctor.doctorImage} alt={fullName} decoding="async" />
-                                ) : (
-                                    <UserRound size={64} strokeWidth={1.25} aria-hidden="true" />
-                                )}
+                    <aside className="md-aside" aria-labelledby="doctor-cta-title">
+                        <div className="md-contact-card">
+                            <div className="md-contact-card__head">
+                                <h2 id="doctor-cta-title">{tx(t, "medicalPages.consultTitle")}</h2>
+                                <p>{tx(t, "medicalPages.consultText")}</p>
                             </div>
-                            <div className="doctor-detail__identity">
-                                <h2>{fullName}</h2>
-                                {role && <span className="badge badge--brand">{role}</span>}
+                            <div className="md-actions">
+                                <Link to="/contact" className="btn btn--primary btn--block">
+                                    {t("navbar.contact")}
+                                    <ArrowRight size={18} strokeWidth={1.75} className="md-flip-rtl" aria-hidden="true" />
+                                </Link>
+                                <a className="btn btn--secondary btn--block" href={`tel:${phone.replace(/\s/g, "")}`}>
+                                    <Phone size={18} strokeWidth={1.75} aria-hidden="true" />
+                                    <span dir="ltr" className="md-num">{phone}</span>
+                                </a>
                             </div>
-                            <ul className="md-facts">
-                                {rate > 0 && (
-                                    <li>
-                                        <span className="md-facts__icon"><Star size={18} /></span>
-                                        <span className="doctor-detail__stars" aria-label={`${rate}/5`}>
-                                            {Array.from({ length: 5 }).map((_, i) => (
-                                                <Star key={i} size={16} className={i < rate ? "is-on" : ""} aria-hidden="true" />
-                                            ))}
-                                            <strong>{Number(doctor.rate).toFixed(1)}</strong>
-                                        </span>
-                                    </li>
-                                )}
-                                {doctor.experience != null && doctor.experience !== "" && (
-                                    <li>
-                                        <span className="md-facts__icon"><Briefcase size={18} /></span>
-                                        <span><strong>{doctor.experience}</strong> {t("doctorDetail.experienceSuffix")}</span>
-                                    </li>
-                                )}
-                                {clinic && (
-                                    <li>
-                                        <span className="md-facts__icon"><Building2 size={18} /></span>
-                                        <Link to={`/clinics/${clinic.id}`}>{getLocalizedText(clinic, "name")}</Link>
-                                    </li>
-                                )}
-                            </ul>
-                            <hr className="md-divider" />
-                            <p className="doctor-detail__cta-text">{tx(t, "medicalPages.consultText")}</p>
-                            <Link to="/contact" className="btn btn--primary btn--block">
-                                {tx(t, "medicalPages.consultTitle")}
-                            </Link>
                         </div>
                     </aside>
                 </div>

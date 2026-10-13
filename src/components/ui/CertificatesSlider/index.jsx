@@ -1,6 +1,7 @@
 import '../Pagination/index.scss';
 import './index.scss';
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import CardCertificateCategory from "../../cards/CertificateCard/index.jsx";
 
@@ -9,24 +10,32 @@ import CardCertificateCategory from "../../cards/CertificateCard/index.jsx";
  * Props: cards = [{ id, image }], [text="Sertifikat"]
  */
 function CertificateSlider({ cards = [], text = "Sertifikat" }) {
+    const { t } = useTranslation();
     const trackRef = useRef(null);
     const [edges, setEdges] = useState({ start: true, end: true });
 
+    // Edge detection with an IntersectionObserver on the first / last tile
+    // (no scroll listener). Works in RTL without scrollLeft maths.
     useEffect(() => {
-        const el = trackRef.current;
-        if (!el) return undefined;
-        const update = () => {
-            const max = el.scrollWidth - el.clientWidth;
-            const pos = Math.abs(el.scrollLeft); // scrollLeft is negative in RTL
-            setEdges({ start: pos <= 2, end: pos >= max - 2 });
-        };
-        update();
-        el.addEventListener('scroll', update, { passive: true });
-        window.addEventListener('resize', update);
-        return () => {
-            el.removeEventListener('scroll', update);
-            window.removeEventListener('resize', update);
-        };
+        const track = trackRef.current;
+        if (!track || typeof IntersectionObserver === 'undefined') return undefined;
+        const items = track.querySelectorAll('.cert-slider__item');
+        if (!items.length) return undefined;
+        const first = items[0];
+        const last = items[items.length - 1];
+        const io = new IntersectionObserver((entries) => {
+            setEdges((prev) => {
+                const next = { ...prev };
+                entries.forEach((entry) => {
+                    if (entry.target === first) next.start = entry.isIntersecting;
+                    if (entry.target === last) next.end = entry.isIntersecting;
+                });
+                return next;
+            });
+        }, { root: track, threshold: 0.95 });
+        io.observe(first);
+        if (last !== first) io.observe(last);
+        return () => io.disconnect();
     }, [cards.length]);
 
     const scrollBy = (dir) => {
@@ -40,7 +49,7 @@ function CertificateSlider({ cards = [], text = "Sertifikat" }) {
 
     return (
         <div className="cert-slider">
-            <div className="cert-slider__track" ref={trackRef} tabIndex={0} aria-label={text}>
+            <div className="cert-slider__track" ref={trackRef} tabIndex={0} role="region" aria-label={text}>
                 {cards.map((card, index) => (
                     <div key={card.id ?? index} className="cert-slider__item">
                         <CardCertificateCategory bare image={card.image} number={index + 1} text={text} />
@@ -49,11 +58,11 @@ function CertificateSlider({ cards = [], text = "Sertifikat" }) {
             </div>
             {!(edges.start && edges.end) && (
                 <div className="cert-slider__nav">
-                    <button type="button" className="pager__btn pager__btn--nav" onClick={() => scrollBy(-1)} disabled={edges.start} aria-label="Previous">
-                        <ChevronLeft size={18} strokeWidth={2} aria-hidden="true" />
+                    <button type="button" className="pager__btn pager__btn--nav" onClick={() => scrollBy(-1)} disabled={edges.start} aria-label={t("pagination.prev", "Previous")}>
+                        <ChevronLeft size={18} strokeWidth={1.75} aria-hidden="true" />
                     </button>
-                    <button type="button" className="pager__btn pager__btn--nav" onClick={() => scrollBy(1)} disabled={edges.end} aria-label="Next">
-                        <ChevronRight size={18} strokeWidth={2} aria-hidden="true" />
+                    <button type="button" className="pager__btn pager__btn--nav" onClick={() => scrollBy(1)} disabled={edges.end} aria-label={t("pagination.next", "Next")}>
+                        <ChevronRight size={18} strokeWidth={1.75} aria-hidden="true" />
                     </button>
                 </div>
             )}

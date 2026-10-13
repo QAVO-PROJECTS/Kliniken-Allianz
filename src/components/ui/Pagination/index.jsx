@@ -23,10 +23,10 @@ function Pagination({ currentPage, totalPages, onPageChange, align = "end", clas
             aria-label={t("pagination.label", "Pagination")}
         >
             <button type="button" className="pager__btn pager__btn--nav" disabled={atStart} onClick={() => go(1)} aria-label={t("pagination.first", "First page")}>
-                <ChevronsLeft size={18} strokeWidth={2} aria-hidden="true" />
+                <ChevronsLeft size={18} strokeWidth={1.75} aria-hidden="true" />
             </button>
             <button type="button" className="pager__btn pager__btn--nav" disabled={atStart} onClick={() => go(currentPage - 1)} aria-label={t("pagination.prev", "Previous")}>
-                <ChevronLeft size={18} strokeWidth={2} aria-hidden="true" />
+                <ChevronLeft size={18} strokeWidth={1.75} aria-hidden="true" />
             </button>
 
             {getPageRange(currentPage, totalPages).map((page) =>
@@ -47,10 +47,10 @@ function Pagination({ currentPage, totalPages, onPageChange, align = "end", clas
             )}
 
             <button type="button" className="pager__btn pager__btn--nav" disabled={atEnd} onClick={() => go(currentPage + 1)} aria-label={t("pagination.next", "Next")}>
-                <ChevronRight size={18} strokeWidth={2} aria-hidden="true" />
+                <ChevronRight size={18} strokeWidth={1.75} aria-hidden="true" />
             </button>
             <button type="button" className="pager__btn pager__btn--nav" disabled={atEnd} onClick={() => go(totalPages)} aria-label={t("pagination.last", "Last page")}>
-                <ChevronsRight size={18} strokeWidth={2} aria-hidden="true" />
+                <ChevronsRight size={18} strokeWidth={1.75} aria-hidden="true" />
             </button>
         </nav>
     );

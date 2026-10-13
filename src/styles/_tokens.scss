@@ -1,5 +1,72 @@
-// Design tokens — the single source of truth for colors, type, spacing,
+// Design tokens: the single source of truth for colors, type, spacing,
 // radii, shadows and motion. Prefer var(--token) over hardcoded values.
+//
+// Themes: light by default, dark when the OS prefers it (unless the page forces
+// data-theme="light"), or when <html data-theme="dark"> is set by the theme toggle.
+// Any subtree can pin a theme with data-theme="light" / "dark" (the admin panel pins light).
+
+@mixin light-theme {
+  color-scheme: light;
+  --bg-page: var(--c-gray-0);
+  --bg-subtle: var(--c-gray-50);
+  --bg-muted: var(--c-gray-100);
+  --bg-brand-soft: var(--c-primary-50);
+  --surface: var(--c-gray-0);
+  --surface-raised: var(--c-gray-0);
+  --border: var(--c-gray-200);
+  --border-strong: var(--c-gray-300);
+  --text: var(--c-gray-900);
+  --text-secondary: var(--c-gray-600);
+  --text-muted: var(--c-gray-500);
+  --text-on-brand: #ffffff;
+  --brand: var(--c-primary-700);
+  --brand-hover: var(--c-primary-800);
+  --link: var(--c-primary-500);
+  --focus-ring: 0 0 0 4px rgba(29, 91, 191, 0.18);
+
+  --gradient-brand: linear-gradient(135deg, var(--c-primary-800) 0%, var(--c-primary-700) 55%, var(--c-primary-600) 100%);
+  --gradient-soft: linear-gradient(180deg, var(--c-primary-50) 0%, rgba(238, 244, 255, 0) 100%);
+  --gradient-hero-overlay: linear-gradient(90deg, rgba(4, 28, 59, 0.78) 0%, rgba(4, 28, 59, 0.45) 45%, rgba(4, 28, 59, 0.05) 100%);
+
+  // Elevation (tinted to the navy brand hue, never pure black)
+  --shadow-xs: 0 1px 2px rgba(16, 24, 40, 0.05);
+  --shadow-sm: 0 1px 3px rgba(16, 24, 40, 0.08), 0 1px 2px rgba(16, 24, 40, 0.04);
+  --shadow-md: 0 8px 24px -6px rgba(16, 24, 40, 0.10), 0 2px 6px -2px rgba(16, 24, 40, 0.05);
+  --shadow-lg: 0 20px 40px -12px rgba(16, 24, 40, 0.16), 0 4px 10px -4px rgba(16, 24, 40, 0.06);
+  --shadow-brand: 0 12px 28px -10px rgba(0, 55, 120, 0.45);
+
+}
+
+@mixin dark-theme {
+  color-scheme: dark;
+  --bg-page: #0a1120;
+  --bg-subtle: #0e1628;
+  --bg-muted: #152038;
+  --bg-brand-soft: rgba(79, 128, 214, 0.14);
+  --surface: #101a2f;
+  --surface-raised: #16223b;
+  --border: #22304b;
+  --border-strong: #31415f;
+  --text: #e8edf6;
+  --text-secondary: #b4bfd2;
+  --text-muted: #8f9bb1;
+  --text-on-brand: #ffffff;
+  --brand: #3b74d6;
+  --brand-hover: #2f63bd;
+  --link: #8fb3f2;
+  --focus-ring: 0 0 0 4px rgba(143, 179, 242, 0.28);
+
+  --gradient-brand: linear-gradient(135deg, #0b2a5c 0%, #123b7d 55%, #1d4f9e 100%);
+  --gradient-soft: linear-gradient(180deg, rgba(79, 128, 214, 0.12) 0%, rgba(79, 128, 214, 0) 100%);
+  --gradient-hero-overlay: linear-gradient(90deg, rgba(5, 12, 26, 0.86) 0%, rgba(5, 12, 26, 0.55) 45%, rgba(5, 12, 26, 0.12) 100%);
+
+  --shadow-xs: 0 1px 2px rgba(0, 4, 12, 0.4);
+  --shadow-sm: 0 1px 3px rgba(0, 4, 12, 0.45), 0 1px 2px rgba(0, 4, 12, 0.3);
+  --shadow-md: 0 8px 24px -6px rgba(0, 4, 12, 0.55), 0 2px 6px -2px rgba(0, 4, 12, 0.35);
+  --shadow-lg: 0 20px 40px -12px rgba(0, 4, 12, 0.65), 0 4px 10px -4px rgba(0, 4, 12, 0.4);
+  --shadow-brand: 0 12px 28px -10px rgba(59, 116, 214, 0.45);
+}
+
 
 :root {
   // Brand
@@ -14,9 +81,10 @@
   --c-primary-800: #022a5a;
   --c-primary-900: #041c3b;
 
-  --c-accent-400: #3fc1d8;
-  --c-accent-500: #14a6c2;
-  --c-accent-600: #0c849c;
+  // Single-accent rule: the former teal accent now resolves to the brand blue family.
+  --c-accent-400: var(--c-primary-400);
+  --c-accent-500: var(--c-primary-500);
+  --c-accent-600: var(--c-primary-600);
 
   // Neutrals (cool slate)
   --c-gray-0: #ffffff;
@@ -41,31 +109,11 @@
   --c-danger-bg: #fef3f2;
   --c-star: #fdb022;
 
-  // Surfaces & text
-  --bg-page: var(--c-gray-0);
-  --bg-subtle: var(--c-gray-50);
-  --bg-muted: var(--c-gray-100);
-  --bg-brand-soft: var(--c-primary-50);
-  --surface: var(--c-gray-0);
-  --surface-raised: var(--c-gray-0);
-  --border: var(--c-gray-200);
-  --border-strong: var(--c-gray-300);
-  --text: var(--c-gray-900);
-  --text-secondary: var(--c-gray-600);
-  --text-muted: var(--c-gray-500);
-  --text-on-brand: #ffffff;
-  --brand: var(--c-primary-700);
-  --brand-hover: var(--c-primary-800);
-  --link: var(--c-primary-500);
-  --focus-ring: 0 0 0 4px rgba(29, 91, 191, 0.18);
-
-  --gradient-brand: linear-gradient(135deg, var(--c-primary-700) 0%, var(--c-primary-500) 60%, var(--c-accent-500) 100%);
-  --gradient-soft: linear-gradient(180deg, var(--c-primary-50) 0%, rgba(238, 244, 255, 0) 100%);
-  --gradient-hero-overlay: linear-gradient(90deg, rgba(4, 28, 59, 0.78) 0%, rgba(4, 28, 59, 0.45) 45%, rgba(4, 28, 59, 0.05) 100%);
+  @include light-theme;
 
   // Typography
-  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --font-display: 'Inter', var(--font-sans);
+  --font-sans: 'Geist Variable', 'Geist', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-display: var(--font-sans);
   --font-arabic: 'IBM Plex Sans Arabic', 'Noto Sans Arabic', var(--font-sans);
 
   --fs-xs: 0.75rem;     // 12
@@ -112,13 +160,6 @@
   --radius-2xl: 32px;
   --radius-full: 999px;
 
-  // Elevation
-  --shadow-xs: 0 1px 2px rgba(16, 24, 40, 0.05);
-  --shadow-sm: 0 1px 3px rgba(16, 24, 40, 0.08), 0 1px 2px rgba(16, 24, 40, 0.04);
-  --shadow-md: 0 8px 24px -6px rgba(16, 24, 40, 0.10), 0 2px 6px -2px rgba(16, 24, 40, 0.05);
-  --shadow-lg: 0 20px 40px -12px rgba(16, 24, 40, 0.16), 0 4px 10px -4px rgba(16, 24, 40, 0.06);
-  --shadow-brand: 0 12px 28px -10px rgba(0, 55, 120, 0.45);
-
   // Motion
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --duration-fast: 150ms;
@@ -144,6 +185,12 @@
 }
 
 html[dir='rtl'] {
-  --font-sans: 'IBM Plex Sans Arabic', 'Noto Sans Arabic', 'Inter', system-ui, sans-serif;
+  --font-sans: 'IBM Plex Sans Arabic', 'Noto Sans Arabic', 'Geist Variable', system-ui, sans-serif;
   --font-display: var(--font-sans);
 }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) { @include dark-theme; }
+}
+:root[data-theme='dark'], [data-theme='dark'] { @include dark-theme; }
+[data-theme='light'] { @include light-theme; }

@@ -1,7 +1,7 @@
 import "./index.scss";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Stethoscope } from "lucide-react";
+import { Pause, Play, Stethoscope } from "lucide-react";
 import { useGetAllCategoryQuery } from "../../../../api/userApi.js";
 import { getLocalizedText } from "../../../../i18n/getLocalizedText.js";
 import HomeServiceCard from "../../../../components/cards/ServiceCard/index.jsx";
@@ -11,16 +11,26 @@ import { tx } from "../../Clinics/shared/texts.js";
 import videoSrc from "../../../../assets/video/HomeVideo.mp4";
 import videoPoster from "../../../../assets/video/HomeVideo-poster.jpg";
 
-/** Muted looping video that only downloads once it scrolls into view. */
-function LazyVideo({ label }) {
+/**
+ * Decorative muted loop. Downloads only once it scrolls into view, never
+ * autoplays under reduced motion, and has a pause/play control (WCAG 2.2.2).
+ */
+function LazyVideo() {
+    const { t } = useTranslation();
     const ref = useRef(null);
+    const [paused, setPaused] = useState(
+        () => typeof window !== "undefined" && !!window.matchMedia?.("(prefers-reduced-motion: reduce)").matches
+    );
+    const pausedRef = useRef(paused);
+    useEffect(() => {
+        pausedRef.current = paused;
+    }, [paused]);
 
     useEffect(() => {
         const video = ref.current;
         if (!video) return undefined;
-        const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
-        if (reduce) return undefined;
         const start = () => {
+            if (pausedRef.current) return;
             if (!video.src) video.src = videoSrc;
             video.play?.().catch(() => {});
         };
@@ -39,17 +49,41 @@ function LazyVideo({ label }) {
         return () => io.disconnect();
     }, []);
 
+    const toggle = () => {
+        const video = ref.current;
+        if (!video) return;
+        if (paused) {
+            if (!video.src) video.src = videoSrc;
+            video.play?.().catch(() => {});
+        } else {
+            video.pause();
+        }
+        setPaused(!paused);
+    };
+
+    const label = paused ? tx(t, "medicalPages.playVideo") : tx(t, "medicalPages.pauseVideo");
+
     return (
-        <video
-            ref={ref}
-            className="services-grid__video"
-            poster={videoPoster}
-            muted
-            loop
-            playsInline
-            preload="none"
-            aria-label={label}
-        />
+        <>
+            <video
+                ref={ref}
+                className="services-grid__video"
+                poster={videoPoster}
+                muted
+                loop
+                playsInline
+                preload="none"
+                aria-hidden="true"
+                tabIndex={-1}
+            />
+            <button type="button" className="services-grid__video-toggle" onClick={toggle} aria-label={label}>
+                {paused ? (
+                    <Play size={18} strokeWidth={1.75} aria-hidden="true" />
+                ) : (
+                    <Pause size={18} strokeWidth={1.75} aria-hidden="true" />
+                )}
+            </button>
+        </>
     );
 }
 
@@ -71,27 +105,40 @@ function ServicesGrid({ query = "", onClear }) {
     }, [data, query, i18n.language]);
 
     return (
-        <section className="md-section services-grid">
+        <section className="md-section services-grid" aria-labelledby="services-grid-title">
             <div className="container">
-                <SectionTitle align="start" title={t("homeServices.title")} desc={t("homeServices.description")} />
+                <SectionTitle
+                    align="start"
+                    className="services-grid__title"
+                    title={<span id="services-grid-title">{t("homeServices.title")}</span>}
+                    desc={t("homeServices.description")}
+                />
+
+                <div className="md-toolbar">
+                    <p className="md-toolbar__count" aria-live="polite">
+                        {!isLoading && tx(t, "medicalPages.results", { n: categories.length })}
+                    </p>
+                </div>
 
                 {isLoading ? (
-                    <SkeletonGrid count={8} ratio="16 / 9" />
+                    <SkeletonGrid count={8} ratio="16 / 7" className="md-grid--sm" />
                 ) : categories.length > 0 ? (
-                    <div className="md-grid services-grid__grid">
+                    <div className="md-grid md-grid--sm services-grid__grid">
                         {!query && (
-                            <div className="services-grid__media">
-                                <LazyVideo label={t("homeServices.videoAlt")} />
+                            <div className="services-grid__media" data-reveal>
+                                <LazyVideo />
                             </div>
                         )}
-                        {categories.map((cat) => (
-                            <HomeServiceCard
-                                key={cat.id}
-                                id={cat.id}
-                                name={getLocalizedText(cat, "name")}
-                                desc={tx(t, "medicalPages.servicesCount", { n: cat.services?.length || 0 })}
-                                icon={cat.categoryImage}
-                            />
+                        {categories.map((cat, i) => (
+                            <div key={cat.id} className="md-grid__item" data-reveal style={{ "--reveal-delay": `${(i % 4) * 50}ms` }}>
+                                <HomeServiceCard
+                                    bare
+                                    id={cat.id}
+                                    name={getLocalizedText(cat, "name")}
+                                    desc={tx(t, "medicalPages.servicesCount", { n: cat.services?.length || 0 })}
+                                    icon={cat.categoryImage}
+                                />
+                            </div>
                         ))}
                     </div>
                 ) : (

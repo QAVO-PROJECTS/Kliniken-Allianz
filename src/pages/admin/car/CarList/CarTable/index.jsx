@@ -39,7 +39,7 @@ function CarTableNew({ language }) {
                 return firstImage ? (
                     <img className="adm-thumb adm-thumb--wide" src={CAR_CARD_IMAGES + firstImage} alt="" loading="lazy" decoding="async" />
                 ) : (
-                    <span className="adm-cell-muted">—</span>
+                    <span className="adm-cell-muted">-</span>
                 );
             },
         },
@@ -52,13 +52,13 @@ function CarTableNew({ language }) {
             key: "type",
             header: t("adminPanel.carTable.headers.type"),
             className: "is-nowrap",
-            render: (item) => (item.type ? <span className="badge">{item.type}</span> : <span className="adm-cell-muted">—</span>),
+            render: (item) => (item.type ? <span className="badge">{item.type}</span> : <span className="adm-cell-muted">-</span>),
         },
         {
             key: "price",
             header: t("adminPanel.carTable.headers.price"),
             className: "is-nowrap",
-            render: (item) => (item.price ? <span>{item.price}</span> : <span className="adm-cell-muted">—</span>),
+            render: (item) => (item.price ? <span>{item.price}</span> : <span className="adm-cell-muted">-</span>),
         },
         {
             key: "description",
@@ -89,7 +89,7 @@ function CarTableNew({ language }) {
             <ConfirmDialog
                 open={del.isOpen}
                 title={t("adminPanel.carTable.modal.confirmDelete")}
-                description={del.target ? `${name(del.target)} — ${at("deleteHint")}` : undefined}
+                description={del.target ? `${name(del.target)}: ${at("deleteHint")}` : undefined}
                 cancelLabel={t("adminPanel.carTable.modal.cancel")}
                 confirmLabel={t("adminPanel.carTable.modal.delete")}
                 loadingLabel={t("adminPanel.carTable.modal.deleting")}

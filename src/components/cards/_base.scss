@@ -1,8 +1,9 @@
 // Building blocks shared by every card in components/cards.
 // Usage: `@use '../base' as kc;` then `@include kc.surface;` etc.
+// Shape rule: cards and their media use --radius-lg; controls inside are --radius-full.
 @use '../../styles/mixins' as *;
 
-// Root of a card: surface, radius, hover lift. Works on <a>, <article>, <div>.
+// Root of a card: surface, radius, hover lift, :active press. Works on <a>, <article>, <div>.
 @mixin surface($radius: var(--radius-lg)) {
   @include card-surface($radius);
   position: relative;
@@ -10,21 +11,23 @@
   flex-direction: column;
   width: 100%;
   height: 100%;
+  min-width: 0;
   overflow: hidden;
   color: inherit;
   isolation: isolate;
   @include card-hover;
 
   &:focus-visible {
-    outline: none;
-    box-shadow: var(--focus-ring), var(--shadow-md);
+    outline: 2px solid var(--link);
+    outline-offset: 2px;
+    box-shadow: var(--shadow-md);
   }
 }
 
-// Media frame with fixed aspect ratio + zoom on card hover.
-@mixin media($ratio: 4 / 3) {
+// Media frame with fixed aspect ratio (no layout shift) + zoom on card hover.
+@mixin media($ratio: '4 / 3') {
   position: relative;
-  aspect-ratio: $ratio;
+  aspect-ratio: #{$ratio};
   overflow: hidden;
   background: var(--bg-muted);
 
@@ -36,8 +39,12 @@
   }
 }
 
-@mixin media-zoom($media-selector, $scale: 1.06) {
-  &:hover #{$media-selector} img,
+@mixin media-zoom($media-selector, $scale: 1.05) {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover #{$media-selector} img {
+      transform: scale($scale);
+    }
+  }
   &:focus-visible #{$media-selector} img {
     transform: scale($scale);
   }
@@ -48,6 +55,7 @@
   flex-direction: column;
   gap: var(--space-2);
   flex: 1;
+  min-width: 0;
   padding: var(--space-4) var(--space-5) var(--space-5);
 }
 
@@ -57,6 +65,7 @@
   line-height: var(--lh-snug);
   letter-spacing: -0.01em;
   color: var(--text);
+  text-wrap: balance;
   @include line-clamp($lines);
 }
 
@@ -84,26 +93,21 @@
 
   svg {
     flex-shrink: 0;
-    color: var(--c-primary-500);
+    color: var(--text-muted);
   }
 }
 
-// Small glass badge sitting on top of an image.
+// Kept for API compatibility. Cards no longer place labels on top of photos
+// (taste rule); this now styles an inline label inside the card body.
 @mixin media-badge {
-  position: absolute;
-  top: var(--space-3);
-  inset-inline-start: var(--space-3);
-  z-index: 1;
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 5px 10px;
-  border-radius: var(--radius-full);
-  @include glass(0.88);
-  color: var(--c-primary-700);
+  color: var(--text-secondary);
   font-size: var(--fs-xs);
   font-weight: 600;
-  box-shadow: var(--shadow-sm);
+
+  svg { color: var(--text-muted); }
 }
 
 // Round arrow affordance in the card footer.
@@ -115,8 +119,8 @@
   height: 40px;
   border-radius: var(--radius-full);
   border: 1px solid var(--border);
-  color: var(--brand);
-  transition: background var(--duration) var(--ease-out),
+  color: var(--link);
+  transition: background-color var(--duration) var(--ease-out),
               color var(--duration) var(--ease-out),
               border-color var(--duration) var(--ease-out),
               transform var(--duration) var(--ease-out);
@@ -136,7 +140,6 @@
   place-items: center;
   width: 100%;
   height: 100%;
-  background:
-    radial-gradient(70% 70% at 50% 40%, var(--c-primary-50) 0%, var(--bg-muted) 100%);
-  color: var(--c-primary-300);
+  background: var(--bg-muted);
+  color: var(--text-muted);
 }

@@ -95,7 +95,7 @@ function DoctorTable({ language }) {
             <ConfirmDialog
                 open={del.isOpen}
                 title={t("adminPanel.doctorTable.modal.confirm")}
-                description={del.target ? `${fullName(del.target)} — ${at("deleteHint")}` : undefined}
+                description={del.target ? `${fullName(del.target)}: ${at("deleteHint")}` : undefined}
                 cancelLabel={t("adminPanel.doctorTable.modal.cancel")}
                 confirmLabel={t("adminPanel.doctorTable.modal.delete")}
                 loadingLabel={t("adminPanel.doctorTable.modal.deleting")}

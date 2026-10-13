@@ -44,13 +44,13 @@ function SerhTableNew({ language }) {
             key: "author",
             header: t("adminPanel.commentTable.table.headers.author"),
             className: "is-nowrap",
-            render: (item) => <span className="adm-cell-title">{item.customerName || "—"}</span>,
+            render: (item) => <span className="adm-cell-title">{item.customerName || "-"}</span>,
         },
         {
             key: "country",
             header: t("adminPanel.commentTable.table.headers.country"),
             className: "is-nowrap",
-            render: (item) => (item.country ? item.country : <span className="adm-cell-muted">—</span>),
+            render: (item) => (item.country ? item.country : <span className="adm-cell-muted">-</span>),
         },
         {
             key: "review",
@@ -83,7 +83,7 @@ function SerhTableNew({ language }) {
             <ConfirmDialog
                 open={del.isOpen}
                 title={t("adminPanel.commentTable.table.deleteConfirm")}
-                description={del.target ? `${del.target.customerName ?? ""} — ${at("deleteHint")}` : undefined}
+                description={del.target ? `${del.target.customerName ?? ""}: ${at("deleteHint")}` : undefined}
                 cancelLabel={t("adminPanel.commentTable.modal.cancel")}
                 confirmLabel={t("adminPanel.commentTable.modal.confirm")}
                 loadingLabel={t("adminPanel.commentTable.modal.deleting")}

@@ -4,6 +4,7 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
   min-height: 100vh;
+  min-height: 100dvh;
   background: var(--bg-page);
 
   @include down($bp-lg) { grid-template-columns: minmax(0, 1fr); }
@@ -124,7 +125,7 @@
       z-index: -1;
     }
     &::before { width: 520px; height: 520px; top: -160px; inset-inline-end: -160px; box-shadow: inset 0 0 0 60px rgba(255, 255, 255, 0.03); }
-    &::after { width: 300px; height: 300px; top: 40px; inset-inline-end: 40px; background: radial-gradient(circle, rgba(63, 193, 216, 0.35), transparent 70%); border: 0; }
+    &::after { width: 300px; height: 300px; top: 40px; inset-inline-end: 40px; background: radial-gradient(circle, rgba(255, 255, 255, 0.12), transparent 70%); border: 0; }
 
     @include down($bp-lg) { display: none; }
   }

@@ -37,33 +37,40 @@ function ClinicsPage({ isGermany }) {
                     <span className="visually-hidden">{t("navbar.search")}</span>
                     <input
                         type="search"
+                        name="q"
+                        autoComplete="off"
+                        enterKeyHint="search"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         placeholder={t("adminPanel.clinicPage.search.placeholder")}
                     />
-                    <Search size={20} aria-hidden="true" />
+                    <Search size={20} strokeWidth={1.75} aria-hidden="true" />
                 </label>
             </PageHeader>
 
-            <section className="md-section">
+            <section className="md-section" aria-labelledby="clinics-list-title">
                 <div className="container">
-                    <div className="md-section-head">
-                        <SectionTitle
-                            align="start"
-                            title={t("adminPanel.clinicPage.headers.title")}
-                            desc={t("adminPanel.clinicPage.headers.subtitle")}
-                        />
-                        {!isLoading && (
-                            <span className="md-toolbar__count">{tx(t, "medicalPages.results", { n: clinics.length })}</span>
-                        )}
+                    <SectionTitle
+                        align="start"
+                        className="clinics-page__title"
+                        title={<span id="clinics-list-title">{t("adminPanel.clinicPage.headers.title")}</span>}
+                        desc={t("adminPanel.clinicPage.headers.subtitle")}
+                    />
+
+                    <div className="md-toolbar">
+                        <p className="md-toolbar__count" aria-live="polite">
+                            {!isLoading && tx(t, "medicalPages.results", { n: clinics.length })}
+                        </p>
                     </div>
 
                     {isLoading ? (
-                        <SkeletonGrid count={8} ratio="16 / 10" />
+                        <SkeletonGrid count={8} ratio="4 / 3" />
                     ) : clinics.length > 0 ? (
                         <div className="md-grid">
-                            {clinics.map((item) => (
-                                <ClinicGridCard key={item.id} item={item} />
+                            {clinics.map((item, i) => (
+                                <div key={item.id} className="md-grid__item" data-reveal style={{ "--reveal-delay": `${(i % 4) * 60}ms` }}>
+                                    <ClinicGridCard item={item} bare />
+                                </div>
                             ))}
                         </div>
                     ) : (

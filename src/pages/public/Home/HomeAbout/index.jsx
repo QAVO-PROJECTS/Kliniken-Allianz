@@ -13,15 +13,18 @@ function HomeAbout() {
     return (
         <section id="home-about" className="section section--subtle home-about">
             <div className="container home-about__grid">
-                <div className="home-about__media" data-aos="fade-up">
-                    <img src={aboutImg} alt={t('homeAbout.title')} loading="lazy" decoding="async" />
-                    <div className="home-about__badge">
-                        <strong>{t('homeAbout.experienceValue', '10+')}</strong>
-                        <span>{t('homeAbout.experienceLabel', 'Years of Experience')}</span>
-                    </div>
+                <div className="home-about__media" data-reveal>
+                    <img
+                        src={aboutImg}
+                        alt=""
+                        width={2000}
+                        height={1121}
+                        loading="lazy"
+                        decoding="async"
+                    />
                 </div>
 
-                <div className="home-about__content" data-aos="fade-up" data-aos-delay="100">
+                <div className="home-about__content" data-reveal style={{ '--reveal-delay': '120ms' }}>
                     <SectionTitle
                         eyebrow={t('homeAbout.tag')}
                         title={t('homeAbout.title')}
@@ -32,16 +35,22 @@ function HomeAbout() {
                         <ul className="home-about__features">
                             {features.map((feature) => (
                                 <li key={feature}>
-                                    <CircleCheck size={20} strokeWidth={2} aria-hidden="true" />
+                                    <CircleCheck size={20} strokeWidth={1.75} aria-hidden="true" />
                                     <span>{feature}</span>
                                 </li>
                             ))}
                         </ul>
                     )}
-                    <Link to="/about" className="btn btn--primary btn--lg">
-                        {t('homeAbout.button')}
-                        <ArrowRight size={20} strokeWidth={2} aria-hidden="true" />
-                    </Link>
+                    <div className="home-about__footer">
+                        <Link to="/about" className="btn btn--primary btn--lg home-more">
+                            {t('homeAbout.button')}
+                            <ArrowRight size={20} strokeWidth={1.75} aria-hidden="true" />
+                        </Link>
+                        <p className="home-about__years">
+                            <strong>{t('homeAbout.experienceValue', '10+')}</strong>
+                            <span>{t('homeAbout.experienceLabel', 'Years of Experience')}</span>
+                        </p>
+                    </div>
                 </div>
             </div>
         </section>

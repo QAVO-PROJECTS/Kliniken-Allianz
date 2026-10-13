@@ -13,8 +13,27 @@ $bp-xl: 1200px;
   @media (min-width: $bp) { @content; }
 }
 
+// Pointer devices that can really hover (avoids "sticky" hover states on touch).
+@mixin hover {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover { @content; }
+  }
+}
+
+// Dark-theme override for the rare case a token can't express the difference
+// (e.g. a dark-on-transparent logo). Follows the OS unless the page forces a theme.
+@mixin dark {
+  :root[data-theme='dark'] & { @content; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) & { @content; }
+  }
+}
+
+// Keyboard focus indicator. A solid outline (visible on every surface in both
+// themes) plus a soft halo; used inside `:focus-visible` blocks.
 @mixin focus-ring {
-  outline: none;
+  outline: 2px solid var(--link);
+  outline-offset: 2px;
   box-shadow: var(--focus-ring);
 }
 
@@ -28,11 +47,17 @@ $bp-xl: 1200px;
               border-color var(--duration) var(--ease-out);
 }
 
+// Interactive card: lift on hover, physical press on :active.
+// (Plain :hover, no nested @media, so callers can keep declarations after the include.)
 @mixin card-hover {
   &:hover {
     transform: translateY(-4px);
     box-shadow: var(--shadow-lg);
     border-color: transparent;
+  }
+  &:active {
+    transform: scale(0.98);
+    transition-duration: var(--duration-fast);
   }
 }
 
@@ -52,22 +77,32 @@ $bp-xl: 1200px;
   overflow: hidden;
 }
 
+// Small label above a heading. Deliberately quiet (no pill, no uppercase
+// tracking): pages decide whether a section needs one at all.
 @mixin eyebrow {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  padding: 6px 12px;
-  border-radius: var(--radius-full);
-  background: var(--bg-brand-soft);
-  color: var(--c-primary-600);
-  font-size: var(--fs-xs);
+  color: var(--link);
+  font-size: var(--fs-sm);
   font-weight: 600;
-  letter-spacing: var(--tracking-wide);
-  text-transform: uppercase;
+  line-height: var(--lh-snug);
+  letter-spacing: 0;
 }
 
+// Translucent surface. Follows the theme (tinted from --surface) and falls back
+// to a solid fill when transparency is unwanted or backdrop-filter is missing.
 @mixin glass($alpha: 0.78) {
-  background: rgba(255, 255, 255, $alpha);
-  backdrop-filter: saturate(180%) blur(14px);
-  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  background: color-mix(in srgb, var(--surface) #{$alpha * 100%}, transparent);
+  -webkit-backdrop-filter: saturate(160%) blur(14px);
+  backdrop-filter: saturate(160%) blur(14px);
+
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    background: var(--surface);
+  }
+  @media (prefers-reduced-transparency: reduce) {
+    background: var(--surface);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
 }

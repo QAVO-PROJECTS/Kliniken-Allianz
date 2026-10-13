@@ -1,11 +1,13 @@
-import { useId, useState } from "react";
+import { useId, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Send } from "lucide-react";
+import { Loader2, Send } from "lucide-react";
 import showToast from "../../../../utils/toast.js";
 import { tx } from "./texts.js";
 import "./shared.scss";
 
+// Field names, order and the submitted payload are part of the API contract: keep them as is.
 const EMPTY = { name: "", surname: "", email: "", phoneNumber: "", description: "" };
+const ORDER = ["name", "surname", "email", "phoneNumber", "description"];
 
 /**
  * Contact / inquiry form. `submit` is an RTK Query mutation trigger; `extra`
@@ -14,6 +16,7 @@ const EMPTY = { name: "", surname: "", email: "", phoneNumber: "", description: 
 function InquiryForm({ submit, extra = {}, stacked = false }) {
     const { t } = useTranslation();
     const uid = useId();
+    const formRef = useRef(null);
     const [values, setValues] = useState(EMPTY);
     const [errors, setErrors] = useState({});
     const [sending, setSending] = useState(false);
@@ -39,7 +42,11 @@ function InquiryForm({ submit, extra = {}, stacked = false }) {
         e.preventDefault();
         const found = validate();
         setErrors(found);
-        if (Object.keys(found).length) return;
+        const firstInvalid = ORDER.find((k) => found[k]);
+        if (firstInvalid) {
+            formRef.current?.elements.namedItem(firstInvalid)?.focus();
+            return;
+        }
         setSending(true);
         try {
             await submit({ ...values, ...extra }).unwrap();
@@ -52,43 +59,74 @@ function InquiryForm({ submit, extra = {}, stacked = false }) {
         }
     };
 
-    const field = (name, { type = "text", max = 50, autoComplete, full = false, textarea = false } = {}) => {
+    const field = (name, { type = "text", max = 50, autoComplete = "off", inputMode, full = false, textarea = false, extraProps = {} } = {}) => {
         const id = `${uid}-${name}`;
+        const errId = `${id}-err`;
+        const hintId = `${id}-hint`;
         const err = errors[name];
+        const key = name === "phoneNumber" ? "phone" : name;
+        const placeholder = t(`contact.form.placeholders.${key}`);
+        const describedBy = [err ? errId : null, textarea ? hintId : null].filter(Boolean).join(" ") || undefined;
         const common = {
             id,
             name,
             value: values[name],
             onChange: set(name),
             maxLength: max,
-            placeholder: t(`contact.form.placeholders.${name === "phoneNumber" ? "phone" : name}`),
+            autoComplete,
+            placeholder: placeholder || undefined,
+            "aria-required": true,
             "aria-invalid": err ? true : undefined,
-            "aria-describedby": err ? `${id}-err` : undefined,
+            "aria-describedby": describedBy,
+            ...extraProps,
         };
         return (
             <div className={`md-field${full ? " md-field--full" : ""}`}>
-                <label htmlFor={id}>{t(`contact.form.labels.${name === "phoneNumber" ? "phone" : name}`)}</label>
+                <label htmlFor={id}>{t(`contact.form.labels.${key}`)}</label>
                 {textarea ? (
-                    <textarea rows={4} {...common} />
+                    <textarea rows={stacked ? 3 : 4} {...common} />
                 ) : (
-                    <input type={type} autoComplete={autoComplete} {...common} />
+                    <input type={type} inputMode={inputMode} {...common} />
                 )}
-                {err && <span className="md-field__error" id={`${id}-err`}>{err}</span>}
+                <div className="md-field__meta">
+                    <p className="md-field__error" id={errId} aria-live="polite">{err || ""}</p>
+                    {textarea && (
+                        <span className="md-field__hint" id={hintId}>
+                            {tx(t, "medicalPages.charCount", { n: values[name].length, max })}
+                        </span>
+                    )}
+                </div>
             </div>
         );
     };
 
     return (
-        <form className={`md-form${stacked ? " md-form--stacked" : ""}`} onSubmit={handleSubmit} noValidate>
-            {field("name", { autoComplete: "given-name" })}
-            {field("surname", { autoComplete: "family-name" })}
-            {field("email", { type: "email", max: 100, autoComplete: "email", full: true })}
-            {field("phoneNumber", { type: "tel", max: 20, autoComplete: "tel", full: true })}
+        <form ref={formRef} className={`md-form${stacked ? " md-form--stacked" : ""}`} onSubmit={handleSubmit} noValidate>
+            {field("name", { autoComplete: "given-name", extraProps: { autoCapitalize: "words" } })}
+            {field("surname", { autoComplete: "family-name", extraProps: { autoCapitalize: "words" } })}
+            {field("email", {
+                type: "email",
+                max: 100,
+                autoComplete: "email",
+                inputMode: "email",
+                full: true,
+                extraProps: { spellCheck: false, autoCapitalize: "none" },
+            })}
+            {field("phoneNumber", { type: "tel", max: 20, autoComplete: "tel", inputMode: "tel", full: true })}
             {field("description", { max: 700, full: true, textarea: true })}
             <div className="md-field md-field--full">
-                <button type="submit" className="btn btn--primary btn--block" disabled={sending}>
-                    {sending ? tx(t, "medicalPages.sending") : t("contact.form.button")}
-                    {!sending && <Send size={18} aria-hidden="true" className="md-flip-rtl" />}
+                <button type="submit" className="btn btn--primary btn--block" disabled={sending} aria-busy={sending || undefined}>
+                    {sending ? (
+                        <>
+                            <Loader2 size={18} strokeWidth={1.75} className="md-spin" aria-hidden="true" />
+                            {tx(t, "medicalPages.sending")}
+                        </>
+                    ) : (
+                        <>
+                            {t("contact.form.button")}
+                            <Send size={18} strokeWidth={1.75} aria-hidden="true" className="md-flip-rtl" />
+                        </>
+                    )}
                 </button>
             </div>
         </form>

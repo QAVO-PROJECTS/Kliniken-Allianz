@@ -89,7 +89,7 @@ function CategoryTableServisNew({ language }) {
             <ConfirmDialog
                 open={del.isOpen}
                 title={t("adminPanel.categoryServiceTable.deleteConfirmTitle")}
-                description={del.target ? `${name(del.target)} — ${at("deleteHint")}` : undefined}
+                description={del.target ? `${name(del.target)}: ${at("deleteHint")}` : undefined}
                 cancelLabel={t("adminPanel.categoryServiceTable.cancel")}
                 confirmLabel={t("adminPanel.categoryServiceTable.delete")}
                 loadingLabel={t("adminPanel.categoryServiceTable.deleting")}

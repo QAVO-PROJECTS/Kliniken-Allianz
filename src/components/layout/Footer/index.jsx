@@ -30,7 +30,7 @@ const SOCIALS = [
 function Footer() {
     const { t } = useTranslation();
     const year = new Date().getFullYear();
-    // The translated copyright line contains a hard-coded year — keep it current.
+    // The translated copyright line contains a hard-coded year: keep it current.
     const copyright = t('footer.copyright').replace(/\b(19|20)\d{2}\b/, String(year));
 
     return (
@@ -42,7 +42,7 @@ function Footer() {
                             <img src={logo} alt={t('footer.logoAlt')} width="180" height="61" loading="lazy" decoding="async" />
                         </Link>
                         <p className="site-footer__desc">{t('footer.description')}</p>
-                        <ul className="site-footer__social" aria-label="Social media">
+                        <ul className="site-footer__social" aria-label={t('footer.social', 'Social media')}>
                             {SOCIALS.map(({ href, label, Icon }) => (
                                 <li key={label}>
                                     <a href={href} target="_blank" rel="noopener noreferrer" aria-label={label}>
@@ -69,7 +69,7 @@ function Footer() {
                         <ul className="site-footer__contacts">
                             <li>
                                 <a href={CONTACT.phoneHref} className="site-footer__contact">
-                                    <span className="site-footer__contact-icon"><Phone size={18} strokeWidth={1.9} aria-hidden="true" /></span>
+                                    <span className="site-footer__contact-icon" aria-hidden="true"><Phone size={18} strokeWidth={1.75} aria-hidden="true" /></span>
                                     <span>
                                         <span className="site-footer__contact-label">{t('footer.call')}</span>
                                         <span className="site-footer__contact-value" dir="ltr">{CONTACT.phoneDisplay}</span>
@@ -78,7 +78,7 @@ function Footer() {
                             </li>
                             <li>
                                 <a href={`mailto:${CONTACT.email}`} className="site-footer__contact">
-                                    <span className="site-footer__contact-icon"><Mail size={18} strokeWidth={1.9} aria-hidden="true" /></span>
+                                    <span className="site-footer__contact-icon" aria-hidden="true"><Mail size={18} strokeWidth={1.75} aria-hidden="true" /></span>
                                     <span>
                                         <span className="site-footer__contact-label">{t('footer.mail')}</span>
                                         <span className="site-footer__contact-value">{CONTACT.email}</span>
@@ -87,7 +87,7 @@ function Footer() {
                             </li>
                             <li>
                                 <a href={SOCIAL_LINKS.whatsapp} target="_blank" rel="noopener noreferrer" className="site-footer__contact">
-                                    <span className="site-footer__contact-icon"><MessageCircle size={18} strokeWidth={1.9} aria-hidden="true" /></span>
+                                    <span className="site-footer__contact-icon" aria-hidden="true"><MessageCircle size={18} strokeWidth={1.75} aria-hidden="true" /></span>
                                     <span>
                                         <span className="site-footer__contact-label">WhatsApp</span>
                                         <span className="site-footer__contact-value" dir="ltr">{CONTACT.phoneDisplay}</span>
@@ -104,7 +104,7 @@ function Footer() {
                         {t('footer.createdBy')}{' '}
                         <a href="https://buyontech.net/" target="_blank" rel="noopener noreferrer">
                             BuyonTech
-                            <ArrowUpRight size={14} strokeWidth={2} aria-hidden="true" />
+                            <ArrowUpRight size={14} strokeWidth={1.75} aria-hidden="true" />
                         </a>
                     </p>
                 </div>

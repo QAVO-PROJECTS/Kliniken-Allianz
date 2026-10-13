@@ -1,44 +1,33 @@
 @use '../../../styles/mixins' as *;
 
+// Calm tonal band (no decorative pattern): breadcrumb, title, optional subtitle.
 .page-header {
   position: relative;
-  overflow: hidden;
-  padding: var(--space-16) 0 var(--space-12);
-  background:
-    radial-gradient(60% 120% at 85% 0%, rgba(20, 166, 194, 0.12) 0%, rgba(20, 166, 194, 0) 60%),
-    radial-gradient(50% 100% at 10% 10%, rgba(29, 91, 191, 0.12) 0%, rgba(29, 91, 191, 0) 60%),
-    var(--bg-subtle);
+  padding: var(--space-12) 0 var(--space-10);
+  background: var(--bg-subtle);
   border-bottom: 1px solid var(--border);
 
-  &::after {
-    // faint dotted grid for depth
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: radial-gradient(var(--c-gray-300) 1px, transparent 1px);
-    background-size: 22px 22px;
-    mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.35), transparent 80%);
-    pointer-events: none;
-  }
-
   &__inner {
-    position: relative;
-    z-index: 1;
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
+    text-align: start;
+    gap: var(--space-3);
+  }
+
+  &--center &__inner {
     align-items: center;
     text-align: center;
-    gap: var(--space-4);
   }
+  &--center &__crumbs ol { justify-content: center; }
 
   &__crumbs ol {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
     align-items: center;
-    gap: var(--space-2);
+    gap: var(--space-1) var(--space-2);
     font-size: var(--fs-sm);
-    color: var(--text-muted);
+    color: var(--text-secondary);
 
     li {
       display: inline-flex;
@@ -46,55 +35,62 @@
       gap: var(--space-2);
       white-space: nowrap;
 
-      // Separator trails the previous crumb so it never starts a wrapped line.
-      &:not(:last-child)::after {
-        content: '';
-        flex-shrink: 0;
-        width: 4px;
-        height: 4px;
-        border-radius: 50%;
-        background: var(--c-gray-400);
-      }
-
       &:last-child {
         white-space: normal;
         min-width: 0;
       }
     }
 
-    a:hover { color: var(--brand); }
+    a {
+      border-radius: var(--radius-xs);
+      @include hover { color: var(--link); }
+      &:focus-visible { @include focus-ring; }
+    }
+
     [aria-current='page'] {
-      color: var(--brand);
-      font-weight: 600;
+      color: var(--text);
+      font-weight: 500;
+      @include line-clamp(1);
     }
   }
 
+  &__sep {
+    flex-shrink: 0;
+    color: var(--text-muted);
+    html[dir='rtl'] & { transform: scaleX(-1); }
+  }
+
   &__title {
+    max-width: 22ch;
+    margin-top: var(--space-1);
     font-size: var(--fs-4xl);
     line-height: var(--lh-tight);
     font-weight: 700;
-    max-width: 880px;
+    letter-spacing: var(--tracking-tight);
+    text-wrap: balance;
   }
 
   &__subtitle {
-    max-width: 640px;
+    max-width: 65ch;
     font-size: var(--fs-lg);
     color: var(--text-secondary);
+    text-wrap: pretty;
   }
 
   &__extra {
     width: 100%;
     max-width: 560px;
-    margin-top: var(--space-2);
+    margin-top: var(--space-3);
   }
 
   @include down($bp-sm) {
-    padding: var(--space-10) 0 var(--space-8);
+    padding: var(--space-8) 0 var(--space-8);
+    &__title { max-width: none; }
     &__subtitle { font-size: var(--fs-md); }
   }
 }
 
-// Search field commonly placed inside the header
+// Search field commonly placed inside the header (pill: an interactive control)
 .search-field {
   position: relative;
   display: flex;
@@ -105,17 +101,19 @@
     width: 100%;
     height: 52px;
     padding: 0 var(--space-12) 0 var(--space-5);
-    border: 1px solid var(--border);
+    border: 1px solid var(--border-strong);
     border-radius: var(--radius-full);
     background: var(--surface);
-    box-shadow: var(--shadow-sm);
+    color: var(--text);
+    box-shadow: var(--shadow-xs);
     font-size: var(--fs-md);
     outline: none;
-    transition: border-color var(--duration-fast), box-shadow var(--duration-fast);
+    transition: border-color var(--duration-fast) ease, box-shadow var(--duration-fast) ease;
 
     &::placeholder { color: var(--text-muted); }
+    &:focus-visible,
     &:focus {
-      border-color: var(--c-primary-400);
+      border-color: var(--link);
       box-shadow: var(--focus-ring);
     }
   }

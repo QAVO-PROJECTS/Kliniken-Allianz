@@ -1,27 +1,37 @@
 @use '../../../styles/mixins' as *;
 
-// Shared layout for travel detail pages (tour, car, sanatorium).
+// Shared layout for travel detail pages (tour, car, sanatorium) and the photo /
+// video viewers also used by the blog article. Colors: semantic tokens only;
+// the only fixed colors are the lightbox scrim and the text that sits on it.
 
 .detail-page {
-  padding-block: var(--space-12) var(--section-padding);
+  padding-block: var(--space-10) var(--section-padding);
 
   @include down($bp-sm) {
     padding-top: var(--space-6);
   }
 }
 
+// Desktop: gallery + content on the left, booking card sticky on the right.
+// Below 992px: one column in the order gallery, booking card, content.
 .detail-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 380px;
+  grid-template-columns: minmax(0, 1fr) 360px;
   grid-template-areas:
     'gallery aside'
     'main aside';
   column-gap: var(--space-12);
-  row-gap: var(--space-10);
+  row-gap: var(--space-12);
   align-items: start;
 
   &__gallery { grid-area: gallery; min-width: 0; }
-  &__main { grid-area: main; min-width: 0; display: flex; flex-direction: column; gap: var(--space-12); }
+  &__main {
+    grid-area: main;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16);
+  }
   &__aside {
     grid-area: aside;
     position: sticky;
@@ -29,7 +39,7 @@
   }
 
   @include down($bp-xl) {
-    grid-template-columns: minmax(0, 1fr) 340px;
+    grid-template-columns: minmax(0, 1fr) 320px;
     column-gap: var(--space-8);
   }
 
@@ -42,10 +52,11 @@
     row-gap: var(--space-8);
 
     &__aside { position: static; }
+    &__main { gap: var(--space-12); }
   }
 }
 
-// Top row with back link
+// Top row with back link (car detail)
 .detail-topbar {
   display: flex;
   align-items: center;
@@ -59,17 +70,21 @@
   align-items: center;
   gap: var(--space-2);
   min-height: 44px;
-  padding: 0 var(--space-4) 0 var(--space-3);
+  padding-inline: var(--space-3) var(--space-4);
   border-radius: var(--radius-full);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-strong);
   background: var(--surface);
   color: var(--text);
   font-size: var(--fs-sm);
   font-weight: 600;
   cursor: pointer;
-  transition: background var(--duration-fast), border-color var(--duration-fast);
+  touch-action: manipulation;
+  transition: background-color var(--duration-fast) ease,
+              border-color var(--duration-fast) ease,
+              transform var(--duration-fast) var(--ease-out);
 
-  &:hover { background: var(--bg-subtle); border-color: var(--border-strong); }
+  @include hover { background: var(--bg-muted); }
+  &:active { transform: scale(0.98); }
   &:focus-visible { @include focus-ring; }
 
   svg { html[dir='rtl'] & { transform: scaleX(-1); } }
@@ -80,11 +95,6 @@
   scroll-margin-top: calc(var(--navbar-height) + var(--space-6));
 
   &__head {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: var(--space-3);
     margin-bottom: var(--space-6);
 
     h2 {
@@ -92,46 +102,50 @@
       line-height: var(--lh-snug);
       font-weight: 700;
       letter-spacing: var(--tracking-tight);
+      text-wrap: balance;
     }
 
     p {
-      margin-top: var(--space-1);
+      margin-top: var(--space-2);
+      max-width: 65ch;
       color: var(--text-secondary);
     }
   }
 
-  &--card {
-    @include card-surface(var(--radius-xl));
+  // The enquiry form gets the only card surface in the main column.
+  &--form {
+    @include card-surface;
     padding: var(--space-8);
+    background: var(--bg-subtle);
+    box-shadow: none;
 
     @include down($bp-sm) { padding: var(--space-6) var(--space-5); }
   }
 }
 
 .prose {
+  max-width: 68ch;
   color: var(--text-secondary);
   font-size: var(--fs-lg);
   line-height: 1.75;
+  text-wrap: pretty;
 
   p + p { margin-top: var(--space-4); }
 
   @include down($bp-sm) { font-size: var(--fs-md); }
 }
 
-// "What's included" check list
+// "What's included": two-column check list, no boxes, generous rhythm.
 .include-list {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-3);
+  gap: var(--space-4) var(--space-8);
 
   li {
     display: flex;
     align-items: flex-start;
     gap: var(--space-3);
-    padding: var(--space-4);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    background: var(--surface);
+    min-width: 0;
     color: var(--text);
     font-weight: 500;
     line-height: var(--lh-snug);
@@ -141,68 +155,68 @@
     display: grid;
     place-items: center;
     flex-shrink: 0;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background: var(--c-success-bg);
-    color: var(--c-success);
+    width: 28px;
+    height: 28px;
+    margin-top: -3px;
+    border-radius: var(--radius-full);
+    background: var(--bg-brand-soft);
+    color: var(--link);
   }
 
-  @include down($bp-sm) { grid-template-columns: 1fr; }
+  @include down($bp-sm) { grid-template-columns: minmax(0, 1fr); }
 }
 
 .show-more {
   display: flex;
   justify-content: center;
   margin-top: var(--space-6);
+
+  .tabular { color: var(--text-secondary); }
 }
 
 // Sticky booking / contact card
 .booking-card {
-  @include card-surface(var(--radius-xl));
+  @include card-surface;
   box-shadow: var(--shadow-md);
   padding: var(--space-6);
   display: flex;
   flex-direction: column;
-  gap: var(--space-5);
-
-  &__eyebrow { align-self: flex-start; }
-
-  // The page header already shows the name on smaller screens
-  @include down($bp-lg) {
-    &__eyebrow, &__title { display: none; }
-  }
+  gap: var(--space-6);
 
   &__title {
     font-size: var(--fs-xl);
     line-height: var(--lh-snug);
     font-weight: 700;
+    text-wrap: balance;
   }
 
   &__price {
     display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding-bottom: var(--space-5);
+    border-bottom: 1px solid var(--border);
+  }
+
+  &__price-label {
+    font-size: var(--fs-sm);
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
+
+  &__price-value {
+    display: flex;
     flex-wrap: wrap;
     align-items: baseline;
     gap: var(--space-2);
-    padding: var(--space-4);
-    border-radius: var(--radius-md);
-    background: var(--bg-brand-soft);
-
-    small {
-      width: 100%;
-      font-size: var(--fs-xs);
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: var(--tracking-wide);
-      color: var(--c-primary-600);
-    }
 
     strong {
       font-size: var(--fs-3xl);
-      line-height: 1;
+      line-height: 1.1;
       font-weight: 700;
-      color: var(--brand);
+      color: var(--text);
       letter-spacing: var(--tracking-tight);
+      font-variant-numeric: tabular-nums;
     }
 
     span { color: var(--text-secondary); font-weight: 500; }
@@ -220,162 +234,167 @@
     display: flex;
     align-items: center;
     gap: var(--space-2);
+    margin-top: calc(-1 * var(--space-2));
     font-size: var(--fs-sm);
     color: var(--text-secondary);
 
-    svg { color: var(--c-success); flex-shrink: 0; }
+    svg { color: var(--link); flex-shrink: 0; }
+  }
+
+  // Phones/tablets: the header already shows the name; the card sits in flow.
+  @include down($bp-lg) {
+    box-shadow: var(--shadow-xs);
+    &__title { display: none; }
+  }
+
+  @include down($bp-sm) {
+    padding: var(--space-5);
+    gap: var(--space-5);
   }
 }
 
+// Key facts: icon + label + value, separated by spacing (no row rules).
 .fact-list {
   display: flex;
   flex-direction: column;
+  gap: var(--space-4);
 
-  li {
-    display: flex;
+  &__row {
+    display: grid;
+    grid-template-columns: 40px minmax(0, 1fr);
+    grid-template-areas:
+      'icon label'
+      'icon value';
+    column-gap: var(--space-3);
     align-items: center;
-    gap: var(--space-3);
-    padding: var(--space-3) 0;
-    border-bottom: 1px solid var(--border);
-
-    &:first-child { padding-top: 0; }
-    &:last-child { border-bottom: 0; padding-bottom: 0; }
   }
 
   &__icon {
+    grid-area: icon;
     display: grid;
     place-items: center;
-    flex-shrink: 0;
     width: 40px;
     height: 40px;
-    border-radius: var(--radius-sm);
-    background: var(--bg-subtle);
-    color: var(--brand);
+    border-radius: var(--radius-full);
+    background: var(--bg-brand-soft);
+    color: var(--link);
   }
 
-  &__text {
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
+  dt {
+    grid-area: label;
+    font-size: var(--fs-sm);
+    color: var(--text-secondary);
+    line-height: var(--lh-snug);
+  }
 
-    small { font-size: var(--fs-xs); color: var(--text-muted); font-weight: 500; }
-    span { font-weight: 600; color: var(--text); overflow-wrap: anywhere; }
+  dd {
+    grid-area: value;
+    font-weight: 600;
+    color: var(--text);
+    line-height: var(--lh-snug);
+    overflow-wrap: anywhere;
   }
 }
 
-// Hero gallery
+// Hero gallery: bento on desktop, swipe row on phones.
 .media-gallery {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
+  align-items: flex-start;
+  gap: var(--space-4);
 
-  &__main {
-    position: relative;
-    display: block;
+  &__grid {
+    display: grid;
+    gap: var(--space-2);
     width: 100%;
     aspect-ratio: 16 / 10;
+  }
+
+  &--single &__grid { grid-template-columns: minmax(0, 1fr); }
+  &--duo &__grid { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); }
+  &--trio &__grid {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+
+    > :first-child { grid-row: span 2; }
+    > :nth-child(n + 4) { display: none; }
+  }
+
+  &__item {
+    position: relative;
+    min-width: 0;
+    min-height: 0;
     overflow: hidden;
+    border-radius: var(--radius-lg);
+    background: var(--bg-muted);
+  }
+
+  &--single &__item { border-radius: var(--radius-xl); }
+
+  &__tile {
+    display: block;
+    width: 100%;
+    height: 100%;
     padding: 0;
     border: 0;
-    border-radius: var(--radius-xl);
-    background: var(--bg-muted);
+    background: none;
     cursor: zoom-in;
+    touch-action: manipulation;
+    @include image-zoom(1.03);
 
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform var(--duration-slow) var(--ease-out);
     }
 
-    &:hover img { transform: scale(1.03); }
-    &:focus-visible { @include focus-ring; }
-
-    &--empty { cursor: default; }
+    &:focus-visible {
+      outline: 3px solid var(--link);
+      outline-offset: -3px;
+    }
   }
 
-  &__badge {
-    position: absolute;
-    top: var(--space-4);
-    inset-inline-start: var(--space-4);
-    padding: 6px 12px;
-    border-radius: var(--radius-full);
-    @include glass(0.9);
-    color: var(--brand);
-    font-size: var(--fs-xs);
-    font-weight: 700;
-    letter-spacing: var(--tracking-wide);
-    text-transform: uppercase;
-  }
-
-  &__zoom,
-  &__count {
-    position: absolute;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    border-radius: var(--radius-full);
-    background: rgba(4, 28, 59, 0.6);
-    color: #fff;
-    backdrop-filter: blur(6px);
-  }
-
-  &__zoom {
-    top: var(--space-4);
-    inset-inline-end: var(--space-4);
-    width: 40px;
-    height: 40px;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity var(--duration) var(--ease-out);
-  }
-  &__main:hover &__zoom,
-  &__main:focus-visible &__zoom { opacity: 1; }
-
-  &__count {
-    bottom: var(--space-4);
-    inset-inline-end: var(--space-4);
-    padding: 6px 12px;
-    font-size: var(--fs-sm);
-    font-weight: 600;
-  }
-
-  &__thumbs {
+  &__placeholder {
     display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: calc((100% - 4 * var(--space-3)) / 5);
-    gap: var(--space-3);
-    overflow-x: auto;
-    padding-bottom: 2px;
-    scroll-snap-type: x proximity;
-
-    @include down($bp-sm) {
-      grid-auto-columns: calc((100% - 3 * var(--space-2)) / 4);
-      gap: var(--space-2);
-    }
+    place-items: center;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-muted);
+    color: var(--text-muted);
   }
 
-  &__thumb {
-    aspect-ratio: 4 / 3;
-    padding: 0;
-    overflow: hidden;
-    border: 2px solid transparent;
-    border-radius: var(--radius-md);
-    background: var(--bg-muted);
-    cursor: pointer;
-    opacity: 0.7;
-    scroll-snap-align: start;
-    transition: opacity var(--duration-fast), border-color var(--duration-fast);
+  @include down($bp-md) {
+    &__grid,
+    &--trio &__grid,
+    &--duo &__grid {
+      display: flex;
+      aspect-ratio: auto;
+      gap: var(--space-3);
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory;
+      margin-inline: calc(-1 * var(--container-padding));
+      padding-inline: var(--container-padding);
+      scroll-padding-inline: var(--container-padding);
+      scrollbar-width: none;
+      &::-webkit-scrollbar { display: none; }
 
-    img { width: 100%; height: 100%; object-fit: cover; }
+      > :nth-child(n) { display: block; grid-row: auto; }
+    }
 
-    &:hover { opacity: 1; }
-    &.is-active { opacity: 1; border-color: var(--brand); }
-    &:focus-visible { @include focus-ring; }
+    &__item,
+    &--single &__item {
+      flex: 0 0 86%;
+      aspect-ratio: 4 / 3;
+      border-radius: var(--radius-lg);
+      scroll-snap-align: start;
+    }
+
+    &--single &__item { flex-basis: 100%; }
   }
 }
 
-// Lightbox (images + videos)
+// Lightbox (images + videos). The scrim is a fixed dark color in both themes.
 .lightbox {
   position: fixed;
   inset: 0;
@@ -383,16 +402,26 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--space-16) var(--space-6);
-  background: rgba(4, 12, 28, 0.9);
+  padding: var(--space-16) var(--space-20);
+  background: rgba(4, 12, 28, 0.92);
+  overscroll-behavior: contain;
   animation: lightbox-in var(--duration) var(--ease-out);
 
-  > img {
+  &__img {
     max-width: min(1200px, 100%);
     max-height: 100%;
     border-radius: var(--radius-lg);
     object-fit: contain;
-    box-shadow: var(--shadow-lg);
+  }
+
+  &__placeholder {
+    display: grid;
+    place-items: center;
+    width: min(720px, 100%);
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-lg);
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.6);
   }
 
   &__video {
@@ -400,7 +429,7 @@
     aspect-ratio: 16 / 9;
     border-radius: var(--radius-lg);
     overflow: hidden;
-    background: #000;
+    background: rgb(4, 12, 28);
 
     iframe { width: 100%; height: 100%; border: 0; display: block; }
   }
@@ -412,21 +441,26 @@
     place-items: center;
     width: 48px;
     height: 48px;
-    border: 0;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.1);
     color: #fff;
     cursor: pointer;
-    transition: background var(--duration-fast);
+    touch-action: manipulation;
+    transition: background-color var(--duration-fast) ease, transform var(--duration-fast) var(--ease-out);
 
-    &:hover { background: rgba(255, 255, 255, 0.24); }
-    &:focus-visible { @include focus-ring; }
+    @include hover { background: rgba(255, 255, 255, 0.22); }
+    &:active { transform: scale(0.96); }
+    &:focus-visible {
+      outline: 2px solid #fff;
+      outline-offset: 2px;
+    }
   }
 
   &__close { top: var(--space-4); inset-inline-end: var(--space-4); }
   &__nav {
     top: 50%;
-    transform: translateY(-50%);
+    margin-top: -24px;
     &--prev { inset-inline-start: var(--space-4); }
     &--next { inset-inline-end: var(--space-4); }
     html[dir='rtl'] & svg { transform: scaleX(-1); }
@@ -437,14 +471,16 @@
     bottom: var(--space-5);
     left: 50%;
     transform: translateX(-50%);
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(255, 255, 255, 0.86);
     font-size: var(--fs-sm);
     font-weight: 600;
+    font-variant-numeric: tabular-nums;
   }
 
-  @include down($bp-sm) {
-    padding: var(--space-16) var(--space-3);
-    &__nav { top: auto; bottom: var(--space-3); transform: none; }
+  @include down($bp-md) {
+    padding: var(--space-16) var(--space-3) var(--space-20);
+    &__nav { top: auto; bottom: var(--space-3); margin-top: 0; }
+    &__counter { bottom: var(--space-6); }
   }
 }
 
@@ -459,9 +495,9 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-4);
 
-  &--single { grid-template-columns: 1fr; }
+  &--single { grid-template-columns: minmax(0, 1fr); }
 
-  @include down($bp-sm) { grid-template-columns: 1fr; }
+  @include down($bp-sm) { grid-template-columns: minmax(0, 1fr); }
 
   &__item {
     position: relative;
@@ -470,109 +506,106 @@
     overflow: hidden;
     border: 0;
     border-radius: var(--radius-lg);
-    background: var(--c-gray-900);
+    background: var(--bg-muted);
     cursor: pointer;
+    touch-action: manipulation;
+    @include image-zoom(1.03);
 
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.88;
-      transition: transform var(--duration-slow) var(--ease-out), opacity var(--duration);
     }
 
-    &:hover img { transform: scale(1.04); opacity: 1; }
-    &:focus-visible { @include focus-ring; }
+    &:focus-visible {
+      outline: 3px solid var(--link);
+      outline-offset: -3px;
+    }
   }
 
+  // Play affordance on the thumbnail (a control glyph, not a label).
   &__play {
     position: absolute;
     top: 50%;
     left: 50%;
     display: grid;
     place-items: center;
-    width: 68px;
-    height: 68px;
-    padding-inline-start: 4px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.95);
-    color: var(--brand);
-    box-shadow: var(--shadow-lg);
+    width: 64px;
+    height: 64px;
+    padding-inline-start: 3px;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.94);
+    color: var(--c-primary-700);
+    box-shadow: 0 8px 24px -6px rgba(4, 12, 28, 0.45);
     transform: translate(-50%, -50%);
     transition: transform var(--duration) var(--ease-out);
   }
-  &__item:hover &__play { transform: translate(-50%, -50%) scale(1.08); }
+  @media (hover: hover) and (pointer: fine) {
+    &__item:hover &__play { transform: translate(-50%, -50%) scale(1.06); }
+  }
 }
 
-// Compact media cards used for hotels / cars inside detail pages
-.mini-grid {
+// Quiet fallback for missing card images
+.thumb-fallback {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-muted);
+  color: var(--text-muted);
+}
+
+// Hotels: image card grid (3 / 2 columns; swipe row on phones)
+.hotel-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: var(--space-5);
+  gap: var(--space-6) var(--space-5);
 
-  // On phones: a swipeable row instead of a very long stack
   @include down($bp-sm) {
     grid-template-columns: none;
     grid-auto-flow: column;
     grid-auto-columns: 78%;
     gap: var(--space-3);
     overflow-x: auto;
+    overscroll-behavior-x: contain;
     scroll-snap-type: x mandatory;
     margin-inline: calc(-1 * var(--container-padding));
-    padding: var(--space-1) var(--container-padding) var(--space-4);
+    padding: var(--space-1) var(--container-padding) var(--space-3);
     scroll-padding-inline: var(--container-padding);
+    scrollbar-width: none;
+    &::-webkit-scrollbar { display: none; }
 
     > * { scroll-snap-align: start; }
-    .mini-card:hover { transform: none; }
   }
 }
 
-.mini-card {
-  @include card-surface;
-  @include card-hover;
-  @include image-zoom;
+.hotel-card {
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  gap: var(--space-4);
+  min-width: 0;
 
   &__media {
-    position: relative;
     aspect-ratio: 4 / 3;
     overflow: hidden;
+    border-radius: var(--radius-lg);
     background: var(--bg-muted);
 
     img { width: 100%; height: 100%; object-fit: cover; }
   }
 
-  &__tag {
-    position: absolute;
-    top: var(--space-3);
-    inset-inline-start: var(--space-3);
-    padding: 4px 10px;
-    border-radius: var(--radius-full);
-    @include glass(0.92);
-    color: var(--brand);
-    font-size: var(--fs-xs);
-    font-weight: 700;
-  }
-
   &__body {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     gap: var(--space-2);
-    flex: 1;
-    padding: var(--space-4) var(--space-5) var(--space-5);
   }
 
   &__title {
     font-size: var(--fs-md);
-    font-weight: 700;
+    font-weight: 600;
     line-height: var(--lh-snug);
-    color: var(--text);
     @include line-clamp(2);
-
-    a { color: inherit; }
-    a::after { content: ''; position: absolute; inset: 0; }
   }
 
   &__meta {
@@ -583,35 +616,105 @@
     font-size: var(--fs-sm);
     color: var(--text-secondary);
 
-    span { display: inline-flex; align-items: center; gap: 4px; }
+    > span:not(.star-rating) { display: inline-flex; align-items: center; gap: 4px; }
   }
 
-  &__stars {
+  &__link {
     display: inline-flex;
-    gap: 2px;
-    color: var(--c-star);
+    align-items: center;
+    gap: 6px;
+    min-height: 32px;
+    color: var(--link);
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    text-underline-offset: 3px;
 
-    .is-empty { color: var(--c-gray-300); }
+    @include hover { text-decoration: underline; }
+    &:focus-visible { @include focus-ring; border-radius: var(--radius-full); }
+  }
+}
+
+.star-rating {
+  display: inline-flex;
+  gap: 2px;
+  color: var(--c-star);
+
+  .is-empty { color: var(--border-strong); }
+}
+
+// Cars: compact rows (thumbnail + name + price + apply), two columns.
+.car-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+
+  @include down($bp-sm) { grid-template-columns: minmax(0, 1fr); gap: var(--space-3); }
+}
+
+.car-row {
+  @include card-surface;
+  position: relative;
+  display: grid;
+  grid-template-columns: 128px minmax(0, 1fr);
+  overflow: hidden;
+  min-width: 0;
+
+  @include hover {
+    border-color: var(--border-strong);
+    box-shadow: var(--shadow-sm);
+  }
+
+  &__media {
+    background: var(--bg-muted);
+    min-height: 100%;
+
+    img { width: 100%; height: 100%; object-fit: cover; }
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-1);
+    padding: var(--space-4);
+    min-width: 0;
+  }
+
+  &__title {
+    font-size: var(--fs-md);
+    font-weight: 600;
+    line-height: var(--lh-snug);
+    @include line-clamp(2);
+
+    a { color: var(--text); }
+    // Whole row opens the car page; the apply button sits above this layer.
+    a::after { content: ''; position: absolute; inset: 0; }
+    a:focus-visible { outline: none; }
+  }
+
+  &:has(a:focus-visible) { @include focus-ring; }
+
+  &__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-3);
+    font-size: var(--fs-sm);
+    color: var(--text-secondary);
   }
 
   &__price {
-    font-weight: 700;
-    color: var(--brand);
-    small { font-weight: 500; color: var(--text-muted); }
+    font-weight: 600;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
   }
 
-  &__footer {
+  &__apply {
     position: relative;
     z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-2);
-    margin-top: auto;
-    padding-top: var(--space-3);
+    margin-top: var(--space-2);
   }
 
-  &--linked { position: relative; }
+  @include down($bp-sm) { grid-template-columns: 112px minmax(0, 1fr); }
 }
 
 .detail-skeleton {

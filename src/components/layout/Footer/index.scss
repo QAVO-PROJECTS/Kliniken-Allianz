@@ -1,19 +1,18 @@
 @use '../../../styles/mixins' as *;
 
+// Tonal footer: a slightly raised surface in both themes (never an inverted block).
 .site-footer {
   position: relative;
-  overflow: hidden;
   padding-top: var(--space-20);
-  background:
-    radial-gradient(60% 80% at 100% 0%, rgba(20, 166, 194, 0.16) 0%, rgba(20, 166, 194, 0) 60%),
-    radial-gradient(50% 70% at 0% 100%, rgba(29, 91, 191, 0.22) 0%, rgba(29, 91, 191, 0) 60%),
-    var(--c-primary-900);
-  color: rgba(255, 255, 255, 0.72);
+  padding-bottom: env(safe-area-inset-bottom);
+  background: var(--bg-subtle);
+  border-top: 1px solid var(--border);
+  color: var(--text-secondary);
   font-size: var(--fs-sm);
 
   a:focus-visible {
-    outline: 2px solid var(--c-accent-400);
-    outline-offset: 2px;
+    @include focus-ring;
+    border-radius: var(--radius-xs);
   }
 
   &__grid {
@@ -45,11 +44,12 @@
   &__logo img {
     width: 172px;
     height: auto;
-    // the logo asset is dark — render it white on the navy background
-    filter: brightness(0) invert(1);
+    // Navy/black logo on transparent: render it as a light mark in dark mode.
+    @include dark { filter: brightness(0) invert(1); }
   }
 
   &__desc {
+    max-width: 65ch;
     line-height: var(--lh-normal);
     @include line-clamp(5);
   }
@@ -64,55 +64,63 @@
       width: 44px;
       height: 44px;
       border-radius: var(--radius-full);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      background: rgba(255, 255, 255, 0.04);
-      color: #fff;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-secondary);
       font-size: 16px;
+      transition: color var(--duration-fast) ease,
+                  background-color var(--duration-fast) ease,
+                  border-color var(--duration-fast) ease,
+                  transform var(--duration-fast) var(--ease-out);
 
-      &:hover {
-        background: #fff;
-        border-color: #fff;
-        color: var(--c-primary-800);
+      @include hover {
+        background: var(--brand);
+        border-color: var(--brand);
+        color: var(--text-on-brand);
         transform: translateY(-2px);
       }
+      &:active { transform: scale(0.96); }
+      &:focus-visible { border-radius: var(--radius-full); }
     }
   }
 
   &__title {
     margin-bottom: var(--space-5);
-    color: #fff;
-    font-size: var(--fs-sm);
+    color: var(--text);
+    font-size: var(--fs-md);
     font-weight: 600;
-    letter-spacing: var(--tracking-wide);
-    text-transform: uppercase;
+    letter-spacing: 0;
   }
 
   &__links {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--space-3) var(--space-6);
+    gap: var(--space-2) var(--space-6);
 
     a {
+      position: relative;
       display: inline-flex;
       align-items: center;
-      min-height: 32px;
-      color: rgba(255, 255, 255, 0.72);
-      position: relative;
+      min-height: 36px;
+      color: var(--text-secondary);
 
+      // Underline drawn with transform (compositor-only) on hover.
       &::after {
         content: '';
         position: absolute;
-        inset-inline-start: 0;
-        bottom: 4px;
-        width: 0;
+        inset-inline: 0;
+        bottom: 6px;
         height: 1px;
         background: currentColor;
-        transition: width var(--duration) var(--ease-out);
+        transform: scaleX(0);
+        transform-origin: left center;
+        transition: transform var(--duration) var(--ease-out);
       }
+      html[dir='rtl'] &::after { transform-origin: right center; }
 
-      &:hover {
-        color: #fff;
-        &::after { width: 100%; }
+      @include hover {
+        color: var(--text);
+        &::after { transform: scaleX(1); }
       }
     }
   }
@@ -135,12 +143,14 @@
       min-width: 0;
     }
 
-    &:hover .site-footer__contact-icon {
-      background: var(--c-accent-500);
-      border-color: var(--c-accent-500);
-      color: #fff;
+    @include hover {
+      .site-footer__contact-icon {
+        background: var(--brand);
+        border-color: var(--brand);
+        color: var(--text-on-brand);
+      }
+      .site-footer__contact-value { color: var(--link); }
     }
-    &:hover .site-footer__contact-value { color: #fff; }
   }
 
   &__contact-icon {
@@ -148,23 +158,25 @@
     place-items: center;
     flex: 0 0 44px;
     height: 44px;
-    border-radius: var(--radius-md);
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    background: rgba(255, 255, 255, 0.04);
-    color: var(--c-accent-400);
-    transition: background var(--duration-fast), color var(--duration-fast), border-color var(--duration-fast);
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--link);
+    transition: background-color var(--duration-fast) ease,
+                color var(--duration-fast) ease,
+                border-color var(--duration-fast) ease;
   }
 
   &__contact-label {
     font-size: var(--fs-xs);
-    color: rgba(255, 255, 255, 0.55);
+    color: var(--text-secondary);
   }
 
   &__contact-value {
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--text);
     overflow-wrap: anywhere;
-    transition: color var(--duration-fast);
+    transition: color var(--duration-fast) ease;
   }
 
   &__bottom {
@@ -174,17 +186,17 @@
     justify-content: space-between;
     gap: var(--space-3) var(--space-6);
     padding: var(--space-6) 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid var(--border);
     font-size: var(--fs-xs);
-    color: rgba(255, 255, 255, 0.55);
+    color: var(--text-secondary);
 
     a {
       display: inline-flex;
       align-items: center;
       gap: 2px;
-      color: #fff;
+      color: var(--text);
       font-weight: 600;
-      &:hover { color: var(--c-accent-400); }
+      @include hover { color: var(--link); }
     }
 
     @include down($bp-sm) {

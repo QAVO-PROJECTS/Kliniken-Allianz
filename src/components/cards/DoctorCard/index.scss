@@ -3,7 +3,7 @@
 .doctor-card {
   .mcard__media img { object-position: top center; }
 
-  &__star {
+  .mcard__meta .doctor-card__star {
     color: var(--c-star);
     fill: var(--c-star);
   }

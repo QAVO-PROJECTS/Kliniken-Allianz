@@ -1,22 +1,24 @@
-import { useMemo, useRef, useState } from "react";
+import { useId, useMemo, useRef, useState } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ArrowLeft, CarFront, Phone, ShieldCheck, Wallet } from "lucide-react";
+import { ArrowLeft, CarFront, Wallet } from "lucide-react";
 import { useGetCarByIdQuery, usePostContactMutation } from "../../../api/userApi.js";
 import { CAR_CARD_IMAGES, CAR_IMAGES } from "../../../config/mediaUrls.js";
 import { getLocalizedText } from "../../../i18n/getLocalizedText.js";
 import PageHeader from "../../../components/ui/PageHeader/index.jsx";
 import EnquiryForm from "../Contact/EnquiryForm.jsx";
-import CtaBand from "../Contact/CtaBand.jsx";
 import { EmptyState } from "../Tours/ListingStates.jsx";
 import MediaGallery from "../TourDetail/MediaGallery.jsx";
 import VideoGrid from "../TourDetail/VideoGrid.jsx";
+import { BookingCard, DetailSkeleton, SectionHead } from "../TourDetail/DetailParts.jsx";
 import { carEnquiryMessage, toParagraphs } from "../TourDetail/carMessage.js";
+import "../Tours/listing.scss";
 import "../TourDetail/detailShared.scss";
 
 function CarDetail() {
     const { id } = useParams();
     const { t } = useTranslation();
+    const uid = useId();
     const navigate = useNavigate();
     const routerLocation = useLocation();
     const { data, isLoading, isError } = useGetCarByIdQuery(id);
@@ -28,14 +30,13 @@ function CarDetail() {
     const name = getLocalizedText(car, "name").trim();
     const paragraphs = toParagraphs(getLocalizedText(car, "description"));
     const videos = car?.carVideos || [];
-    const phone = t("contact.contactCard.mobile.value");
     const images = useMemo(() => {
         const list = (car?.carImages || []).map((img) => CAR_IMAGES + img);
         if (!list.length && car?.cardImage) list.push(CAR_CARD_IMAGES + car.cardImage);
         return list;
     }, [car]);
 
-    // There is no /cars listing — go back to wherever the visitor came from (usually a tour).
+    // There is no /cars listing: go back to wherever the visitor came from (usually a tour).
     const goBack = () => {
         if (routerLocation.key !== "default") navigate(-1);
         else navigate("/tours");
@@ -70,92 +71,50 @@ function CarDetail() {
         );
     }
 
+    const facts = [];
+    if (car?.type) facts.push({ icon: CarFront, label: t("carDetail.type", "Body type"), value: car.type });
+    facts.push({
+        icon: Wallet,
+        label: t("carDetail.pricing", "Pricing"),
+        value: t("carDetail.pricingNote", "Daily price range, exact quote on request"),
+    });
+
     return (
         <div className="car-detail">
             <PageHeader
-                title={name || " "}
+                title={name || " "}
                 crumbs={[{ label: t("navbar.tours"), to: "/tours" }, { label: name }]}
             />
 
             <div className="container detail-page">
                 <div className="detail-topbar">
                     <button type="button" className="back-link" onClick={goBack}>
-                        <ArrowLeft size={18} strokeWidth={2} aria-hidden="true" />
+                        <ArrowLeft size={18} strokeWidth={1.75} aria-hidden="true" />
                         {t("carDetail.back", "Back")}
                     </button>
                 </div>
 
                 <div className="detail-layout">
                     <div className="detail-layout__gallery">
-                        <MediaGallery images={images} alt={name} badge={car?.type} />
+                        <MediaGallery images={images} alt={name} loading={isLoading} />
                     </div>
 
-                    <aside className="detail-layout__aside" aria-label={t("tourDetail.bookingAria", "Booking summary")}>
-                        <div className="booking-card">
-                            <span className="eyebrow booking-card__eyebrow">{t("carDetail.eyebrow", "Vehicle")}</span>
-                            <h2 className="booking-card__title">{name}</h2>
-
-                            <div className={`booking-card__price${car?.price ? "" : " booking-card__price--request"}`}>
-                                <small>{t("tourDetail.priceLabel", "Price")}</small>
-                                {car?.price ? (
-                                    <>
-                                        <strong>{car.price}</strong>
-                                        <span>AZN / {t("carDetail.perDay")}</span>
-                                    </>
-                                ) : (
-                                    <strong>{t("tourDetail.priceOnRequest", "Price on request")}</strong>
-                                )}
-                            </div>
-
-                            <ul className="fact-list">
-                                {car?.type && (
-                                    <li>
-                                        <span className="fact-list__icon"><CarFront size={20} strokeWidth={1.75} /></span>
-                                        <span className="fact-list__text">
-                                            <small>{t("carDetail.type", "Body type")}</small>
-                                            <span>{car.type}</span>
-                                        </span>
-                                    </li>
-                                )}
-                                <li>
-                                    <span className="fact-list__icon"><Wallet size={20} strokeWidth={1.75} /></span>
-                                    <span className="fact-list__text">
-                                        <small>{t("carDetail.pricing", "Pricing")}</small>
-                                        <span>{t("carDetail.pricingNote", "Daily price range — exact quote on request")}</span>
-                                    </span>
-                                </li>
-                            </ul>
-
-                            <div className="booking-card__actions">
-                                <button type="button" className="btn btn--primary btn--lg btn--block" onClick={scrollToForm}>
-                                    {t("toursPage.applyButton")}
-                                </button>
-                                <a href={`tel:${phone.replace(/\s+/g, "")}`} className="btn btn--secondary btn--block">
-                                    <Phone size={18} strokeWidth={2} aria-hidden="true" />
-                                    <span dir="ltr">{phone}</span>
-                                </a>
-                            </div>
-                            <p className="booking-card__note">
-                                <ShieldCheck size={18} strokeWidth={2} aria-hidden="true" />
-                                {t("tourDetail.freeConsultation", "Free consultation, no obligation")}
-                            </p>
-                        </div>
-                    </aside>
+                    <div className="detail-layout__aside">
+                        <BookingCard
+                            title={name}
+                            price={car?.price ? String(car.price) : ""}
+                            priceSuffix={`AZN / ${t("carDetail.perDay")}`}
+                            facts={isLoading ? [] : facts}
+                            onApply={scrollToForm}
+                        />
+                    </div>
 
                     <div className="detail-layout__main">
-                        {isLoading && (
-                            <div className="detail-skeleton" aria-hidden="true">
-                                <div className="skeleton detail-skeleton__title" />
-                                <div className="skeleton detail-skeleton__line" />
-                                <div className="skeleton detail-skeleton__line detail-skeleton__line--short" />
-                            </div>
-                        )}
+                        {isLoading && <DetailSkeleton />}
 
                         {paragraphs.length > 0 && (
-                            <section className="detail-section">
-                                <div className="detail-section__head">
-                                    <h2>{t("tourDetail.overview", "Overview")}</h2>
-                                </div>
+                            <section className="detail-section" aria-labelledby={`${uid}-overview`} data-reveal>
+                                <SectionHead id={`${uid}-overview`} title={t("tourDetail.overview", "Overview")} />
                                 <div className="prose">
                                     {paragraphs.map((p, i) => <p key={i}>{p}</p>)}
                                 </div>
@@ -163,18 +122,19 @@ function CarDetail() {
                         )}
 
                         {videos.length > 0 && (
-                            <section className="detail-section">
-                                <div className="detail-section__head">
-                                    <h2>{t("sanatoriumDetail.videos.title")}</h2>
-                                </div>
+                            <section className="detail-section" aria-labelledby={`${uid}-videos`} data-reveal>
+                                <SectionHead id={`${uid}-videos`} title={t("sanatoriumDetail.videos.title")} />
                                 <VideoGrid videos={videos} title={name} />
                             </section>
                         )}
 
-                        <section className="detail-section detail-section--card" ref={formRef} id="enquiry">
+                        <section className="detail-section detail-section--form" ref={formRef} id="enquiry">
                             <EnquiryForm
                                 title={t("contact.form.title")}
-                                subtitle={t("carDetail.formSubtitle", "Tell us your dates and route — we will confirm availability and the final price.")}
+                                subtitle={t(
+                                    "carDetail.formSubtitle",
+                                    "Tell us your dates and route. We will confirm availability and the final price."
+                                )}
                                 presetMessage={presetMessage}
                                 onSubmit={submitEnquiry}
                             />
@@ -182,8 +142,6 @@ function CarDetail() {
                     </div>
                 </div>
             </div>
-
-            <CtaBand />
         </div>
     );
 }

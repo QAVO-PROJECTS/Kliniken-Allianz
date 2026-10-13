@@ -4,10 +4,10 @@
   html[dir='rtl'] & { transform: scaleX(-1); }
 }
 
-// Story
+// Story: text column + photo. Phones: photo under the text.
 .about-story {
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
   gap: var(--space-16);
   align-items: center;
 
@@ -16,20 +16,46 @@
     flex-direction: column;
     align-items: flex-start;
     gap: var(--space-4);
+    min-width: 0;
 
     h2 {
+      max-width: 22ch;
       font-size: var(--fs-4xl);
       line-height: var(--lh-tight);
       font-weight: 700;
       letter-spacing: var(--tracking-tight);
-      margin-bottom: var(--space-2);
+      text-wrap: balance;
     }
 
     p {
+      max-width: 65ch;
       color: var(--text-secondary);
       font-size: var(--fs-lg);
       line-height: 1.7;
+      text-wrap: pretty;
     }
+  }
+
+  // Office fact (was a glass badge over the photo; now sits in the text).
+  &__office {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-top: var(--space-2);
+
+    strong { display: block; font-weight: 600; color: var(--text); }
+    small { display: block; font-size: var(--fs-sm); color: var(--text-secondary); }
+  }
+
+  &__office-icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-full);
+    background: var(--bg-brand-soft);
+    color: var(--link);
   }
 
   &__actions {
@@ -40,198 +66,215 @@
   }
 
   &__media {
-    position: relative;
-    justify-self: center;
+    justify-self: end;
     width: 100%;
-    max-width: 480px;
+    max-width: 460px;
+    overflow: hidden;
+    border-radius: var(--radius-xl);
+    background: var(--bg-muted);
 
     img {
-      position: relative;
-      z-index: 1;
       display: block;
       width: 100%;
       height: auto;
-      object-fit: contain;
+      aspect-ratio: 517 / 578;
+      object-fit: cover;
     }
-  }
-
-  &__badge {
-    position: absolute;
-    z-index: 2;
-    bottom: var(--space-6);
-    inset-inline-start: calc(-1 * var(--space-8));
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    max-width: 300px;
-    padding: var(--space-4) var(--space-5);
-    border-radius: var(--radius-lg);
-    @include glass(0.94);
-    box-shadow: var(--shadow-lg);
-
-    strong { display: block; font-size: var(--fs-sm); font-weight: 700; color: var(--text); }
-    small { display: block; font-size: var(--fs-xs); color: var(--text-secondary); }
-  }
-
-  &__badge-icon {
-    display: grid;
-    place-items: center;
-    flex-shrink: 0;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: var(--brand);
-    color: var(--text-on-brand);
   }
 
   @include down($bp-lg) {
     grid-template-columns: minmax(0, 1fr);
-    gap: var(--space-12);
+    gap: var(--space-10);
 
-    &__badge { inset-inline-start: var(--space-4); }
+    &__media { justify-self: start; max-width: 520px; }
   }
 
   @include down($bp-sm) {
     &__text p { font-size: var(--fs-md); }
+    &__actions { width: 100%; }
     &__actions .btn { flex: 1 1 auto; }
-    &__badge { inset-inline: var(--space-3); bottom: var(--space-3); max-width: none; }
+    &__media { border-radius: var(--radius-lg); }
   }
 }
 
-// Stats
+// Figures: label above a large tabular number, hairlines between columns.
+.about-stats-wrap {
+  padding-bottom: var(--section-padding);
+}
+
 .about-stats {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  border-radius: var(--radius-xl);
-  background: var(--gradient-brand);
-  box-shadow: var(--shadow-brand);
-  color: var(--text-on-brand);
-  overflow: hidden;
+  border-block: 1px solid var(--border);
 
-  li {
+  &__item {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
     gap: var(--space-2);
-    padding: var(--space-10) var(--space-6);
+    padding: var(--space-8) var(--space-6);
+    min-width: 0;
 
-    & + li { border-inline-start: 1px solid rgba(255, 255, 255, 0.16); }
+    & + & { border-inline-start: 1px solid var(--border); }
   }
 
-  &__icon {
-    display: grid;
-    place-items: center;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.14);
-    margin-bottom: var(--space-2);
+  dt {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--text-secondary);
+    font-size: var(--fs-sm);
+    font-weight: 500;
+
+    svg { color: var(--link); flex-shrink: 0; }
   }
 
-  strong {
+  dd {
     font-size: var(--fs-4xl);
-    line-height: 1;
+    line-height: 1.1;
     font-weight: 700;
     letter-spacing: var(--tracking-tight);
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
   }
 
-  span { color: rgba(255, 255, 255, 0.86); font-weight: 500; }
+  &__placeholder {
+    display: block;
+    width: 2.2ch;
+    height: 0.9em;
+    margin-block: 0.1em;
+  }
 
   @include down($bp-lg) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
 
-    li:nth-child(3) { border-inline-start: 0; }
-    li:nth-child(n + 3) { border-top: 1px solid rgba(255, 255, 255, 0.16); }
+    &__item:nth-child(3) { border-inline-start: 0; }
+    &__item:nth-child(n + 3) { border-top: 1px solid var(--border); }
   }
 
   @include down($bp-sm) {
-    li { padding: var(--space-6) var(--space-3); }
-    span { font-size: var(--fs-sm); }
+    &__item { padding: var(--space-6) var(--space-3); }
+    dd { font-size: var(--fs-3xl); }
   }
 }
 
-// Values
+// Why us: heading on the left (sticky on desktop), the four reasons as a
+// single column of icon rows on the right. Phones: stacked.
 .about-values {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--space-6);
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: var(--space-16);
+  align-items: start;
 
-  @include down($bp-lg) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  @include down($bp-sm) { grid-template-columns: minmax(0, 1fr); gap: var(--space-4); }
-}
+  &__head {
+    max-width: 48ch;
 
-.about-value {
-  @include card-surface;
-  @include card-hover;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-5);
-  padding: var(--space-8) var(--space-6);
+    @include up($bp-lg) {
+      position: sticky;
+      top: calc(var(--navbar-height) + var(--space-8));
+    }
+
+    h2 {
+      font-size: var(--fs-4xl);
+      line-height: var(--lh-tight);
+      font-weight: 700;
+      letter-spacing: var(--tracking-tight);
+      text-wrap: balance;
+    }
+
+    p {
+      margin-top: var(--space-3);
+      color: var(--text-secondary);
+      font-size: var(--fs-lg);
+      text-wrap: pretty;
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: var(--space-5);
+      padding: var(--space-6) 0;
+      min-width: 0;
+
+      & + li { border-top: 1px solid var(--border); }
+      &:first-child { padding-top: 0; }
+    }
+
+    h3 {
+      font-size: var(--fs-xl);
+      line-height: var(--lh-snug);
+      font-weight: 600;
+    }
+  }
 
   &__icon {
     display: grid;
     place-items: center;
+    flex-shrink: 0;
     width: 56px;
     height: 56px;
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-full);
     background: var(--bg-brand-soft);
-    color: var(--brand);
-    transition: background var(--duration), color var(--duration);
+    color: var(--link);
   }
-  &:hover &__icon { background: var(--brand); color: var(--text-on-brand); }
 
-  h3 {
-    font-size: var(--fs-lg);
-    line-height: var(--lh-snug);
-    font-weight: 700;
+  @include down($bp-lg) {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-8);
   }
 
   @include down($bp-sm) {
-    flex-direction: row;
-    align-items: center;
-    padding: var(--space-5);
+    &__head h2 { font-size: var(--fs-3xl); }
+    &__head p { font-size: var(--fs-md); }
+    &__list h3 { font-size: var(--fs-lg); }
+    &__icon { width: 48px; height: 48px; }
   }
 }
 
-// Full service package
+// Full service package: heading block, two-column checklist in one panel, note.
 .about-service {
-  display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  gap: var(--space-12);
-  align-items: start;
-
   &__intro {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-4);
+    max-width: 65ch;
+    margin-bottom: var(--space-10);
 
     h2 {
       font-size: var(--fs-3xl);
       line-height: var(--lh-tight);
       font-weight: 700;
       letter-spacing: var(--tracking-tight);
+      text-wrap: balance;
     }
 
-    p { color: var(--text-secondary); line-height: 1.7; }
+    p {
+      margin-top: var(--space-3);
+      color: var(--text-secondary);
+      font-size: var(--fs-lg);
+      line-height: 1.7;
+    }
   }
 
   &__list {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--space-3);
+    gap: var(--space-5) var(--space-12);
+    padding: var(--space-8);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
 
     li {
       display: flex;
       align-items: flex-start;
       gap: var(--space-3);
-      padding: var(--space-4);
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border);
-      background: var(--surface);
+      min-width: 0;
       font-weight: 500;
       line-height: var(--lh-snug);
+      color: var(--text);
     }
   }
 
@@ -239,58 +282,78 @@
     display: grid;
     place-items: center;
     flex-shrink: 0;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background: var(--c-success-bg);
-    color: var(--c-success);
+    width: 28px;
+    height: 28px;
+    margin-top: -3px;
+    border-radius: var(--radius-full);
+    background: var(--bg-brand-soft);
+    color: var(--link);
   }
 
-  @include down($bp-lg) {
-    grid-template-columns: minmax(0, 1fr);
-    gap: var(--space-8);
+  &__note {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    max-width: 75ch;
+    margin-top: var(--space-8);
+    color: var(--text-secondary);
+    line-height: 1.7;
+
+    svg { flex-shrink: 0; margin-top: 3px; color: var(--link); }
   }
-  @include down($bp-sm) {
-    &__list { grid-template-columns: minmax(0, 1fr); }
+
+  @include down($bp-md) {
+    &__intro { margin-bottom: var(--space-6); }
+    &__intro p { font-size: var(--fs-md); }
+    &__list {
+      grid-template-columns: minmax(0, 1fr);
+      padding: var(--space-6) var(--space-5);
+      gap: var(--space-4);
+    }
   }
 }
 
-// Quote
+// Promise: short pull quote (3 lines max on desktop) with real curly quotes.
 .about-quote {
-  position: relative;
   max-width: 880px;
   margin: 0 auto;
-  padding: var(--space-12) var(--space-12) var(--space-10);
-  border-radius: var(--radius-xl);
-  background: var(--bg-brand-soft);
   text-align: center;
 
-  &__mark {
-    color: var(--c-primary-300);
-    margin-bottom: var(--space-4);
-  }
-
   blockquote p {
-    font-size: var(--fs-xl);
-    line-height: 1.6;
+    font-size: var(--fs-2xl);
+    line-height: 1.45;
     font-weight: 500;
+    letter-spacing: var(--tracking-tight);
     color: var(--text);
+    text-wrap: balance;
+
+    &::before { content: '\201C'; }
+    &::after { content: '\201D'; }
   }
 
   figcaption {
-    display: inline-flex;
-    align-items: flex-start;
-    gap: var(--space-2);
-    margin-top: var(--space-6);
-    color: var(--c-primary-600);
+    margin-top: var(--space-5);
+    color: var(--link);
     font-weight: 600;
-    text-align: start;
+  }
 
-    svg { flex-shrink: 0; margin-top: 3px; }
+  &__support {
+    max-width: 65ch;
+    margin: var(--space-8) auto 0;
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--border);
+    color: var(--text-secondary);
+    line-height: 1.7;
+    text-wrap: pretty;
   }
 
   @include down($bp-sm) {
-    padding: var(--space-8) var(--space-5);
-    blockquote p { font-size: var(--fs-lg); }
+    text-align: start;
+    blockquote p { font-size: var(--fs-xl); }
   }
+}
+
+html[dir='rtl'] .about-quote blockquote p {
+  &::before { content: '\201D'; }
+  &::after { content: '\201C'; }
 }

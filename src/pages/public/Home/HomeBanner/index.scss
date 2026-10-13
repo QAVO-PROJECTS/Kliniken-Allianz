@@ -1,17 +1,21 @@
 @use '../../../../styles/mixins' as *;
 
+// Full-bleed media hero. Text and scrims sit ON the photo/video, so they use
+// fixed light-on-dark values in both themes (the overlay token deepens in dark mode).
 .home-hero {
   position: relative;
   isolation: isolate;
   display: flex;
-  align-items: flex-end;
-  min-height: clamp(560px, calc(100svh - var(--navbar-height)), 820px);
+  align-items: center;
+  // Leaves the top of the metric strip visible at the fold.
+  min-height: clamp(540px, calc(100dvh - var(--navbar-height) - 120px), 740px);
   overflow: hidden;
   background: var(--c-primary-900);
-  color: var(--text-on-brand);
+  color: #fff;
 
   @include down($bp-md) {
-    min-height: clamp(520px, calc(100svh - var(--navbar-height)), 680px);
+    align-items: flex-end;
+    min-height: clamp(500px, calc(100dvh - var(--navbar-height) - 64px), 660px);
   }
 
   &__media,
@@ -40,52 +44,44 @@
 
   &__overlay {
     background:
-      linear-gradient(0deg, rgba(4, 28, 59, 0.7) 0%, rgba(4, 28, 59, 0) 45%),
+      linear-gradient(0deg, rgba(4, 22, 48, 0.55) 0%, rgba(4, 22, 48, 0) 40%),
       var(--gradient-hero-overlay);
 
-    [dir='rtl'] & {
-      background:
-        linear-gradient(0deg, rgba(4, 28, 59, 0.7) 0%, rgba(4, 28, 59, 0) 45%),
-        linear-gradient(270deg, rgba(4, 28, 59, 0.78) 0%, rgba(4, 28, 59, 0.45) 45%, rgba(4, 28, 59, 0.05) 100%);
-    }
+    // Mirror the side scrim so it sits behind the text in RTL.
+    [dir='rtl'] & { transform: scaleX(-1); }
 
     @include down($bp-md) {
-      background:
-        linear-gradient(0deg, rgba(4, 28, 59, 0.85) 0%, rgba(4, 28, 59, 0.35) 60%, rgba(4, 28, 59, 0.2) 100%);
+      background: linear-gradient(0deg, rgba(4, 22, 48, 0.9) 0%, rgba(4, 22, 48, 0.45) 60%, rgba(4, 22, 48, 0.25) 100%);
     }
   }
 
   &__inner {
     position: relative;
-    // leave room for the stats card that overlaps the hero bottom
-    padding-top: var(--space-20);
-    padding-bottom: calc(var(--space-16) + 72px);
+    padding-block: var(--space-16);
 
-    @include down($bp-md) {
-      padding-top: var(--space-16);
-      padding-bottom: calc(var(--space-10) + 48px);
-    }
+    @include down($bp-md) { padding-block: var(--space-12) var(--space-8); }
   }
 
   &__content {
-    max-width: 760px;
+    max-width: 940px;
     animation: home-hero-in 600ms var(--ease-out) both;
 
     h1 {
-      color: var(--text-on-brand);
-      font-size: var(--fs-5xl);
+      color: #fff;
+      font-size: clamp(2.125rem, 1.45rem + 2.2vw, 3.25rem);
       font-weight: 700;
-      line-height: var(--lh-tight);
+      line-height: 1.08;
       letter-spacing: var(--tracking-tight);
       text-wrap: balance;
       margin-bottom: var(--space-5);
     }
 
     p {
-      max-width: 600px;
-      color: rgba(255, 255, 255, 0.86);
+      max-width: 34em;
+      color: rgba(255, 255, 255, 0.88);
       font-size: var(--fs-xl);
       line-height: var(--lh-normal);
+      text-wrap: pretty;
       margin-bottom: var(--space-8);
 
       @include down($bp-md) { font-size: var(--fs-lg); }
@@ -97,7 +93,16 @@
     flex-wrap: wrap;
     gap: var(--space-3);
 
-    .btn--light { box-shadow: var(--shadow-lg); }
+    .btn { touch-action: manipulation; }
+    .btn:active { transform: scale(0.98); }
+
+    // White button on a photo in both themes: keep the dark navy label.
+    .btn--light {
+      --btn-bg: #fff;
+      --btn-fg: var(--c-primary-700);
+      box-shadow: 0 12px 28px -12px rgba(4, 22, 48, 0.6);
+      &:hover { --btn-bg: var(--c-primary-50); }
+    }
 
     svg { transition: transform var(--duration) var(--ease-out); }
     .btn:hover svg { transform: translateX(3px); }
@@ -110,37 +115,52 @@
   }
 
   &__ghost {
-    --btn-bg: rgba(255, 255, 255, 0.08);
-    --btn-fg: var(--text-on-brand);
-    --btn-border: rgba(255, 255, 255, 0.45);
+    --btn-bg: rgba(255, 255, 255, 0.1);
+    --btn-fg: #fff;
+    --btn-border: rgba(255, 255, 255, 0.55);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
 
     &:hover {
-      --btn-bg: rgba(255, 255, 255, 0.16);
-      --btn-border: var(--text-on-brand);
+      --btn-bg: rgba(255, 255, 255, 0.18);
+      --btn-border: #fff;
     }
   }
 
-  &__dots {
+  &__controls {
     display: flex;
-    gap: var(--space-1);
+    align-items: center;
+    gap: var(--space-2);
     margin-top: var(--space-10);
     margin-inline-start: calc(var(--space-2) * -1);
 
     @include down($bp-md) { margin-top: var(--space-6); }
   }
 
-  &__dot {
+  &__dots {
+    display: flex;
+    gap: var(--space-1);
+  }
+
+  &__dot,
+  &__pause {
     position: relative;
     width: 32px;
     height: 32px;
     padding: 0;
     border: 0;
+    border-radius: var(--radius-full);
     background: transparent;
     cursor: pointer;
-    border-radius: var(--radius-full);
+    touch-action: manipulation;
 
+    &:focus-visible {
+      outline: 2px solid #fff;
+      outline-offset: 2px;
+    }
+  }
+
+  &__dot {
     &::before {
       content: '';
       position: absolute;
@@ -149,17 +169,35 @@
       width: 16px;
       height: 4px;
       border-radius: var(--radius-full);
-      background: rgba(255, 255, 255, 0.4);
+      background: rgba(255, 255, 255, 0.45);
       transform: translateY(-50%);
       transition: background-color var(--duration) var(--ease-out);
     }
-    &:hover::before { background: rgba(255, 255, 255, 0.7); }
-    &.is-active::before { background: var(--text-on-brand); }
-    &:focus-visible { @include focus-ring; }
+    &:hover::before { background: rgba(255, 255, 255, 0.75); }
+    &.is-active::before { background: #fff; }
+  }
+
+  &__pause {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.8);
+    transition: color var(--duration-fast) var(--ease-out),
+                background-color var(--duration-fast) var(--ease-out);
+
+    &:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.12);
+    }
   }
 }
 
 @keyframes home-hero-in {
   from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-hero__content { animation: none; }
+  .home-hero__slide { transition: none; }
 }

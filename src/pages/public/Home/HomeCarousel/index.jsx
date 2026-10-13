@@ -8,19 +8,18 @@ import useCarousel from '../useCarousel.js';
 const MAX_DOTS = 8;
 
 /**
- * Section shell shared by the home clinic / hotel / tour sliders:
- * start-aligned SectionTitle + arrows (+ optional "view all" link),
- * a scroll-snap track and pagination dots.
+ * Scroll-snap strip with a start-aligned SectionTitle, arrows (+ optional
+ * "view all" link) and pagination dots. The track is a native scroller, so
+ * touch, trackpad and keyboard (focus the track, then Arrow keys) all work.
  *
  * `perView` = { lg, md, sm } slides visible at ≥992px / ≥576px / <576px
- * (fractions give a "peek" of the next card).
+ * (fractions give a "peek" of the next item).
  */
 function HomeCarousel({
     id,
     className = '',
     title,
     desc,
-    eyebrow,
     items = [],
     renderItem,
     getKey = (item, i) => item?.id ?? i,
@@ -39,60 +38,57 @@ function HomeCarousel({
     return (
         <section id={id} className={`section home-carousel ${className}`.trim()} style={style}>
             <div className="container">
-                <div className="home-carousel__header">
-                    <SectionTitle title={title} desc={desc} eyebrow={eyebrow} align="start" />
-                    <div className="home-carousel__controls">
-                        {viewAll && (
-                            <Link to={viewAll.to} className="btn btn--secondary btn--sm home-carousel__all">
-                                {viewAll.label}
-                                <ArrowRight size={16} strokeWidth={2} aria-hidden="true" />
-                            </Link>
-                        )}
-                        {pages > 1 && (
-                            <div className="home-carousel__arrows">
-                                <button
-                                    type="button"
-                                    className="home-carousel__arrow"
-                                    onClick={prev}
-                                    disabled={!canPrev}
-                                    aria-label={t('homeClinic.prevButton', 'Previous slide')}
-                                >
-                                    <ChevronLeft size={20} strokeWidth={2} aria-hidden="true" />
-                                </button>
-                                <button
-                                    type="button"
-                                    className="home-carousel__arrow"
-                                    onClick={next}
-                                    disabled={!canNext}
-                                    aria-label={t('homeClinic.nextButton', 'Next slide')}
-                                >
-                                    <ChevronRight size={20} strokeWidth={2} aria-hidden="true" />
-                                </button>
-                            </div>
-                        )}
-                    </div>
+                <div className="home-head">
+                    <SectionTitle title={title} desc={desc} align="start" />
+                    {(viewAll || pages > 1) && (
+                        <div className="home-carousel__controls">
+                            {viewAll && (
+                                <Link to={viewAll.to} className="btn btn--secondary home-more">
+                                    {viewAll.label}
+                                    <ArrowRight size={18} strokeWidth={1.75} aria-hidden="true" />
+                                </Link>
+                            )}
+                            {pages > 1 && (
+                                <div className="home-carousel__arrows">
+                                    <button
+                                        type="button"
+                                        className="home-carousel__arrow"
+                                        onClick={prev}
+                                        disabled={!canPrev}
+                                        aria-label={t('homeClinic.prevButton', 'Previous slide')}
+                                    >
+                                        <ChevronLeft size={20} strokeWidth={1.75} aria-hidden="true" />
+                                    </button>
+                                    <button
+                                        type="button"
+                                        className="home-carousel__arrow"
+                                        onClick={next}
+                                        disabled={!canNext}
+                                        aria-label={t('homeClinic.nextButton', 'Next slide')}
+                                    >
+                                        <ChevronRight size={20} strokeWidth={1.75} aria-hidden="true" />
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+                    )}
                 </div>
 
-                <div
+                <ul
                     className="home-carousel__track"
                     ref={trackRef}
-                    role="region"
                     aria-roledescription="carousel"
                     aria-label={label || title}
                     tabIndex={0}
+                    data-reveal
                 >
                     {items.map((item, i) => (
-                        <div className="home-carousel__slide" key={getKey(item, i)}>
+                        <li className="home-carousel__slide" key={getKey(item, i)}>
                             {renderItem(item, i)}
-                        </div>
+                        </li>
                     ))}
-                </div>
+                </ul>
 
-                {pages > MAX_DOTS && (
-                    <div className="home-carousel__progress" aria-hidden="true">
-                        <span style={{ width: `${((index + 1) / pages) * 100}%` }} />
-                    </div>
-                )}
                 {pages > 1 && pages <= MAX_DOTS && (
                     <div className="home-carousel__dots">
                         {Array.from({ length: pages }, (_, i) => (

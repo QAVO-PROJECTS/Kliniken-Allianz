@@ -1,55 +1,28 @@
 @use '../../../../styles/mixins' as *;
 
 .home-survey {
-  &__panel {
+  &__band {
     display: grid;
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    align-items: stretch;
-    overflow: hidden;
-    border-radius: var(--radius-2xl);
-    border: 1px solid var(--c-primary-100);
-    background: linear-gradient(135deg, var(--c-primary-50) 0%, var(--surface) 70%);
-    box-shadow: var(--shadow-sm);
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: var(--space-10);
+    padding: var(--space-12);
+    border-radius: var(--radius-xl);
+    background: var(--bg-brand-soft);
 
     @include down($bp-lg) {
-      grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
-    }
-    @include down($bp-md) {
       grid-template-columns: 1fr;
-      border-radius: var(--radius-xl);
+      align-items: start;
+      gap: var(--space-8);
+      padding: var(--space-10) var(--space-8);
     }
-  }
-
-  &__media {
-    position: relative;
-    min-height: 100%;
-    background: var(--c-primary-100);
-
-    img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: right center;
-    }
-
-    @include down($bp-md) { display: none; }
-  }
-
-  &__body {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: var(--space-12) var(--space-12);
-
-    @include down($bp-lg) { padding: var(--space-10) var(--space-8); }
     @include down($bp-sm) { padding: var(--space-8) var(--space-5); }
-
-    .eyebrow { margin-bottom: var(--space-4); }
   }
+
+  &__copy { min-width: 0; }
 
   &__title {
+    max-width: 24ch;
     font-size: var(--fs-3xl);
     font-weight: 700;
     line-height: var(--lh-tight);
@@ -60,79 +33,56 @@
   }
 
   &__desc {
+    max-width: 62ch;
     font-size: var(--fs-lg);
     line-height: var(--lh-normal);
     color: var(--text-secondary);
-    margin-bottom: var(--space-4);
+    margin-bottom: var(--space-3);
 
     @include down($bp-sm) { font-size: var(--fs-md); }
   }
 
   &__note {
+    max-width: 62ch;
     font-size: var(--fs-sm);
     line-height: var(--lh-normal);
     color: var(--text-secondary);
-    padding-inline-start: var(--space-4);
-    border-inline-start: 3px solid var(--c-primary-200);
     margin-bottom: var(--space-6);
   }
 
-  &__pills {
+  &__facts {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-2);
+    gap: var(--space-2) var(--space-6);
     list-style: none;
     padding: 0;
-    margin: 0 0 var(--space-8);
+    margin: 0;
 
-    .badge {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      padding: 6px 12px;
-    }
-  }
-
-  &__footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: var(--space-5);
-    width: 100%;
-    margin-top: auto;
-    padding-top: var(--space-6);
-    border-top: 1px solid var(--border);
-  }
-
-  &__meta {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-
-    span {
-      font-size: var(--fs-xs);
-      font-weight: 600;
-      letter-spacing: var(--tracking-wide);
-      text-transform: uppercase;
-      color: var(--text-muted);
-    }
-    strong {
+    li {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
       font-size: var(--fs-sm);
       font-weight: 500;
-      color: var(--text-secondary);
+      color: var(--text);
+
+      svg { color: var(--link); flex-shrink: 0; }
     }
   }
 
   &__actions {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: var(--space-3);
 
+    .btn { justify-content: space-between; gap: var(--space-4); }
+    .btn:active { transform: scale(0.98); }
     [dir='rtl'] & svg { transform: scaleX(-1); }
 
+    @include down($bp-lg) { flex-direction: row; flex-wrap: wrap; }
     @include down($bp-sm) {
-      width: 100%;
-      .btn { flex: 1 1 100%; }
+      flex-direction: column;
+      .btn { width: 100%; }
     }
   }
 }

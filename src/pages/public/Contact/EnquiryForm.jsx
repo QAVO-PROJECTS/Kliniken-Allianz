@@ -1,13 +1,26 @@
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Send } from "lucide-react";
+import { CircleCheck, LoaderCircle, Send } from "lucide-react";
 import showToast from "../../../utils/toast.js";
 import "./enquiryForm.scss";
 
+// Field names, order and the submitted payload are part of the API contract
+// (and of autofill / analytics): keep them unchanged.
 const EMPTY = { name: "", surname: "", email: "", phoneNumber: "", description: "" };
+const ORDER = ["name", "surname", "email", "phoneNumber", "description"];
+
+const FIELDS = {
+    name: { autoComplete: "given-name", maxLength: 50 },
+    surname: { autoComplete: "family-name", maxLength: 50 },
+    email: { type: "email", inputMode: "email", autoComplete: "email", maxLength: 100, spellCheck: false },
+    phoneNumber: { type: "tel", inputMode: "tel", autoComplete: "tel", maxLength: 20 },
+    description: { textarea: true, wide: true, autoComplete: "off", maxLength: 700 },
+};
 
 /**
  * Contact / enquiry form shared by Contact and the travel detail pages.
+ * Labels sit above the inputs; each field has a polite live message slot below
+ * it for its error. On a failed submit the first invalid field gets focus.
  *
  * @param {(values: typeof EMPTY) => Promise<unknown>} onSubmit  must reject on failure
  * @param {string} [presetMessage]  pre-fills the message field whenever it changes
@@ -17,9 +30,11 @@ const EMPTY = { name: "", surname: "", email: "", phoneNumber: "", description: 
 function EnquiryForm({ onSubmit, presetMessage = "", title, subtitle, className = "" }) {
     const { t } = useTranslation();
     const uid = useId();
+    const formRef = useRef(null);
     const [values, setValues] = useState(EMPTY);
     const [errors, setErrors] = useState({});
     const [submitting, setSubmitting] = useState(false);
+    const [sent, setSent] = useState(false);
 
     useEffect(() => {
         if (presetMessage) setValues((v) => ({ ...v, description: presetMessage }));
@@ -28,6 +43,7 @@ function EnquiryForm({ onSubmit, presetMessage = "", title, subtitle, className 
     const set = (field) => (e) => {
         const value = e.target.value;
         setValues((v) => ({ ...v, [field]: value }));
+        if (sent) setSent(false);
         if (errors[field]) setErrors((er) => ({ ...er, [field]: undefined }));
     };
 
@@ -46,7 +62,11 @@ function EnquiryForm({ onSubmit, presetMessage = "", title, subtitle, className 
         e.preventDefault();
         const found = validate();
         setErrors(found);
-        if (Object.keys(found).length) return;
+        const firstInvalid = ORDER.find((f) => found[f]);
+        if (firstInvalid) {
+            formRef.current?.elements.namedItem(firstInvalid)?.focus();
+            return;
+        }
         setSubmitting(true);
         try {
             await onSubmit({
@@ -59,6 +79,7 @@ function EnquiryForm({ onSubmit, presetMessage = "", title, subtitle, className 
             showToast(t("contact.succesToast"), "success");
             setValues(EMPTY);
             setErrors({});
+            setSent(true);
         } catch {
             showToast(t("contact.errorToast"), "error");
         } finally {
@@ -66,8 +87,10 @@ function EnquiryForm({ onSubmit, presetMessage = "", title, subtitle, className 
         }
     };
 
-    const field = (name, { type = "text", autoComplete, maxLength, wide = false, textarea = false } = {}) => {
+    const field = (name) => {
+        const { textarea, wide, type = "text", ...attrs } = FIELDS[name];
         const id = `${uid}-${name}`;
+        const msgId = `${id}-msg`;
         const labelKey = name === "phoneNumber" ? "phone" : name;
         const error = errors[name];
         const common = {
@@ -77,45 +100,52 @@ function EnquiryForm({ onSubmit, presetMessage = "", title, subtitle, className 
             onChange: set(name),
             placeholder: t(`contact.form.placeholders.${labelKey}`) || undefined,
             "aria-invalid": error ? true : undefined,
-            "aria-describedby": error ? `${id}-error` : undefined,
-            maxLength,
+            "aria-describedby": msgId,
+            required: true,
+            ...attrs,
         };
         return (
-            <div className={`enquiry-form__field${wide ? " enquiry-form__field--wide" : ""}`}>
+            <div className={`enquiry-form__field${wide ? " enquiry-form__field--wide" : ""}`} key={name}>
                 <label htmlFor={id}>{t(`contact.form.labels.${labelKey}`)}</label>
-                {textarea ? (
-                    <textarea rows={5} {...common} />
-                ) : (
-                    <input type={type} autoComplete={autoComplete} {...common} />
-                )}
-                {error && (
-                    <span className="enquiry-form__error" id={`${id}-error`} role="alert">
-                        {error}
-                    </span>
-                )}
+                {textarea ? <textarea rows={5} {...common} /> : <input type={type} {...common} />}
+                <p className="enquiry-form__msg" id={msgId} aria-live="polite">
+                    {error}
+                </p>
             </div>
         );
     };
 
     return (
-        <form className={`enquiry-form ${className}`.trim()} onSubmit={handleSubmit} noValidate>
+        <form
+            ref={formRef}
+            className={`enquiry-form ${className}`.trim()}
+            onSubmit={handleSubmit}
+            noValidate
+            aria-busy={submitting || undefined}
+        >
             {(title || subtitle) && (
                 <div className="enquiry-form__head">
                     {title && <h2>{title}</h2>}
                     {subtitle && <p>{subtitle}</p>}
                 </div>
             )}
-            <div className="enquiry-form__grid">
-                {field("name", { autoComplete: "given-name", maxLength: 50 })}
-                {field("surname", { autoComplete: "family-name", maxLength: 50 })}
-                {field("email", { type: "email", autoComplete: "email", maxLength: 100 })}
-                {field("phoneNumber", { type: "tel", autoComplete: "tel", maxLength: 20 })}
-                {field("description", { wide: true, textarea: true, maxLength: 700 })}
-            </div>
-            <button type="submit" className="btn btn--primary btn--lg btn--block" disabled={submitting}>
-                <Send size={18} strokeWidth={2} aria-hidden="true" />
+            <div className="enquiry-form__grid">{ORDER.map(field)}</div>
+            <button type="submit" className="btn btn--primary btn--lg btn--block enquiry-form__submit" disabled={submitting}>
+                {submitting ? (
+                    <LoaderCircle size={18} strokeWidth={1.75} className="enquiry-form__spinner" aria-hidden="true" />
+                ) : (
+                    <Send size={18} strokeWidth={1.75} className="flip-rtl" aria-hidden="true" />
+                )}
                 {t("contact.form.button")}
             </button>
+            <p className="enquiry-form__status" role="status">
+                {sent && (
+                    <>
+                        <CircleCheck size={18} strokeWidth={1.75} aria-hidden="true" />
+                        {t("contact.succesToast")}
+                    </>
+                )}
+            </p>
             <p className="enquiry-form__note">
                 {t("enquiryForm.privacyNote", "Your details are only used to answer your request.")}
             </p>

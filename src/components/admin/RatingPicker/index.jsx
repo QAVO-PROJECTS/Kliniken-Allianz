@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Star } from "lucide-react";
 
 /**
- * 1–5 star picker (radiogroup). `value` is a number or null.
+ * 1-5 star picker (radiogroup). `value` is a number or null.
  * `<RatingPicker value={rating} onChange={setRating} label="Rating" />`
  */
 function RatingPicker({ value, onChange, max = 5, label }) {
@@ -29,7 +29,7 @@ function RatingPicker({ value, onChange, max = 5, label }) {
                     </button>
                 );
             })}
-            <span className="adm-rating__value" aria-hidden="true">{value ? `${value}/${max}` : "—"}</span>
+            <span className="adm-rating__value" aria-hidden="true">{value ? `${value}/${max}` : "-"}</span>
         </div>
     );
 }

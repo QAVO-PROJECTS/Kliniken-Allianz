@@ -29,6 +29,8 @@ import flagRu from '../../../assets/circle.png';
 import flagAr from '../../../assets/unitedarabemirates.svg';
 import logo from '../../../assets/Logo.png';
 import CategoriesMenu from '../CategoriesMenu/index.jsx';
+import CategoryIcon from '../CategoriesMenu/CategoryIcon.jsx';
+import ThemeToggle from '../../ui/ThemeToggle/index.jsx';
 import { CONTACT, SOCIAL_LINKS } from '../contactInfo.js';
 import {
     useGetAllClinicQuery,
@@ -43,7 +45,6 @@ import {
     SANATORIUM_CARD_IMAGES,
     TOUR_CARD_IMG,
     DOCTOR_IMG_URL,
-    CATEGORY_IMAGES,
     SERVICE_CARD_IMAGES,
 } from '../../../config/mediaUrls.js';
 
@@ -70,6 +71,20 @@ const MORE_NAV_LINKS = [
 
 const MIN_QUERY = 2;
 
+/** Search result thumbnail; falls back to an icon when the image is missing. */
+function ResultThumb({ src }) {
+    const [failed, setFailed] = useState(false);
+    return (
+        <span className="nb-result__thumb" aria-hidden="true">
+            {src && !failed ? (
+                <img src={src} alt="" width="44" height="44" loading="lazy" decoding="async" onError={() => setFailed(true)} />
+            ) : (
+                <LayoutGrid size={16} strokeWidth={1.75} />
+            )}
+        </span>
+    );
+}
+
 const matches = (text, query) => (text || '').toLowerCase().includes(query);
 
 function Navbar() {
@@ -95,6 +110,7 @@ function Navbar() {
     const [searchRequested, setSearchRequested] = useState(false);
     const [drawerRequested, setDrawerRequested] = useState(false);
 
+    const sentinelRef = useRef(null);
     const langRef = useRef(null);
     const moreRef = useRef(null);
     const searchRef = useRef(null);
@@ -232,11 +248,14 @@ function Navbar() {
 
     /* ---------- effects ---------- */
 
+    // "Scrolled" styling: a sentinel at the very top of the page leaves the
+    // viewport once the user scrolls (IntersectionObserver, no scroll listener).
     useEffect(() => {
-        const onScroll = () => setScrolled(window.scrollY > 8);
-        onScroll();
-        window.addEventListener('scroll', onScroll, { passive: true });
-        return () => window.removeEventListener('scroll', onScroll);
+        const el = sentinelRef.current;
+        if (!el || typeof IntersectionObserver === 'undefined') return undefined;
+        const io = new IntersectionObserver(([entry]) => setScrolled(!entry.isIntersecting));
+        io.observe(el);
+        return () => io.disconnect();
     }, []);
 
     // Outside click closes desktop popovers
@@ -288,24 +307,26 @@ function Navbar() {
 
     return (
         <>
+            <span ref={sentinelRef} className="nb-sentinel" aria-hidden="true" />
+
             {/* Thin info bar (desktop only) */}
             <div className="nb-topbar">
                 <div className="container nb-topbar__inner">
                     <div className="nb-topbar__contacts">
                         <a href={CONTACT.phoneHref}>
-                            <Phone size={14} strokeWidth={2} aria-hidden="true" />
+                            <Phone size={14} strokeWidth={1.75} aria-hidden="true" />
                             <span dir="ltr">{CONTACT.phoneDisplay}</span>
                         </a>
                         <a href={`mailto:${CONTACT.email}`}>
-                            <Mail size={14} strokeWidth={2} aria-hidden="true" />
+                            <Mail size={14} strokeWidth={1.75} aria-hidden="true" />
                             <span>{CONTACT.email}</span>
                         </a>
                     </div>
                     <div className="nb-topbar__social">
-                        <a href={SOCIAL_LINKS.whatsapp} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><FaWhatsapp /></a>
-                        <a href={SOCIAL_LINKS.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram"><FaInstagram /></a>
-                        <a href={SOCIAL_LINKS.tiktok} target="_blank" rel="noopener noreferrer" aria-label="TikTok"><FaTiktok /></a>
-                        <a href={SOCIAL_LINKS.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook"><FaFacebookF /></a>
+                        <a href={SOCIAL_LINKS.whatsapp} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><FaWhatsapp aria-hidden="true" /></a>
+                        <a href={SOCIAL_LINKS.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram"><FaInstagram aria-hidden="true" /></a>
+                        <a href={SOCIAL_LINKS.tiktok} target="_blank" rel="noopener noreferrer" aria-label="TikTok"><FaTiktok aria-hidden="true" /></a>
+                        <a href={SOCIAL_LINKS.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook"><FaFacebookF aria-hidden="true" /></a>
                     </div>
                 </div>
             </div>
@@ -317,7 +338,7 @@ function Navbar() {
                     </Link>
 
                     {/* Desktop navigation */}
-                    <nav className="nb-nav" aria-label="Main">
+                    <nav className="nb-nav" aria-label={t('navbar.mainNav', 'Main')}>
                         <CategoriesMenu />
                         {MAIN_NAV_LINKS.map(({ to, key }) => (
                             <NavLink
@@ -338,7 +359,7 @@ function Navbar() {
                                 onClick={() => setMoreOpen((v) => !v)}
                             >
                                 {t('navbar.more')}
-                                <ChevronDown className="nb-caret" size={15} strokeWidth={2} aria-hidden="true" />
+                                <ChevronDown className="nb-caret" size={15} strokeWidth={1.75} aria-hidden="true" />
                             </button>
                             <ul className="nb-popover nb-more__menu" hidden={!moreOpen}>
                                 {MORE_NAV_LINKS.map(({ to, key, Icon }) => (
@@ -348,7 +369,7 @@ function Navbar() {
                                             className={`nb-popover__item${isActive(to) ? ' active' : ''}`}
                                             onClick={() => setMoreOpen(false)}
                                         >
-                                            <Icon size={17} strokeWidth={1.9} aria-hidden="true" />
+                                            <Icon size={17} strokeWidth={1.75} aria-hidden="true" />
                                             {t(`navbar.${key}`)}
                                         </Link>
                                     </li>
@@ -367,15 +388,22 @@ function Navbar() {
                                 aria-label={t('navbar.search')}
                                 aria-expanded={searchOpen}
                             >
-                                {searchOpen ? <X size={20} strokeWidth={2} /> : <Search size={20} strokeWidth={2} />}
+                                {searchOpen
+                                    ? <X size={20} strokeWidth={1.75} aria-hidden="true" />
+                                    : <Search size={20} strokeWidth={1.75} aria-hidden="true" />}
                             </button>
 
                             {searchOpen && (
                                 <div className="nb-search__panel" role="dialog" aria-label={t('navbar.search')}>
                                     <div className="nb-search__field">
-                                        <Search size={18} strokeWidth={2} aria-hidden="true" />
+                                        <Search size={18} strokeWidth={1.75} aria-hidden="true" />
                                         <input
                                             type="search"
+                                            name="q"
+                                            inputMode="search"
+                                            autoComplete="off"
+                                            spellCheck={false}
+                                            // Opened on demand: focusing the field is the expected next step.
                                             autoFocus
                                             placeholder={t('navbar.searchPlaceholder')}
                                             aria-label={t('navbar.search')}
@@ -402,18 +430,12 @@ function Navbar() {
                                                     {group.items.map((item) => (
                                                         <li key={item.id}>
                                                             <Link to={item.to} className="nb-result" onClick={closeSearch}>
-                                                                <span className="nb-result__thumb">
-                                                                    {item.img ? (
-                                                                        <img src={item.img} alt="" loading="lazy" decoding="async" />
-                                                                    ) : (
-                                                                        <LayoutGrid size={16} aria-hidden="true" />
-                                                                    )}
-                                                                </span>
+                                                                <ResultThumb src={item.img} />
                                                                 <span className="nb-result__info">
                                                                     <span className="nb-result__name">{item.name}</span>
                                                                     <span className="nb-result__type">{group.type}</span>
                                                                 </span>
-                                                                <ArrowRight className="nb-result__arrow" size={16} aria-hidden="true" />
+                                                                <ArrowRight className="nb-result__arrow" size={16} strokeWidth={1.75} aria-hidden="true" />
                                                             </Link>
                                                         </li>
                                                     ))}
@@ -456,9 +478,9 @@ function Navbar() {
                                     setMoreOpen(false);
                                 }}
                             >
-                                <img src={currentLang.flag} alt="" />
+                                <img src={currentLang.flag} alt="" width="22" height="22" />
                                 <span>{currentLang.label}</span>
-                                <ChevronDown className="nb-caret" size={15} strokeWidth={2} aria-hidden="true" />
+                                <ChevronDown className="nb-caret" size={15} strokeWidth={1.75} aria-hidden="true" />
                             </button>
                             <ul className="nb-popover nb-lang__menu" role="listbox" hidden={!langOpen}>
                                 {Object.entries(LANGUAGES).map(([key, lang]) => (
@@ -471,7 +493,7 @@ function Navbar() {
                                             className={`nb-popover__item${currentLangKey === key ? ' active' : ''}`}
                                             onClick={() => changeLang(key)}
                                         >
-                                            <img src={lang.flag} alt="" />
+                                            <img src={lang.flag} alt="" width="20" height="20" />
                                             <span>{lang.name}</span>
                                         </button>
                                     </li>
@@ -479,9 +501,11 @@ function Navbar() {
                             </ul>
                         </div>
 
+                        <ThemeToggle className="nb-theme" />
+
                         <Link to="/contact" className="btn btn--primary btn--sm nb-cta">
                             {t('navbar.contact')}
-                            <ArrowRight size={16} strokeWidth={2} aria-hidden="true" />
+                            <ArrowRight size={16} strokeWidth={1.75} aria-hidden="true" />
                         </Link>
 
                         <button
@@ -489,11 +513,11 @@ function Navbar() {
                             type="button"
                             className="nb-icon-btn nb-burger"
                             onClick={() => (menuOpen ? closeMenu() : openMenu())}
-                            aria-label="Menu"
+                            aria-label={t('navbar.menu', 'Menu')}
                             aria-expanded={menuOpen}
                             aria-controls="nb-drawer"
                         >
-                            <Menu size={22} strokeWidth={2} />
+                            <Menu size={22} strokeWidth={1.75} aria-hidden="true" />
                         </button>
                     </div>
                 </div>
@@ -506,27 +530,27 @@ function Navbar() {
                 className={`nb-drawer${menuOpen ? ' is-open' : ''}`}
                 role="dialog"
                 aria-modal="true"
-                aria-label="Menu"
+                aria-label={t('navbar.menu', 'Menu')}
                 aria-hidden={!menuOpen}
                 inert={!menuOpen}
             >
                 <div className="nb-drawer__head">
                     <Link to="/" className="nb-logo" onClick={() => closeMenu()}>
-                        <img src={logo} alt="Kliniken Allianz" width="130" height="44" />
+                        <img src={logo} alt="Kliniken Allianz" width="118" height="40" />
                     </Link>
                     <button
                         ref={drawerCloseRef}
                         type="button"
                         className="nb-icon-btn"
                         onClick={() => closeMenu(true)}
-                        aria-label="Close"
+                        aria-label={t('common.close', 'Close')}
                     >
-                        <X size={22} strokeWidth={2} />
+                        <X size={22} strokeWidth={1.75} aria-hidden="true" />
                     </button>
                 </div>
 
                 <div className="nb-drawer__body">
-                    <nav aria-label="Mobile">
+                    <nav aria-label={t('navbar.mainNav', 'Main')}>
                         <ul className="nb-drawer__list">
                             {/* Categories accordion */}
                             <li>
@@ -536,9 +560,9 @@ function Navbar() {
                                     aria-expanded={mobileCatsOpen}
                                     onClick={() => setMobileCatsOpen((v) => !v)}
                                 >
-                                    <span className="nb-drawer__icon"><LayoutGrid size={18} strokeWidth={1.9} /></span>
+                                    <span className="nb-drawer__icon" aria-hidden="true"><LayoutGrid size={18} strokeWidth={1.75} /></span>
                                     <span className="nb-drawer__label">{t('categoriesMenu.title')}</span>
-                                    <ChevronDown className="nb-caret" size={18} strokeWidth={2} aria-hidden="true" />
+                                    <ChevronDown className="nb-caret" size={18} strokeWidth={1.75} aria-hidden="true" />
                                 </button>
                                 {mobileCatsOpen && (
                                     <ul className="nb-drawer__cats">
@@ -555,16 +579,12 @@ function Navbar() {
                                                         aria-expanded={expanded}
                                                         onClick={() => setOpenCatId(expanded ? null : cat.id)}
                                                     >
-                                                        <span className="nb-drawer__cat-icon">
-                                                            {cat.categoryImage ? (
-                                                                <img src={CATEGORY_IMAGES + cat.categoryImage} alt="" loading="lazy" decoding="async" />
-                                                            ) : (
-                                                                <LayoutGrid size={14} />
-                                                            )}
+                                                        <span className="nb-drawer__cat-icon" aria-hidden="true">
+                                                            <CategoryIcon file={cat.categoryImage} size={16} iconSize={14} />
                                                         </span>
                                                         <span className="nb-drawer__label">{getLocalizedText(cat, 'name')}</span>
                                                         {cat.services?.length > 0 && (
-                                                            <ChevronDown className="nb-caret" size={16} strokeWidth={2} aria-hidden="true" />
+                                                            <ChevronDown className="nb-caret" size={16} strokeWidth={1.75} aria-hidden="true" />
                                                         )}
                                                     </button>
                                                     {expanded && cat.services?.length > 0 && (
@@ -593,7 +613,7 @@ function Navbar() {
                                         aria-current={isActive(to) ? 'page' : undefined}
                                         onClick={() => closeMenu()}
                                     >
-                                        <span className="nb-drawer__icon"><Icon size={18} strokeWidth={1.9} /></span>
+                                        <span className="nb-drawer__icon" aria-hidden="true"><Icon size={18} strokeWidth={1.75} /></span>
                                         <span className="nb-drawer__label">{t(`navbar.${key}`)}</span>
                                     </Link>
                                 </li>
@@ -601,7 +621,7 @@ function Navbar() {
                         </ul>
                     </nav>
 
-                    <div className="nb-drawer__langs" role="group" aria-label="Language">
+                    <div className="nb-drawer__langs" role="group" aria-label={t('navbar.language', 'Language')}>
                         {Object.entries(LANGUAGES).map(([key, lang]) => (
                             <button
                                 key={key}
@@ -611,21 +631,23 @@ function Navbar() {
                                 aria-pressed={currentLangKey === key}
                                 onClick={() => changeLang(key)}
                             >
-                                <img src={lang.flag} alt="" />
+                                <img src={lang.flag} alt="" width="18" height="18" />
                                 <span>{lang.label}</span>
                             </button>
                         ))}
                     </div>
+
+                    <ThemeToggle className="nb-drawer__theme" showLabel />
                 </div>
 
                 <div className="nb-drawer__foot">
                     <a href={CONTACT.phoneHref} className="nb-drawer__contact">
-                        <Phone size={18} strokeWidth={1.9} aria-hidden="true" />
+                        <Phone size={18} strokeWidth={1.75} aria-hidden="true" />
                         <span dir="ltr">{CONTACT.phoneDisplay}</span>
                     </a>
                     <Link to="/contact" className="btn btn--primary btn--block" onClick={() => closeMenu()}>
                         {t('navbar.contact')}
-                        <ArrowRight size={18} strokeWidth={2} aria-hidden="true" />
+                        <ArrowRight size={18} strokeWidth={1.75} aria-hidden="true" />
                     </Link>
                 </div>
             </aside>

@@ -5,8 +5,8 @@
     order: -1;
 
     svg {
-      color: var(--c-gray-300);
-      fill: var(--c-gray-200);
+      color: var(--border-strong);
+      fill: var(--bg-muted);
 
       &.is-on {
         color: var(--c-star);
@@ -14,5 +14,4 @@
       }
     }
   }
-
 }

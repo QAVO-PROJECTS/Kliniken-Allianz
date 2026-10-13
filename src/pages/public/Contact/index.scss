@@ -1,61 +1,63 @@
 @use '../../../styles/mixins' as *;
 
+// Desktop: info column (heading, channels, map) + sticky form card.
+// Below 992px: one column, form directly after the channels, map last.
 .contact-page {
   &__grid {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
-    grid-template-areas:
-      'info form'
-      'map form';
-    gap: var(--space-8) var(--space-12);
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    gap: var(--space-16);
     align-items: start;
+
+    @include down($bp-xl) { gap: var(--space-10); }
 
     @include down($bp-lg) {
       grid-template-columns: minmax(0, 1fr);
-      grid-template-areas: 'info' 'form' 'map';
       gap: var(--space-10);
     }
   }
 
-  &__info { grid-area: info; }
-  &__form { grid-area: form; }
-  &__map { grid-area: map; }
-
   &__info {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
     gap: var(--space-4);
+    min-width: 0;
 
     h2 {
       font-size: var(--fs-3xl);
       line-height: var(--lh-tight);
       font-weight: 700;
       letter-spacing: var(--tracking-tight);
+      text-wrap: balance;
     }
   }
 
   &__lead {
+    max-width: 52ch;
     color: var(--text-secondary);
     font-size: var(--fs-lg);
-    max-width: 520px;
+    text-wrap: pretty;
 
     @include down($bp-sm) { font-size: var(--fs-md); }
   }
 
   &__map {
     width: 100%;
+    margin-top: var(--space-4);
     aspect-ratio: 16 / 10;
-    border-radius: var(--radius-xl);
+    border-radius: var(--radius-lg);
     overflow: hidden;
     border: 1px solid var(--border);
     background: var(--bg-muted);
 
     iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+    // Google's embed has no dark style: soften it so it doesn't glare.
+    @include dark { iframe { filter: brightness(0.82) contrast(1.05); } }
   }
 
   &__form {
-    @include card-surface(var(--radius-xl));
+    @include card-surface;
     box-shadow: var(--shadow-md);
     padding: var(--space-10);
 
@@ -66,57 +68,81 @@
 
     @include down($bp-sm) { padding: var(--space-6) var(--space-5); }
   }
+
+  @include down($bp-lg) {
+    &__grid { row-gap: var(--space-4); }
+    &__form { margin-top: var(--space-6); }
+    &__map { margin-top: var(--space-6) !important; }
+    &__info { display: contents; }
+    &__info > h2,
+    &__info > .contact-page__lead,
+    &__info > .contact-channels { order: 0; }
+    &__form { order: 1; }
+    &__map { order: 2; }
+  }
 }
 
-.contact-cards {
+// Phone / email / address: one grouped list, rows split by spacing + hairline.
+.contact-channels {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
   width: 100%;
-  margin-top: var(--space-2);
+  margin-top: var(--space-4);
+  border-top: 1px solid var(--border);
+
+  li + li { border-top: 1px solid var(--border); }
 }
 
-.contact-card {
-  @include card-surface;
+.contact-channel {
   display: flex;
   align-items: center;
   gap: var(--space-4);
-  padding: var(--space-4) var(--space-5);
+  min-height: 72px;
+  padding: var(--space-4) var(--space-2);
   color: inherit;
+  border-radius: var(--radius-lg);
+  touch-action: manipulation;
 
-  &:hover {
-    border-color: var(--c-primary-200);
-    box-shadow: var(--shadow-sm);
-  }
   &:focus-visible { @include focus-ring; }
 
   &__icon {
     display: grid;
     place-items: center;
     flex-shrink: 0;
-    width: 48px;
-    height: 48px;
-    border-radius: var(--radius-md);
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-full);
     background: var(--bg-brand-soft);
-    color: var(--brand);
-    transition: background var(--duration), color var(--duration);
+    color: var(--link);
   }
-  &:hover &__icon { background: var(--brand); color: var(--text-on-brand); }
 
   &__text {
     display: flex;
     flex-direction: column;
+    flex: 1;
     min-width: 0;
+  }
 
-    small {
-      font-size: var(--fs-sm);
-      color: var(--text-muted);
-      font-weight: 500;
-    }
-    span {
-      font-weight: 600;
-      color: var(--text);
-      overflow-wrap: anywhere;
-    }
+  &__label {
+    font-size: var(--fs-sm);
+    color: var(--text-secondary);
+  }
+
+  &__value {
+    font-weight: 600;
+    color: var(--text);
+    overflow-wrap: anywhere;
+  }
+
+  &__arrow {
+    flex-shrink: 0;
+    color: var(--text-muted);
+    transition: transform var(--duration-fast) var(--ease-out), color var(--duration-fast) ease;
+    html[dir='rtl'] & { transform: scaleX(-1); }
+  }
+
+  @include hover {
+    .contact-channel__value { color: var(--link); }
+    .contact-channel__arrow { color: var(--link); transform: translate(2px, -2px); }
   }
 }

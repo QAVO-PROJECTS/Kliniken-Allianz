@@ -3,11 +3,10 @@ import {RouterProvider} from "react-router-dom";
 import {ToastContainer} from "react-toastify";
 import {useTranslation} from "react-i18next";
 import {useDispatch} from "react-redux";
-import AOS from "aos";
-import "aos/dist/aos.css";
 import "antd/dist/reset.css";
 import "./app-shell.scss";
 import router from "./router.jsx";
+import {startReveal} from "./reveal.js";
 import {setLoading as setGlobalLoading} from "./uiSlice.js";
 import SplashScreen from "../components/layout/SplashScreen/index.jsx";
 
@@ -15,13 +14,6 @@ import SplashScreen from "../components/layout/SplashScreen/index.jsx";
 const SPLASH_FADE_MS = 400;
 // Never keep visitors on the splash longer than this, even if translations are slow.
 const MAX_SPLASH_WAIT_MS = 4000;
-
-let aosInitialized = false;
-const initAos = () => {
-    if (aosInitialized) return;
-    aosInitialized = true;
-    AOS.init({duration: 700, once: true});
-};
 
 function App() {
     const dispatch = useDispatch();
@@ -32,7 +24,7 @@ function App() {
     const ready = i18nReady || waitedTooLong;
 
     useEffect(() => {
-        initAos();
+        startReveal();
         const timer = setTimeout(() => setWaitedTooLong(true), MAX_SPLASH_WAIT_MS);
         return () => clearTimeout(timer);
     }, []);

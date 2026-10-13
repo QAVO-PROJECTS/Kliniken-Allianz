@@ -10,6 +10,8 @@
 
 html {
   scroll-behavior: smooth;
+  // Anchored headings / focused elements land below the sticky navbar.
+  scroll-padding-top: calc(var(--navbar-height) + var(--space-4));
   overflow-x: hidden;
   -webkit-text-size-adjust: 100%;
 }
@@ -25,9 +27,10 @@ body {
   text-rendering: optimizeLegibility;
   font-feature-settings: 'cv11', 'ss01';
   overflow-wrap: break-word;
+  -webkit-tap-highlight-color: color-mix(in srgb, var(--link) 14%, transparent);
 }
 
-// `clip` (not `hidden`) so the root doesn't become a scroll container —
+// `clip` (not `hidden`) so the root doesn't become a scroll container,
 // otherwise `position: sticky` (navbar) stops working.
 body > div {
   overflow-x: clip;
@@ -39,10 +42,12 @@ h1, h2, h3, h4, h5, h6 {
   line-height: var(--lh-snug);
   letter-spacing: var(--tracking-tight);
   font-weight: 700;
+  text-wrap: balance;
 }
 
 p {
   color: inherit;
+  text-wrap: pretty;
 }
 
 a {
@@ -74,6 +79,12 @@ button {
   border: none;
 }
 
+// No double-tap zoom delay on controls.
+a, button, input, select, textarea, label, summary,
+[role='button'], [role='tab'], [role='option'] {
+  touch-action: manipulation;
+}
+
 button, a, .link {
   transition: color var(--duration-fast) ease,
               background-color var(--duration-fast) ease,
@@ -83,20 +94,24 @@ button, a, .link {
               opacity var(--duration-fast) ease;
 }
 
+// Global keyboard focus ring (components may refine it, never remove it).
 :focus-visible {
-  outline: 2px solid var(--c-primary-500);
+  outline: 2px solid var(--link);
   outline-offset: 2px;
+}
+:focus:not(:focus-visible) {
+  outline: none;
 }
 
 ::selection {
-  background: var(--c-primary-100);
-  color: var(--c-primary-800);
+  background: color-mix(in srgb, var(--link) 26%, transparent);
+  color: var(--text);
 }
 
 // Thin, unobtrusive scrollbars
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--c-gray-300) transparent;
+  scrollbar-color: var(--border-strong) transparent;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -153,5 +168,21 @@ button, a, .link {
       width: calc(100% / 60 * #{$i});
       padding: 16px;
     }
+  }
+}
+
+// Scroll reveal (see src/app/reveal.js). Only animates when motion is welcome;
+// with reduced motion the content is simply visible.
+@media (prefers-reduced-motion: no-preference) {
+  [data-reveal], [data-aos] {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 600ms var(--ease-out), transform 600ms var(--ease-out);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  [data-reveal='fade'], [data-aos='fade-in'], [data-aos='fade'] { transform: none; }
+  [data-reveal].is-revealed, [data-aos].is-revealed {
+    opacity: 1;
+    transform: none;
   }
 }

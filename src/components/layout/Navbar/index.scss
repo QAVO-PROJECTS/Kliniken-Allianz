@@ -1,9 +1,22 @@
 @use '../../../styles/mixins' as *;
 
-/* ───────── Top info bar ───────── */
+// Top-of-page marker observed by the navbar (IntersectionObserver) to toggle
+// the "scrolled" look without a scroll listener.
+.nb-sentinel {
+  position: absolute;
+  top: 0;
+  inset-inline-start: 0;
+  width: 1px;
+  height: 8px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Top info bar (tablet / desktop) */
 .nb-topbar {
-  background: var(--c-primary-900);
-  color: rgba(255, 255, 255, 0.78);
+  background: var(--bg-subtle);
+  border-bottom: 1px solid var(--border);
+  color: var(--text-secondary);
   font-size: var(--fs-xs);
 
   &__inner {
@@ -11,7 +24,7 @@
     align-items: center;
     justify-content: space-between;
     gap: var(--space-6);
-    height: 38px;
+    height: 36px;
   }
 
   &__contacts {
@@ -24,9 +37,12 @@
       display: inline-flex;
       align-items: center;
       gap: var(--space-2);
+      min-width: 0;
       white-space: nowrap;
-      &:hover { color: #fff; }
-      svg { color: var(--c-accent-400); }
+      @include hover { color: var(--text); }
+      &:focus-visible { @include focus-ring; border-radius: var(--radius-xs); }
+      svg { flex-shrink: 0; color: var(--text-muted); }
+      span { overflow: hidden; text-overflow: ellipsis; }
     }
   }
 
@@ -41,32 +57,32 @@
       width: 28px;
       height: 28px;
       border-radius: var(--radius-full);
+      color: var(--text-muted);
       font-size: 13px;
-      &:hover {
-        color: #fff;
-        background: rgba(255, 255, 255, 0.1);
+      @include hover {
+        color: var(--text);
+        background: var(--bg-muted);
       }
+      &:focus-visible { @include focus-ring; }
     }
   }
 
   @include down($bp-md) { display: none; }
 }
 
-/* ───────── Main bar ───────── */
+/* Main bar */
 .nb {
   position: sticky;
   top: 0;
   z-index: var(--z-sticky);
-  @include glass(0.86);
   border-bottom: 1px solid transparent;
   transition: box-shadow var(--duration) var(--ease-out),
-              border-color var(--duration) var(--ease-out),
-              background-color var(--duration) var(--ease-out);
+              border-color var(--duration) var(--ease-out);
+  @include glass(0.84);
 
   &.is-scrolled {
-    @include glass(0.92);
     border-bottom-color: var(--border);
-    box-shadow: 0 6px 24px -12px rgba(16, 24, 40, 0.18);
+    box-shadow: var(--shadow-sm);
   }
 }
 
@@ -74,7 +90,8 @@
   display: flex;
   align-items: center;
   gap: var(--space-4);
-  height: var(--navbar-height);
+  // Total bar height (incl. the 1px bottom border) equals --navbar-height.
+  height: calc(var(--navbar-height) - 1px);
 }
 
 .nb-logo {
@@ -85,12 +102,17 @@
 
   img {
     width: auto;
-    height: 46px;
+    height: 44px;
     object-fit: contain;
   }
 
+  // The logo is navy/black on transparent: render it as a light mark in dark mode.
+  img { @include dark { filter: brightness(0) invert(1); } }
+
+  &:focus-visible { @include focus-ring; }
+
   @include down($bp-sm) {
-    img { height: 40px; }
+    img { height: 38px; }
   }
 }
 
@@ -122,13 +144,13 @@
 
   svg { flex-shrink: 0; }
 
-  &:hover {
+  @include hover {
     color: var(--text);
     background: var(--bg-muted);
   }
 
   &.active {
-    color: var(--brand);
+    color: var(--link);
     background: var(--bg-brand-soft);
     font-weight: 600;
   }
@@ -160,7 +182,7 @@
   padding: var(--space-2);
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
   animation: nb-pop var(--duration) var(--ease-out);
 
@@ -173,7 +195,7 @@
     width: 100%;
     min-height: 42px;
     padding: var(--space-2) var(--space-3);
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-full);
     font-size: var(--fs-sm);
     font-weight: 500;
     color: var(--text-secondary);
@@ -194,9 +216,9 @@
     }
 
     &.active {
-      color: var(--brand);
+      color: var(--link);
       background: var(--bg-brand-soft);
-      svg { color: var(--brand); }
+      svg { color: var(--link); }
     }
 
     &:focus-visible { @include focus-ring; }
@@ -228,8 +250,14 @@
   border-radius: var(--radius-full);
   color: var(--text);
 
-  &:hover { background: var(--bg-muted); }
+  @include hover { background: var(--bg-muted); }
+  &:active { transform: scale(0.96); }
   &:focus-visible { @include focus-ring; }
+}
+
+// Mobile: the theme switch lives in the drawer.
+.nb-actions .nb-theme {
+  @include down($bp-md) { display: none; }
 }
 
 .nb-lang__btn {
@@ -251,7 +279,7 @@
     object-fit: cover;
   }
 
-  &:hover { border-color: var(--border-strong); background: var(--bg-subtle); }
+  @include hover { border-color: var(--border-strong); background: var(--bg-subtle); }
   &:focus-visible { @include focus-ring; }
 }
 
@@ -276,7 +304,7 @@
 
   &.is-open > .nb-icon-btn {
     background: var(--bg-brand-soft);
-    color: var(--brand);
+    color: var(--link);
   }
 
   &__panel {
@@ -285,7 +313,7 @@
     inset-inline-end: 0;
     z-index: var(--z-dropdown);
     width: 440px;
-    max-height: min(560px, calc(100vh - 120px));
+    max-height: min(560px, calc(100dvh - 120px));
     display: flex;
     flex-direction: column;
     background: var(--surface);
@@ -323,15 +351,16 @@
       height: 48px;
       padding-inline: 44px var(--space-4);
       border: 1px solid var(--border);
-      border-radius: var(--radius-md);
+      border-radius: var(--radius-full);
       background: var(--bg-subtle);
+      color: var(--text);
       font-size: var(--fs-md);
       outline: none;
 
       &::placeholder { color: var(--text-muted); }
       &:focus {
         background: var(--surface);
-        border-color: var(--c-primary-400);
+        border-color: var(--link);
         box-shadow: var(--focus-ring);
       }
     }
@@ -348,11 +377,9 @@
 
   &__group-title {
     padding: var(--space-3) var(--space-3) var(--space-2);
-    font-size: var(--fs-xs);
+    font-size: var(--fs-sm);
     font-weight: 600;
-    letter-spacing: var(--tracking-wide);
-    text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--text);
   }
 
   &__empty {
@@ -371,17 +398,16 @@
     span {
       height: 14px;
       border-radius: var(--radius-full);
-      background: linear-gradient(90deg, var(--c-gray-100), var(--c-gray-200), var(--c-gray-100));
-      background-size: 200% 100%;
-      animation: nb-shimmer 1.2s linear infinite;
+      background: var(--bg-muted);
+      animation: nb-pulse 1.4s ease-in-out infinite alternate;
       &:nth-child(2n) { width: 65%; }
     }
   }
 }
 
-@keyframes nb-shimmer {
-  from { background-position: 200% 0; }
-  to { background-position: -200% 0; }
+@keyframes nb-pulse {
+  from { opacity: 1; }
+  to { opacity: 0.45; }
 }
 
 .nb-result {
@@ -389,14 +415,14 @@
   align-items: center;
   gap: var(--space-3);
   padding: var(--space-2) var(--space-3);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-full);
 
   &__thumb {
     display: grid;
     place-items: center;
     flex: 0 0 44px;
     height: 44px;
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-lg);
     background: var(--bg-muted);
     color: var(--text-muted);
     overflow: hidden;
@@ -427,7 +453,7 @@
     color: var(--text-muted);
     opacity: 0;
     transform: translateX(-4px);
-    transition: opacity var(--duration-fast), transform var(--duration-fast);
+    transition: opacity var(--duration-fast) ease, transform var(--duration-fast) ease;
     html[dir='rtl'] & { transform: scaleX(-1) translateX(-4px); }
   }
 
@@ -435,7 +461,7 @@
   &:focus-visible {
     background: var(--bg-subtle);
     outline: none;
-    .nb-result__name { color: var(--brand); }
+    .nb-result__name { color: var(--link); }
     .nb-result__arrow { opacity: 1; transform: none; }
   }
   html[dir='rtl'] &:hover .nb-result__arrow { transform: scaleX(-1); }
@@ -459,10 +485,10 @@
   color: var(--text-secondary);
   @include line-clamp(1);
 
-  &:hover {
-    border-color: var(--c-primary-200);
+  @include hover {
+    border-color: color-mix(in srgb, var(--link) 40%, transparent);
     background: var(--bg-brand-soft);
-    color: var(--brand);
+    color: var(--link);
   }
   &:focus-visible { @include focus-ring; }
 }
@@ -472,8 +498,8 @@
   position: fixed;
   inset: 0;
   z-index: var(--z-overlay);
-  background: rgba(4, 28, 59, 0.45);
-  backdrop-filter: blur(2px);
+  // Scrim over the page: the same navy veil in both themes.
+  background: color-mix(in srgb, var(--c-primary-900) 50%, transparent);
   opacity: 0;
   visibility: hidden;
   transition: opacity var(--duration) var(--ease-out), visibility var(--duration);
@@ -495,7 +521,9 @@
   width: min(380px, 88vw);
   height: 100dvh;
   background: var(--surface);
+  border-inline-start: 1px solid var(--border);
   box-shadow: var(--shadow-lg);
+  overscroll-behavior: contain;
   transform: translateX(100%);
   visibility: hidden;
   transition: transform var(--duration-slow) var(--ease-out), visibility var(--duration-slow);
@@ -514,12 +542,11 @@
     justify-content: space-between;
     gap: var(--space-4);
     height: var(--navbar-height);
-    padding: 0 var(--space-3) 0 var(--space-5);
     padding-inline: var(--space-5) var(--space-3);
     border-bottom: 1px solid var(--border);
     flex-shrink: 0;
 
-    .nb-logo img { height: 40px; }
+    .nb-logo img { height: 36px; }
   }
 
   &__body {
@@ -542,20 +569,21 @@
     width: 100%;
     min-height: 52px;
     padding: var(--space-2) var(--space-3);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-full);
     font-size: var(--fs-md);
     font-weight: 500;
     color: var(--text);
     text-align: start;
 
-    &:hover { background: var(--bg-subtle); }
+    @include hover { background: var(--bg-subtle); }
+    &:active { background: var(--bg-muted); }
     &:focus-visible { @include focus-ring; }
 
     &.active {
       background: var(--bg-brand-soft);
-      color: var(--brand);
+      color: var(--link);
       font-weight: 600;
-      .nb-drawer__icon { background: var(--surface); color: var(--brand); }
+      .nb-drawer__icon { background: var(--surface); color: var(--link); }
     }
   }
 
@@ -564,9 +592,9 @@
     place-items: center;
     flex: 0 0 36px;
     height: 36px;
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-full);
     background: var(--bg-subtle);
-    color: var(--c-primary-500);
+    color: var(--link);
   }
 
   &__label {
@@ -588,14 +616,14 @@
     width: 100%;
     min-height: 46px;
     padding: var(--space-2);
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-full);
     font-size: var(--fs-sm);
     font-weight: 500;
     color: var(--text-secondary);
     text-align: start;
 
     &:hover,
-    &.is-expanded { color: var(--brand); background: var(--bg-subtle); }
+    &.is-expanded { color: var(--link); background: var(--bg-subtle); }
     &:focus-visible { @include focus-ring; }
   }
 
@@ -604,11 +632,16 @@
     place-items: center;
     flex: 0 0 28px;
     height: 28px;
-    border-radius: var(--radius-xs);
+    border-radius: var(--radius-full);
     background: var(--bg-brand-soft);
-    color: var(--c-primary-500);
+    color: var(--link);
 
-    img { width: 16px; height: 16px; object-fit: contain; }
+    img {
+      width: 16px;
+      height: 16px;
+      object-fit: contain;
+      @include dark { filter: brightness(0) invert(1); }
+    }
   }
 
   &__services {
@@ -620,11 +653,11 @@
       align-items: center;
       min-height: 44px;
       padding: var(--space-2) var(--space-3);
-      border-radius: var(--radius-sm);
+      border-radius: var(--radius-full);
       font-size: var(--fs-sm);
       color: var(--text-secondary);
 
-      &:hover { background: var(--bg-subtle); color: var(--brand); }
+      &:hover { background: var(--bg-subtle); color: var(--link); }
       &:focus-visible { @include focus-ring; }
     }
   }
@@ -652,13 +685,17 @@
 
     img { width: 18px; height: 18px; border-radius: 50%; object-fit: cover; }
 
-    &:hover { border-color: var(--border-strong); }
+    @include hover { border-color: var(--border-strong); }
     &.active {
-      border-color: var(--brand);
+      border-color: var(--link);
       background: var(--bg-brand-soft);
-      color: var(--brand);
+      color: var(--link);
     }
     &:focus-visible { @include focus-ring; }
+  }
+
+  &__theme {
+    margin-top: var(--space-3);
   }
 
   &__foot {
@@ -683,6 +720,7 @@
     font-weight: 600;
     color: var(--text);
 
-    svg { color: var(--c-primary-500); }
+    svg { color: var(--link); }
+    &:focus-visible { @include focus-ring; }
   }
 }

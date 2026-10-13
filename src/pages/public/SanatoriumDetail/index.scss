@@ -4,53 +4,64 @@
   &__location {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: var(--space-2);
-    padding: 6px 14px;
-    border-radius: var(--radius-full);
-    background: var(--surface);
-    border: 1px solid var(--border);
     color: var(--text-secondary);
-    font-size: var(--fs-sm);
-    font-weight: 600;
+    font-size: var(--fs-md);
+    font-weight: 500;
 
-    svg { color: var(--brand); }
+    svg { color: var(--link); flex-shrink: 0; }
   }
-
-  &__cta { padding-top: var(--section-padding); }
 }
 
-.room-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: var(--space-4);
-}
-
-.room-card {
-  @include card-surface;
+// Room types: stacked rows (icon, name, description). Desktop puts the name in
+// a narrow column next to the description; phones stack everything.
+.room-list {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
-  padding: var(--space-6);
+  border-top: 1px solid var(--border);
+
+  &__item {
+    display: grid;
+    grid-template-columns: 44px minmax(140px, 200px) minmax(0, 1fr);
+    column-gap: var(--space-4);
+    align-items: start;
+    padding: var(--space-6) 0;
+
+    & + & { border-top: 1px solid var(--border); }
+
+    h3 {
+      padding-top: 10px;
+      font-size: var(--fs-lg);
+      font-weight: 600;
+      line-height: var(--lh-snug);
+    }
+
+    p {
+      padding-top: 10px;
+      color: var(--text-secondary);
+      line-height: var(--lh-normal);
+      white-space: pre-line;
+      max-width: 65ch;
+    }
+  }
 
   &__icon {
     display: grid;
     place-items: center;
     width: 44px;
     height: 44px;
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-full);
     background: var(--bg-brand-soft);
-    color: var(--brand);
+    color: var(--link);
   }
 
-  h3 {
-    font-size: var(--fs-lg);
-    font-weight: 700;
-  }
+  @include down($bp-md) {
+    &__item {
+      grid-template-columns: 44px minmax(0, 1fr);
+      row-gap: var(--space-2);
 
-  p {
-    color: var(--text-secondary);
-    font-size: var(--fs-sm);
-    line-height: var(--lh-normal);
-    white-space: pre-line;
+      p { grid-column: 1 / -1; padding-top: 0; }
+    }
   }
 }

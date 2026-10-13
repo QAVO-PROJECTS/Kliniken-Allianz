@@ -13,7 +13,7 @@ import { EmptyState } from "../Clinics/shared/Feedback.jsx";
 import { tx } from "../Clinics/shared/texts.js";
 
 /**
- * /category/:id — most links (menus, search, cards) pass a SERVICE id, some
+ * /category/:id: most links (menus, search, cards) pass a SERVICE id, some
  * (category menus, the services grid) pass a CATEGORY id. Try the service
  * first and fall back to the category so both kinds of link work.
  */
@@ -62,15 +62,17 @@ function CategoryDetail() {
                 <div className="container">
                     <SectionTitle align="start" title={tx(t, "medicalPages.servicesInCategory")} />
                     {services.length > 0 ? (
-                        <div className="md-grid">
-                            {services.map((item) => (
-                                <HomeServiceCard
-                                    key={item.id}
-                                    id={item.id}
-                                    name={getLocalizedText(item, "name")}
-                                    desc={getLocalizedText(item, "description")}
-                                    icon={item.categoryImage || category.categoryImage}
-                                />
+                        <div className="md-grid md-grid--lg">
+                            {services.map((item, i) => (
+                                <div key={item.id} className="md-grid__item" data-reveal style={{ "--reveal-delay": `${(i % 3) * 60}ms` }}>
+                                    <HomeServiceCard
+                                        bare
+                                        id={item.id}
+                                        name={getLocalizedText(item, "name")}
+                                        desc={getLocalizedText(item, "description")}
+                                        icon={item.categoryImage || category.categoryImage}
+                                    />
+                                </div>
                             ))}
                         </div>
                     ) : (

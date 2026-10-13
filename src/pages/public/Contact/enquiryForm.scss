@@ -1,6 +1,11 @@
 @use '../../../styles/mixins' as *;
 
+// Error text is mixed from the danger hue and the theme text color so it keeps
+// AA contrast on light (about 5.4:1) and dark (about 5.5:1) surfaces.
 .enquiry-form {
+  --field-error: color-mix(in srgb, var(--c-danger) 80%, var(--text));
+  --field-success: color-mix(in srgb, var(--c-success) 60%, var(--text));
+
   display: flex;
   flex-direction: column;
   gap: var(--space-5);
@@ -11,27 +16,30 @@
       line-height: var(--lh-snug);
       font-weight: 700;
       letter-spacing: var(--tracking-tight);
+      text-wrap: balance;
     }
     p {
       margin-top: var(--space-2);
+      max-width: 60ch;
       color: var(--text-secondary);
+      text-wrap: pretty;
     }
   }
 
   &__grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--space-4) var(--space-4);
+    gap: var(--space-2) var(--space-4);
 
     @include down($bp-sm) {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
     }
   }
 
   &__field {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: var(--space-2);
     min-width: 0;
 
     &--wide { grid-column: 1 / -1; }
@@ -45,50 +53,85 @@
     input,
     textarea {
       width: 100%;
-      min-height: 50px;
+      min-height: 48px;
       padding: 0 var(--space-4);
-      border: 1px solid var(--border);
+      border: 1px solid var(--border-strong);
       border-radius: var(--radius-md);
       background: var(--surface);
       color: var(--text);
-      font-size: var(--fs-md);
-      outline: none;
-      transition: border-color var(--duration-fast), box-shadow var(--duration-fast);
+      font-size: var(--fs-md); // 16px: no iOS zoom on focus
+      touch-action: manipulation;
+      transition: border-color var(--duration-fast) ease, box-shadow var(--duration-fast) ease;
 
-      &::placeholder { color: var(--text-muted); }
+      &::placeholder { color: var(--text-muted); opacity: 1; }
 
-      &:hover { border-color: var(--border-strong); }
+      @include hover { border-color: var(--text-muted); }
 
-      &:focus {
-        border-color: var(--c-primary-400);
+      &:focus { outline: none; }
+      &:focus-visible {
+        border-color: var(--link);
         box-shadow: var(--focus-ring);
+        outline: 2px solid var(--link);
+        outline-offset: 0;
       }
 
       &[aria-invalid='true'] {
-        border-color: var(--c-danger);
+        border-color: var(--field-error);
       }
     }
 
     textarea {
       padding: var(--space-3) var(--space-4);
-      min-height: 132px;
+      min-height: 136px;
       resize: vertical;
       line-height: var(--lh-normal);
     }
 
-    input[type='tel'] { direction: ltr; }
-    html[dir='rtl'] & input[type='tel'] { text-align: end; }
+    input[type='tel'],
+    input[type='email'] { direction: ltr; }
+    html[dir='rtl'] & input[type='tel'],
+    html[dir='rtl'] & input[type='email'] { text-align: end; }
   }
 
-  &__error {
-    font-size: var(--fs-xs);
+  // Always rendered (empty when valid) so the live region is announced reliably
+  // and the layout doesn't jump much when an error appears.
+  &__msg {
+    min-height: 1.25rem;
+    font-size: var(--fs-sm);
     font-weight: 500;
-    color: var(--c-danger);
+    line-height: 1.25rem;
+    color: var(--field-error);
+  }
+
+  &__submit {
+    margin-top: var(--space-1);
+  }
+
+  &__spinner {
+    animation: enquiry-spin 0.9s linear infinite;
+  }
+
+  &__status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    color: var(--field-success);
+
+    &:empty { display: none; }
   }
 
   &__note {
-    font-size: var(--fs-xs);
-    color: var(--text-muted);
+    font-size: var(--fs-sm);
+    color: var(--text-secondary);
     text-align: center;
   }
+
+  .flip-rtl { html[dir='rtl'] & { transform: scaleX(-1); } }
+}
+
+@keyframes enquiry-spin {
+  to { transform: rotate(360deg); }
 }

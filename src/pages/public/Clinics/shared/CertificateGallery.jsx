@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import { Award, X, ZoomIn } from "lucide-react";
@@ -8,22 +8,37 @@ import { tx } from "./texts.js";
 import "./shared.scss";
 
 function Lightbox({ src, alt, onClose }) {
+    const { t } = useTranslation();
+    const closeRef = useRef(null);
+
     useEffect(() => {
-        const onKey = (e) => e.key === "Escape" && onClose();
+        const opener = document.activeElement;
+        closeRef.current?.focus();
+        const onKey = (e) => {
+            if (e.key === "Escape") onClose();
+            // Single focusable control: keep Tab inside the dialog.
+            if (e.key === "Tab") {
+                e.preventDefault();
+                closeRef.current?.focus();
+            }
+        };
         document.addEventListener("keydown", onKey);
         const prev = document.body.style.overflow;
         document.body.style.overflow = "hidden";
         return () => {
             document.removeEventListener("keydown", onKey);
             document.body.style.overflow = prev;
+            opener?.focus?.();
         };
     }, [onClose]);
 
     return createPortal(
-        <div className="md-lightbox" role="dialog" aria-modal="true" aria-label={alt} onClick={onClose}>
-            <img src={src} alt={alt} onClick={(e) => e.stopPropagation()} />
-            <button type="button" className="md-lightbox__close" onClick={onClose} aria-label="Close">
-                <X size={22} />
+        <div className="md-lightbox" role="dialog" aria-modal="true" aria-label={alt}>
+            {/* Backdrop click is a pointer shortcut; the close button and Escape cover keyboard users. */}
+            <div className="md-lightbox__backdrop" onClick={onClose} aria-hidden="true" />
+            <img src={src} alt={alt} />
+            <button ref={closeRef} type="button" className="md-lightbox__close" onClick={onClose} aria-label={t("gallery.close")}>
+                <X size={22} strokeWidth={1.75} aria-hidden="true" />
             </button>
         </div>,
         document.body
@@ -54,24 +69,20 @@ function CertificateGallery({ images = [], pageSize = 8 }) {
     return (
         <>
             <div className="md-certs">
-                {visible.map((src, i) => {
-                    const n = start + i + 1;
-                    return (
-                        <button
-                            type="button"
-                            key={src}
-                            className="md-cert"
-                            onClick={() => setOpen(src)}
-                            aria-label={`${label} ${n}`}
-                        >
-                            <img src={src} alt="" loading="lazy" decoding="async" />
-                            <span className="md-cert__overlay" aria-hidden="true">
-                                <ZoomIn size={20} />
-                            </span>
-                            <span className="md-cert__num">{String(n).padStart(2, "0")}</span>
-                        </button>
-                    );
-                })}
+                {visible.map((src, i) => (
+                    <button
+                        type="button"
+                        key={src}
+                        className="md-cert"
+                        onClick={() => setOpen(src)}
+                        aria-label={`${label} ${start + i + 1}`}
+                    >
+                        <img src={src} alt="" width="300" height="400" loading="lazy" decoding="async" />
+                        <span className="md-cert__overlay" aria-hidden="true">
+                            <ZoomIn size={22} strokeWidth={1.75} />
+                        </span>
+                    </button>
+                ))}
             </div>
             {totalPages > 1 && (
                 <div className="md-pagination">

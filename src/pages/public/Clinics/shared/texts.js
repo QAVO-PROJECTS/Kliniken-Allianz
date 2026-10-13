@@ -41,9 +41,9 @@ const FALLBACKS = {
         ar: "احصل على استشارة مجانية",
     },
     "medicalPages.consultText": {
-        az: "Müraciətinizi göndərin — koordinatorumuz qısa zamanda sizinlə əlaqə saxlayacaq.",
+        az: "Müraciətinizi göndərin, koordinatorumuz qısa zamanda sizinlə əlaqə saxlayacaq.",
         en: "Send a request and our coordinator will get back to you shortly.",
-        ru: "Оставьте заявку — наш координатор скоро свяжется с вами.",
+        ru: "Оставьте заявку, и наш координатор скоро свяжется с вами.",
         ar: "أرسل طلبك وسيتواصل معك منسقنا قريبًا.",
     },
     "medicalPages.showLess": {
@@ -71,10 +71,10 @@ const FALLBACKS = {
         ar: "لم يتم العثور على شيء",
     },
     "medicalPages.sending": {
-        az: "Göndərilir...",
-        en: "Sending...",
-        ru: "Отправка...",
-        ar: "جارٍ الإرسال...",
+        az: "Göndərilir…",
+        en: "Sending…",
+        ru: "Отправка…",
+        ar: "جارٍ الإرسال…",
     },
     "medicalPages.servicesCount": {
         az: "{{n}} xidmət",
@@ -99,6 +99,36 @@ const FALLBACKS = {
         en: "Active filters",
         ru: "Выбранные фильтры",
         ar: "عوامل التصفية النشطة",
+    },
+    "medicalPages.clinicsCount": {
+        az: "{{n}} klinika",
+        en: "{{n}} clinics",
+        ru: "Клиник: {{n}}",
+        ar: "{{n}} عيادات",
+    },
+    "medicalPages.otherServices": {
+        az: "Digər xidmətlər",
+        en: "Other services",
+        ru: "Другие услуги",
+        ar: "خدمات أخرى",
+    },
+    "medicalPages.pauseVideo": {
+        az: "Videonu dayandır",
+        en: "Pause video",
+        ru: "Приостановить видео",
+        ar: "إيقاف الفيديو مؤقتًا",
+    },
+    "medicalPages.playVideo": {
+        az: "Videonu oynat",
+        en: "Play video",
+        ru: "Воспроизвести видео",
+        ar: "تشغيل الفيديو",
+    },
+    "medicalPages.charCount": {
+        az: "{{n}} / {{max}} simvol",
+        en: "{{n}} / {{max}} characters",
+        ru: "{{n}} / {{max}} символов",
+        ar: "{{n}} / {{max}} حرفًا",
     },
 };
 

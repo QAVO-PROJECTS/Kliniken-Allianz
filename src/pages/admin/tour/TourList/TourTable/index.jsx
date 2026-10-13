@@ -81,7 +81,7 @@ function ToursTableNew({ language }) {
             <ConfirmDialog
                 open={del.isOpen}
                 title={t("adminPanel.toursTable.modal.title")}
-                description={del.target ? `${name(del.target)} — ${at("deleteHint")}` : undefined}
+                description={del.target ? `${name(del.target)}: ${at("deleteHint")}` : undefined}
                 cancelLabel={t("adminPanel.toursTable.modal.cancel")}
                 confirmLabel={t("adminPanel.toursTable.modal.confirm")}
                 loadingLabel={t("adminPanel.toursTable.modal.deleting")}

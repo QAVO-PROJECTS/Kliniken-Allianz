@@ -1,8 +1,9 @@
 import { useTranslation } from "react-i18next";
-import { Briefcase, Star } from "lucide-react";
+import { Briefcase } from "lucide-react";
 import MediaCard from "../MediaCard/index.jsx";
 import CardSlot from "../CardSlot.jsx";
 import "./index.scss";
+import RatingStar from "./RatingStar.jsx";
 import { DOCTOR_IMG_URL } from "../../../config/mediaUrls.js";
 import { getLocalizedText } from "../../../i18n/getLocalizedText.js";
 
@@ -26,13 +27,13 @@ function DoctorCard({ item, bare = false, wrapperClassName = "col-20 col-md-30 c
                 image={item?.doctorImage && DOCTOR_IMG_URL + item.doctorImage}
                 imageAlt={fullName}
                 title={fullName}
-                badge={rate > 0 ? (
-                    <><Star size={13} strokeWidth={2} className="doctor-card__star" aria-hidden="true" />{rate.toFixed(1)}</>
-                ) : null}
-                meta={[{
-                    icon: Briefcase,
-                    text: experience ? `${experience} ${t("doctorsPage.filters.experienceSuffix")}` : null,
-                }]}
+                meta={[
+                    { icon: RatingStar, text: rate > 0 ? <span className="tabular">{rate.toFixed(1)}</span> : null },
+                    {
+                        icon: Briefcase,
+                        text: experience ? `${experience} ${t("doctorsPage.filters.experienceSuffix")}` : null,
+                    },
+                ]}
             >
                 {role && <span className="badge badge--brand doctor-card__role">{role}</span>}
             </MediaCard>

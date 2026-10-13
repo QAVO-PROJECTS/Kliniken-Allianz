@@ -3,21 +3,13 @@
 .clinic-detail {
   background: var(--bg-page);
 
-  &__skel-hero {
-    aspect-ratio: 16 / 10;
-    height: auto !important;
+  &__skel-lines {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
   }
 
-  &__aside-title {
-    margin-top: var(--space-3);
-  }
-
-  &__aside-text {
-    color: var(--text-secondary);
-    font-size: var(--fs-sm);
-    margin-bottom: var(--space-4);
-  }
-
+  // Form card + map; one column below 992px (and therefore below 768px).
   &__inquiry-grid {
     display: grid;
     grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
@@ -27,6 +19,8 @@
     @include down($bp-lg) { grid-template-columns: minmax(0, 1fr); }
   }
 
+  &__form-card { box-shadow: none; }
+
   &__inquiry .md-contact-card__head h2 {
     font-size: var(--fs-2xl);
   }
@@ -34,9 +28,8 @@
   &__map {
     overflow: hidden;
     min-height: 420px;
-    border-radius: var(--radius-xl);
+    border-radius: var(--radius-lg);
     border: 1px solid var(--border);
-    box-shadow: var(--shadow-xs);
     background: var(--bg-muted);
 
     iframe {
@@ -47,9 +40,21 @@
       border: 0;
     }
 
-    @include down($bp-sm) {
+    @include down($bp-md) {
       min-height: 300px;
       iframe { min-height: 300px; }
     }
   }
+
+  .md-facts a {
+    color: var(--text-secondary);
+    font-weight: 400;
+
+    strong { color: var(--text); }
+    &:hover { color: var(--link); }
+  }
+}
+
+.clinic-detail .md-section[id] {
+  scroll-margin-top: var(--navbar-height);
 }

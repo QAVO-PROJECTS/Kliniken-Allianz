@@ -21,19 +21,21 @@ function HorizontalBlogCard({ blog }) {
                     <img
                         src={NEWSPAPER_IMAGES + image}
                         alt=""
+                        width="96"
+                        height="80"
                         loading="lazy"
                         decoding="async"
                         onError={() => setImgError(true)}
                     />
                 ) : (
-                    <ImageOff size={22} strokeWidth={1.5} aria-hidden="true" />
+                    <ImageOff size={22} strokeWidth={1.75} aria-hidden="true" />
                 )}
             </span>
             <span className="hblog-card__body">
                 <span className="hblog-card__title">{title}</span>
                 {blog?.createDate && (
                     <span className="hblog-card__date">
-                        <CalendarDays size={14} strokeWidth={1.9} aria-hidden="true" />
+                        <CalendarDays size={14} strokeWidth={1.75} aria-hidden="true" />
                         <time dateTime={isoDate(blog.createDate)}>{formatDate(blog.createDate, i18n.language)}</time>
                     </span>
                 )}

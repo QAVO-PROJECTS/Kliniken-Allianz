@@ -19,7 +19,7 @@
       color: var(--text-secondary);
       white-space: nowrap;
 
-      svg { color: var(--c-primary-500); }
+      svg { color: var(--text-muted); }
     }
   }
 
@@ -32,18 +32,27 @@
     height: 44px;
     margin-top: var(--space-2);
     border-radius: var(--radius-full);
-    border: 1px solid var(--brand);
-    color: var(--brand);
+    border: 1px solid var(--border-strong);
+    color: var(--link);
     font-size: var(--fs-sm);
     font-weight: 600;
-    transition: background var(--duration) var(--ease-out), color var(--duration) var(--ease-out);
+    transition: background-color var(--duration) var(--ease-out),
+                border-color var(--duration) var(--ease-out),
+                color var(--duration) var(--ease-out);
 
     html[dir='rtl'] & svg { transform: scaleX(-1); }
   }
 
-  &:hover &__cta,
+  @media (hover: hover) and (pointer: fine) {
+    &:hover .tour-card__cta {
+      background: var(--brand);
+      border-color: var(--brand);
+      color: var(--text-on-brand);
+    }
+  }
   &:focus-visible &__cta {
     background: var(--brand);
+    border-color: var(--brand);
     color: var(--text-on-brand);
   }
 }

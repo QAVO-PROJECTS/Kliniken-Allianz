@@ -86,7 +86,7 @@ function ClinicTable({ language, isGermany }) {
             <ConfirmDialog
                 open={del.isOpen}
                 title={t("adminPanel.clinicTable.deleteConfirmTitle")}
-                description={del.target ? `${name(del.target)} — ${at("deleteHint")}` : undefined}
+                description={del.target ? `${name(del.target)}: ${at("deleteHint")}` : undefined}
                 cancelLabel={t("adminPanel.clinicTable.cancel")}
                 confirmLabel={t("adminPanel.clinicTable.delete")}
                 loadingLabel={t("adminPanel.clinicTable.deleting")}

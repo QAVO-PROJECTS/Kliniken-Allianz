@@ -42,7 +42,7 @@ function ConfirmDialog({
     if (!open) return null;
 
     return createPortal(
-        <div className="adm-modal-backdrop" onClick={() => !loading && onCancel?.()}>
+        <div className="adm-modal-backdrop" data-theme="light" onClick={() => !loading && onCancel?.()}>
             <div
                 className="adm-modal"
                 role="alertdialog"

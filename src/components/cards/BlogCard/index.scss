@@ -5,7 +5,7 @@
   @include kc.surface;
   @include kc.media-zoom('.blog-card__media');
 
-  &__media { @include kc.media(16 / 10); }
+  &__media { @include kc.media('16 / 10'); }
 
   &__placeholder { @include kc.placeholder; }
 
@@ -36,7 +36,7 @@
     padding-top: var(--space-2);
     font-size: var(--fs-sm);
     font-weight: 600;
-    color: var(--brand);
+    color: var(--link);
 
     svg {
       transition: transform var(--duration) var(--ease-out);
@@ -44,8 +44,10 @@
     }
   }
 
-  &:hover &__more svg { transform: translateX(4px); }
-  html[dir='rtl'] &:hover &__more svg { transform: scaleX(-1) translateX(4px); }
+  @media (hover: hover) and (pointer: fine) {
+    &:hover .blog-card__more svg { transform: translateX(4px); }
+    html[dir='rtl'] &:hover .blog-card__more svg { transform: scaleX(-1) translateX(4px); }
+  }
 
   &--compact {
     .blog-card__title { font-size: var(--fs-md); }

@@ -14,7 +14,7 @@
     padding-block: var(--space-2) var(--space-4);
 
     &::-webkit-scrollbar { display: none; }
-    &:focus-visible { @include focus-ring; border-radius: var(--radius-md); }
+    &:focus-visible { @include focus-ring; border-radius: var(--radius-lg); }
 
     @include down($bp-md) { grid-auto-columns: calc((100% - var(--space-4)) / 2); }
     @include down($bp-sm) { grid-auto-columns: 70%; }

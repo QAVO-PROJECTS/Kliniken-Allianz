@@ -27,8 +27,11 @@ function RouteError({fullscreen = false}) {
         ? (error.stack || error.message || error.statusText || String(error))
         : null;
 
+    // Inside a layout the error renders within that layout's <main>; standalone it is the <main>.
+    const Root = fullscreen ? "main" : "section";
+
     return (
-        <main className={`route-error${fullscreen ? " route-error--fullscreen" : ""}`}>
+        <Root className={`route-error${fullscreen ? " route-error--fullscreen" : ""}`}>
             <div className="route-error__card" role="alert">
                 <span className="route-error__icon" aria-hidden="true">
                     <AlertTriangle size={30} strokeWidth={1.75}/>
@@ -38,24 +41,24 @@ function RouteError({fullscreen = false}) {
                 {details && <pre className="route-error__details">{details}</pre>}
                 <div className="route-error__actions">
                     <button type="button" className="btn btn--primary" onClick={() => window.location.reload()}>
-                        <RotateCw size={18} strokeWidth={2} aria-hidden="true"/>
+                        <RotateCw size={18} strokeWidth={1.75} aria-hidden="true"/>
                         {t("errorPage.reload", "Reload")}
                     </button>
                     {/* A plain <a> also works when the router itself failed to render. */}
                     {fullscreen ? (
                         <a href="/" className="btn btn--secondary">
-                            <Home size={18} strokeWidth={2} aria-hidden="true"/>
+                            <Home size={18} strokeWidth={1.75} aria-hidden="true"/>
                             {t("errorPage.home", "Home")}
                         </a>
                     ) : (
                         <Link to="/" className="btn btn--secondary">
-                            <Home size={18} strokeWidth={2} aria-hidden="true"/>
+                            <Home size={18} strokeWidth={1.75} aria-hidden="true"/>
                             {t("errorPage.home", "Home")}
                         </Link>
                     )}
                 </div>
             </div>
-        </main>
+        </Root>
     );
 }
 

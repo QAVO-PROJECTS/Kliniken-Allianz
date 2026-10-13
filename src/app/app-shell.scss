@@ -1,30 +1,72 @@
 // App-shell UI owned by src/app: route loading states, navigation progress, error page.
 @use '../styles/mixins' as *;
 
+// --- Main landmark (PublicLayout) -------------------------------------------
+// Focus target of the skip link; the landmark itself needs no ring.
+.site-main {
+  display: block;
+  &:focus { outline: none; }
+}
+
 // --- Lazy route fallback ------------------------------------------------------
 .route-fallback {
   display: grid;
-  place-items: center;
+  align-content: start;
+  justify-items: center;
   min-height: 50vh;
+  min-height: 50dvh;
   padding: var(--space-16) var(--container-padding);
 
   &--fullscreen {
     min-height: 100vh;
     min-height: 100dvh;
+    align-content: center;
+  }
+
+  &__skeleton {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+    width: 100%;
+    max-width: var(--container-max);
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: var(--space-6);
+    width: 100%;
+    margin-top: var(--space-10);
+
+    @include down($bp-md) { grid-template-columns: 1fr; }
+  }
+
+  &--fullscreen &__grid { display: none; }
+}
+
+.route-skel {
+  display: block;
+  border-radius: var(--radius-full);
+  background: var(--bg-muted);
+  animation: route-pulse 1.6s ease-in-out infinite alternate;
+
+  &--title { width: min(420px, 70%); height: 32px; }
+  &--line { width: min(280px, 50%); height: 14px; animation-delay: 120ms; }
+  &--block {
+    height: 220px;
+    border-radius: var(--radius-lg);
+    animation-delay: 240ms;
+    @include down($bp-md) {
+      height: 140px;
+      &:nth-child(n + 2) { display: none; }
+    }
   }
 }
 
-.route-spinner {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 3px solid var(--c-primary-100);
-  border-block-start-color: var(--brand);
-  animation: route-spin 0.8s linear infinite;
-}
-
-@keyframes route-spin {
-  to { transform: rotate(360deg); }
+@keyframes route-pulse {
+  from { opacity: 1; }
+  to { opacity: 0.45; }
 }
 
 // --- Top navigation progress bar ---------------------------------------------
@@ -44,7 +86,7 @@
     inset-block: 0;
     inset-inline-start: 0;
     width: 40%;
-    background: var(--gradient-brand);
+    background: var(--brand);
     border-radius: var(--radius-full);
     animation: route-progress 1.1s var(--ease-out) infinite;
   }
@@ -82,7 +124,7 @@ html[dir='rtl'] .route-progress::before {
   }
 
   &__card {
-    @include card-surface(var(--radius-xl));
+    @include card-surface;
     width: 100%;
     max-width: 520px;
     padding: var(--space-12) var(--space-10);
@@ -101,12 +143,13 @@ html[dir='rtl'] .route-progress::before {
     height: 64px;
     margin-block-end: var(--space-6);
     border-radius: var(--radius-full);
-    background: var(--c-danger-bg);
+    background: color-mix(in srgb, var(--c-danger) 12%, transparent);
     color: var(--c-danger);
   }
 
   &__title {
     margin: 0 0 var(--space-3);
+    text-wrap: balance;
     font-size: var(--fs-2xl);
     font-weight: 700;
     line-height: var(--lh-snug);
@@ -124,7 +167,7 @@ html[dir='rtl'] .route-progress::before {
   &__details {
     margin: 0 0 var(--space-8);
     padding: var(--space-3) var(--space-4);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-lg);
     background: var(--bg-muted);
     color: var(--text-secondary);
     font-size: var(--fs-xs);
@@ -144,7 +187,7 @@ html[dir='rtl'] .route-progress::before {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .route-spinner,
+  .route-skel { animation: none; }
   .route-progress::before {
     animation-duration: 2.4s;
   }

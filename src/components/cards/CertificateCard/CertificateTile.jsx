@@ -1,9 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { Award, X, ZoomIn } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import { X } from 'lucide-react';
 import './index.scss';
 
 function Lightbox({ image, alt, onClose }) {
+    const { t } = useTranslation();
+
     useEffect(() => {
         const onKey = (e) => e.key === 'Escape' && onClose();
         const prev = document.body.style.overflow;
@@ -16,39 +19,45 @@ function Lightbox({ image, alt, onClose }) {
     }, [onClose]);
 
     return createPortal(
+        // Backdrop click closes; Escape and the close button are the keyboard paths.
         <div className="cert-lightbox" role="dialog" aria-modal="true" aria-label={alt} onClick={onClose}>
             <img src={image} alt={alt} onClick={(e) => e.stopPropagation()} />
-            <button type="button" className="cert-lightbox__close" onClick={onClose} aria-label="Close" autoFocus>
-                <X size={22} strokeWidth={2} />
+            <button
+                type="button"
+                className="cert-lightbox__close"
+                onClick={onClose}
+                aria-label={t('common.close', 'Close')}
+                autoFocus
+            >
+                <X size={22} strokeWidth={1.75} aria-hidden="true" />
             </button>
         </div>,
         document.body,
     );
 }
 
-/** Certificate thumbnail (number + label) that opens a lightbox on click. */
+/**
+ * Certificate thumbnail that opens a lightbox on click. The image speaks for
+ * itself: `text` and `number` only feed the accessible name (no labels on the photo).
+ */
 export default function CertificateTile({ image, number, text }) {
+    const { t } = useTranslation();
     const [open, setOpen] = useState(false);
-    const label = [text, number].filter(Boolean).join(' ');
-    const padded = number !== undefined && number !== null ? String(number).padStart(2, '0') : null;
+    const buttonRef = useRef(null);
+    const label = [text, number].filter((v) => v !== undefined && v !== null && v !== '').join(' ')
+        || t('certificate.label', 'Certificate');
+
+    const close = () => {
+        setOpen(false);
+        buttonRef.current?.focus();
+    };
 
     return (
         <>
-            <button type="button" className="cert-tile" onClick={() => setOpen(true)} aria-label={label || 'Certificate'}>
-                <img src={image} alt="" loading="lazy" decoding="async" />
-                <span className="cert-tile__shade" aria-hidden="true" />
-                <span className="cert-tile__zoom" aria-hidden="true"><ZoomIn size={18} strokeWidth={2} /></span>
-                <span className="cert-tile__info" aria-hidden="true">
-                    {padded && <span className="cert-tile__number">{padded}</span>}
-                    {text && (
-                        <span className="cert-tile__text">
-                            <Award size={14} strokeWidth={2} />
-                            {text}
-                        </span>
-                    )}
-                </span>
+            <button ref={buttonRef} type="button" className="cert-tile" onClick={() => setOpen(true)} aria-label={label}>
+                <img src={image} alt="" width="300" height="400" loading="lazy" decoding="async" />
             </button>
-            {open && <Lightbox image={image} alt={label || 'Certificate'} onClose={() => setOpen(false)} />}
+            {open && <Lightbox image={image} alt={label} onClose={close} />}
         </>
     );
 }

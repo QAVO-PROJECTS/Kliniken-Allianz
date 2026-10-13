@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ArrowRight, CalendarDays, Eye, Newspaper } from "lucide-react";
+import { ArrowRight, CalendarDays, Eye, ImageOff, Newspaper } from "lucide-react";
 import { useGetAllNewspaperQuery } from "../../../api/userApi.js";
 import { getLocalizedText } from "../../../i18n/getLocalizedText.js";
 import { formatDate, isoDate } from "../../../components/cards/formatDate.js";
@@ -9,13 +9,13 @@ import PageHeader from "../../../components/ui/PageHeader/index.jsx";
 import BlogCard from "../../../components/cards/BlogCard/index.jsx";
 import BlogPagination from "../../../components/ui/BlogPagination/index.jsx";
 import CtaBand from "../Contact/CtaBand.jsx";
-import { EmptyState, SkeletonGrid } from "../Tours/ListingStates.jsx";
-import Logo from "../../../assets/Logo.png";
-import { blogImageUrl, sortBlogs } from "./blogUtils.js";
+import { EmptyState } from "../Tours/ListingStates.jsx";
+import { blogImageUrl, gridSpan, sortBlogs } from "./blogUtils.js";
 import "../Tours/listing.scss";
 import "./blogs.scss";
 
-const PER_PAGE = 6;
+// 7 per page: two rows of two wide cards, then a row of three.
+const PER_PAGE = 7;
 
 function FeaturedPost({ blog }) {
     const { t, i18n } = useTranslation();
@@ -25,34 +25,76 @@ function FeaturedPost({ blog }) {
     const src = blogImageUrl(blog);
 
     return (
-        <article className="featured-post">
+        <article className="featured-post" data-reveal>
             <Link to={`/blogs/${blog.id}`} className="featured-post__media" tabIndex={-1} aria-hidden="true">
                 {src && !failed ? (
-                    <img src={src} alt="" onError={() => setFailed(true)} fetchPriority="high" />
+                    <img src={src} alt="" width="1200" height="800" onError={() => setFailed(true)} fetchPriority="high" />
                 ) : (
-                    <span className="blog-fallback"><img src={Logo} alt="" /></span>
+                    <span className="blog-fallback">
+                        <ImageOff size={40} strokeWidth={1.75} />
+                    </span>
                 )}
             </Link>
             <div className="featured-post__body">
-                <span className="badge badge--brand">{t("blogs.new", "Latest")}</span>
+                <span className="eyebrow">{t("blogs.new", "Latest")}</span>
                 <h2 className="featured-post__title">
                     <Link to={`/blogs/${blog.id}`}>{title}</Link>
                 </h2>
                 <div className="post-meta">
                     {blog.createDate && (
-                        <span><CalendarDays size={16} strokeWidth={2} aria-hidden="true" /><time dateTime={isoDate(blog.createDate)}>{formatDate(blog.createDate, i18n.language)}</time></span>
+                        <span>
+                            <CalendarDays size={16} strokeWidth={1.75} aria-hidden="true" />
+                            <time dateTime={isoDate(blog.createDate)}>{formatDate(blog.createDate, i18n.language)}</time>
+                        </span>
                     )}
                     {Number(blog.viewCount) > 0 && (
-                        <span><Eye size={16} strokeWidth={2} aria-hidden="true" />{t("blogs.views", "{{count}} views", { count: blog.viewCount })}</span>
+                        <span>
+                            <Eye size={16} strokeWidth={1.75} aria-hidden="true" />
+                            {t("blogs.views", "{{count}} views", { count: blog.viewCount })}
+                        </span>
                     )}
                 </div>
                 {subtitle && <p className="featured-post__excerpt">{subtitle}</p>}
-                <Link to={`/blogs/${blog.id}`} className="btn btn--primary featured-post__cta">
+                <Link to={`/blogs/${blog.id}`} className="btn btn--primary featured-post__cta" aria-label={`${t("blogs.readMore", "Read more")}: ${title}`}>
                     {t("blogs.readMore", "Read more")}
-                    <ArrowRight size={18} strokeWidth={2} className="blogs-arrow" aria-hidden="true" />
+                    <ArrowRight size={18} strokeWidth={1.75} className="blogs-arrow" aria-hidden="true" />
                 </Link>
             </div>
         </article>
+    );
+}
+
+function BlogsSkeleton() {
+    const { t } = useTranslation();
+    return (
+        <div role="status" aria-busy="true">
+            <span className="visually-hidden">{t("common.loading", "Loading…")}</span>
+            <div className="featured-post featured-post--skeleton" aria-hidden="true">
+                <div className="skeleton featured-post__media" />
+                <div className="featured-post__body">
+                    <div className="skeleton skeleton-card__line skeleton-card__line--short" />
+                    <div className="skeleton skeleton-card__line skeleton-card__line--title" />
+                    <div className="skeleton skeleton-card__line skeleton-card__line--title" />
+                    <div className="skeleton skeleton-card__line" />
+                    <div className="skeleton skeleton-card__line" />
+                </div>
+            </div>
+            <div className="blog-grid blogs-page__all" aria-hidden="true">
+                {[0, 1, 2, 3, 4].map((i) => (
+                    <div
+                        className={`skeleton-card blog-grid__cell${gridSpan(i, 5) === 3 ? " blog-grid__cell--wide" : ""}`}
+                        key={i}
+                    >
+                        <div className="skeleton skeleton-card__media" />
+                        <div className="skeleton-card__body">
+                            <div className="skeleton skeleton-card__line skeleton-card__line--short" />
+                            <div className="skeleton skeleton-card__line skeleton-card__line--title" />
+                            <div className="skeleton skeleton-card__line" />
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
     );
 }
 
@@ -83,18 +125,7 @@ function Blogs() {
             <section className="listing">
                 <div className="container">
                     {isLoading ? (
-                        <>
-                            <div className="featured-post featured-post--skeleton" aria-hidden="true">
-                                <div className="skeleton featured-post__media" />
-                                <div className="featured-post__body">
-                                    <div className="skeleton skeleton-card__line skeleton-card__line--short" />
-                                    <div className="skeleton skeleton-card__line skeleton-card__line--title" />
-                                    <div className="skeleton skeleton-card__line" />
-                                    <div className="skeleton skeleton-card__line" />
-                                </div>
-                            </div>
-                            <SkeletonGrid count={3} className="listing-grid--3 blogs-page__grid" />
-                        </>
+                        <BlogsSkeleton />
                     ) : !featured ? (
                         <EmptyState icon={Newspaper} title={t("common.noData", "No data")} />
                     ) : (
@@ -109,9 +140,14 @@ function Blogs() {
                                             {t("listing.count", "{{count}} results", { count: blogs.length })}
                                         </span>
                                     </div>
-                                    <div className="listing-grid listing-grid--3 blogs-page__grid">
+                                    <div className="blog-grid" data-reveal>
                                         {visible.map((blog, i) => (
-                                            <BlogCard key={blog.id} blog={blog} index={i} />
+                                            <div
+                                                key={blog.id}
+                                                className={`blog-grid__cell${gridSpan(i, visible.length) === 3 ? " blog-grid__cell--wide" : ""}`}
+                                            >
+                                                <BlogCard blog={blog} index={i} />
+                                            </div>
                                         ))}
                                     </div>
                                     {pageCount > 1 && (

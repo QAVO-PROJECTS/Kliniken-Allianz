@@ -26,7 +26,7 @@ function BlogPagination({ currentPage, totalPosts, postsPerPage, onPageChange })
                 disabled={currentPage <= 1}
                 aria-label={t("pagination.prev", "Əvvələ")}
             >
-                <ArrowLeft size={18} strokeWidth={2} aria-hidden="true" />
+                <ArrowLeft size={18} strokeWidth={1.75} aria-hidden="true" />
                 <span className="pager__label">{t("pagination.prev", "Əvvələ")}</span>
             </button>
 
@@ -58,7 +58,7 @@ function BlogPagination({ currentPage, totalPosts, postsPerPage, onPageChange })
                 aria-label={t("pagination.next", "Sonra")}
             >
                 <span className="pager__label">{t("pagination.next", "Sonra")}</span>
-                <ArrowRight size={18} strokeWidth={2} aria-hidden="true" />
+                <ArrowRight size={18} strokeWidth={1.75} aria-hidden="true" />
             </button>
         </nav>
     );

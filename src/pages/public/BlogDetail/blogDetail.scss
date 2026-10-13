@@ -1,22 +1,25 @@
 @use '../../../styles/mixins' as *;
 
 .blog-detail {
-  &__meta { justify-content: center; }
+  &__meta { justify-content: flex-start; }
 
   .page-header__title {
-    max-width: 900px;
+    max-width: 30ch;
     font-size: var(--fs-3xl);
   }
 }
 
+// Article: cover photo, then a reading column (about 68ch, 18px) with a
+// sticky aside (share + other posts) on desktop. Below 992px the aside
+// follows the article.
 .article {
-  padding: var(--space-12) 0 var(--section-padding);
+  padding-block: var(--space-12) var(--section-padding);
 
   &__hero {
-    width: 100%;
-    max-width: 1040px;
-    margin: 0 auto;
-    padding: 0 var(--container-padding);
+    max-width: 1120px;
+    margin: 0 auto var(--space-12);
+
+    &:empty { display: none; }
   }
 
   &__hero-btn {
@@ -28,60 +31,50 @@
     overflow: hidden;
     background: var(--bg-muted);
     cursor: zoom-in;
+    touch-action: manipulation;
 
-    &:disabled { cursor: default; }
     &:focus-visible { @include focus-ring; }
   }
 
   &__hero-img {
     display: block;
     width: 100%;
+    height: auto;
     aspect-ratio: 16 / 9;
+    max-height: 600px;
     object-fit: cover;
     border-radius: var(--radius-xl);
   }
 
-  &__container {
-    max-width: calc(720px + 2 * var(--container-padding));
-    margin: 0 auto;
-    padding: 0 var(--container-padding);
+  &__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 68ch) 300px;
+    justify-content: center;
+    gap: var(--space-16);
+    align-items: start;
   }
 
-  &__share {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--space-2);
-    margin: var(--space-8) 0 var(--space-10);
-    padding-bottom: var(--space-6);
-    border-bottom: 1px solid var(--border);
-  }
-
-  &__share-label {
-    margin-inline-end: var(--space-2);
-    font-size: var(--fs-sm);
-    font-weight: 600;
-    color: var(--text-muted);
-  }
+  &__main { min-width: 0; }
 
   &__body {
     color: var(--text);
-    font-size: var(--fs-lg);
-    line-height: 1.8;
+    font-size: var(--fs-lg); // 18px
+    line-height: 1.75;
     overflow-wrap: break-word;
+    text-wrap: pretty;
 
     p + p { margin-top: 1.25em; }
 
     p:first-child {
       font-size: var(--fs-xl);
-      line-height: 1.7;
-      color: var(--text);
+      line-height: 1.65;
       font-weight: 500;
     }
   }
 
   &__block {
     margin-top: var(--space-12);
+    scroll-margin-top: calc(var(--navbar-height) + var(--space-6));
 
     h2 {
       margin-bottom: var(--space-5);
@@ -98,6 +91,8 @@
   }
 
   &__gallery-item {
+    display: block;
+    width: 100%;
     padding: 0;
     border: 0;
     aspect-ratio: 4 / 3;
@@ -105,16 +100,79 @@
     border-radius: var(--radius-lg);
     background: var(--bg-muted);
     cursor: zoom-in;
-    @include image-zoom(1.05);
+    touch-action: manipulation;
+    @include image-zoom(1.04);
 
     img, .blog-fallback { width: 100%; height: 100%; object-fit: cover; }
-    &:focus-visible { @include focus-ring; }
+    &:focus-visible { outline: 3px solid var(--link); outline-offset: -3px; }
+  }
+
+  &__aside {
+    position: sticky;
+    top: calc(var(--navbar-height) + var(--space-6));
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-10);
+    min-width: 0;
+  }
+
+  &__aside-title {
+    margin-bottom: var(--space-4);
+    font-size: var(--fs-md);
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: 0;
+  }
+
+  &__share-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  &__related {
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--border);
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+  }
+
+  &__all {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: 44px;
+    margin-top: var(--space-3);
+    color: var(--link);
+    font-size: var(--fs-sm);
+    font-weight: 600;
+
+    @include hover { text-decoration: underline; text-underline-offset: 3px; }
+    &:focus-visible { @include focus-ring; border-radius: var(--radius-full); }
+  }
+
+  @include down($bp-lg) {
+    &__layout {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-12);
+    }
+    &__main { max-width: 68ch; }
+    &__aside {
+      position: static;
+      padding-top: var(--space-8);
+      border-top: 1px solid var(--border);
+    }
+    &__related { padding-top: 0; border-top: 0; }
   }
 
   @include down($bp-sm) {
     padding-top: var(--space-6);
 
-    &__hero { padding: 0; }
+    &__hero { margin-inline: calc(-1 * var(--container-padding)); margin-bottom: var(--space-8); }
     &__hero-btn, &__hero-img { border-radius: 0; }
     &__body {
       font-size: 17px;
@@ -132,17 +190,23 @@
   min-width: 44px;
   height: 44px;
   padding: 0 var(--space-3);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-strong);
   border-radius: var(--radius-full);
   background: var(--surface);
-  color: var(--text-secondary);
+  color: var(--text);
   font-size: var(--fs-sm);
   font-weight: 600;
+  white-space: nowrap;
   cursor: pointer;
-  transition: color var(--duration-fast), border-color var(--duration-fast), background var(--duration-fast);
+  touch-action: manipulation;
+  transition: color var(--duration-fast) ease,
+              border-color var(--duration-fast) ease,
+              background-color var(--duration-fast) ease,
+              transform var(--duration-fast) var(--ease-out);
 
-  &:hover { color: var(--brand); border-color: var(--c-primary-200); background: var(--bg-brand-soft); }
+  @include hover { color: var(--link); border-color: var(--link); background: var(--bg-brand-soft); }
+  &:active { transform: scale(0.96); }
   &:focus-visible { @include focus-ring; }
 
-  &--copy { padding: 0 var(--space-4); }
+  &--wide { padding: 0 var(--space-4); }
 }

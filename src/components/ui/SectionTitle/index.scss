@@ -8,16 +8,24 @@
   max-width: 760px;
   margin-bottom: var(--space-12);
 
+  &__eyebrow {
+    margin-bottom: calc(var(--space-1) * -1);
+  }
+
   h2 {
     font-size: var(--fs-3xl);
     line-height: var(--lh-tight);
     font-weight: 700;
+    letter-spacing: var(--tracking-tight);
+    text-wrap: balance;
   }
 
   p {
+    max-width: 65ch;
     font-size: var(--fs-lg);
     line-height: var(--lh-normal);
     color: var(--text-secondary);
+    text-wrap: pretty;
   }
 
   &--center {

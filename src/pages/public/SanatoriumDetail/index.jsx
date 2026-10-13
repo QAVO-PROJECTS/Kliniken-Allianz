@@ -1,7 +1,7 @@
-import { useMemo, useRef, useState } from "react";
+import { useId, useMemo, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { BedDouble, Check, Crown, HeartPulse, MapPin, Phone, ShieldCheck, Sofa } from "lucide-react";
+import { ArrowRight, BedDouble, Crown, HeartPulse, MapPin, Sofa } from "lucide-react";
 import {
     useGetAllSanatoriumQuery,
     useGetSanatoriumByIdQuery,
@@ -12,24 +12,22 @@ import { getLocalizedText } from "../../../i18n/getLocalizedText.js";
 import PageHeader from "../../../components/ui/PageHeader/index.jsx";
 import SanatoriumCard from "../../../components/cards/SanatoriumCard/index.jsx";
 import EnquiryForm from "../Contact/EnquiryForm.jsx";
-import CtaBand from "../Contact/CtaBand.jsx";
 import { EmptyState } from "../Tours/ListingStates.jsx";
 import MediaGallery from "../TourDetail/MediaGallery.jsx";
 import VideoGrid from "../TourDetail/VideoGrid.jsx";
+import { BookingCard, DetailSkeleton, IncludeList, SectionHead } from "../TourDetail/DetailParts.jsx";
 import { toParagraphs } from "../TourDetail/carMessage.js";
 import "../Tours/listing.scss";
 import "../TourDetail/detailShared.scss";
 import "./index.scss";
 
-const SERVICES_PREVIEW = 8;
-
 function SanatoriumDetail() {
     const { id } = useParams();
     const { t } = useTranslation();
+    const uid = useId();
     const { data, isLoading, isError } = useGetSanatoriumByIdQuery(id);
     const { data: allData } = useGetAllSanatoriumQuery();
     const [postSanatoriumContact] = usePostContactSanatoriumMutation();
-    const [showAllServices, setShowAllServices] = useState(false);
     const formRef = useRef(null);
 
     const sanatorium = data?.data;
@@ -37,9 +35,7 @@ function SanatoriumDetail() {
     const location = getLocalizedText(sanatorium, "location");
     const paragraphs = toParagraphs(getLocalizedText(sanatorium, "description"));
     const services = sanatorium?.services || [];
-    const visibleServices = showAllServices ? services : services.slice(0, SERVICES_PREVIEW);
     const videos = sanatorium?.videos || [];
-    const phone = t("contact.contactCard.mobile.value");
 
     const images = useMemo(() => {
         const list = (sanatorium?.images || []).map((img) => SANATORIUM_IMAGES + img);
@@ -73,92 +69,53 @@ function SanatoriumDetail() {
         );
     }
 
+    const facts = [];
+    if (location) facts.push({ icon: MapPin, label: t("sanatoriumDetail.locationLabel", "Location"), value: location });
+    if (services.length) {
+        facts.push({
+            icon: HeartPulse,
+            label: t("navbar.services"),
+            value: t("sanatoriumDetail.servicesCount", "{{count}} treatments & services", { count: services.length }),
+        });
+    }
+    if (rooms.length) {
+        facts.push({
+            icon: BedDouble,
+            label: t("sanatoriumDetail.rooms.title", "Room types"),
+            value: rooms.map((r) => r.label).join(", "),
+        });
+    }
+
     return (
         <div className="sanatorium-detail">
             <PageHeader
-                title={name || " "}
+                title={name || " "}
                 crumbs={[{ label: t("sanatoriumDetail.breadcrumb.sanatoriums"), to: "/sanatoriums" }, { label: name }]}
             >
                 {location && (
-                    <span className="sanatorium-detail__location">
-                        <MapPin size={16} strokeWidth={2} aria-hidden="true" />
+                    <p className="sanatorium-detail__location">
+                        <MapPin size={16} strokeWidth={1.75} aria-hidden="true" />
                         {location}
-                    </span>
+                    </p>
                 )}
             </PageHeader>
 
             <div className="container detail-page">
                 <div className="detail-layout">
                     <div className="detail-layout__gallery">
-                        <MediaGallery images={images} alt={name} badge={t("navbar.sanatorium")} />
+                        <MediaGallery images={images} alt={name} loading={isLoading} />
                     </div>
 
-                    <aside className="detail-layout__aside" aria-label={t("tourDetail.bookingAria", "Booking summary")}>
-                        <div className="booking-card">
-                            <span className="eyebrow booking-card__eyebrow">{t("navbar.sanatorium")}</span>
-                            <h2 className="booking-card__title">{name}</h2>
-
-                            <ul className="fact-list">
-                                {location && (
-                                    <li>
-                                        <span className="fact-list__icon"><MapPin size={20} strokeWidth={1.75} /></span>
-                                        <span className="fact-list__text">
-                                            <small>{t("sanatoriumDetail.locationLabel", "Location")}</small>
-                                            <span>{location}</span>
-                                        </span>
-                                    </li>
-                                )}
-                                {services.length > 0 && (
-                                    <li>
-                                        <span className="fact-list__icon"><HeartPulse size={20} strokeWidth={1.75} /></span>
-                                        <span className="fact-list__text">
-                                            <small>{t("navbar.services")}</small>
-                                            <span>{t("sanatoriumDetail.servicesCount", "{{count}} treatments & services", { count: services.length })}</span>
-                                        </span>
-                                    </li>
-                                )}
-                                {rooms.length > 0 && (
-                                    <li>
-                                        <span className="fact-list__icon"><BedDouble size={20} strokeWidth={1.75} /></span>
-                                        <span className="fact-list__text">
-                                            <small>{t("sanatoriumDetail.rooms.title", "Room types")}</small>
-                                            <span>{rooms.map((r) => r.label).join(" · ")}</span>
-                                        </span>
-                                    </li>
-                                )}
-                            </ul>
-
-                            <div className="booking-card__actions">
-                                <button type="button" className="btn btn--primary btn--lg btn--block" onClick={scrollToForm}>
-                                    {t("toursPage.applyButton")}
-                                </button>
-                                <a href={`tel:${phone.replace(/\s+/g, "")}`} className="btn btn--secondary btn--block">
-                                    <Phone size={18} strokeWidth={2} aria-hidden="true" />
-                                    <span dir="ltr">{phone}</span>
-                                </a>
-                            </div>
-                            <p className="booking-card__note">
-                                <ShieldCheck size={18} strokeWidth={2} aria-hidden="true" />
-                                {t("tourDetail.freeConsultation", "Free consultation, no obligation")}
-                            </p>
-                        </div>
-                    </aside>
+                    <div className="detail-layout__aside">
+                        <BookingCard title={name} facts={isLoading ? [] : facts} onApply={scrollToForm} />
+                    </div>
 
                     <div className="detail-layout__main">
-                        {isLoading && (
-                            <div className="detail-skeleton" aria-hidden="true">
-                                <div className="skeleton detail-skeleton__title" />
-                                <div className="skeleton detail-skeleton__line" />
-                                <div className="skeleton detail-skeleton__line" />
-                                <div className="skeleton detail-skeleton__line detail-skeleton__line--short" />
-                            </div>
-                        )}
+                        {isLoading && <DetailSkeleton />}
 
                         {paragraphs.length > 0 && (
-                            <section className="detail-section">
-                                <div className="detail-section__head">
-                                    <h2>{t("tourDetail.overview", "Overview")}</h2>
-                                </div>
+                            <section className="detail-section" aria-labelledby={`${uid}-overview`} data-reveal>
+                                <SectionHead id={`${uid}-overview`} title={t("tourDetail.overview", "Overview")} />
                                 <div className="prose">
                                     {paragraphs.map((p, i) => <p key={i}>{p}</p>)}
                                 </div>
@@ -166,55 +123,31 @@ function SanatoriumDetail() {
                         )}
 
                         {rooms.length > 0 && (
-                            <section className="detail-section">
-                                <div className="detail-section__head">
-                                    <h2>{t("sanatoriumDetail.rooms.title", "Room types")}</h2>
-                                </div>
-                                <div className="room-grid">
+                            <section className="detail-section" aria-labelledby={`${uid}-rooms`} data-reveal>
+                                <SectionHead id={`${uid}-rooms`} title={t("sanatoriumDetail.rooms.title", "Room types")} />
+                                <ul className="room-list">
                                     {rooms.map(({ key, icon: Icon, label, text }) => (
-                                        <article className="room-card" key={key}>
-                                            <span className="room-card__icon"><Icon size={22} strokeWidth={1.75} /></span>
+                                        <li className="room-list__item" key={key}>
+                                            <span className="room-list__icon">
+                                                <Icon size={22} strokeWidth={1.75} aria-hidden="true" />
+                                            </span>
                                             <h3>{label}</h3>
                                             <p>{text}</p>
-                                        </article>
+                                        </li>
                                     ))}
-                                </div>
+                                </ul>
                             </section>
                         )}
 
                         {!isLoading && (
-                            <section className="detail-section">
-                                <div className="detail-section__head">
-                                    <div>
-                                        <h2>{t("sanatoriumDetail.services.title")}</h2>
-                                        <p>{t("sanatoriumDetail.services.description")}</p>
-                                    </div>
-                                </div>
+                            <section className="detail-section" aria-labelledby={`${uid}-services`} data-reveal>
+                                <SectionHead
+                                    id={`${uid}-services`}
+                                    title={t("sanatoriumDetail.services.title")}
+                                    desc={t("sanatoriumDetail.services.description")}
+                                />
                                 {services.length > 0 ? (
-                                    <>
-                                        <ul className="include-list">
-                                            {visibleServices.map((item) => (
-                                                <li key={item.id}>
-                                                    <span className="include-list__icon"><Check size={14} strokeWidth={3} /></span>
-                                                    {getLocalizedText(item, "name")}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                        {services.length > SERVICES_PREVIEW && (
-                                            <div className="show-more">
-                                                <button
-                                                    type="button"
-                                                    className="btn btn--secondary"
-                                                    onClick={() => setShowAllServices((v) => !v)}
-                                                    aria-expanded={showAllServices}
-                                                >
-                                                    {showAllServices
-                                                        ? t("common.showLess", "Show less")
-                                                        : `${t("clinicDetail.services.button")} (${services.length})`}
-                                                </button>
-                                            </div>
-                                        )}
-                                    </>
+                                    <IncludeList items={services} getLabel={(item) => getLocalizedText(item, "name")} preview={12} />
                                 ) : (
                                     <p className="text-secondary">{t("common.noData", "No data")}</p>
                                 )}
@@ -222,18 +155,19 @@ function SanatoriumDetail() {
                         )}
 
                         {videos.length > 0 && (
-                            <section className="detail-section">
-                                <div className="detail-section__head">
-                                    <h2>{t("sanatoriumDetail.videos.title")}</h2>
-                                </div>
+                            <section className="detail-section" aria-labelledby={`${uid}-videos`} data-reveal>
+                                <SectionHead id={`${uid}-videos`} title={t("sanatoriumDetail.videos.title")} />
                                 <VideoGrid videos={videos} title={name} />
                             </section>
                         )}
 
-                        <section className="detail-section detail-section--card" ref={formRef} id="enquiry">
+                        <section className="detail-section detail-section--form" ref={formRef} id="enquiry">
                             <EnquiryForm
                                 title={t("contact.form.title")}
-                                subtitle={t("sanatoriumDetail.formSubtitle", "Ask about availability, treatment programmes and prices — we will get back to you shortly.")}
+                                subtitle={t(
+                                    "sanatoriumDetail.formSubtitle",
+                                    "Ask about availability, treatment programmes and prices. We will get back to you shortly."
+                                )}
                                 onSubmit={(values) => postSanatoriumContact({ ...values, sanatoriumId: id }).unwrap()}
                             />
                         </section>
@@ -242,18 +176,19 @@ function SanatoriumDetail() {
             </div>
 
             {related.length > 0 && (
-                <section className="section section--subtle sanatorium-detail__related">
+                <section className="section section--subtle" aria-labelledby={`${uid}-related`}>
                     <div className="container">
                         <div className="listing-toolbar">
                             <div>
-                                <h2>{t("sanatoriumDetail.related.title")}</h2>
+                                <h2 id={`${uid}-related`}>{t("sanatoriumDetail.related.title")}</h2>
                                 <p>{t("sanatoriumDetail.related.description")}</p>
                             </div>
                             <Link to="/sanatoriums" className="btn btn--secondary btn--sm">
                                 {t("blogDetail.viewAll")}
+                                <ArrowRight size={16} strokeWidth={1.75} className="flip-rtl" aria-hidden="true" />
                             </Link>
                         </div>
-                        <div className="listing-grid listing-grid--4">
+                        <div className="listing-grid listing-grid--4" data-reveal>
                             {related.map((item) => (
                                 <SanatoriumCard key={item.id} item={item} />
                             ))}
@@ -261,10 +196,6 @@ function SanatoriumDetail() {
                     </div>
                 </section>
             )}
-
-            <div className="sanatorium-detail__cta">
-                <CtaBand />
-            </div>
         </div>
     );
 }

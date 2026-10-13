@@ -1,5 +1,4 @@
-import { useTranslation } from "react-i18next";
-import { ArrowUpRight, Hotel, MapPin, Star } from "lucide-react";
+import { ArrowUpRight, MapPin, Star } from "lucide-react";
 import MediaCard from "../MediaCard/index.jsx";
 import CardSlot from "../CardSlot.jsx";
 import "./index.scss";
@@ -11,7 +10,6 @@ import { OTEL_CARD_IMAGES } from "../../../config/mediaUrls.js";
  * Props: item; [bare]; [wrapperClassName]
  */
 function HotelCard({ item, bare = false, wrapperClassName = "col-12" }) {
-    const { t } = useTranslation();
     const title = getLocalizedText(item, "name");
     const rating = Math.max(0, Math.min(5, Math.round(Number(item?.raiting) || 0)));
 
@@ -23,11 +21,10 @@ function HotelCard({ item, bare = false, wrapperClassName = "col-12" }) {
                 image={item?.cardImage && OTEL_CARD_IMAGES + item.cardImage}
                 imageAlt={title}
                 title={title}
-                badge={<><Hotel size={14} strokeWidth={2} aria-hidden="true" />{t("tourCard.hotel")}</>}
                 meta={[{ icon: MapPin, text: getLocalizedText(item, "location") }]}
                 footer={item?.otelLink ? (
                     <span className="mcard__arrow" aria-hidden="true">
-                        <ArrowUpRight size={18} strokeWidth={2} />
+                        <ArrowUpRight size={18} strokeWidth={1.75} />
                     </span>
                 ) : false}
             >
@@ -37,7 +34,7 @@ function HotelCard({ item, bare = false, wrapperClassName = "col-12" }) {
                             <Star
                                 key={i}
                                 size={15}
-                                strokeWidth={1.5}
+                                strokeWidth={1.75}
                                 className={i < rating ? "is-on" : ""}
                                 aria-hidden="true"
                             />

@@ -69,6 +69,8 @@ function AdminDataTable({
                             <span className="visually-hidden">{at("search")}</span>
                             <input
                                 type="search"
+                                name="search"
+                                autoComplete="off"
                                 value={query}
                                 placeholder={at("search")}
                                 onChange={(e) => {

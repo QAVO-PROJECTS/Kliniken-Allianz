@@ -18,7 +18,7 @@
       "ru": "Russian",
       "ar": "Arabic"
     },
-    "searchPlaceholder": "Search...",
+    "searchPlaceholder": "Search…",
     "noResults": "No results found",
     "clinic": "Clinic",
     "doctor": "Doctor",
@@ -29,7 +29,10 @@
     "service": "Service",
     "services": "Services",
     "suggestedServices": "Suggested Services",
-    "home": "Home"
+    "home": "Home",
+    "language": "Language",
+    "mainNav": "Main",
+    "menu": "Menu"
   },
   "categoriesMenu": {
     "title": "Categories",
@@ -37,7 +40,7 @@
   },
   "footer": {
     "logoAlt": "Kliniken Allianz Logo",
-    "description": "We refer you to the world's leading clinics and sanatoriums, selecting the most suitable organization for your treatment. Your health journey will not only consist of treatment - after surgery, consultation, rehabilitation, diagnostic and preventive services, your rest and travel will also be unforgettable.",
+    "description": "We refer you to leading clinics and sanatoriums worldwide and choose the one that best fits your treatment. Beyond surgery, consultations, rehabilitation, diagnostics and preventive care, we also arrange your stay and travel.",
     "links": "Links",
     "contactTitle": "Contact Information",
     "call": "Call Us",
@@ -45,7 +48,8 @@
     "mail": "Write to Us",
     "email": "klinikenallianz@gmail.com",
     "copyright": "© 2025 Kliniken Allianz. All rights reserved.",
-    "createdBy": "Created by:"
+    "createdBy": "Created by:",
+    "social": "Social media"
   },
   "homeBanner": {
     "title": "Access the World’s Best Hospitals",
@@ -59,25 +63,27 @@
       },
       {
         "title": "Advanced Medical Care",
-        "description": "Experience cutting-edge treatments and personalized healthcare solutions."
+        "description": "Modern treatment methods and a care plan built around you."
       },
       {
         "title": "Comfortable Travel Options",
-        "description": "Seamless travel arrangements to ensure your journey is as comfortable as possible."
+        "description": "We arrange flights, transfers and accommodation so your trip stays comfortable."
       },
       {
-        "title": "Holistic Health Journey",
-        "description": "From diagnosis to recovery, we support you every step of the way."
+        "title": "Support at Every Stage",
+        "description": "From diagnosis to recovery, we stay with you."
       }
-    ]
+    ],
+    "pause": "Pause slideshow",
+    "play": "Play slideshow"
   },
   "homeSurvey": {
     "tag": "Survey",
     "title": "Help Us Improve Your Experience",
-    "description": "Your feedback is crucial for us to provide better healthcare services. Take a few minutes to share your thoughts and help shape the future of medical tourism.",
-    "importance": "Why is this important? Your opinions directly influence the quality of services we offer and help us better understand your needs.",
+    "description": "Your feedback helps us provide better healthcare services. The survey takes only a few minutes.",
+    "importance": "Why does it matter? Your answers directly shape the quality of our services and help us understand your needs.",
     "pill1": "Anonymous",
-    "pill2": "3–5 min",
+    "pill2": "3-5 min",
     "pill3": "Azerbaijani language",
     "metaLabel": "Platform",
     "metaValue": "Via Google Forms",
@@ -97,7 +103,7 @@
       },
       {
         "value": "2000+",
-        "label": "Successful Journeys"
+        "label": "Successful Treatment Trips"
       },
       {
         "value": "98%",
@@ -108,7 +114,7 @@
   "homeAbout": {
     "tag": "About Us",
     "title": "International Standards for Your Health",
-    "description": "As Kliniken Allianz, we provide professional support for our patients to receive treatment in the world's best clinics. Thanks to our direct cooperation with Germany's leading medical centers, we offer you the most accurate diagnostics and effective treatment methods.",
+    "description": "Kliniken Allianz helps patients get treatment at the world’s best clinics. Through direct cooperation with Germany’s leading medical centers, we offer accurate diagnostics and effective treatment methods.",
     "features": [
       "Professional Medical Staff",
       "Modern Medical Technologies",
@@ -121,8 +127,8 @@
   },
   "homeProcess": {
     "subtitle": "Stages",
-    "title": "How We Work?",
-    "description": "We are with you at every step of your health journey. Our process is simple and effective.",
+    "title": "How We Work",
+    "description": "We stay with you at every step, from the first consultation to aftercare.",
     "steps": [
       {
         "title": "Consultation",
@@ -144,7 +150,7 @@
   },
   "homeServices": {
     "title": "Medical Service Categories We Offer",
-    "description": "Discover medical fields tailored to your needs.",
+    "description": "Find the medical field that fits your needs.",
     "videoAlt": "Services Video",
     "cards": {
       "cancer": {
@@ -261,10 +267,10 @@
       "tours": "Tour"
     },
     "applyButton": "Apply",
-    "searchPlaceholder": "Search...",
+    "searchPlaceholder": "Search…",
     "headerTitle": "Medical Tour Packages",
     "headerDesc": "Complete medical tour packages including treatment, accommodation, and transfer.",
-    "noData": "No tours found 😔"
+    "noData": "No tours found"
   },
   "tourDetail": {
     "cars": {
@@ -279,7 +285,7 @@
     "badge": "Tour package",
     "overview": "Overview",
     "included": "Included",
-    "includedTitle": "What's included",
+    "includedTitle": "What’s included",
     "hotelsCount": "{{count}} hotels to choose from",
     "carsCount": "{{count}} vehicles available",
     "visaSupport": "Visa support",
@@ -299,18 +305,18 @@
     "eyebrow": "Vehicle",
     "type": "Body type",
     "pricing": "Pricing",
-    "pricingNote": "Daily price range — exact quote on request",
-    "formSubtitle": "Tell us your dates and route — we will confirm availability and the final price."
+    "pricingNote": "Daily price range. Exact quote on request.",
+    "formSubtitle": "Tell us your dates and route, and we will confirm availability and the final price."
   },
   "homeComment": {
     "title": "Trusted By Our Patients",
-    "desc": "Experiences and feedback from people who chose us for their medical journey.",
+    "desc": "Experiences and feedback from people who chose us for their treatment abroad.",
     "backgroundAriaLabel": "Reviews section background image",
     "comments": {
       "aytacM": {
         "name": "Aytac M",
         "country": "Azerbaijan",
-        "text": "The treatment process was very comfortable and stress-free. Everything was organized in advance — transfer, hotel, hospital. The doctors and staff were very attentive! Most importantly, I felt safe."
+        "text": "The treatment process was very comfortable and stress-free. Everything was organized in advance: transfer, hotel, hospital. The doctors and staff were very attentive! Most importantly, I felt safe."
       }
     }
   },
@@ -334,12 +340,12 @@
     },
     "section1": {
       "title": "With You at Every Step: High-Quality Medical Services",
-      "desc": "From flight tickets to visa support, we take care of every detail to ensure a safe and seamless health journey.",
+      "desc": "From flight tickets to visa support, we take care of every detail so your treatment trip is safe and comfortable.",
       "button": "Contact Us"
     },
     "section2": {
       "title": "Why Kliniken Allianz?",
-      "desc": "As Kliniken Allianz, we cooperate with the best medical institutions in different countries in the field of health tourism.",
+      "desc": "Kliniken Allianz works with the best medical institutions in different countries in the field of health tourism.",
       "cards": {
         "consultation": {
           "title": "Free Consultation"
@@ -357,12 +363,12 @@
     },
     "bannerAlt": "About Us Banner",
     "details": {
-      "p1": "As Kliniken Allianz Medical Tourism Company, we are a professional team operating in the international medical tourism field, providing patients with access to quality and reliable medical services. Our main goal is to accurately analyze the health needs of each patient and provide them with the most suitable clinic and treatment programs.",
+      "p1": "Kliniken Allianz Medical Tourism Company is a professional team working in international medical tourism, giving patients access to quality and reliable medical services. Our main goal is to accurately assess the health needs of each patient and match them with the most suitable clinic and treatment program.",
       "p2": "Our company has an official representation in Germany. This allows us to direct our patients to leading and highly specialized clinics in Germany and organize diagnostic and treatment processes in accordance with international standards. At the same time, we cooperate closely with the best clinics, medical centers, and sanatoriums within Azerbaijan to provide examination, treatment, rehabilitation, and leisure programs.",
       "p3": "Furthermore, we organize check-up services. These examinations, performed with modern medical equipment, allow for early detection of diseases, general assessment of health status, and timely intervention.",
-      "p4": "We do not limit our services to medical guidance alone. By providing a \"full service package\" for our patients, we organize the entire process professionally from start to finish:",
-      "p5": "Every patient is unique to us. We provide the most optimal solutions taking into account their wishes, medical condition, and budget. Our goal is not only to organize the treatment process but also to ensure that our patients feel comfortable, safe, and at the center of attention.",
-      "p6": "Operating based on the principles of professionalism, transparency, and reliability, Kliniken Allianz Medical Tourism Company is your reliable partner on the path to your health."
+      "p4": "We do not limit our services to medical referral alone. With a “full service package” for our patients, we organize the entire process professionally from start to finish:",
+      "p5": "Every patient is unique to us. We offer the best solution for their wishes, medical condition and budget. Our goal is not only to organize the treatment, but also to make sure our patients feel comfortable, safe and well looked after.",
+      "p6": "Built on professionalism, transparency and reliability, Kliniken Allianz Medical Tourism Company is your trusted partner on the way to better health."
     },
     "servicesList": [
       "Initial consultation and accurate assessment of medical needs",
@@ -399,7 +405,7 @@
     },
     "main": {
       "title": "We Are Ready to Help",
-      "desc": "For all your questions about medical tourism, you can easily contact us. Our expert team will provide you with suitable solutions."
+      "desc": "Contact us with any question about medical tourism. Our team will help you find the right solution."
     },
     "contactCard": {
       "mobile": {
@@ -446,7 +452,7 @@
     "errorToast": "An error occurred",
     "imageAlt": "Kliniken Allianz office",
     "eyebrow": "Get in touch",
-    "lead": "Call, write or visit us — a coordinator will answer your questions about clinics, treatment and travel.",
+    "lead": "Call, write or visit us. A coordinator will answer your questions about clinics, treatment and travel.",
     "mapTitle": "Office location on Google Maps",
     "responseTime": "We usually reply within one business day."
   },
@@ -497,13 +503,13 @@
     },
     "services": {
       "title": "Medical Services Offered by the Hospital",
-      "description": "Discover medical fields tailored to your needs.",
+      "description": "Find the medical field that fits your needs.",
       "button": "View All"
     },
     "doctors": {
       "title": "Professional Team",
-      "subtitle": "Our specialists, specialized in various fields, have high medical knowledge and practical experience.",
-      "description": "Our specialists across various fields possess high medical expertise and practical experience.",
+      "subtitle": "Our specialists in many fields combine deep medical knowledge with practical experience.",
+      "description": "Our specialists in many fields combine deep medical knowledge with practical experience.",
       "button": "View All"
     },
     "gallery": {
@@ -513,7 +519,7 @@
       "goToImageAria": "Go to image {{number}}"
     },
     "videos": {
-      "title": "Videolar"
+      "title": "Videos"
     }
   },
   "sanatoriumDetail": {
@@ -523,11 +529,11 @@
     },
     "services": {
       "title": "Services Offered by the Sanatorium",
-      "description": "Discover high-quality services tailored to your needs."
+      "description": "Treatments and services available at this sanatorium."
     },
     "related": {
       "title": "Other Sanatoriums",
-      "description": "Explore other high-end sanatoriums we've selected for you."
+      "description": "Other sanatoriums we have selected for you."
     },
     "videos": {
       "title": "Videos"
@@ -540,7 +546,7 @@
       "comfort": "Comfort room",
       "vip": "VIP room"
     },
-    "formSubtitle": "Ask about availability, treatment programmes and prices — we will get back to you shortly."
+    "formSubtitle": "Ask about availability, treatment programmes and prices. We will get back to you shortly."
   },
   "clinicHotel": {
     "title": "Hotels for Medical Travel",
@@ -549,7 +555,7 @@
   },
   "doctorsPage": {
     "title": "Doctors",
-    "searchPlaceholder": "Search...",
+    "searchPlaceholder": "Search…",
     "breadcrumbDoctors": "Doctors",
     "header": {
       "title": "The Right Choice for Your Health",
@@ -578,7 +584,7 @@
       "bio": "Bio",
       "certificates": "Certificates"
     },
-    "empty": "—"
+    "empty": "-"
   },
   "adminPanel": {
     "categoryPage": {
@@ -593,9 +599,9 @@
       "deleteConfirmTitle": "Are you sure you want to delete the category?",
       "cancel": "Cancel",
       "delete": "Delete",
-      "deleting": "Deleting...",
-      "deleteSuccess": "Category successfully deleted ✅",
-      "deleteError": "Failed to delete category ❌"
+      "deleting": "Deleting…",
+      "deleteSuccess": "Category successfully deleted",
+      "deleteError": "Failed to delete category"
     },
     "clinicPage": {
       "title": "Clinic",
@@ -605,9 +611,9 @@
         "subtitle": "Kliniken Allianz only cooperates with modern and reliable clinics that meet international standards."
       },
       "search": {
-        "placeholder": "Search....."
+        "placeholder": "Search…"
       },
-      "noClinicFound": "No clinics found 😔"
+      "noClinicFound": "No clinics found"
     },
     "clinicTable": {
       "image": "Image",
@@ -617,10 +623,10 @@
       "deleteConfirmTitle": "Are you sure you want to delete the clinic?",
       "cancel": "Cancel",
       "delete": "Delete",
-      "deleting": "Deleting...",
+      "deleting": "Deleting…",
       "toast": {
-        "deleteSuccess": "✅ Clinic deleted successfully!",
-        "deleteError": "❌ Error occurred while deleting clinic!"
+        "deleteSuccess": "Clinic deleted successfully!",
+        "deleteError": "Error occurred while deleting clinic!"
       }
     },
     "sanatoriumPage": {
@@ -632,7 +638,7 @@
         "subtitle": "Kliniken Allianz only cooperates with modern and reliable sanatoriums that meet international standards."
       },
       "search": {
-        "placeholder": "Search..."
+        "placeholder": "Search…"
       },
       "filter": {
         "allLocations": "All cities",
@@ -652,10 +658,10 @@
       "deleteConfirmTitle": "Are you sure you want to delete the sanatorium?",
       "cancel": "Cancel",
       "delete": "Delete",
-      "deleting": "Deleting...",
+      "deleting": "Deleting…",
       "toast": {
-        "deleteSuccess": "✅ Sanatorium deleted successfully!",
-        "deleteError": "❌ Error occurred while deleting sanatorium!"
+        "deleteSuccess": "Sanatorium deleted successfully!",
+        "deleteError": "Error occurred while deleting sanatorium!"
       }
     },
     "categoryAdd": {
@@ -676,13 +682,13 @@
       },
       "buttons": {
         "save": "Save",
-        "loading": "Yüklənir..."
+        "loading": "Yüklənir…"
       },
       "toast": {
         "emptyName": "Azərbaycan dilində kateqoriya adı boş ola bilməz!",
         "noIcon": "Zəhmət olmasa ikon seçin!",
-        "success": "Kateqoriya uğurla əlavə olundu ✅",
-        "error": "Xəta baş verdi ❌"
+        "success": "Kateqoriya uğurla əlavə olundu",
+        "error": "Xəta baş verdi"
       }
     },
     "categoryEdit": {
@@ -703,14 +709,14 @@
       },
       "buttons": {
         "save": "Save",
-        "updating": "Yenilənir..."
+        "updating": "Yenilənir…"
       },
       "toast": {
         "emptyName": "Azərbaycan dilində kateqoriya adı boş ola bilməz!",
-        "success": "Kateqoriya uğurla yeniləndi ✅",
-        "error": "Xəta baş verdi ❌"
+        "success": "Kateqoriya uğurla yeniləndi",
+        "error": "Xəta baş verdi"
       },
-      "loading": "Yüklənir..."
+      "loading": "Yüklənir…"
     },
     "categoryService": {
       "main": "Categories",
@@ -725,12 +731,12 @@
       "deleteConfirmTitle": "Servisi silmək istədiyinizə əminsiz?",
       "cancel": "Cancel",
       "delete": "Delete",
-      "deleting": "Silinir...",
-      "loading": "Loading...",
+      "deleting": "Silinir…",
+      "loading": "Loading…",
       "toast": {
-        "notFound": "Xidmət tapılmadı ❌",
-        "deleteSuccess": "Xidmət uğurla silindi ✅",
-        "deleteError": "Xidməti silmək mümkün olmadı ❌",
+        "notFound": "Xidmət tapılmadı",
+        "deleteSuccess": "Xidmət uğurla silindi",
+        "deleteError": "Xidməti silmək mümkün olmadı",
         "success": "Service deleted successfully",
         "error": "Could not delete the service"
       }
@@ -753,24 +759,24 @@
         "nameAz": "Travmatologiya",
         "nameRu": "Травматология",
         "nameEn": "Traumatology",
-        "descAz": "Təsvir əlavə edin...",
-        "descRu": "Добавьте описание...",
-        "descEn": "Add description...",
+        "descAz": "Təsvir əlavə edin…",
+        "descRu": "Добавьте описание…",
+        "descEn": "Add description…",
         "nameDe": "Traumatologie",
         "nameAr": "طب الإصابات",
-        "descDe": "Beschreibung hinzufügen...",
-        "descAr": "أضف وصفًا..."
+        "descDe": "Beschreibung hinzufügen…",
+        "descAr": "أضف وصفًا…"
       },
       "buttons": {
         "save": "Save",
-        "loading": "Yüklənir..."
+        "loading": "Yüklənir…"
       },
       "toast": {
         "emptyName": "Azərbaycan dilində xidmət adı boş ola bilməz!",
         "noCategoryId": "Kateqoriya ID tapılmadı!",
         "noClinic": "Ən azı bir klinika seçin!",
-        "success": "Xidmət uğurla əlavə olundu ✅",
-        "error": "Xidmət əlavə edilərkən xəta baş verdi ❌"
+        "success": "Xidmət uğurla əlavə olundu",
+        "error": "Xidmət əlavə edilərkən xəta baş verdi"
       }
     },
     "categoryServiceEdit": {
@@ -790,25 +796,25 @@
         "nameAz": "Travmatologiya",
         "nameRu": "Травматология",
         "nameEn": "Traumatology",
-        "descAz": "Təsvir əlavə edin...",
-        "descRu": "Добавьте описание...",
-        "descEn": "Add description...",
+        "descAz": "Təsvir əlavə edin…",
+        "descRu": "Добавьте описание…",
+        "descEn": "Add description…",
         "nameDe": "Traumatologie",
         "nameAr": "طب الإصابات",
-        "descDe": "Beschreibung hinzufügen...",
-        "descAr": "أضف وصفًا..."
+        "descDe": "Beschreibung hinzufügen…",
+        "descAr": "أضف وصفًا…"
       },
       "buttons": {
         "save": "Save",
-        "updating": "Yenilənir..."
+        "updating": "Yenilənir…"
       },
       "toast": {
         "emptyName": "Azərbaycan dilində xidmət adı boş ola bilməz!",
         "noCategoryId": "Kateqoriya ID tapılmadı!",
-        "success": "Xidmət uğurla yeniləndi ✅",
-        "error": "Xidmət yenilənərkən xəta baş verdi ❌"
+        "success": "Xidmət uğurla yeniləndi",
+        "error": "Xidmət yenilənərkən xəta baş verdi"
       },
-      "loading": "Yüklənir..."
+      "loading": "Yüklənir…"
     },
     "clinicAdd": {
       "breadcrumb": {
@@ -841,14 +847,14 @@
       "videosDescription": "Klinikaya aid YouTube video linklərini əlavə edin.",
       "buttons": {
         "save": "Save",
-        "loading": "Loading...",
+        "loading": "Loading…",
         "addVideo": "Əlavə et"
       },
       "toast": {
         "noMainImage": "Zəhmət olmasa əsas şəkli əlavə edin.",
-        "success": "Klinika uğurla əlavə olundu ✅",
-        "error": "Klinika əlavə olunarkən xəta baş verdi ❌",
-        "invalidVideo": "Düzgün YouTube linki daxil edin ⚠️"
+        "success": "Klinika uğurla əlavə olundu",
+        "error": "Klinika əlavə olunarkən xəta baş verdi",
+        "invalidVideo": "Düzgün YouTube linki daxil edin"
       },
       "placeholders": {
         "nameAz": "Ad (AZ)",
@@ -904,13 +910,13 @@
       },
       "buttons": {
         "save": "Save",
-        "loading": "Loading...",
+        "loading": "Loading…",
         "addVideo": "Əlavə et"
       },
       "toast": {
-        "success": "Yalnız dəyişən məlumatlar uğurla göndərildi ✅",
-        "error": "Xəta baş verdi ❌",
-        "invalidVideo": "Düzgün YouTube linki daxil edin ⚠️"
+        "success": "Yalnız dəyişən məlumatlar uğurla göndərildi",
+        "error": "Xəta baş verdi",
+        "invalidVideo": "Düzgün YouTube linki daxil edin"
       },
       "placeholders": {
         "nameAz": "Ad (AZ)",
@@ -956,15 +962,15 @@
       "videosDescription": "Sanatoriyaya aid YouTube video linklərini əlavə edin.",
       "buttons": {
         "save": "Save",
-        "loading": "Loading...",
+        "loading": "Loading…",
         "addVideo": "Əlavə et",
         "addService": "Xidmət əlavə et"
       },
       "toast": {
         "noMainImage": "Zəhmət olmasa əsas şəkli əlavə edin.",
-        "success": "Sanatoriya uğurla əlavə olundu ✅",
-        "error": "Sanatoriya əlavə olunarkən xəta baş verdi ❌",
-        "invalidVideo": "Düzgün YouTube linki daxil edin ⚠️",
+        "success": "Sanatoriya uğurla əlavə olundu",
+        "error": "Sanatoriya əlavə olunarkən xəta baş verdi",
+        "invalidVideo": "Düzgün YouTube linki daxil edin",
         "emptyService": "Azərbaycan dilində xidmət adı boş ola bilməz!"
       },
       "placeholders": {
@@ -1021,13 +1027,13 @@
       "videosDescription": "Sanatoriyaya aid YouTube videolarını idarə edin.",
       "buttons": {
         "save": "Save",
-        "loading": "Loading...",
+        "loading": "Loading…",
         "addVideo": "Əlavə et",
         "addService": "Xidmət əlavə et"
       },
       "toast": {
-        "success": "Məlumatlar uğurla yeniləndi ✅",
-        "error": "Xəta baş verdi ❌",
+        "success": "Məlumatlar uğurla yeniləndi",
+        "error": "Xəta baş verdi",
         "emptyService": "Azərbaycan dilində xidmət adı boş ola bilməz!"
       },
       "placeholders": {
@@ -1085,16 +1091,16 @@
         "description": "Description",
         "actions": "Fəaliyyətlər"
       },
-      "loading": "Loading...",
+      "loading": "Loading…",
       "noData": "Həkim tapılmadı",
       "notAssigned": "Təyin olunmayıb",
       "deleteConfirm": "Həkimi silmək istədiyinizə əminsiniz?",
       "cancel": "Cancel",
       "delete": "Delete",
-      "deleting": "Silinir...",
+      "deleting": "Silinir…",
       "toast": {
-        "deleteSuccess": "Həkim uğurla silindi ✅",
-        "deleteError": "Silinmə zamanı xəta baş verdi ❌",
+        "deleteSuccess": "Həkim uğurla silindi",
+        "deleteError": "Silinmə zamanı xəta baş verdi",
         "success": "Doctor deleted successfully",
         "error": "An error occurred while deleting"
       },
@@ -1103,7 +1109,7 @@
         "confirmWithName": "Are you sure you want to delete {{name}}?",
         "cancel": "Cancel",
         "delete": "Delete",
-        "deleting": "Deleting..."
+        "deleting": "Deleting…"
       }
     },
     "doctorAdd": {
@@ -1153,7 +1159,7 @@
           "title": "Bio",
           "desc": "Həkimin sistemdə görünəcək bioqrafiyasını daxil edin.",
           "section": "Bio bölməsi #",
-          "placeholder": "Buraya yaz...",
+          "placeholder": "Buraya yaz…",
           "addButton": "Əlavə et"
         }
       },
@@ -1176,13 +1182,13 @@
       },
       "buttons": {
         "save": "Save",
-        "loading": "Yadda saxlanılır...",
+        "loading": "Yadda saxlanılır…",
         "addBio": "Yeni bio əlavə et"
       },
       "uploadHint": "Faylı yükləmək üçün bu sahəyə klikləyin və ya sürükləyin",
       "toast": {
-        "success": "Həkim uğurla əlavə olundu ✅",
-        "error": "Xəta baş verdi, yenidən cəhd edin ❌"
+        "success": "Həkim uğurla əlavə olundu",
+        "error": "Xəta baş verdi, yenidən cəhd edin"
       }
     },
     "doctorEdit": {
@@ -1231,19 +1237,19 @@
         "bio": {
           "title": "Bio",
           "desc": "Həkimin sistemdə görünəcək bioqrafiyasını daxil edin.",
-          "placeholder": "Buraya yaz...",
+          "placeholder": "Buraya yaz…",
           "addButton": "Əlavə et"
         }
       },
       "buttons": {
         "save": "Save",
-        "saving": "Yadda saxlanılır..."
+        "saving": "Yadda saxlanılır…"
       },
       "toast": {
-        "success": "Həkim məlumatları uğurla yeniləndi ✅",
-        "error": "Dəyişiklik zamanı xəta baş verdi ❌"
+        "success": "Həkim məlumatları uğurla yeniləndi",
+        "error": "Dəyişiklik zamanı xəta baş verdi"
       },
-      "loading": "Yüklənir..."
+      "loading": "Yüklənir…"
     },
     "hotelPage": {
       "title": "Otel",
@@ -1261,11 +1267,11 @@
         "confirmDelete": "Oteli silmək istədiyinizə əminsiz?",
         "cancel": "Cancel",
         "delete": "Delete",
-        "deleting": "Silinir..."
+        "deleting": "Silinir…"
       },
       "toast": {
-        "deleteSuccess": "Otel uğurla silindi ✅",
-        "deleteError": "Oteli silmək mümkün olmadı ❌"
+        "deleteSuccess": "Otel uğurla silindi",
+        "deleteError": "Oteli silmək mümkün olmadı"
       }
     },
     "hotelAdd": {
@@ -1311,7 +1317,7 @@
       },
       "buttons": {
         "save": "Save",
-        "saving": "Yüklənir..."
+        "saving": "Yüklənir…"
       },
       "toast": {
         "success": "Otel uğurla əlavə olundu!",
@@ -1362,11 +1368,11 @@
       },
       "buttons": {
         "save": "Save",
-        "saving": "Yenilənir..."
+        "saving": "Yenilənir…"
       },
       "toast": {
-        "success": "Otel uğurla redaktə olundu ✅",
-        "error": "Redaktə zamanı xəta baş verdi ❌",
+        "success": "Otel uğurla redaktə olundu",
+        "error": "Redaktə zamanı xəta baş verdi",
         "warning": "Zəhmət olmasa əsas sahələri doldurun."
       }
     },
@@ -1390,16 +1396,16 @@
         },
         "noData": "Şərh tapılmadı.",
         "deleteConfirm": "Şərhi silmək istədiyinizə əminsiz?",
-        "loading": "Yüklənir..."
+        "loading": "Yüklənir…"
       },
       "modal": {
         "cancel": "Cancel",
         "confirm": "Delete",
-        "deleting": "Silinir..."
+        "deleting": "Silinir…"
       },
       "toast": {
-        "success": "Şərh uğurla silindi ✅",
-        "error": "Şərh silinərkən xəta baş verdi ❌"
+        "success": "Şərh uğurla silindi",
+        "error": "Şərh silinərkən xəta baş verdi"
       }
     },
     "commentAdd": {
@@ -1437,11 +1443,11 @@
       },
       "buttons": {
         "save": "Save",
-        "saving": "Yüklənir..."
+        "saving": "Yüklənir…"
       },
       "toast": {
-        "success": "Şərh uğurla əlavə olundu ✅",
-        "error": "Şərh əlavə edilərkən xəta baş verdi ❌",
+        "success": "Şərh uğurla əlavə olundu",
+        "error": "Şərh əlavə edilərkən xəta baş verdi",
         "warning": "Azərbaycan dilində sahələr boş ola bilməz!"
       }
     },
@@ -1480,14 +1486,14 @@
       },
       "buttons": {
         "save": "Save",
-        "saving": "Yenilənir..."
+        "saving": "Yenilənir…"
       },
       "toast": {
-        "success": "Şərh uğurla yeniləndi ✅",
-        "error": "Yeniləmə zamanı xəta baş verdi ❌",
+        "success": "Şərh uğurla yeniləndi",
+        "error": "Yeniləmə zamanı xəta baş verdi",
         "warning": "Bütün əsas sahələr doldurulmalıdır!"
       },
-      "loading": "Yüklənir..."
+      "loading": "Yüklənir…"
     },
     "toursPagee": {
       "header": {
@@ -1544,10 +1550,10 @@
       },
       "buttons": {
         "save": "Save",
-        "saving": "Yüklənir..."
+        "saving": "Yüklənir…"
       },
       "toast": {
-        "success": "✅ Xidmət paketi uğurla əlavə olundu!",
+        "success": "Xidmət paketi uğurla əlavə olundu!",
         "error": "Xidmət paketi əlavə edilərkən xəta baş verdi!"
       }
     },
@@ -1598,10 +1604,10 @@
       },
       "buttons": {
         "save": "Save",
-        "saving": "Yenilənir..."
+        "saving": "Yenilənir…"
       },
       "toast": {
-        "success": "✅ Xidmət paketi uğurla yeniləndi!",
+        "success": "Xidmət paketi uğurla yeniləndi!",
         "error": "Xidmət paketi yenilənərkən xəta baş verdi!"
       }
     },
@@ -1624,11 +1630,11 @@
         "title": "Xidmət paketini silmək istədiyinizə əminsiz?",
         "cancel": "Cancel",
         "confirm": "Delete",
-        "deleting": "Silinir..."
+        "deleting": "Silinir…"
       },
       "toast": {
-        "deleteSuccess": "Tur uğurla silindi ✅",
-        "deleteError": "Xəta baş verdi. Zəhmət olmasa yenidən cəhd edin ❌"
+        "deleteSuccess": "Tur uğurla silindi",
+        "deleteError": "Xəta baş verdi. Zəhmət olmasa yenidən cəhd edin"
       },
       "pagination": {
         "next": "Növbəti",
@@ -1674,7 +1680,7 @@
         "confirmDelete": "Are you sure you want to delete this car?",
         "cancel": "Cancel",
         "delete": "Delete",
-        "deleting": "Deleting..."
+        "deleting": "Deleting…"
       },
       "toast": {
         "deleteSuccess": "Car deleted successfully",
@@ -1737,7 +1743,7 @@
       },
       "buttons": {
         "save": "Save",
-        "saving": "Saving..."
+        "saving": "Saving…"
       },
       "toast": {
         "success": "Car added successfully",
@@ -1803,7 +1809,7 @@
       },
       "buttons": {
         "save": "Save",
-        "saving": "Saving..."
+        "saving": "Saving…"
       },
       "toast": {
         "success": "Only updated fields were sent successfully",
@@ -1827,7 +1833,7 @@
         "confirmDelete": "Are you sure you want to delete this news?",
         "cancel": "Cancel",
         "delete": "Delete",
-        "deleting": "Deleting..."
+        "deleting": "Deleting…"
       },
       "toast": {
         "deleteSuccess": "News deleted successfully",
@@ -1876,7 +1882,7 @@
       },
       "buttons": {
         "save": "Save",
-        "saving": "Saving...",
+        "saving": "Saving…",
         "addVideo": "Add"
       },
       "toast": {
@@ -1932,7 +1938,7 @@
       },
       "buttons": {
         "save": "Save",
-        "saving": "Saving...",
+        "saving": "Saving…",
         "addVideo": "Add"
       },
       "toast": {
@@ -1998,7 +2004,7 @@
     "copyLink": "Copy link",
     "recommendTitle": "Other Blogs",
     "viewAll": "View all",
-    "recommendSubtitle": "Travel stories, useful tips, and posts about unforgettable places are here!",
+    "recommendSubtitle": "Travel stories, practical tips and places worth visiting.",
     "copied": "Copied",
     "share": "Share",
     "videos": {
@@ -2017,10 +2023,13 @@
     "page": "Page"
   },
   "common": {
-    "loading": "Loading...",
+    "loading": "Loading…",
     "noData": "No data",
     "showLess": "Show less",
-    "showMore": "Show more"
+    "showMore": "Show more",
+    "close": "Close",
+    "skipToContent": "Skip to main content",
+    "breadcrumb": "Breadcrumb"
   },
   "errorPage": {
     "title": "Something went wrong",
@@ -2051,8 +2060,8 @@
     "play": "Play video"
   },
   "ctaBand": {
-    "title": "Ready to plan your treatment journey?",
-    "desc": "Tell us what you need — our coordinators will prepare a personalised plan with clinics, travel and accommodation.",
+    "title": "Ready to plan your treatment?",
+    "desc": "Tell us what you need. Our coordinators will prepare a personal plan covering clinics, travel and accommodation.",
     "button": "Get a free consultation"
   },
   "enquiryForm": {
@@ -2070,7 +2079,7 @@
   "notFound": {
     "eyebrow": "Error 404",
     "title": "We can’t find that page",
-    "desc": "The link may be broken or the page may have moved. Let’s get you back on track.",
+    "desc": "The link may be broken or the page may have moved. Use the links below to continue.",
     "home": "Back to home",
     "back": "Previous page",
     "popular": "Popular pages",
@@ -2088,10 +2097,25 @@
     "noServices": "No services found",
     "noClinics": "No clinics have been added for this service yet",
     "notFound": "Nothing was found",
-    "sending": "Sending...",
+    "sending": "Sending…",
     "servicesCount": "{{n}} services",
     "results": "{{n}} results",
     "callUs": "Call us",
-    "activeFilters": "Active filters"
+    "activeFilters": "Active filters",
+    "clinicsCount": "{{n}} clinics",
+    "otherServices": "Other services",
+    "pauseVideo": "Pause video",
+    "playVideo": "Play video",
+    "charCount": "{{n}} / {{max}} characters"
+  },
+  "theme": {
+    "toLight": "Switch to light mode",
+    "toDark": "Switch to dark mode"
+  },
+  "a11y": {
+    "skipToContent": "Skip to main content"
+  },
+  "certificate": {
+    "label": "Certificate"
   }
 }

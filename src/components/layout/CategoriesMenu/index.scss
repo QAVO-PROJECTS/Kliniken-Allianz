@@ -4,7 +4,7 @@
   position: relative;
 
   .cm-trigger {
-    svg:first-child { color: var(--c-primary-500); }
+    svg:first-child { color: var(--link); }
   }
 
   .cm-caret {
@@ -14,7 +14,7 @@
   &.is-open .cm-caret { transform: rotate(180deg); }
   &.is-open .cm-trigger {
     background: var(--bg-brand-soft);
-    color: var(--brand);
+    color: var(--link);
   }
 }
 
@@ -25,7 +25,7 @@
   z-index: var(--z-dropdown);
   display: flex;
   width: min(680px, calc(100vw - 48px));
-  max-height: min(520px, calc(100vh - 140px));
+  max-height: min(520px, calc(100dvh - 140px));
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
@@ -55,8 +55,7 @@
   padding: var(--space-2);
   overflow-y: auto;
   border-inline-end: 1px solid var(--border);
-  scrollbar-width: thin;
-  scrollbar-color: var(--c-gray-300) transparent;
+  overscroll-behavior: contain;
 }
 
 .cm-cat {
@@ -66,26 +65,28 @@
   width: 100%;
   min-height: 44px;
   padding: var(--space-2) var(--space-3);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-full);
   font-size: var(--fs-sm);
   font-weight: 500;
   color: var(--text);
   text-align: start;
-  transition: background var(--duration-fast), color var(--duration-fast);
+  transition: background-color var(--duration-fast) ease, color var(--duration-fast) ease;
 
   &__icon {
     display: grid;
     place-items: center;
     flex: 0 0 32px;
     height: 32px;
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-full);
     background: var(--bg-brand-soft);
-    color: var(--c-primary-500);
+    color: var(--link);
 
     img {
       width: 18px;
       height: 18px;
       object-fit: contain;
+      // Category icons are dark artwork on transparent: lighten them in dark mode.
+      @include dark { filter: brightness(0) invert(1); }
     }
   }
 
@@ -104,8 +105,8 @@
   &:hover,
   &.is-active {
     background: var(--bg-subtle);
-    color: var(--brand);
-    .cm-cat__arrow { color: var(--brand); }
+    color: var(--link);
+    .cm-cat__arrow { color: var(--link); }
   }
 
   &:focus-visible { @include focus-ring; }
@@ -117,16 +118,13 @@
   padding: var(--space-4) var(--space-3);
   overflow-y: auto;
   background: var(--bg-subtle);
-  scrollbar-width: thin;
-  scrollbar-color: var(--c-gray-300) transparent;
+  overscroll-behavior: contain;
 
   &__title {
     padding: 0 var(--space-3) var(--space-3);
-    font-size: var(--fs-xs);
+    font-size: var(--fs-sm);
     font-weight: 600;
-    letter-spacing: var(--tracking-wide);
-    text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--text);
   }
 
   &__empty {
@@ -147,14 +145,14 @@
   align-items: center;
   min-height: 40px;
   padding: var(--space-2) var(--space-3);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-full);
   font-size: var(--fs-sm);
   color: var(--text-secondary);
-  transition: background var(--duration-fast), color var(--duration-fast);
+  transition: background-color var(--duration-fast) ease, color var(--duration-fast) ease;
 
   &:hover {
     background: var(--surface);
-    color: var(--brand);
+    color: var(--link);
     box-shadow: var(--shadow-xs);
   }
 
@@ -176,15 +174,14 @@
   span {
     height: 14px;
     border-radius: var(--radius-full);
-    background: linear-gradient(90deg, var(--c-gray-100), var(--c-gray-200), var(--c-gray-100));
-    background-size: 200% 100%;
-    animation: cm-shimmer 1.2s linear infinite;
+    background: var(--bg-muted);
+    animation: cm-pulse 1.4s ease-in-out infinite alternate;
 
     &:nth-child(2n) { width: 70%; }
   }
 }
 
-@keyframes cm-shimmer {
-  from { background-position: 200% 0; }
-  to { background-position: -200% 0; }
+@keyframes cm-pulse {
+  from { opacity: 1; }
+  to { opacity: 0.45; }
 }
